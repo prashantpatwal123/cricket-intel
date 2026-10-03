@@ -45,56 +45,81 @@ class SyntheticExternal:
         return rows, {"adapter": self.name, "status": f"{len(rows)} candidate values for {len(by_ref)} linked players"}
 
 
-class Wikidata:
-    """Wikidata (CC0). Joined via the ESPNcricinfo player-id property using Register `cricinfo` keys.
-
-    VERIFY before relying on it (network to wikidata.org is blocked in the build environment):
-      * P2697 = "ESPNcricinfo player ID" (believed correct)
-      * P741  = "playing hand" (values: right-handedness Q3039938 / left-handedness Q789447)
-      * No bowling-style property is known to us; bowling style is NOT fetched from Wikidata.
-    Results are cached at data/metadata/wikidata_cache.json so builds are reproducible offline.
+class WikidataBranch:
+    """Wikidata (CC0) values retrieved by the fetch-wikidata GitHub workflow (branch data/wikidata-cricketers),
+    copied to data/raw/wikidata and re-verified against SHA256SUMS. Joined ONLY via Register cricinfo ids
+    (Wikidata P2697). Property IDs were discovered empirically from Wikidata itself:
+      P2545 'bowling style', P413 'position played on team / speciality'.
+    Wikidata has no batting-hand property in use for cricketers, so batting hand is NOT provided here.
     """
-    name = "wikidata_playing_hand"
-    ENDPOINT = "https://query.wikidata.org/sparql"
-    HAND = {"Q3039938": "right", "Q789447": "left"}
-    CACHE = METADATA / "wikidata_cache.json"
+    name = "wikidata_branch"
+    DIR = RAW_WD = None
+    STYLE = {  # wikidata label -> (canonical style label or None, family, arm, arm_confidence)
+        "left-arm orthodox spin": ("Left-arm orthodox", "spin", "left", 0.95),
+        "slow left-arm orthodox": ("Left-arm orthodox", "spin", "left", 0.95),
+        "left-arm unorthodox spin": ("Left-arm wrist-spin", "spin", "left", 0.95),
+        "leg break": ("Leg-spin", "spin", "right", 0.8), "leg spin": ("Leg-spin", "spin", "right", 0.8),
+        "leg break googly": ("Leg-spin", "spin", "right", 0.8),
+        "off break": ("Off-spin", "spin", "right", 0.8), "off spin": ("Off-spin", "spin", "right", 0.8),
+        "spin bowling": (None, "spin", None, 0), "fast bowling": (None, "pace", None, 0),
+        "seam bowling": (None, "pace", None, 0), "swing bowling": (None, "pace", None, 0),
+        "medium pace": (None, "pace", None, 0), "fast-medium": (None, "pace", None, 0),
+    }
+    ROLE = {"batter": "batter", "batting": "batter", "batsman": "batter", "bowler": "bowler", "bowling": "bowler",
+            "all-rounder": "all-rounder", "wicket-keeper": "wicketkeeper-batter", "wicketkeeper": "wicketkeeper-batter"}
 
-    def _query(self, ids: list[str]) -> list[dict]:
-        out = []
-        for i in range(0, len(ids), 400):
-            vals = " ".join(f'"{x}"' for x in ids[i:i + 400])
-            q = f"SELECT ?ci ?hand WHERE {{ VALUES ?ci {{ {vals} }} ?item wdt:P2697 ?ci . ?item wdt:P741 ?hand . }}"
-            url = self.ENDPOINT + "?" + urllib.parse.urlencode({"query": q, "format": "json"})
-            req = urllib.request.Request(url, headers={"User-Agent": "cricintel/0.1 (research prototype)"})
-            data = json.loads(urllib.request.urlopen(req, timeout=60).read())
-            for b in data["results"]["bindings"]:
-                out.append({"ci": b["ci"]["value"], "hand": b["hand"]["value"].rsplit("/", 1)[-1]})
-        return out
+    def __init__(self, raw: Path):
+        self.dir = raw / "wikidata"
 
     def fetch(self, ext_ids: dict[str, dict]):
-        by_ci = {ids["cricinfo"]: pid for pid, ids in ext_ids.items() if ids.get("cricinfo")}
-        if not by_ci:
-            return [], {"adapter": self.name, "status": "no cricinfo identifiers in Register — skipped"}
-        try:
-            res = self._query(sorted(by_ci))
-            self.CACHE.parent.mkdir(parents=True, exist_ok=True)
-            self.CACHE.write_text(json.dumps(res))
-            status = "live query"
-        except Exception as e:  # noqa: BLE001
-            if not self.CACHE.exists():
-                return [], {"adapter": self.name, "status": f"unavailable ({type(e).__name__}); no cache"}
-            res, status = json.loads(self.CACHE.read_text()), f"cache (live failed: {type(e).__name__})"
-        rows = []
-        for r in res:
-            hand = self.HAND.get(r["hand"])
-            if hand and r["ci"] in by_ci:
-                rows.append(dict(person_id=by_ci[r["ci"]], field="batting_hand", value=hand, prov="OBSERVED",
-                                 source_id="wikidata", method=f"{self.name}/v1", confidence=0.9,
-                                 is_override=False, evidence=f"wikidata P2697={r['ci']} P741={r['hand']}"))
-        return rows, {"adapter": self.name, "status": f"{status}: {len(rows)} values"}
+        import hashlib
+        if not (self.dir / "values.json").exists():
+            return [], {"adapter": self.name, "status": "no Wikidata snapshot (run fetch-wikidata workflow)"}
+        for line in (self.dir / "SHA256SUMS").read_text().splitlines():
+            h, n = line.split(maxsplit=1)
+            if hashlib.sha256((self.dir / Path(n).name).read_bytes()).hexdigest() != h:
+                raise SystemExit(f"Wikidata snapshot checksum mismatch: {n}")
+        prov = json.loads((self.dir / "PROVENANCE.json").read_text())
+        by_ci = {}
+        for pid, ids in ext_ids.items():
+            for k in ("cricinfo", "cricinfo_2", "cricinfo_3"):
+                if ids.get(k):
+                    by_ci[ids[k]] = pid
+        per_player: dict[str, list] = {}
+        for v in json.loads((self.dir / "values.json").read_text()):
+            pid = by_ci.get(v["cricinfo_id"])
+            if pid:
+                per_player.setdefault(pid, []).append(v)
+        rows, unmapped = [], {}
+        base = lambda pid, ev: dict(person_id=pid, prov="OBSERVED", source_id="wikidata", method="wikidata_branch/v1",
+                                    is_override=False, evidence=ev + f" retrieved {prov['retrieved_at_utc']}")
+        for pid, vals in per_player.items():
+            styles = [self.STYLE.get((v["value_label"] or "").lower()) for v in vals if v["pid"] == "P2545"]
+            for v in vals:
+                if v["pid"] == "P2545" and (v["value_label"] or "").lower() not in self.STYLE:
+                    unmapped[v["value_label"]] = unmapped.get(v["value_label"], 0) + 1
+            styles = [s for s in styles if s]
+            fams = {s[1] for s in styles}
+            ev = f"wikidata {vals[0]['item']} P2545={[v['value_label'] for v in vals if v['pid'] == 'P2545']}"
+            if len(fams) == 1:
+                rows.append(dict(base(pid, ev), field="bowling_family", value=fams.pop(), confidence=0.9))
+                labelled = [s for s in styles if s[0]]
+                if len({s[0] for s in labelled}) == 1:
+                    s0 = labelled[0]
+                    rows.append(dict(base(pid, ev), field="bowling_style", value=s0[0], confidence=0.9))
+                    if s0[2]:
+                        rows.append(dict(base(pid, ev), field="bowling_arm", value=s0[2], confidence=s0[3], prov="DERIVED"))
+            roles = {self.ROLE.get((v["value_label"] or "").lower()) for v in vals if v["pid"] == "P413"} - {None}
+            if len(roles) == 1:
+                r = roles.pop()
+                rows.append(dict(base(pid, f"wikidata P413"), field="role", value=r, confidence=0.85))
+                if r == "wicketkeeper-batter":
+                    rows.append(dict(base(pid, "wikidata P413=wicket-keeper"), field="wicketkeeper", value="yes", confidence=0.85))
+        return rows, {"adapter": self.name, "status": f"{len(per_player)} Register players linked via cricinfo id; "
+                      f"{len(rows)} values; unmapped style labels: {unmapped}", "retrieved_at": prov["retrieved_at_utc"]}
 
 
 def for_dataset(dataset: str, raw: Path):
     if dataset == "synthetic":
         return [SyntheticExternal(raw)]
-    return [Wikidata()]
+    return [WikidataBranch(raw)]

@@ -16,6 +16,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           SYNTHETIC TEST DATA: fictional players and matches, used to test the product. These are not real cricket statistics.
         </div>
       )}
+      {ds && !ds.synthetic && (
+        <div className="realdata">REAL DATA · {ds.attribution} · internal preview, not for publication (match-data licence pending confirmation)</div>
+      )}
       <header className="topbar">
         <Link href="/" className="brand"><span className="brand-dot" />cricintel</Link>
         <nav className="nav">

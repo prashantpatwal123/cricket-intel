@@ -38,36 +38,61 @@ EXAMPLES = [
 ]
 
 
+STOP = set("""how many times has have been was were the and against with does did while chasing perform runs run out
+bowled caught behind stumped strike rate what which who most over overs sixes fours hit scored score get gets dismissed
+dismiss spin pace record versus internationals since during when innings match matches player players bowler batter
+keeper wicketkeeper team teams in of on at to for by is are it his her their our data covered""".split())
+
+
 @dataclass
 class Resolved:
     person_id: str
     name: str
     matches: int
+    assumed_over: list | None = None
 
 
 class Resolver:
-    """Find player mentions by exact (case-insensitive) name or unique surname, longest match first."""
+    """Find player mentions using every known alias (Register names, names.csv, match-file names).
+    Surname-only matches require >= 4 letters and not an English/cricket stopword."""
     def __init__(self, db: DB):
-        self.people = db.q("SELECT person_id, name, matches FROM player_profile WHERE person_id NOT LIKE 'unres:%'")
-        self.by_full = {}
-        self.by_sur: dict[str, list] = {}
-        for p in self.people:
-            n = p["name"].lower()
-            self.by_full.setdefault(n, []).append(p)
-            self.by_sur.setdefault(n.split()[-1], []).append(p)
+        rows = db.q("SELECT person_id, name, matches, teams, aliases FROM player_profile WHERE person_id NOT LIKE 'unres:%'")
+        self.by_pid = {r["person_id"]: r for r in rows}
+        self.full: dict[str, set] = {}
+        self.sur: dict[str, set] = {}
+        for r in rows:
+            for a in set((r["aliases"] or []) + [r["name"]]):
+                a = re.sub(r"\s*\(\d+\)$", "", a).strip().lower()
+                if len(a) >= 5 and " " in a:
+                    self.full.setdefault(a, set()).add(r["person_id"])
+                last = a.split()[-1] if a.split() else ""
+                if len(last) >= 4 and last not in STOP and last.isalpha():
+                    self.sur.setdefault(last, set()).add(r["person_id"])
 
     def find(self, text: str) -> list[tuple[int, int, list]]:
         t = text.lower()
-        hits = []
-        for n, ps in self.by_full.items():
-            for m in re.finditer(r"(?<![\w])" + re.escape(n) + r"(?![\w])", t):
-                hits.append((m.start(), m.end(), ps))
-        taken = [(a, b) for a, b, _ in hits]
-        for s, ps in self.by_sur.items():
-            for m in re.finditer(r"(?<![\w])" + re.escape(s) + r"(?:'s)?(?![\w])", t):
-                if not any(a <= m.start() < b for a, b in taken):
-                    hits.append((m.start(), m.end(), ps))
-        return sorted(hits)
+        hits, taken = [], []
+        for n in sorted(self.full, key=len, reverse=True):
+            for m in re.finditer(r"(?<![\w])" + re.escape(n) + r"(?:'s)?(?![\w])", t):
+                if not any(a < m.end() and m.start() < b for a, b in taken):
+                    taken.append((m.start(), m.end()))
+                    hits.append((m.start(), m.end(), self.full[n]))
+        for s_, pids in self.sur.items():
+            for m in re.finditer(r"(?<![\w])" + re.escape(s_) + r"(?:'s)?(?![\w])", t):
+                if not any(a < m.end() and m.start() < b for a, b in taken):
+                    taken.append((m.start(), m.end()))
+                    hits.append((m.start(), m.end(), pids))
+        return [(a, b, [self.by_pid[p] for p in pids]) for a, b, pids in sorted(hits)]
+
+    @staticmethod
+    def pick(ps: list) -> tuple[dict | None, list]:
+        """One candidate -> it. Several -> the clear favourite (>= 3x the matches of the next) or None (ambiguous)."""
+        ps = sorted(ps, key=lambda p: -p["matches"])
+        if len(ps) == 1:
+            return ps[0], []
+        if ps[0]["matches"] >= 3 * ps[1]["matches"]:
+            return ps[0], ps[1:]
+        return None, ps
 
 
 def _filters(q: str) -> Filters:
@@ -87,15 +112,33 @@ def _filters(q: str) -> Filters:
 
 
 def answer(db: DB, question: str) -> dict:
+    r = _answer(db, question)
+    if r.get("status") == "ok" and r.get("_assumptions"):
+        r["assumptions"] = r.pop("_assumptions")
+    r.pop("_assumptions", None)
+    return r
+
+
+_ASSUME: list = []
+
+
+def _answer(db: DB, question: str) -> dict:
     q = question.lower().strip()
     hits = Resolver(db).find(q)
     ents = []
+    assumptions = []
     for a, b, ps in hits:
-        if len(ps) > 1:
+        best, others = Resolver.pick(ps)
+        if best is None:
             return {"status": "ambiguous", "question": question,
                     "message": f"'{question[a:b]}' matches several players. Which one did you mean?",
-                    "candidates": [{"person_id": p["person_id"], "name": p["name"], "matches": p["matches"]} for p in ps]}
-        ents.append(Resolved(ps[0]["person_id"], ps[0]["name"], ps[0]["matches"]))
+                    "candidates": [{"person_id": p["person_id"], "name": p["name"], "matches": p["matches"],
+                                    "teams": (p["teams"] or [])[:3]} for p in others]}
+        if others:
+            assumptions.append(f"'{question[a:b]}' taken to mean {best['name']} ({best['matches']} matches); "
+                               f"also matches {', '.join(o['name'] for o in others[:3])}.")
+        ents.append(Resolved(best["person_id"], best["name"], best["matches"]))
+    _ASSUME[:] = assumptions
     if not ents:
         return {"status": "no_entity", "question": question,
                 "message": "I couldn't find a player from our dataset in that question. Ask Cricket v0 supports these question types:",
@@ -113,10 +156,13 @@ def answer(db: DB, question: str) -> dict:
         d = P.dismissals(db, p1.person_id, f)
         n = sum(r["n"] for r in d["routes"] if r["route"] in routes)
         prov = "DERIVED" if any(r in ("CAUGHT_KEEPER", "CAUGHT_FIELDER") for r in routes) else "OBSERVED"
-        caveat = "Keeper identity is inferred from stumpings and keeping records, so 'caught behind' is DERIVED." if "CAUGHT_KEEPER" in routes else None
+        caveat = ("Counts catches taken by the fielding side's wicketkeeper. Keeper identity is inferred (DERIVED), and catches "
+                  "where it couldn't be established are excluded rather than guessed. The data does not record edges.") if "CAUGHT_KEEPER" in routes else None
+        # Never imply an edge: a catch by the keeper is reported as exactly that.
+        said = "caught by the wicketkeeper" if routes == ["CAUGHT_KEEPER"] else word
         return _ok(question, "dismissal_count", [p1], f,
-                   f"{p1.name} has been {word} {n} time{'s' if n != 1 else ''}{scope}: {n} of {d['total']} dismissals in our data.",
-                   [{"label": f"{word.capitalize()} dismissals", "value": n, "prov": prov},
+                   f"{p1.name} has been {said} {n} time{'s' if n != 1 else ''}{scope}: {n} of {d['total']} dismissals.",
+                   [{"label": f"{said.capitalize()} dismissals", "value": n, "prov": prov},
                     {"label": "All dismissals", "value": d["total"], "prov": "OBSERVED"},
                     {"label": "Balls faced", "value": d["balls_faced"], "prov": "OBSERVED"}],
                    drill={"player": p1.person_id, "route": routes[0] if len(routes) == 1 else None},
@@ -229,17 +275,18 @@ def _scope_text(f: Filters) -> str:
     a = f.active()
     parts = []
     if "format" in a:
-        parts.append(f"in {a['format']}s")
+        parts.append({"T20": "in T20 matches (T20Is, IPL, WPL)", "ODI": "in ODIs"}.get(a["format"], f"in {a['format']}s"))
     if "phase" in a:
         parts.append(f"in the {a['phase']} overs" if a["phase"] != "powerplay" else "in the powerplay")
     if "team_type" in a:
         parts.append("in internationals")
     if "year_from" in a:
         parts.append(f"since {a['year_from']}")
-    return (" " + " ".join(parts)) if parts else " in our dataset"
+    return (" " + " ".join(parts) + " (in our covered data)") if parts else " in our covered data"
 
 
 def _ok(question, intent, ents, f, text, numbers, method, drill=None, caveat=None, viz=None):
     return {"status": "ok", "question": question, "intent": intent, "entities": [e.__dict__ for e in ents],
             "filters": f.active(), "answer": text, "numbers": numbers, "drill": drill, "caveat": caveat, "viz": viz,
-            "how_computed": method, "generated_by": "template (no language model)", "prov": "OBSERVED/DERIVED aggregates from the dataset"}
+            "how_computed": method, "generated_by": "template (no language model)", "prov": "OBSERVED/DERIVED aggregates from the dataset",
+            "_assumptions": list(_ASSUME)}

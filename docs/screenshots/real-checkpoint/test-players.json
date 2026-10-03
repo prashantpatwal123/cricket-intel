@@ -1,0 +1,34 @@
+{
+ "elite_men_batter": {
+  "person_id": "ba607b88",
+  "name": "Virat Kohli"
+ },
+ "elite_women_batter": {
+  "person_id": "5d2eda89",
+  "name": "S Mandhana"
+ },
+ "elite_fast_bowler": {
+  "person_id": "462411b3",
+  "name": "Jasprit Bumrah"
+ },
+ "elite_spinner": {
+  "person_id": "8d2c70ad",
+  "name": "Kuldeep Singh Yadav"
+ },
+ "all_rounder": {
+  "person_id": "f3a18a0c",
+  "name": "Natalie Sciver"
+ },
+ "wicketkeeper_batter": {
+  "person_id": "4a8a2e3b",
+  "name": "MS Dhoni"
+ },
+ "incomplete_coverage": {
+  "person_id": "27e003ce",
+  "name": "Meg Lanning"
+ },
+ "lower_sample": {
+  "person_id": "7b679de5",
+  "name": "Kartik Sharma"
+ }
+}

@@ -1,0 +1,499 @@
+[
+  {
+    "shot": "home",
+    "errors": []
+  },
+  {
+    "shot": "player-mobile",
+    "errors": []
+  },
+  {
+    "role": "elite_men_batter",
+    "player": {
+      "person_id": "ba607b88",
+      "name": "Virat Kohli"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 711 matches in our dataset (2008-04-18 – 2026-07-19). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for India in Australia ODI Series, South Africa in India ODI Series, India tour of South Africa, Tri-Nation Tournament in Bangladesh, West Indies tour of India, Compaq Cup, India in Australia T20I Series, England in India T20I Series, Indian Premier League, New Zealand in India ODI Series, India tour of Sri Lanka, ICC Cricket World Cup, Carlton Mid One-Day International Tri-Series, World Cup, India tour of United States of America and West Indies, Sri Lanka Triangular Series, Pakistan in India T20I Series, South Africa in India T20I Series, India in Zimbabwe ODI Series, Australia tour of India, India tour of Ireland and England, India in England ODI Series, India tour of Australia, West Indies v India T20I Series, India in Zimbabwe T20I Series, New Zealand in India T20I Series, World T20, New Zealand tour of India, Zimbabwe Triangular Series, England tour of India, West Indies Tri-Nation Series, India v England. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nOBSERVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n89 15.7%",
+        "LBW\nOBSERVED\n37 6.5%",
+        "Caught by wicketkeeper\nDERIVED\n74 13.1%",
+        "Caught & bowled\nOBSERVED\n14 2.5%",
+        "Caught by a fielder\nDERIVED\n239 42.2%",
+        "Caught (keeper status unknown)\nOBSERVED\n75 13.2%",
+        "Stumped\nOBSERVED\n11 1.9%",
+        "Run out\nOBSERVED\n27 4.8%",
+        "Hit wicket\nOBSERVED\n1 0.2%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/ba607b88?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n10 12.8%",
+        "LBW\nOBSERVED\n2 2.6%",
+        "Caught by wicketkeeper\nDERIVED\n5 6.4%",
+        "Caught & bowled\nOBSERVED\n1 1.3%",
+        "Caught by a fielder\nDERIVED\n36 46.2%",
+        "Caught (keeper status unknown)\nOBSERVED\n16 20.5%",
+        "Stumped\nOBSERVED\n2 2.6%",
+        "Run out\nOBSERVED\n6 7.7%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "10 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Royal Challengers Bangalore v Gujarat Titans · Brabourne Stadium, Mumbai · innings 1 (Royal Challengers Bangalore)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t1,348\t2,540\t188.4\t72\t35.3\t22.4\t25.3\t302\t525\t177\t3\t197\t144",
+        "unknown\t1,267\t2,411\t190.3\t69\t34.9\t22.4\t25.9\t284\t488\t164\t3\t191\t137",
+        "spin\t73\t114\t156.2\t3\t38.0\t23.3\t15.1\t17\t34\t11\t0\t4\t7",
+        "pace · small n\t8\t15\t187.5\t0\t–\t12.5\t25.0\t1\t3\t2\t0\t2\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "elite_women_batter",
+    "player": {
+      "person_id": "5d2eda89",
+      "name": "S Mandhana"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 293 matches in our dataset (2014-03-24 – 2026-09-13). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for South Africa Women tour of India, India Women tour of Australia, India Women tour of New Zealand, Australia Women tour of India, India Women tour of Bangladesh, New Zealand Women tour of India, South Africa Women's T20I Tri-Series, India Women tour of England, India Women tour of South Africa, Women's Twenty20 Asia Cup, ICC Women's T20 World Cup, Australia Tri-Nation Women's T20 Series, Ireland Women tour of India, Sri Lanka Women's ODI Tri-Series, New Zealand Women in India ODI Series, Commonwealth Games Women's Cricket Competition, ICC Women's Championship, India Women tour of Sri Lanka, India Tri-Nation Women's T20 Series, Women's World T20, England Women tour of India, India Women tour of West Indies, India Women v South Africa Women, West Indies Women tour of India, Asian Games Women's Cricket Competition, India Women in Australia T20I Series, Sri Lanka Women tour of India, Women's Premier League. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n35 13.3%",
+        "LBW\nOBSERVED\n26 9.8%",
+        "Caught by wicketkeeper\nDERIVED\n20 7.6%",
+        "Caught & bowled\nOBSERVED\n6 2.3%",
+        "Caught by a fielder\nDERIVED\n150 56.8%",
+        "Caught (keeper status unknown)\nOBSERVED\n12 4.5%",
+        "Stumped\nOBSERVED\n3 1.1%",
+        "Run out\nOBSERVED\n12 4.5%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/5d2eda89?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n2 8.7%",
+        "LBW\nOBSERVED\n1 4.3%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n19 82.6%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 4.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Delhi Capitals v Royal Challengers Bengaluru · Kotambi Stadium, Vadodara · innings 2 (Royal Challengers Bengaluru)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t170\t293\t172.4\t22\t13.3\t31.8\t28.2\t54\t62\t5\t1\t35\t13",
+        "unknown\t170\t293\t172.4\t22\t13.3\t31.8\t28.2\t54\t62\t5\t1\t35\t13"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "elite_fast_bowler",
+    "player": {
+      "person_id": "462411b3",
+      "name": "Jasprit Bumrah"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 339 matches in our dataset (2013-04-04 – 2026-07-16). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for India tour of South Africa, West Indies tour of India, Men's T20 Asia Cup, India in Australia ODI Series, New Zealand tour of India, World Cup, India tour of Sri Lanka, India tour of Australia, Australia tour of India, West Indies v India T20I Series, India tour of Ireland and England. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbowler\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n5 19.2%",
+        "LBW\nOBSERVED\n2 7.7%",
+        "Caught by wicketkeeper\nDERIVED\n3 11.5%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n8 30.8%",
+        "Caught (keeper status unknown)\nOBSERVED\n2 7.7%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n6 23.1%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/462411b3?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n1 7.1%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n2 14.3%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n4 28.6%",
+        "Caught (keeper status unknown)\nOBSERVED\n2 14.3%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n5 35.7%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "1 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Royal Challengers Bangalore v Mumbai Indians · Dubai International Cricket Stadium · innings 2 (Mumbai Indians)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t97\t77\t79.4\t9\t8.6\t49.5\t7.2\t48\t37\t5\t0\t6\t1",
+        "unknown\t91\t77\t84.6\t8\t9.6\t46.2\t7.7\t42\t37\t5\t0\t6\t1",
+        "spin · small n\t6\t0\t0.0\t1\t0.0\t100.0\t0.0\t6\t0\t0\t0\t0\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "elite_spinner",
+    "player": {
+      "person_id": "8d2c70ad",
+      "name": "Kuldeep Singh Yadav"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 279 matches in our dataset (2016-04-13 – 2026-05-24). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for India tour of South Africa, India tour of Zimbabwe, West Indies tour of India, Men's T20 Asia Cup, New Zealand tour of India, India tour of West Indies and United States of America, England tour of India, India tour of Australia, Australia tour of India, India tour of Ireland and England, World Cup, India tour of United States of America and West Indies, India tour of Sri Lanka. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbowler\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n8 17.8%",
+        "LBW\nOBSERVED\n5 11.1%",
+        "Caught by wicketkeeper\nDERIVED\n5 11.1%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n11 24.4%",
+        "Caught (keeper status unknown)\nOBSERVED\n2 4.4%",
+        "Stumped\nOBSERVED\n1 2.2%",
+        "Run out\nOBSERVED\n13 28.9%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/8d2c70ad?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n4 16.7%",
+        "LBW\nOBSERVED\n4 16.7%",
+        "Caught by wicketkeeper\nDERIVED\n3 12.5%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n4 16.7%",
+        "Caught (keeper status unknown)\nOBSERVED\n1 4.2%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n8 33.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "4 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Delhi Capitals v Royal Challengers Bengaluru · Arun Jaitley Stadium, Delhi · innings 1 (Delhi Capitals)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t256\t216\t84.4\t16\t13.5\t48.4\t7.8\t124\t95\t16\t1\t17\t3",
+        "unknown\t247\t212\t85.8\t15\t14.1\t48.2\t8.1\t119\t91\t16\t1\t17\t3",
+        "spin · small n\t9\t4\t44.4\t1\t4.0\t55.6\t0.0\t5\t4\t0\t0\t0\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "all_rounder",
+    "player": {
+      "person_id": "f3a18a0c",
+      "name": "Natalie Sciver"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 280 matches in our dataset (2013-07-01 – 2026-07-05). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for ICC Women's T20 World Cup, Australia Tri-Nation Women's T20 Series, England Women tour of Malaysia, India Women tour of England, Commonwealth Games Women's Cricket Competition, South Africa Women in England T20I Series, England Women tour of Australia, England Tri-Nation T20 Women's Series, England Women tour of India, West Indies Women tour of England, Women's Ashes, Women's Premier League, England Women ODI tour of Malaysia, Australia Women tour of England, England Women tour of New Zealand, New Zealand Women tour of England, England Women tour of South Africa, Pakistan Women in England ODI Series, South Africa Women tour of England, India Tri-Nation Women's T20 Series, West Indies Women tour of England and Ireland, England Women tour of Sri Lanka, Pakistan Women tour of England, ICC Women's Championship, England Women in Sri Lanka ODI Series, Sri Lanka Women tour of England, England Women tour of West Indies, Pakistan Women in England T20I Series, Women's World T20. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nall-rounder\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n50 24.2%",
+        "LBW\nOBSERVED\n25 12.1%",
+        "Caught by wicketkeeper\nDERIVED\n12 5.8%",
+        "Caught & bowled\nOBSERVED\n9 4.3%",
+        "Caught by a fielder\nDERIVED\n78 37.7%",
+        "Caught (keeper status unknown)\nOBSERVED\n7 3.4%",
+        "Caught (fielder not recorded)\nOBSERVED\n1 0.5%",
+        "Stumped\nOBSERVED\n6 2.9%",
+        "Run out\nOBSERVED\n18 8.7%",
+        "Hit wicket\nOBSERVED\n0 0%",
+        "Other\nOBSERVED\n1 0.5%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/f3a18a0c?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n10 27.8%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n2 5.6%",
+        "Caught & bowled\nOBSERVED\n2 5.6%",
+        "Caught by a fielder\nDERIVED\n13 36.1%",
+        "Caught (keeper status unknown)\nOBSERVED\n1 2.8%",
+        "Stumped\nOBSERVED\n1 2.8%",
+        "Run out\nOBSERVED\n6 16.7%",
+        "Hit wicket\nOBSERVED\n0 0%",
+        "Other\nOBSERVED\n1 2.8%"
+      ],
+      "evidence": "10 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Gujarat Giants v Mumbai Indians · Kotambi Stadium, Vadodara · innings 2 (Mumbai Indians)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t557\t892\t160.1\t29\t30.8\t24.4\t22.6\t136\t227\t67\t1\t114\t12",
+        "unknown\t544\t867\t159.4\t27\t32.1\t24.3\t22.4\t132\t224\t65\t1\t111\t11",
+        "spin · small n\t10\t19\t190.0\t2\t9.5\t40.0\t30.0\t4\t1\t2\t0\t2\t1",
+        "pace · small n\t3\t6\t200.0\t0\t–\t0.0\t33.3\t0\t2\t0\t0\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "wicketkeeper_batter",
+    "player": {
+      "person_id": "4a8a2e3b",
+      "name": "MS Dhoni"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 703 matches in our dataset (2004-12-23 – 2025-05-25). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for New Zealand tour of India, South Africa tour of India, Future Cup, England in India ODI Series, India in West Indies ODI Series, West Indies in India ODI Series, Indian Oil Cup, West Indies Tri-Nation Series, Sri Lanka tour of India, West Indies v India T20I Series, India tour of Australia, Australia tour of India, Pakistan in India ODI Series, India in England ODI Series, India in Bangladesh ODI Series, India tour of Ireland and England, New Zealand in India T20I Series, World T20, India in South Africa ODI Series, West Indies tour of India, India tour of South Africa, Tri-Nation Tournament in Bangladesh, Australia in India ODI Series, Compaq Cup, Sri Lanka in India ODI Series, South Africa in India ODI Series, India in Australia ODI Series, England in India T20I Series, ICC World Twenty20, India in Australia T20I Series, Videocon Triangular Series, India in Pakistan ODI Series, Pakistan tour of India, Indian Premier League, India in New Zealand ODI Series, World Cup, India tour of Sri Lanka, India in Sri Lanka ODI Series, Kitply Cup, ICC Cricket World Cup, Sri Lanka Triangular Series, Carlton Mid One-Day International Tri-Series, India in New Zealand T20I Series, Sri Lanka in India T20I Series, Pakistan in India T20I Series, DLF Cup, Afro-Asia Cup, South Africa in India T20I Series, India tour of Bangladesh. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nwicketkeeper-batter\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown",
+        "Keeper:\nyes\nDERIVED"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n71 18.4%",
+        "LBW\nOBSERVED\n23 6%",
+        "Caught by wicketkeeper\nDERIVED\n43 11.2%",
+        "Caught & bowled\nOBSERVED\n8 2.1%",
+        "Caught by a fielder\nDERIVED\n151 39.2%",
+        "Caught (keeper status unknown)\nOBSERVED\n53 13.8%",
+        "Stumped\nOBSERVED\n5 1.3%",
+        "Run out\nOBSERVED\n31 8.1%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/4a8a2e3b?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n21 16.4%",
+        "LBW\nOBSERVED\n3 2.3%",
+        "Caught by wicketkeeper\nDERIVED\n9 7%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n60 46.9%",
+        "Caught (keeper status unknown)\nOBSERVED\n22 17.2%",
+        "Stumped\nOBSERVED\n3 2.3%",
+        "Run out\nOBSERVED\n10 7.8%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "21 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Chennai Super Kings v Punjab Kings · Himachal Pradesh Cricket Association Stadium, Dharamsala · innings 1 (Chennai Super Kings)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t2,640\t4,464\t169.1\t118\t37.8\t27.1\t21.9\t716\t1035\t303\t9\t333\t244",
+        "unknown\t2,482\t4,224\t170.2\t113\t37.4\t26.7\t22.1\t663\t971\t291\t9\t322\t226",
+        "spin\t151\t234\t155.0\t5\t46.8\t32.5\t18.5\t49\t62\t12\t0\t10\t18",
+        "pace · small n\t7\t6\t85.7\t0\t–\t57.1\t14.3\t4\t2\t0\t0\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "incomplete_coverage",
+    "player": {
+      "person_id": "27e003ce",
+      "name": "Meg Lanning"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 212 matches in our dataset (2010-12-30 – 2026-02-01). These are not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for West Indies Women in Australia ODI Series, ICC Women's T20 World Cup, Pakistan Women in Australia T20I Series, Australia Women in Ireland T20I Series, Commonwealth Games Women's Cricket Competition, Australia Women in Sri Lanka ODI Series, New Zealand Women in Australia T20I Series, Australia Women v Pakistan Women T20I Series, Sri Lanka Women tour of Australia, Australia Tri-Nation Women's T20 Series, ICC Women's Championship, Australia Women tour of West Indies, Rose Bowl, New Zealand Women tour of Australia, Women's World T20, Ireland Tri-Nation Women's T20I Series, India Tri-Nation Women's T20 Series, Women's Ashes, West Indies Women in Australia T20I Series, India Women in Australia T20I Series, Pakistan Women tour of Australia, South Africa Women in Australia ODI Series, Women's Premier League, Australia Women tour of New Zealand, India Women tour of Australia, Australia Women tour of England. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n39 24.5%",
+        "LBW\nOBSERVED\n15 9.4%",
+        "Caught by wicketkeeper\nDERIVED\n14 8.8%",
+        "Caught & bowled\nOBSERVED\n3 1.9%",
+        "Caught by a fielder\nDERIVED\n52 32.7%",
+        "Caught (keeper status unknown)\nOBSERVED\n19 11.9%",
+        "Stumped\nOBSERVED\n3 1.9%",
+        "Run out\nOBSERVED\n13 8.2%",
+        "Hit wicket\nOBSERVED\n1 0.6%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/27e003ce?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n4 26.7%",
+        "LBW\nOBSERVED\n2 13.3%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n6 40%",
+        "Caught (keeper status unknown)\nOBSERVED\n1 6.7%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n2 13.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "4 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Delhi Capitals v Gujarat Giants · Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow · innings 1 (Delhi Capitals)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t290\t417\t143.8\t13\t32.1\t28.6\t19.3\t83\t129\t20\t2\t47\t9",
+        "unknown\t281\t407\t144.8\t13\t31.3\t27.8\t19.6\t78\t128\t19\t1\t46\t9",
+        "spin · small n\t9\t10\t111.1\t0\t–\t55.6\t11.1\t5\t1\t1\t1\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "lower_sample",
+    "player": {
+      "person_id": "7b679de5",
+      "name": "Kartik Sharma"
+    },
+    "checks": {
+      "coverage": "i\nDATASET COVERAGE: Analysed from 11 matches in our dataset (2026-03-30 – 2026-05-21). These are not official career totals.",
+      "notes": [],
+      "chips": [
+        "Role:\nwicketkeeper-batter\nOBSERVED",
+        "Bats: unknown",
+        "Bowls: unknown",
+        "Keeper:\nyes\nOBSERVED"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n0 0%",
+        "LBW\nOBSERVED\n2 22.2%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n3 33.3%",
+        "Caught (keeper status unknown)\nOBSERVED\n3 33.3%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 11.1%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/7b679de5?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n0 0%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n2 50%",
+        "Caught (keeper status unknown)\nOBSERVED\n2 50%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n0 0%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Chennai Super Kings v Gujarat Titans · MA Chidambaram Stadium, Chepauk, Chennai · innings 1 (Chennai Super Kings)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Fielder position\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t44\t77\t175.0\t4\t19.2\t40.9\t31.8\t18\t9\t3\t0\t11\t3",
+        "unknown\t41\t71\t173.2\t4\t17.8\t43.9\t31.7\t18\t7\t3\t0\t10\t3",
+        "pace · small n\t3\t6\t200.0\t0\t–\t0.0\t33.3\t0\t2\t0\t0\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "shot": "sections-mobile",
+    "errors": []
+  }
+]

@@ -174,3 +174,12 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .chip.wrap { white-space: normal; text-align: left; max-width: 100%; }
 html, body { overflow-x: hidden; }
+
+.covgrid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 10px; }
+@media (min-width: 760px) { .covgrid { grid-template-columns: 1fr 1fr 1fr; } }
+.covrow { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; background: #0005; border: 1px solid #ffffff12; border-radius: 12px; padding: 8px 10px; font-size: 13px; }
+.covstat { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 2px 7px; border-radius: 6px; border: 1px solid; white-space: nowrap; }
+.covstat.COMPLETE, .covstat.COMPLETE_FOR_TEAM { color: var(--accent); border-color: #35e0c266; }
+.covstat.PARTIAL { color: var(--amber); border-color: #ffb54766; }
+.covstat.UNKNOWN { color: var(--muted); border-color: #8d9ab866; border-style: dashed; }
+.realdata { background: #0d2a22; color: #9df2d6; border-bottom: 1px solid #1d5c4b; padding: 6px 16px; font-size: 12px; font-weight: 700; text-align: center; }

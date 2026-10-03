@@ -80,8 +80,17 @@ function PlayerPage() {
             <HStat v={fmt(bat?.runs)} l="Runs" /><HStat v={fmt(bat?.average, 1)} l="Average" /><HStat v={fmt(bat?.strike_rate, 1)} l="Strike rate" />
           </>)}
         </div>
-        <div className="coverage"><span className="ico">i</span><span><b>Data coverage:</b> {prof.coverage.statement}</span></div>
-        {prof.coverage.notes.map((n: any, i: number) => <div key={i} className="note">{n.text}</div>)}
+        <div className="coverage"><span className="ico">i</span><span><b>DATASET COVERAGE:</b> {prof.coverage.statement}</span></div>
+        <div className="covgrid">
+          {(prof.coverage.breakdown || []).map((c: any) => (
+            <div key={c.label} className="covrow">
+              <div><b>{c.label}</b> <span className="mini">{c.matches} matches · {String(c.first_date).slice(0, 4)}–{String(c.last_date).slice(0, 4)}</span></div>
+              <span className={`covstat ${c.status}`}>{{ COMPLETE: "complete", COMPLETE_FOR_TEAM: "no known gaps", PARTIAL: "gaps known", UNKNOWN: "completeness unknown" }[c.status as string] ?? c.status}</span>
+              <div className="mini" style={{ gridColumn: "1 / -1" }}>{c.note}</div>
+            </div>
+          ))}
+        </div>
+        {prof.coverage.notes.filter((n: any) => n.kind !== "source_exclusion").map((n: any, i: number) => <div key={i} className="note">{n.text}</div>)}
       </section>
 
       {/* ---------------- FILTERS */}

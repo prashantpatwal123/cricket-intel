@@ -142,7 +142,7 @@ def train(db: DB, cutoff: str) -> dict:
     }
     art["evaluation"] = evaluate(db, Model(art), cutoff)
     MODELS.mkdir(parents=True, exist_ok=True)
-    (MODELS / f"{VERSION.replace('/', '-')}.json").write_text(json.dumps(art))
+    (MODELS / f"{VERSION.replace('/', '-')}-{db.manifest['dataset']}.json").write_text(json.dumps(art))
     return art
 
 
@@ -177,8 +177,8 @@ def evaluate(db: DB, model: Model, cutoff: str) -> dict:
     return {"heldout_from": cutoff, "heldout_deliveries": len(rows), "scores": res, "wicket_calibration": cal}
 
 
-def load(version: str = VERSION) -> Model:
-    return Model(json.loads((MODELS / f"{version.replace('/', '-')}.json").read_text()))
+def load(dataset: str, version: str = VERSION) -> Model:
+    return Model(json.loads((MODELS / f"{version.replace('/', '-')}-{dataset}.json").read_text()))
 
 
 if __name__ == "__main__":

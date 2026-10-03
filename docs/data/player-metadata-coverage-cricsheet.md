@@ -7,16 +7,16 @@ Players: **8469**
 | Field | Known | % players | Sources |
 |---|---|---|---|
 | batting_hand | 0 | 0.0% | — |
-| bowling_arm | 0 | 0.0% | — |
-| bowling_style | 0 | 0.0% | — |
-| bowling_family | 0 | 0.0% | — |
-| role | 6955 | 82.1% | derived:role_from_usage/v1: 6955 |
-| wicketkeeper | 606 | 7.2% | derived:keeper_inference_aggregate/v1: 606 |
+| bowling_arm | 184 | 2.2% | wikidata:wikidata_branch/v1: 184 |
+| bowling_style | 184 | 2.2% | wikidata:wikidata_branch/v1: 184 |
+| bowling_family | 206 | 2.4% | wikidata:wikidata_branch/v1: 206 |
+| role | 6956 | 82.1% | derived:role_from_usage/v1: 6908, wikidata:wikidata_branch/v1: 48 |
+| wicketkeeper | 609 | 7.2% | wikidata:wikidata_branch/v1: 5, derived:keeper_inference_aggregate/v1: 604 |
 
-Delivery-weighted coverage: bowler family known on **0.0%** of deliveries; batter hand known on **0.0%** of deliveries.
+Delivery-weighted coverage: bowler family known on **7.8%** of deliveries; batter hand known on **0.0%** of deliveries.
 
 ## Adapters
 
-- **wikidata_playing_hand**: unavailable (URLError); no cache
+- **wikidata_branch**: 762 Register players linked via cricinfo id; 1732 values; unmapped style labels: {'right arm': 4}
 
 Full per-player table: `player-metadata-coverage-cricsheet.csv` (columns: player, cricsheet_id, gender, teams, batting hand, bowling hand, bowling style, role, wicketkeeper status, metadata source, confidence, manual override).

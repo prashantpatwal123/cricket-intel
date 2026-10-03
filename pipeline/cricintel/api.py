@@ -139,10 +139,11 @@ def ask(q: str = Query(min_length=3, max_length=300)):
 def ask_examples():
     from .ask.intents import EXAMPLES
     t0 = time.perf_counter()
-    top = db().q("""SELECT name FROM player_profile pp JOIN (SELECT batter_id, count(*) n FROM balls GROUP BY 1) b
+    top = db().q("""SELECT pp.person_id, pp.name FROM player_profile pp JOIN (SELECT batter_id, count(*) n FROM balls GROUP BY 1) b
                     ON b.batter_id = pp.person_id ORDER BY n DESC LIMIT 2""")
-    bowler = db().q1("""SELECT bowler AS name FROM balls WHERE batter = ? GROUP BY 1 ORDER BY count(*) DESC LIMIT 1""", [top[0]["name"]])
-    return envelope([e.format(p=top[i % len(top)]["name"], b=bowler["name"]) for i, e in enumerate(EXAMPLES)], t0)
+    bw = db().q1("""SELECT pp.name FROM balls b JOIN player_profile pp ON pp.person_id = b.bowler_id
+                    WHERE b.batter_id = ? GROUP BY 1 ORDER BY count(*) DESC LIMIT 1""", [top[0]["person_id"]])
+    return envelope([e.format(p=top[i % len(top)]["name"], b=bw["name"] if bw else "<bowler>") for i, e in enumerate(EXAMPLES)], t0)
 
 
 # ------------------------------------------------------------------ What Happens Next?

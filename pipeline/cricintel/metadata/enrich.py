@@ -112,6 +112,14 @@ def run(out: Path, dataset: str) -> dict:
         src = out / "derived" / f"{t}.parquet" if (out / "derived" / f"{t}.parquet").exists() else f"{out / t}/*.parquet"
         con.execute(f"CREATE VIEW {t} AS SELECT * FROM read_parquet('{src}')")
 
+    # ---- identity: Register name + every alias (Register names.csv + names seen in match files)
+    names_csv = RAW / ("cricsheet" if dataset == "cricsheet" else "synthetic") / "register" / "names.csv"
+    con.execute("CREATE TABLE alias (person_id VARCHAR, alias VARCHAR, source VARCHAR)")
+    if names_csv.exists():
+        con.execute(f"INSERT INTO alias SELECT identifier, name, 'register_names' FROM read_csv('{names_csv}', header=true, all_varchar=true)")
+    con.execute("INSERT INTO alias SELECT DISTINCT person_id, name, 'match_files' FROM players_in_match")
+    con.execute("INSERT INTO alias SELECT person_id, name, 'register_people' FROM persons WHERE name IS NOT NULL")
+    con.execute(f"COPY (SELECT DISTINCT * FROM alias) TO '{out / 'derived' / 'person_aliases.parquet'}' (FORMAT parquet)")
     ext_ids = {pid: dict(m) for pid, m in con.execute(
         "SELECT person_id, external_ids FROM persons").fetchall()}
     candidates: list[dict] = []
@@ -139,12 +147,20 @@ def run(out: Path, dataset: str) -> dict:
         for f in FIELDS)
     con.execute(f"""
     CREATE TABLE player_profile AS
-    WITH base AS (
-      SELECT p.person_id, any_value(p.name) AS name, list(DISTINCT m.gender) AS genders,
+    WITH al AS (
+      SELECT person_id, list(DISTINCT alias ORDER BY alias) AS aliases,
+             -- display name: fullest alias (>=2 words, first word not an initial), else the Register name
+             arg_max(alias, length(alias)) FILTER (WHERE alias LIKE '% %' AND length(split_part(alias, ' ', 1)) > 2
+                                                    AND NOT regexp_matches(alias, '\(\d+\)')) AS full_alias
+      FROM alias GROUP BY 1
+    ), base AS (
+      SELECT p.person_id, coalesce(any_value(al.full_alias), any_value(pr.name), any_value(p.name)) AS name,
+             coalesce(any_value(pr.name), any_value(p.name)) AS register_name, any_value(al.aliases) AS aliases, list(DISTINCT m.gender) AS genders,
              list(DISTINCT p.team ORDER BY p.team) AS teams, count(DISTINCT p.match_id) AS matches,
              min(m.start_date) AS first_match, max(m.start_date) AS last_match,
              bool_and(p.identity_resolved) AS identity_resolved
-      FROM players_in_match p JOIN matches m USING (match_id) GROUP BY 1
+      FROM players_in_match p JOIN matches m USING (match_id) LEFT JOIN persons pr USING (person_id)
+      LEFT JOIN al USING (person_id) GROUP BY 1
     ), meta AS (SELECT person_id, {piv}, bool_or(is_override) AS has_override FROM best GROUP BY 1)
     SELECT base.*, meta.* EXCLUDE (person_id) FROM base LEFT JOIN meta USING (person_id)
     """)

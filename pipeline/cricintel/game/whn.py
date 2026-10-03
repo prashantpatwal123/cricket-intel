@@ -9,6 +9,7 @@ so the API never leaks which delivery is being asked about before the reveal.
 from __future__ import annotations
 
 import argparse
+import re
 import hashlib
 import hmac
 import json
@@ -29,11 +30,24 @@ def _path(dataset):
 
 
 def build(db: DB, n: int = 400, seed: int = 5) -> dict:
-    model = baseline.load()
+    model = baseline.load(db.manifest["dataset"])
     cutoff = model.art["training_window"]["to_exclusive"]
     rows = db.q(FEATURE_SQL + " AND b.start_date >= ?::DATE", [cutoff])
     ctx = {r["delivery_id"]: r for r in db.q("""SELECT delivery_id, over, score_before, wickets_before, chasing, runs_required,
-              balls_remaining, batter_runs_before, batter_balls_before, phase FROM balls WHERE start_date >= ?::DATE""", [cutoff])}
+              balls_remaining, batter_runs_before, batter_balls_before, phase, competition, team_type, batting_team, bowling_team
+              FROM balls WHERE start_date >= ?::DATE""", [cutoff])}
+    FULL = {"India", "Australia", "England", "South Africa", "New Zealand", "Pakistan", "Sri Lanka", "West Indies",
+            "Bangladesh", "Zimbabwe", "Ireland", "Afghanistan"}
+
+    def prestige(c):
+        """Product heuristic for a recognisable game: big leagues, ICC events, full-member internationals."""
+        comp = c["competition"] or ""
+        major_icc = re.search(r"World Cup|Champions Trophy", comp) and not re.search(r"Qualifier|League|Region|Challenge|Play-?off", comp)
+        if comp in ("Indian Premier League", "Women's Premier League") or major_icc:
+            return 3.0
+        if c["team_type"] == "international" and c["batting_team"] in FULL and c["bowling_team"] in FULL:
+            return 2.0
+        return 0.02
     rnd = random.Random(seed)
 
     def interest(r):
@@ -45,7 +59,7 @@ def build(db: DB, n: int = 400, seed: int = 5) -> dict:
             s += 1.5
         if 40 <= c["batter_runs_before"] <= 49 or 90 <= c["batter_runs_before"] <= 99:
             s += 2  # milestone in sight
-        return s
+        return s * prestige(c)
 
     picked = rnd.choices(rows, weights=[interest(r) for r in rows], k=min(n * 3, len(rows)))
     seen, moments = set(), []
@@ -145,7 +159,7 @@ def _ball_glyph(x) -> str:
 
 def scoring_report(db: DB) -> str:
     """Simulate schemes on ALL held-out deliveries and write docs/game-scoring.md tables."""
-    model = baseline.load()
+    model = baseline.load(db.manifest["dataset"])
     cutoff = model.art["training_window"]["to_exclusive"]
     rows = db.q(FEATURE_SQL + " AND b.start_date >= ?::DATE", [cutoff])
     samples = [(model.predict(r), CLASSES.index(r["y"])) for r in rows]

@@ -34,8 +34,9 @@ def _meta_field(p: dict, f: str) -> dict:
 
 
 def search(db: DB, q: str, limit: int = 12) -> list[dict]:
-    return db.q("""SELECT person_id, name, matches, genders, teams, role FROM player_profile
-                   WHERE name ILIKE ? OR person_id = ? ORDER BY matches DESC LIMIT ?""", [f"%{q}%", q, limit])
+    return db.q("""SELECT person_id, name, register_name, matches, genders, teams, role FROM player_profile
+                   WHERE person_id = ? OR list_bool_or(list_transform(aliases, a -> a ILIKE ?))
+                   ORDER BY matches DESC LIMIT ?""", [q, f"%{q}%", limit])
 
 
 def featured(db: DB) -> list[dict]:
@@ -129,18 +130,25 @@ def profile(db: DB, pid: str, f: Filters) -> dict | None:
                      CASE WHEN pim.team = m.team1 THEN m.team2 ELSE m.team1 END AS bowling_team
                      FROM players_in_match pim JOIN matches m USING (match_id) WHERE pim.person_id = ?) x
                     WHERE {wm} GROUP BY ALL ORDER BY matches DESC""", [pid, *pm])
-    # Left-censoring heuristic: debut in our data coincides with the first season we hold for that competition.
-    censored = db.q("""WITH firsts AS (SELECT competition, min(start_date) AS cstart FROM matches GROUP BY 1),
-                       mine AS (SELECT m.competition, min(m.start_date) AS pfirst FROM players_in_match p JOIN matches m USING (match_id)
-                                WHERE p.person_id = ? GROUP BY 1)
-                       SELECT mine.competition, pfirst, cstart FROM mine JOIN firsts USING (competition)
-                       WHERE pfirst - cstart <= 365""", [pid])
+    # Left-censoring: first appearance within a year of where the SOURCE's coverage for that format begins
+    # (Cricsheet /coverage/ 'earliest provided'). Club competitions use Cricsheet's own completeness instead.
+    censored = []
+    if getattr(db, "has_source_coverage", False):
+        fmt_name = {"ODI": "One-day Internationals", "T20": "T20 Internationals"}
+        for c in coverage_breakdown(db, pid, f):
+            if c["team_type"] != "international" or c["format_group"] not in fmt_name:
+                continue
+            per = db.q1("SELECT earliest_provided FROM source_coverage_periods WHERE gender = ? AND name = ?",
+                        [c["gender"], fmt_name[c["format_group"]]])
+            if per:
+                start = db.q1("SELECT strptime(?, '%b %Y')::DATE AS d", [per["earliest_provided"]])["d"]
+                if (c["first_date"] - start).days <= 365:
+                    censored.append(f"{c['label']} (coverage begins {per['earliest_provided']})")
     notes = []
     if censored:
         notes.append({"kind": "possible_earlier_matches",
-                      "text": "This player already appears in the first season of our data for "
-                              + ", ".join(c["competition"] or "?" for c in censored)
-                              + ". Earlier matches are probably missing, so treat totals as partial."})
+                      "text": "This player's first appearance in our data is close to where Cricsheet's coverage begins for "
+                              + ", ".join(censored) + ". Earlier matches probably exist, so treat totals as partial."})
     if db.manifest.get("source_id") == "cricsheet" and "male" in (p.get("genders") or []):
         notes.append({"kind": "source_exclusion",
                       "text": "Cricsheet does not publish matches involving the Afghanistan men's team or the Afghanistan Premier League. Those matches are missing."})
@@ -181,7 +189,10 @@ def profile(db: DB, pid: str, f: Filters) -> dict | None:
         FROM dis x JOIN wicket_fielders wf ON wf.delivery_id = x.delivery_id AND wf.wicket_idx = x.wicket_idx
         WHERE wf.fielder_id = ? AND {wf}""", [pid, pid, pid, pid, pid, *pf])
     return {
-        "person_id": pid, "name": p["name"], "genders": p["genders"], "teams": p["teams"],
+        "person_id": pid, "name": p["name"], "register_name": p.get("register_name"), "aliases": p.get("aliases"),
+        "identity": {"canonical_player_id": pid, "cricsheet_register_id": pid if not pid.startswith("unres:") else None,
+                     "external_ids": (db.q1("SELECT external_ids FROM persons WHERE person_id = ?", [pid]) or {}).get("external_ids")},
+        "genders": p["genders"], "teams": p["teams"],
         "metadata": {k: _meta_field(p, k) for k in ("role", "batting_hand", "bowling_style", "bowling_arm", "bowling_family", "wicketkeeper")},
         "coverage": {**(cov or {}), "competitions": comps, "breakdown": coverage_breakdown(db, pid, f), "notes": notes,
                      "statement": f"Analysed from {cov['matches'] if cov else 0} matches in our dataset"
@@ -353,7 +364,7 @@ def delivery_cards(db: DB, ids: list[str]) -> list[dict]:
                     WHERE delivery_id IN ({','.join('?' * len(ids))})""", ids)
     wk = db.q(f"""SELECT delivery_id, player_out_id, player_out, kind, route, route_prov, route_confidence, route_method,
                   fielders, keeper_id, keeper_method, striker_out, counts_as_dismissal
-                  FROM dismissals WHERE delivery_id IN ({','.join('?' * len(ids))}) ORDER BY wicket_idx""", ids)
+                  FROM dis WHERE delivery_id IN ({','.join('?' * len(ids))}) ORDER BY wicket_idx""", ids)
     rv = db.q(f"SELECT * FROM reviews WHERE delivery_id IN ({','.join('?' * len(ids))})", ids)
     wk_by, rv_by = {}, {r["delivery_id"]: r for r in rv}
     for x in wk:
