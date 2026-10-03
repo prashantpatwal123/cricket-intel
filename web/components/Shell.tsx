@@ -8,7 +8,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const [ds, setDs] = useState<Dataset | null>(null);
   useEffect(() => { api("/meta").then((r) => setDs(r.dataset)).catch(() => {}); }, []);
-  const nav = [["/", "Players"], ["/ask", "Ask"], ["/play", "Play"]];
+  const nav = [["/", "Explore"], ["/players", "Players"], ["/battle", "Battles"], ["/ask", "Ask"], ["/play", "Play"]];
+  const isOn = (h: string) => h === "/" ? path === "/" || path.startsWith("/records") : h === "/battle" ? path.startsWith("/battle") || path.startsWith("/compare") : path === h || path.startsWith(h + "/");
   return (
     <>
       {ds?.synthetic && (
@@ -23,7 +24,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         <Link href="/" className="brand"><span className="brand-dot" />cricintel</Link>
         <nav className="nav">
           {nav.map(([h, l]) => (
-            <Link key={h} href={h} className={(h === "/" ? path === "/" || path.startsWith("/players/") : path === h || path.startsWith(h + "/")) ? "active" : ""}>{l}</Link>
+            <Link key={h} href={h} className={isOn(h) ? "active" : ""}>{l}</Link>
           ))}
         </nav>
       </header>

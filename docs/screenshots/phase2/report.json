@@ -1,0 +1,109 @@
+{
+  "errors": [],
+  "log": [
+    {
+      "step": "explore",
+      "insights": 6,
+      "battles": 6,
+      "records": 8,
+      "overflow": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "player-overview",
+      "petals": 17,
+      "overflow": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "fingerprint-drill",
+      "title": "EVIDENCE",
+      "cards": 20,
+      "overflow_px": 0
+    },
+    {
+      "step": "strengths",
+      "cards": 9,
+      "url": "http://localhost:3000/players/ba607b88?tab=strengths",
+      "overflow_px": 0
+    },
+    {
+      "step": "dismissal-story",
+      "head": "DISMISSAL STORY DERIVED | Caught by wicketkeeper: 74 times | 13.1% of 567 dismissals (90% interval 10.9–15.6%) · once every 346 balls faced",
+      "saysEdge": true,
+      "overflow_px": 0
+    },
+    {
+      "step": "matchups-mobile",
+      "cards": 12,
+      "tableVisible": false,
+      "overflow_px": 0
+    },
+    {
+      "step": "timeline",
+      "overflow": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "battle",
+      "edge": "WHO HAS THE EDGE?\nThe evidence, with its uncertainty. We don't declare a winner. MODEL\nStrike rate in this battle\n110.4 here\nbatter usual 110\nbowler usually concedes 101\n90% interval for the strike rate here: 100–121.\nThe batter's usual rate (109.7) is inside that range.\nBatters usually score at 101.1 off this bowler: inside the range.\nDismissals\nObserved: 9 (90% interval 4.7–15.7).\nAt the batter'",
+      "drill": "EVIDENCE",
+      "overflow": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "battle-picker",
+      "url": "http://localhost:3000/battle?bat=5d2eda89&bowl=cdb82f1c",
+      "head": "29 MATCHES · 2018-03-25 → 2026-05-30 OBSERVED | S Mandhana v S Ecclestone | 251",
+      "overflow_px": 0
+    },
+    {
+      "step": "compare",
+      "warnings": 5,
+      "overflow": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "records",
+      "url": "http://localhost:3000/records?metric=economy&gender=male&phase=death&format=T20&full_members=true&min=300",
+      "rows": 25,
+      "first": "1\nSunil Narine\n1,385 legal balls · 178 matches · 2012–2026\n7.07",
+      "overflow_px": 0
+    },
+    {
+      "step": "records-row-click",
+      "women_first": "1\nEllyse Perry\n321 legal balls · 42 matches · 2010–2026\n6.56",
+      "landed": "http://localhost:3000/players/be150fc8",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-remove-chip",
+      "before": "Men: HR Walsh ranks first for economy in death overs since 2020 in our covered data: 6.12 (min 120 legal balls). Women: Zaida James ranks first for economy in death overs since 2020 in our covered data: 5.87 (min 120 legal balls).",
+      "after": "Men: Muhammad Nadir ranks first for economy in death overs since 2020 in our covered data: 4.69 (min 120 legal balls). Women: P Siaka ranks first for economy in death overs since 2020 in our covered data: 3.59 (min 120 legal balls).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-matchup",
+      "ans": "David Warner v Jasprit Bumrah in our covered data: 180 runs off 182 balls (SR 98.9), 2 dismissals.",
+      "chips": "How I interpreted your question\nBatter v bowler\nDavid Warner\nv Jasprit Bumrah\nAssumed: David Warner as batter, Jasprit Bumrah as bowler (189 balls that way round, 0 the other)\nShow the pipeline",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-disambiguate",
+      "ans": "Rohit Sharma: strike rate 92.4 in ODIs in our covered data (from 12478 balls). Rohit Sharma: strike rate 135.4 in T20s (T20Is, IPL, WPL) in our covered data (from 8384 balls).",
+      "overflow_px": 0
+    },
+    {
+      "step": "play",
+      "after1": "YOU 10 1/1 right · 100% streak 1 best 1 beat the model 0 × MODEL · MODELLED 10 1/1 right · 100%",
+      "after2": "YOU 10 1/2 right · 50% streak 0 best 1 beat the model 0 × MODEL · MODELLED 20 2/2 right · 100%",
+      "next_ball_ms": 12,
+      "overflow_px": 0
+    },
+    {
+      "step": "records-pair-click",
+      "landed": "http://localhost:3000/battle?bat=740742ef&bowl=9d430b40",
+      "overflow_px": 0
+    }
+  ]
+}

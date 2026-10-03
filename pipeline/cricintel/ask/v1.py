@@ -135,7 +135,13 @@ def parse(db: DB, question: str) -> Intent:
     ranking = (re.search(r"^\s*(who|which)\b", q) and re.search(r"\b(most|highest|lowest|best|fewest|least|top)\b", q)) or \
         re.search(r"^\s*(most|highest|lowest|best|fewest|top|leaders?)\b", q)
     if len(players) >= 2 and re.search(r"\b(against|vs\.?|versus|v|facing)\b", q):
-        it.kind, it.subject, it.opponent = "matchup", players[0], players[1]
+        a, b = players[0], players[1]
+        n_ab = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [a["person_id"], b["person_id"]])["n"]
+        n_ba = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [b["person_id"], a["person_id"]])["n"]
+        if n_ba > n_ab:  # "Bumrah v Warner": the data says which one batted
+            a, b = b, a
+            it.notes.append({"assumed": f"{a['name']} as batter, {b['name']} as bowler ({n_ba} balls that way round, {n_ab} the other)"})
+        it.kind, it.subject, it.opponent = "matchup", a, b
     elif players and re.search(r"(who|which bowler).*dismiss|dismissed .* (the )?most", q):
         it.kind, it.subject = "dismissed_by", players[0]
     elif ranking:
@@ -143,8 +149,11 @@ def parse(db: DB, question: str) -> Intent:
         if it.dismissal and not it.metric:
             it.metric = {"RUN_OUT": "times_run_out", "BOWLED": "times_bowled", "CAUGHT_KEEPER": "keeper_catches",
                          "STUMPED": "stumpings"}.get(it.dismissal)
-        if re.search(r"\blowest\b|\bfewest\b|\bleast\b|\bbest economy\b", q) and it.metric in ("dot_pct", "economy"):
-            pass
+        rate = it.metric in METRICS and METRICS[it.metric][5] > 0
+        if rate and not ({"team_type", "competition", "opposition", "full_members"} & set(f)):
+            # Rate leaderboards over all teams are dominated by small associate samples; default to the main game, visibly.
+            f["full_members"] = True
+            it.notes.append({"assumed": "rate leaderboard limited to matches between ICC full members plus leagues; remove that condition to include all teams"})
     elif players and it.dismissal and re.search(r"how (many times|often)|times", q):
         it.kind, it.subject = "dismissal_count", players[0]
     elif players and it.metric:

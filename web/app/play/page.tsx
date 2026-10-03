@@ -1,44 +1,82 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+// What Happens Next? v1: real historical moments, Model vs You. No accounts: stats live in this browser only.
+import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 import { DeliveryModal } from "@/components/Deliveries";
 
-const LABEL: Record<string, string> = { DOT: "DOT", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", WICKET: "WICKET" };
-type Store = { played: string[]; correct: number; points: number; streak: number; best: number };
-const EMPTY: Store = { played: [], correct: 0, points: 0, streak: 0, best: 0 };
-const load = (): Store => { try { return { ...EMPTY, ...JSON.parse(localStorage.getItem("whn") || "{}") }; } catch { return EMPTY; } };
-const save = (s: Store) => { try { localStorage.setItem("whn", JSON.stringify(s)); } catch { /* storage unavailable */ } };
+const KEYS: Record<string, string> = { "0": "DOT", ".": "DOT", d: "DOT", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", w: "WICKET" };
+const KEY_HINT: Record<string, string> = { DOT: "0", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", WICKET: "W" };
+const RARITY: Record<string, string> = { expected: "Expected", plausible: "Plausible", rare: "Rare", "very rare": "Very rare" };
+type Store = { played: string[]; n: number; correct: number; points: number; streak: number; best: number; modelPoints: number; modelCorrect: number; beat: number };
+const EMPTY: Store = { played: [], n: 0, correct: 0, points: 0, streak: 0, best: 0, modelPoints: 0, modelCorrect: 0, beat: 0 };
+const load = (): Store => { try { const s = { ...EMPTY, ...JSON.parse(localStorage.getItem("whn1") || "{}") }; return s; } catch { return EMPTY; } };
+const save = (s: Store) => { try { localStorage.setItem("whn1", JSON.stringify(s)); } catch { /* storage unavailable: stats last for this visit only */ } };
+type Moment = { m: any; pts: Record<string, number> };
 
 export default function Play() {
   const [st, setSt] = useState<Store>(EMPTY);
-  const [m, setM] = useState<any | null>(null);
-  const [pts, setPts] = useState<Record<string, number> | null>(null);
+  const [cur, setCur] = useState<Moment | null>(null);
   const [rev, setRev] = useState<any | null>(null);
   const [open, setOpen] = useState<string | null>(null);
-  const next = useCallback(async (s: Store) => {
-    setRev(null); setPts(null);
-    const r = await api("/whn/next", { exclude: s.played.slice(-200).join(",") });
-    setM(r.data);
-    setPts((await api(`/whn/${r.data.moment_id}/points`)).data);
+  const nextRef = useRef<Promise<Moment> | null>(null);
+  const fetchMoment = useCallback(async (played: string[]): Promise<Moment> => {
+    const r = await api("/whn/next", { exclude: played.slice(-200).join(",") });
+    const p = await api(`/whn/${r.data.moment_id}/points`);
+    return { m: r.data, pts: p.data };
   }, []);
-  useEffect(() => { const s = load(); setSt(s); next(s); }, [next]);
-  const pick = async (o: string) => {
-    if (!m || rev) return;
+  const advance = useCallback(async (s: Store) => {
+    setRev(null);
+    const pending = nextRef.current; nextRef.current = null;
+    setCur(null);
+    setCur(await (pending ?? fetchMoment(s.played)));
+  }, [fetchMoment]);
+  useEffect(() => { const s = load(); setSt(s); advance(s); }, [advance]);
+
+  const pick = useCallback(async (o: string) => {
+    if (!cur || rev) return;
+    const m = cur.m;
     const r = (await api(`/whn/${m.moment_id}/reveal`, { pick: o })).data;
     setRev(r);
-    const s = { ...st, played: [...st.played, m.moment_id], correct: st.correct + (r.correct ? 1 : 0), points: st.points + r.points,
-      streak: r.correct ? st.streak + 1 : 0, best: Math.max(st.best, r.correct ? st.streak + 1 : 0) };
+    const youRight = !!r.correct, modelRight = !!r.model.correct;
+    const s: Store = { ...st, played: [...st.played, m.moment_id].slice(-500), n: st.n + 1, correct: st.correct + (youRight ? 1 : 0), points: st.points + r.points,
+      streak: youRight ? st.streak + 1 : 0, best: Math.max(st.best, youRight ? st.streak + 1 : 0),
+      modelPoints: st.modelPoints + (r.model.points || 0), modelCorrect: st.modelCorrect + (modelRight ? 1 : 0), beat: st.beat + (youRight && !modelRight ? 1 : 0) };
     setSt(s); save(s);
-  };
+    nextRef.current = fetchMoment(s.played); // prefetch so NEXT BALL is instant
+  }, [cur, rev, st, fetchMoment]);
+
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || open) return;
+      const k = e.key.toLowerCase();
+      if (!rev && KEYS[k]) { e.preventDefault(); pick(KEYS[k]); }
+      else if (rev && (k === "enter" || k === "n" || k === " ")) { e.preventDefault(); advance(st); }
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [pick, rev, st, advance, open]);
+
+  const m = cur?.m, pts = cur?.pts;
+  const acc = st.n ? Math.round((100 * st.correct) / st.n) : null;
+  const macc = st.n ? Math.round((100 * st.modelCorrect) / st.n) : null;
+  const reset = () => { const s = { ...EMPTY, played: st.played }; setSt(s); save(s); };
+
   return (
     <div className="fade-in" style={{ maxWidth: 720, margin: "0 auto" }}>
-      <div className="section-head" style={{ marginTop: 22 }}>
-        <div><div className="kicker">Historical · What happens next?</div><div className="h2">Call the next ball</div></div>
-        <div className="mini" style={{ textAlign: "right" }}>{st.points} pts · {st.correct}/{st.played.length} correct<br />streak {st.streak} · best {st.best}</div>
+      <div className="section-head" style={{ marginTop: 20, marginBottom: 8 }}>
+        <div><div className="kicker">Play · historical moments</div><div className="h2">What happens next?</div></div>
       </div>
+      <div className="mvy" aria-label="Model versus you">
+        <div className="mvy-side you"><div className="l">You</div><div className="v num">{st.points}</div><div className="mini">{st.correct}/{st.n} right{acc != null ? ` · ${acc}%` : ""}</div></div>
+        <div className="mvy-mid"><div className="mini">streak</div><b className="num">{st.streak}</b><div className="mini">best {st.best}</div>
+          <div className="mini" style={{ marginTop: 4 }}>beat the model <b className="num" style={{ color: "var(--accent-2)" }}>{st.beat}</b>×</div></div>
+        <div className="mvy-side model"><div className="l">Model · modelled</div><div className="v num">{st.modelPoints}</div><div className="mini">{st.modelCorrect}/{st.n} right{macc != null ? ` · ${macc}%` : ""}</div></div>
+      </div>
+      <div className="mini" style={{ marginTop: 6 }}>The model always picks the outcome it rates most likely and scores by the same rules. A favourite is not a certainty: most balls, the most likely outcome still has well under a 50% chance.</div>
+
       {!m ? <div className="loading">Loading a moment…</div> : (
-        <div className="hero" style={{ marginTop: 6 }}>
+        <div className="hero fade-in" key={m.moment_id} style={{ marginTop: 12 }}>
           <div className="kicker">{m.competition} · {m.date} · {m.gender === "female" ? "Women" : "Men"} · {m.format}</div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginTop: 8, gap: 10, flexWrap: "wrap" }}>
             <div>
@@ -52,51 +90,62 @@ export default function Play() {
             <div className="hstat"><div className="l">On strike</div><div style={{ fontWeight: 800, fontSize: 17 }}>{m.batter.name}</div><div className="mini">{m.batter.runs} ({m.batter.balls}){m.batter.hand ? ` · ${m.batter.hand}-handed` : ""}</div></div>
             <div className="hstat"><div className="l">Bowling</div><div style={{ fontWeight: 800, fontSize: 17 }}>{m.bowler.name}</div><div className="mini">{m.bowler.figures}{m.bowler.style ? ` · ${m.bowler.style}` : ""}</div></div>
           </div>
-          <div className="mini" style={{ marginTop: 10 }}>Last balls: {m.recent.length ? m.recent.map((x: string, i: number) => <b key={i} style={{ marginRight: 8, color: x === "W" ? "var(--wicket)" : undefined }}>{x}</b>) : "start of innings"}</div>
+          <div className="recent" aria-label="Previous balls">{m.recent.length ? m.recent.map((x: string, i: number) => <span key={i} className={`rb ${x === "W" ? "w" : x === "4" || x === "6" ? "b" : ""}`}>{x}</span>) : <span className="mini">start of the innings</span>}</div>
         </div>
       )}
+
       {m && (
-        <div className="card" style={{ marginTop: 14 }}>
-          <div className="sit-title">What happens next?</div>
-          <div className="mini">{m.outcome_definition} Correct picks score the points shown. Rarer calls are worth more, capped at 40.</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginTop: 12 }}>
+        <div className="card" style={{ marginTop: 12 }}>
+          <div className="mini">{m.outcome_definition} Rarer calls score more (capped at 40).</div>
+          <div className="picks">
             {m.options.map((o: string) => {
-              const chosen = rev?.pick === o, actual = rev?.actual === o;
+              const chosen = rev?.pick === o, actual = rev?.actual === o, modelPick = rev?.model.pick === o;
               return (
-                <button key={o} onClick={() => pick(o)} disabled={!!rev}
-                  style={{ gridColumn: o === "WICKET" ? "span 2" : undefined, padding: "14px 6px", borderRadius: 14, fontWeight: 900, fontSize: 18,
-                    fontFamily: "var(--display)", border: `2px solid ${actual ? "var(--accent)" : chosen ? "var(--wicket)" : "var(--line-2)"}`,
-                    background: actual ? "#35e0c22a" : chosen ? "#ff5c741f" : "var(--surface)", color: o === "WICKET" ? "var(--wicket)" : "var(--text)" }}>
-                  {LABEL[o]}<div style={{ fontSize: 11, fontWeight: 700, color: "var(--muted)", fontFamily: "var(--font)" }}>{pts ? `${pts[o]} pts` : ""}</div>
+                <button key={o} onClick={() => pick(o)} disabled={!!rev} className={`pick ${o === "WICKET" ? "wkt" : ""} ${actual ? "actual" : ""} ${chosen && !actual ? "wrong" : ""}`}>
+                  {o}
+                  <span className="pp">{pts ? `${pts[o]} pts` : ""}{!rev && <span className="kbd"> · {KEY_HINT[o]}</span>}</span>
+                  {modelPick && <span className="mtag">model</span>}
                 </button>
               );
             })}
           </div>
         </div>
       )}
+
       {rev && (
-        <div className="card fade-in" style={{ marginTop: 14, borderColor: rev.correct ? "var(--accent)" : "var(--wicket)" }}>
-          <div className="h2" style={{ color: rev.correct ? "var(--accent)" : "var(--wicket)" }}>{rev.correct ? `CORRECT · +${rev.points}` : "NOT THIS TIME"}</div>
+        <div className="card fade-in" style={{ marginTop: 12, borderColor: rev.correct ? "var(--accent)" : "var(--line-2)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+            <div className="h2" style={{ color: rev.correct ? "var(--accent)" : "var(--text)" }}>{rev.correct ? `+${rev.points}` : "Not this time"}</div>
+            <span className={`rar ${rev.rarity.label.replace(" ", "_")}`}>{RARITY[rev.rarity.label] ?? rev.rarity.label} · model gave it {(rev.rarity.p_actual * 100).toFixed(1)}%</span>
+          </div>
           <div style={{ marginTop: 6, fontSize: 16 }}>It was <b>{rev.actual}</b>{rev.delivery.wickets?.[0] ? `: ${rev.delivery.wickets[0].player_out} ${rev.delivery.wickets[0].kind}` : ""}. <ProvBadge prov="OBSERVED" /></div>
-          <div className="sit-title" style={{ marginTop: 14 }}>What the model expected <ProvBadge prov="MODELLED" /></div>
-          <div className="mini">Model {rev.model.version}, trained only on matches before {rev.model.trained_before}. It&apos;s an estimate, not a fact.</div>
-          <div style={{ marginTop: 8 }}>
+          <div className="mini" style={{ marginTop: 4 }}>{rev.match_line} · {rev.delivery.venue}</div>
+          <div className="vs-line">
+            <span>You: <b>{rev.pick}</b> {rev.correct ? `✓ +${rev.points}` : "✗"}</span>
+            <span>Model: <b>{rev.model.pick}</b> {rev.model.correct ? `✓ +${rev.model.points}` : "✗"}</span>
+            {rev.correct && !rev.model.correct && <span style={{ color: "var(--accent-2)", fontWeight: 800 }}>You beat the model</span>}
+          </div>
+          <div className="sit-title" style={{ marginTop: 14 }}>How likely the model thought each outcome was <ProvBadge prov="MODELLED" /></div>
+          <div style={{ marginTop: 6 }}>
             {rev.model.probs.map(({ outcome: k, p: v }: any) => (
-              <div key={k} style={{ display: "grid", gridTemplateColumns: "70px 1fr 50px", gap: 8, alignItems: "center", marginTop: 4, fontSize: 13 }}>
-                <span style={{ fontWeight: 800, color: k === rev.actual ? "var(--accent)" : undefined }}>{k}</span>
+              <div key={k} className="prow">
+                <span style={{ fontWeight: 800, color: k === rev.actual ? "var(--accent)" : undefined }}>{k}{k === rev.pick ? " ·you" : ""}</span>
                 <span className="bar" style={{ height: 8, gridColumn: "auto" }}><span style={{ width: `${v * 100}%`, background: k === rev.actual ? "var(--accent)" : "var(--mod)" }} /></span>
                 <span className="num mini">{(v * 100).toFixed(1)}%</span>
               </div>
             ))}
           </div>
-          <div className="mini" style={{ marginTop: 8 }}>Drivers: {rev.model.drivers.map((d: any) => `${d.factor}: ${d.effect}`).join(" · ")}</div>
-          <div className="mini" style={{ marginTop: 8 }}>Next balls: {rev.next_balls.map((x: string, i: number) => <b key={i} style={{ marginRight: 8 }}>{x}</b>)}</div>
-          <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+          <div className="mini" style={{ marginTop: 8 }}>An estimate from model {rev.model.version}, trained only on matches before {rev.model.trained_before}. Drivers: {rev.model.drivers.map((d: any) => `${d.factor}: ${d.effect}`).join(" · ")}</div>
+          <div className="mini" style={{ marginTop: 6 }}>What followed: {rev.next_balls.map((x: string, i: number) => <b key={i} style={{ marginRight: 8 }}>{x}</b>)}</div>
+          <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
+            <button className="btn primary big" onClick={() => advance(st)} autoFocus>NEXT BALL →</button>
             <button className="btn" onClick={() => setOpen(rev.delivery.delivery_id)}>Inspect the delivery</button>
-            <button className="btn primary" onClick={() => next(st)}>Next moment →</button>
           </div>
+          <div className="kbd" style={{ marginTop: 8 }}>Keys: 0 1 2 3 4 6 W to pick · Enter for the next ball</div>
         </div>
       )}
+      <div style={{ marginTop: 18, textAlign: "center" }}><button className="btn" style={{ fontSize: 12 }} onClick={reset}>Reset my score</button>
+        <div className="mini" style={{ marginTop: 6 }}>No account: your score is kept in this browser only.</div></div>
       {open && <DeliveryModal id={open} onClose={() => setOpen(null)} />}
     </div>
   );

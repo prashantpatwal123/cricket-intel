@@ -28,7 +28,26 @@ export default function Matchups({ pid, filters, onDrill }: { pid: string; filte
           {unknownRow ? ` ${fmt(unknownRow.balls)} balls are against bowlers whose type we don't know. They're shown as "unknown", not guessed.` : ""}
         </div>
       )}
-      <div className="scroll-x">
+      <div className="mcards only-mobile">
+        {data?.rows.slice(0, all ? undefined : 12).map((r: any) => {
+          const sr = r.strike_rate ?? 0, lim = Math.max(200, (base?.strike_rate ?? 0) * 1.6);
+          return (
+            <button key={String(r.k)} className="mcard" onClick={() => onDrill(`${r.label ?? "Unknown type"}: every ball faced`,
+              by === "bowler" ? { batter_id: pid, bowler_id: r.k, ...filters } : { batter_id: pid, ...filters, ...(r.k ? { [by]: r.k } : {}) })}>
+              <div className="mcard-top"><span className="mcard-name">{r.label ?? "Unknown type"}</span>
+                <span className="mini">{fmt(r.balls)} balls{r.balls < 30 ? " · small n" : ""}</span></div>
+              <div className="mcard-stats">
+                <span><b className="num">{fmt(r.runs)}</b>runs</span><span><b className="num">{fmt(r.strike_rate, 1)}</b>SR</span>
+                <span><b className="num wk">{r.dismissals}</b>outs</span><span><b className="num">{fmt(r.dot_pct, 0)}%</b>dots</span>
+              </div>
+              {base && <div className="srbar" title={`SR ${fmt(sr, 1)} vs ${fmt(base.strike_rate, 1)} against all bowlers`}>
+                <i style={{ left: 0, width: `${Math.min(100, (100 * sr) / lim)}%` }} /><span style={{ left: `${(100 * base.strike_rate) / lim}%` }} /></div>}
+            </button>
+          );
+        })}
+        {base && <div className="mini">Bar = strike rate; tick = {fmt(base.strike_rate, 1)}, their rate against all bowlers.</div>}
+      </div>
+      <div className="scroll-x only-desktop">
         <table className="mtable">
           <thead><tr><th>{by === "bowler" ? "Bowler" : "Group"}</th><th>Balls</th><th>Runs</th><th>SR</th><th>Outs</th><th>R/Out</th><th>Dot%</th><th>Bdry%</th><th>0s</th><th>1s</th><th>2s</th><th>3s</th><th>4s</th><th>6s</th></tr></thead>
           <tbody>
