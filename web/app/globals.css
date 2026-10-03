@@ -171,3 +171,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .fade-in { animation: fade .35s ease both; }
 @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes pulse { 0% { r: 0; opacity: .7; } 100% { r: 34; opacity: 0; } }
+
+.chip.wrap { white-space: normal; text-align: left; max-width: 100%; }
+html, body { overflow-x: hidden; }

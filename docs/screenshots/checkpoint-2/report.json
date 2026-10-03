@@ -1,0 +1,32 @@
+{
+  "errors": [],
+  "log": [
+    {
+      "q": "How many times has O Valestoke been run out?",
+      "a": "DISMISSAL COUNT\nO Valestoke has been run out 9 times in our dataset: 9 of 99 dismissals in our data.\n9\nRUN OUT DISMISSALS\nOBSERVED\n99\nALL DISMISSALS\nOBSERVED\n3,337\nBALLS FACED\nOBSERVED\nSee it on the player page →\nHow this was computed"
+    },
+    {
+      "q": "Who has dismissed H Drayfield the most?",
+      "a": "TOP DISMISSER\nB Amberson has dismissed H Drayfield most often in our dataset: 5 times.\nCounts only wickets credited to the bowler (run-outs excluded).\n5\nB AMBERSON\nOBSERVED\n4\nB THISTLETON\nOBSERVED\n4\nC BRACKBANK\nOBSERVED\n4\nC OAKAWAY\nOBSERVED\n4\nH ASHBY\nOBSERVED\nHow this was computed"
+    },
+    {
+      "q": "How many runs has O Valestoke scored against T Embermere?",
+      "a": "MATCHUP\nO Valestoke has scored 131 runs off 110 balls against T Embermere in our dataset (SR 119.1), dismissed 3 times.\n110\nBALLS\nOBSERVED\n131\nRUNS\nOBSERVED\n119.1\nSTRIKE RATE\nOBSERVED\n3\nDISMISSALS\nOBSERVED\n46.4\nDOT %\nOBSERVED\n14.5\nBOUNDARY %\nOBSERVED\n10\n4S\nOBSERVED\n6\n6S\nOBSERVED\nSee it on the player page →\nHow this was computed"
+    },
+    {
+      "q": "How does O Valestoke do against spin?",
+      "a": "VS FAMILY\nAgainst spin, O Valestoke scores at a strike rate of 114.4 and is dismissed every 41.3 balls in our dataset, against 115.2 and every 37.1 balls overall.\n647 balls were against bowlers whose type is unknown. They are excluded, not guessed.\n1,238\nBALLS V SPIN\nDERIVED\n114.4\nSR V SPIN\nDERIVED\n30\nDISMISSALS V SPIN\nDERIVED\n115.2\nSR OVERALL\nOBSERVED\nSee it on the player page →\nHow this was computed"
+    },
+    {
+      "q": "unsupported",
+      "a": "I couldn't find a player from our dataset in that question. Ask Cricket v0 supports these question types:\nHow many times has <player> been run out?\nHow many times has <player> been bowled?\nHow many times has <player> been caught behind?\nWho has dismissed <player> the most?\nHow many runs has <player> scored against <bowler>?\nWhat is <player>'s strike rate against <bowler>?\nHow does <player> perform while chasing?\nWhich over does <player> get dismissed in most often?\nHow does <player> do against spin?\nHow many sixes has <player> hit in T20s?"
+    },
+    {
+      "whn": "NOT THIS TIME\nIt was 1. OBSERVED\nWhat the model expected MODEL\nModel baseline-cohort/0.1, trained only on matches before 2024-01-01. It's an estimate, not a fact.\nDOT\n40.7%\n1\n33.2%\n2\n8.2%\n3\n0.5%\n4\n9.8%\n6\n1.4%\nWICKET\n6.3%\nDrivers: batter: WICKET ×0.92 vs similar situations · bowler: 3 ×0.92 vs similar situations\nNext balls: •1••21\nInspect the delivery\nNext moment →"
+    },
+    {
+      "whn2": "NOT THIS TIME\nIt was 2. OBSERVED\nWhat the model expected MODEL\nModel baseline-cohort/0.1, trained only on matches before",
+      "stored": "{\"played\":[\"692b593dcb595f37\",\"3cf0786d27284d09\"],\"correct\":0,\"points\":0,\"streak\":0,\"best\":0}"
+    }
+  ]
+}

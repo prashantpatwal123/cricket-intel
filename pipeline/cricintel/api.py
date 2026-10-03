@@ -122,3 +122,63 @@ def delivery(did: str):
     sh = db().q1("SELECT * FROM delivery_shot WHERE delivery_id = ?", [did])
     c["scene"] = scene.build(c, tr, sh)
     return envelope(c, t0)
+
+
+# ------------------------------------------------------------------ Ask Cricket v0
+@app.get("/api/ask")
+def ask(q: str = Query(min_length=3, max_length=300)):
+    from .ask.intents import answer
+    t0 = time.perf_counter()
+    return envelope(answer(db(), q), t0)
+
+
+@app.get("/api/ask/examples")
+def ask_examples():
+    from .ask.intents import EXAMPLES
+    t0 = time.perf_counter()
+    top = db().q("""SELECT name FROM player_profile pp JOIN (SELECT batter_id, count(*) n FROM balls GROUP BY 1) b
+                    ON b.batter_id = pp.person_id ORDER BY n DESC LIMIT 2""")
+    bowler = db().q1("""SELECT bowler AS name FROM balls WHERE batter = ? GROUP BY 1 ORDER BY count(*) DESC LIMIT 1""", [top[0]["name"]])
+    return envelope([e.format(p=top[i % len(top)]["name"], b=bowler["name"]) for i, e in enumerate(EXAMPLES)], t0)
+
+
+# ------------------------------------------------------------------ What Happens Next?
+_GAME: dict = {}
+
+
+def game():
+    from .game.whn import Game
+    d = db()
+    if _GAME.get("db") is not d:
+        _GAME["db"], _GAME["game"] = d, Game(d)
+    return _GAME["game"]
+
+
+@app.get("/api/whn/next")
+def whn_next(exclude: str = ""):
+    t0 = time.perf_counter()
+    return envelope(game().random_moment(set(filter(None, exclude.split(",")))), t0)
+
+
+@app.get("/api/whn/{mid}/reveal")
+def whn_reveal(mid: str, pick: str | None = None):
+    t0 = time.perf_counter()
+    g = game()
+    if mid not in g.by_id:
+        raise HTTPException(404, "unknown moment")
+    try:
+        return envelope(g.reveal(mid, pick), t0)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/api/whn/{mid}/points")
+def whn_points(mid: str):
+    """Points available per option BEFORE picking (transparent scoring). Reveals nothing about the outcome."""
+    from .game import scoring
+    from .model.baseline import CLASSES
+    t0 = time.perf_counter()
+    m = game().by_id.get(mid)
+    if not m:
+        raise HTTPException(404, "unknown moment")
+    return envelope({c: scoring.capped_rarity(m["probs"], i, i) for i, c in enumerate(CLASSES)}, t0)
