@@ -20,8 +20,9 @@ from .provenance import SOURCES
 app = FastAPI(title="cricintel", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
-FILTER_KEYS = ["format", "team_type", "competition", "year_from", "year_to", "opposition", "phase",
-               "bowler_family", "bowler_arm", "bowler_style", "chasing", "over_from", "over_to"]
+FILTER_KEYS = ["format", "team_type", "competition", "year_from", "year_to", "opposition", "phase", "gender",
+               "bowler_family", "bowler_arm", "bowler_style", "chasing", "over_from", "over_to",
+               "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "full_members"]
 
 
 _DB: dict = {}
@@ -186,3 +187,98 @@ def whn_points(mid: str):
     if not m:
         raise HTTPException(404, "unknown moment")
     return envelope({c: scoring.capped_rarity(m["probs"], i, i) for i, c in enumerate(CLASSES)}, t0)
+
+
+# ------------------------------------------------------------------ Phase 2 engines
+from .analytics import battle as BT  # noqa: E402
+from .analytics import fingerprint as FP  # noqa: E402
+from .analytics import insights as INS  # noqa: E402
+from .analytics import records as REC  # noqa: E402
+from .ask import v1 as ASK1  # noqa: E402
+
+
+@app.get("/api/players/{pid}/fingerprint")
+def fingerprint_ep(pid: str, role: str = "auto", format: str | None = None, team_type: str | None = None):
+    t0 = time.perf_counter()
+    d = db()
+    if role == "auto":
+        bat = d.q1("SELECT count(*) FILTER (WHERE faced) AS n FROM balls WHERE batter_id = ?", [pid])["n"]
+        bowl = d.q1("SELECT count(*) FILTER (WHERE legal) AS n FROM balls WHERE bowler_id = ?", [pid])["n"]
+        role = "bowling" if bowl > 2 * bat else "batting"
+    fn = FP.bowling_fingerprint if role == "bowling" else FP.fingerprint
+    return envelope(fn(d, pid, format, team_type), t0)
+
+
+@app.get("/api/players/{pid}/insights")
+def insights_ep(pid: str, format: str | None = None, team_type: str | None = None):
+    t0 = time.perf_counter()
+    d = db()
+    if not format:
+        r = d.q1("""SELECT format_group FROM balls WHERE batter_id = ? AND faced GROUP BY 1 ORDER BY count(*) DESC LIMIT 1""", [pid])
+        format = r["format_group"] if r else "T20"
+    return envelope(INS.insights(d, pid, format, team_type), t0)
+
+
+@app.get("/api/players/{pid}/dismissal-story")
+def story_ep(pid: str, request: Request, route: str = Query(...)):
+    t0 = time.perf_counter()
+    return envelope(BT.dismissal_story(db(), pid, route, filters(request)), t0)
+
+
+@app.get("/api/players/{pid}/timeline")
+def timeline_ep(pid: str, request: Request, by: str = "year"):
+    t0 = time.perf_counter()
+    return envelope(BT.timeline(db(), pid, filters(request), by), t0)
+
+
+@app.get("/api/battle")
+def battle_ep(request: Request, bat: str, bowl: str):
+    t0 = time.perf_counter()
+    return envelope(BT.battle(db(), bat, bowl, filters(request)), t0)
+
+
+@app.get("/api/battles/notable")
+def notable_ep(gender: str | None = None, limit: int = 12):
+    t0 = time.perf_counter()
+    return envelope(BT.notable_battles(db(), gender, limit), t0)
+
+
+@app.get("/api/compare")
+def compare_ep(request: Request, ids: str):
+    t0 = time.perf_counter()
+    return envelope(BT.compare(db(), [x for x in ids.split(",") if x][:4], filters(request)), t0)
+
+
+@app.get("/api/records")
+def records_ep(request: Request, metric: str, min_sample: int | None = None, gender: str | None = None, limit: int = 25):
+    t0 = time.perf_counter()
+    try:
+        return envelope(REC.leaderboard(db(), metric, filters(request), min_sample, limit, gender), t0)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/api/records/catalog")
+def records_catalog():
+    t0 = time.perf_counter()
+    return envelope({"metrics": [{"key": k, "label": v[0], "entity": v[1], "min": v[5], "definition": v[8]} for k, v in REC.METRICS.items()],
+                     "presets": REC.PRESETS}, t0)
+
+
+@app.get("/api/ask/v1")
+def ask_v1(q: str = Query(min_length=2, max_length=300)):
+    t0 = time.perf_counter()
+    return envelope(ASK1.ask(db(), q), t0)
+
+
+@app.post("/api/ask/v1/run")
+async def ask_v1_run(request: Request):
+    t0 = time.perf_counter()
+    return envelope(ASK1.run_intent(db(), await request.json()), t0)
+
+
+@app.get("/api/explore")
+def explore_ep():
+    from .analytics import explore as EX
+    t0 = time.perf_counter()
+    return envelope(EX.feed(db()), t0)

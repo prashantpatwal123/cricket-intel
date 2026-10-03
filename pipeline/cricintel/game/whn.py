@@ -135,6 +135,14 @@ class Game:
                "model": {"version": self.art["model_version"], "probs": [{"outcome": c, "p": p} for c, p in zip(CLASSES, m["probs"])], "drivers": m["drivers"],
                          "trained_before": self.art["cutoff"], "prov": "MODELLED"},
                "next_balls": [_ball_glyph(x) for x in nxt]}
+        mi = max(range(len(CLASSES)), key=lambda j: m["probs"][j])
+        res["model"]["pick"] = CLASSES[mi]
+        res["model"]["correct"] = mi == ai
+        res["model"]["points"] = scoring.capped_rarity(m["probs"], mi, ai)  # the model always picks its own favourite
+        res["model"]["p_actual"] = m["probs"][ai]
+        res["rarity"] = {"p_actual": round(m["probs"][ai], 4),
+                         "label": "expected" if m["probs"][ai] >= 0.3 else "plausible" if m["probs"][ai] >= 0.1 else "rare" if m["probs"][ai] >= 0.03 else "very rare"}
+        res["match_line"] = f"{card['competition']} · {card['date']} · {card['teams'][0]} v {card['teams'][1]}"
         if pick is not None:
             if pick not in CLASSES:
                 raise ValueError("bad pick")

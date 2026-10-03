@@ -70,18 +70,26 @@ class Resolver:
                     self.sur.setdefault(last, set()).add(r["person_id"])
 
     def find(self, text: str) -> list[tuple[int, int, list]]:
+        """n-gram dictionary lookup (longest first, non-overlapping): O(words), not O(aliases)."""
         t = text.lower()
-        hits, taken = [], []
-        for n in sorted(self.full, key=len, reverse=True):
-            for m in re.finditer(r"(?<![\w])" + re.escape(n) + r"(?:'s)?(?![\w])", t):
-                if not any(a < m.end() and m.start() < b for a, b in taken):
-                    taken.append((m.start(), m.end()))
-                    hits.append((m.start(), m.end(), self.full[n]))
-        for s_, pids in self.sur.items():
-            for m in re.finditer(r"(?<![\w])" + re.escape(s_) + r"(?:'s)?(?![\w])", t):
-                if not any(a < m.end() and m.start() < b for a, b in taken):
-                    taken.append((m.start(), m.end()))
-                    hits.append((m.start(), m.end(), pids))
+        toks = [(m.start(), m.end(), m.group(0)) for m in re.finditer(r"[a-z0-9'.-]+", t)]
+        hits, used = [], set()
+        for size in (5, 4, 3, 2):
+            for i in range(len(toks) - size + 1):
+                if any(j in used for j in range(i, i + size)):
+                    continue
+                phrase = " ".join(x[2] for x in toks[i:i + size])
+                phrase = re.sub(r"'s$", "", phrase)
+                if phrase in self.full:
+                    used.update(range(i, i + size))
+                    hits.append((toks[i][0], toks[i + size - 1][1], self.full[phrase]))
+        for i, (a, b, w) in enumerate(toks):
+            if i in used:
+                continue
+            w2 = re.sub(r"'s$", "", w)
+            if w2 in self.sur:
+                used.add(i)
+                hits.append((a, b, self.sur[w2]))
         return [(a, b, [self.by_pid[p] for p in pids]) for a, b, pids in sorted(hits)]
 
     @staticmethod
