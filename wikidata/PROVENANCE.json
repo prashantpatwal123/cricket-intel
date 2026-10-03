@@ -1,0 +1,11 @@
+{
+ "source": "Wikidata (Query Service + wbgetentities API)",
+ "endpoints": [
+  "https://query.wikidata.org/sparql",
+  "https://www.wikidata.org/w/api.php"
+ ],
+ "licence": "CC0 1.0 (Wikidata structured data)",
+ "retrieved_at_utc": "2026-10-03T17:44:38+00:00",
+ "join_key": "P2697 ESPNcricinfo player ID == Cricsheet Register key_cricinfo",
+ "retrieved_by": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37141591264"
+}

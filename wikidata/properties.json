@@ -1,0 +1,797 @@
+{
+ "sample_items": 300,
+ "all_properties_in_sample": [
+  {
+   "pid": "P21",
+   "label": "sex or gender",
+   "n_in_sample": 300
+  },
+  {
+   "pid": "P31",
+   "label": "instance of",
+   "n_in_sample": 300
+  },
+  {
+   "pid": "P106",
+   "label": "occupation",
+   "n_in_sample": 300
+  },
+  {
+   "pid": "P2697",
+   "label": "Cricinfo player ID",
+   "n_in_sample": 300
+  },
+  {
+   "pid": "P641",
+   "label": "sport",
+   "n_in_sample": 300
+  },
+  {
+   "pid": "P569",
+   "label": "date of birth",
+   "n_in_sample": 294
+  },
+  {
+   "pid": "P19",
+   "label": "place of birth",
+   "n_in_sample": 249
+  },
+  {
+   "pid": "P735",
+   "label": "given name",
+   "n_in_sample": 245
+  },
+  {
+   "pid": "P27",
+   "label": "country of citizenship",
+   "n_in_sample": 243
+  },
+  {
+   "pid": "P734",
+   "label": "family name",
+   "n_in_sample": 172
+  },
+  {
+   "pid": "P54",
+   "label": "member of sports team",
+   "n_in_sample": 159
+  },
+  {
+   "pid": "P2698",
+   "label": "CricketArchive player ID",
+   "n_in_sample": 157
+  },
+  {
+   "pid": "P646",
+   "label": "Freebase ID",
+   "n_in_sample": 157
+  },
+  {
+   "pid": "P570",
+   "label": "date of death",
+   "n_in_sample": 154
+  },
+  {
+   "pid": "P2671",
+   "label": "Google Knowledge Graph ID",
+   "n_in_sample": 141
+  },
+  {
+   "pid": "P3368",
+   "label": "Prabook ID",
+   "n_in_sample": 117
+  },
+  {
+   "pid": "P1412",
+   "label": "languages spoken, written or signed",
+   "n_in_sample": 102
+  },
+  {
+   "pid": "P20",
+   "label": "place of death",
+   "n_in_sample": 101
+  },
+  {
+   "pid": "P69",
+   "label": "educated at",
+   "n_in_sample": 54
+  },
+  {
+   "pid": "P1532",
+   "label": "country for sport",
+   "n_in_sample": 35
+  },
+  {
+   "pid": "P18",
+   "label": "image",
+   "n_in_sample": 30
+  },
+  {
+   "pid": "P2949",
+   "label": "WikiTree person ID",
+   "n_in_sample": 16
+  },
+  {
+   "pid": "P373",
+   "label": "Commons category",
+   "n_in_sample": 15
+  },
+  {
+   "pid": "P2545",
+   "label": "bowling style",
+   "n_in_sample": 15
+  },
+  {
+   "pid": "P214",
+   "label": "VIAF cluster ID",
+   "n_in_sample": 12
+  },
+  {
+   "pid": "P443",
+   "label": "pronunciation audio",
+   "n_in_sample": 11
+  },
+  {
+   "pid": "P166",
+   "label": "award received",
+   "n_in_sample": 10
+  },
+  {
+   "pid": "P244",
+   "label": "Library of Congress Authorities ID",
+   "n_in_sample": 10
+  },
+  {
+   "pid": "P1196",
+   "label": "manner of death",
+   "n_in_sample": 8
+  },
+  {
+   "pid": "P119",
+   "label": "place of burial",
+   "n_in_sample": 8
+  },
+  {
+   "pid": "P6640",
+   "label": "JRC Names ID",
+   "n_in_sample": 8
+  },
+  {
+   "pid": "P213",
+   "label": "ISNI",
+   "n_in_sample": 8
+  },
+  {
+   "pid": "P1559",
+   "label": "name in native language",
+   "n_in_sample": 7
+  },
+  {
+   "pid": "P1908",
+   "label": "CWGC person ID",
+   "n_in_sample": 7
+  },
+  {
+   "pid": "P509",
+   "label": "cause of death",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P40",
+   "label": "child",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P26",
+   "label": "spouse",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P10832",
+   "label": "WorldCat Entities ID",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P1889",
+   "label": "different from",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P22",
+   "label": "father",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P25",
+   "label": "mother",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P1344",
+   "label": "participant in",
+   "n_in_sample": 6
+  },
+  {
+   "pid": "P607",
+   "label": "participated in conflict",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P5421",
+   "label": "Trading Card Database name ID",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P4638",
+   "label": "The Peerage person ID",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P2600",
+   "label": "Geni profile ID",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P2002",
+   "label": "X (Twitter) username",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P8687",
+   "label": "social media followers",
+   "n_in_sample": 5
+  },
+  {
+   "pid": "P413",
+   "label": "position played on team / speciality",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P535",
+   "label": "Find a Grave memorial ID",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P39",
+   "label": "position held",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P4551",
+   "label": "Everyone Remembered ID",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P13591",
+   "label": "\u200eYale LUX ID",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P3546",
+   "label": "AustralianFootball.com player ID",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P241",
+   "label": "military branch",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P551",
+   "label": "residence",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P1816",
+   "label": "National Portrait Gallery (London) person ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P1343",
+   "label": "described by source",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P269",
+   "label": "IdRef ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P227",
+   "label": "GND ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P1819",
+   "label": "genealogics.org person ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P3547",
+   "label": "AFL Tables player ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P1315",
+   "label": "NLA Trove people ID",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P5008",
+   "label": "on focus list of Wikimedia project",
+   "n_in_sample": 3
+  },
+  {
+   "pid": "P1050",
+   "label": "medical condition",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P1415",
+   "label": "Oxford Dictionary of National Biography ID",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P8189",
+   "label": "J9U entity ID",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P511",
+   "label": "honorific prefix",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P108",
+   "label": "employer",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P937",
+   "label": "work location",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P3602",
+   "label": "candidacy in election",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P858",
+   "label": "ESPNscrum player ID (archived)",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P2048",
+   "label": "height",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P9232",
+   "label": "Obituaries Australia ID",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P9159",
+   "label": "People Australia ID",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P4602",
+   "label": "date of burial or cremation",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P6231",
+   "label": "BDELIS ID",
+   "n_in_sample": 2
+  },
+  {
+   "pid": "P8496",
+   "label": "Archive Site Trinity College Cambridge ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P12606",
+   "label": "Barry Hugman's Footballers player ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1617",
+   "label": "BBC Things ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P648",
+   "label": "Open Library ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1207",
+   "label": "NUKAT ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P97",
+   "label": "noble title",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1599",
+   "label": "Cambridge Alumni Database ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1477",
+   "label": "birth name",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P184",
+   "label": "doctoral advisor",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P496",
+   "label": "ORCID iD",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1053",
+   "label": "Web of Science ResearcherID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2070",
+   "label": "Fellow of the Royal Society ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P856",
+   "label": "official website",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P463",
+   "label": "member of",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2381",
+   "label": "Academic Tree ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1153",
+   "label": "Scopus author ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P691",
+   "label": "NL CR AUT ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P5463",
+   "label": "AE member ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3829",
+   "label": "Publons author ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4789",
+   "label": "Who's Who UK ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P512",
+   "label": "academic degree",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P101",
+   "label": "field of work",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2944",
+   "label": "Plarr ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P6821",
+   "label": "Alvin ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7929",
+   "label": "Roglo person ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P6734",
+   "label": "Archaeology Data Service person ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1711",
+   "label": "British Museum person or institution ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P94",
+   "label": "coat of arms image",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2015",
+   "label": "Hansard (1803\u20132005) ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P485",
+   "label": "archives at",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4471",
+   "label": "Rush Parliamentary Archive ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3373",
+   "label": "sibling",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3029",
+   "label": "UK National Archives ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2171",
+   "label": "TheyWorkForYou ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P12749",
+   "label": "SNARC ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P434",
+   "label": "MusicBrainz artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1728",
+   "label": "AllMusic artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1953",
+   "label": "Discogs artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3478",
+   "label": "Songkick artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7704",
+   "label": "Europeana entity",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4457",
+   "label": "DAHR artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P5882",
+   "label": "Muziekweb performer ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P11249",
+   "label": "KBR person ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7902",
+   "label": "Deutsche Biographie (GND) ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P13951",
+   "label": "National Virtual Library of India ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7184",
+   "label": "Awards & Winners artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7474",
+   "label": "Online Cenotaph ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3645",
+   "label": "All Blacks player ID (archived)",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3769",
+   "label": "It's Rugby player ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P861",
+   "label": "PremiershipRugby.com player ID (archived)",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4429",
+   "label": "United Rugby Championship player ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3666",
+   "label": "European Professional Club Rugby player ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P12335",
+   "label": "Rugby Database ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3171",
+   "label": "Olympic.org athlete ID (archived)",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1447",
+   "label": "Sports-Reference.com Olympic athlete ID (archived)",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4056",
+   "label": "New Zealand Olympic Committee athlete ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P8286",
+   "label": "Olympedia people ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P5815",
+   "label": "Olympics.com athlete ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2067",
+   "label": "mass",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P103",
+   "label": "native language",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4415",
+   "label": "Sport Australia Hall of Fame inductee ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P409",
+   "label": "Libraries Australia ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P10086",
+   "label": "Australian Prints + Printmaking artist ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3430",
+   "label": "SNAC ARK ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P7779",
+   "label": "military unit",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P410",
+   "label": "military, police or special rank",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P3417",
+   "label": "Quora topic ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P9662",
+   "label": "LdiF person ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P4204",
+   "label": "The Times of India topic ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P2163",
+   "label": "FAST ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1417",
+   "label": "Encyclop\u00e6dia Britannica Online ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1006",
+   "label": "Nationale Thesaurus voor Auteursnamen ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P12582",
+   "label": "Oxford Reference overview ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P8125",
+   "label": "Fandango person ID",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P11747",
+   "label": "holds diplomatic passport of",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P1814",
+   "label": "name in kana",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P990",
+   "label": "audio recording of the subject's spoken voice",
+   "n_in_sample": 1
+  },
+  {
+   "pid": "P6683",
+   "label": "Alexander Turnbull Library ID",
+   "n_in_sample": 1
+  }
+ ],
+ "chosen": [
+  {
+   "pid": "P2545",
+   "label": "bowling style",
+   "n_in_sample": 15
+  },
+  {
+   "pid": "P413",
+   "label": "position played on team / speciality",
+   "n_in_sample": 4
+  },
+  {
+   "pid": "P39",
+   "label": "position held",
+   "n_in_sample": 4
+  }
+ ]
+}
