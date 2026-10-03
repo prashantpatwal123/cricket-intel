@@ -48,6 +48,44 @@ def featured(db: DB) -> list[dict]:
         ORDER BY pp.genders[1], balls_faced + balls_bowled DESC""")
 
 
+def coverage_breakdown(db: DB, pid: str, f: Filters) -> list[dict]:
+    """Per competition/format: what we analysed and what Cricsheet itself says about completeness."""
+    wm, pm = f.where("batter", ball_level=False)
+    rows = db.q(f"""SELECT CASE WHEN team_type = 'international' THEN (CASE format_group WHEN 'T20' THEN 'T20I' ELSE format_group END)
+                               ELSE competition END AS label,
+                    team_type, format_group, gender, any_value(batting_team) AS team, count(DISTINCT match_id) AS matches,
+                    min(start_date) AS first_date, max(start_date) AS last_date
+                    FROM (SELECT m.*, year(m.start_date) AS year, pim.team AS batting_team,
+                          CASE WHEN pim.team = m.team1 THEN m.team2 ELSE m.team1 END AS bowling_team
+                          FROM players_in_match pim JOIN matches m USING (match_id) WHERE pim.person_id = ?) x
+                    WHERE {wm} GROUP BY ALL ORDER BY matches DESC""", [pid, *pm])
+    has = getattr(db, "has_source_coverage", False)
+    for r in rows:
+        r["status"], r["note"] = "UNKNOWN", "Completeness not assessed for this dataset."
+        if not has:
+            continue
+        if r["team_type"] == "club":
+            c = db.q1("SELECT have, \"of\", pct FROM source_coverage_pct WHERE scope = 'competition' AND name = ? ORDER BY gender NULLS FIRST LIMIT 1", [r["label"]])
+            if c:
+                r["status"] = "COMPLETE" if c["have"] == c["of"] else "PARTIAL"
+                r["note"] = (f"Cricsheet holds {c['have']} of {c['of']} {r['label']} matches ({c['pct']}%)."
+                             + ("" if c["have"] == c["of"] else " Some of this player's matches may be missing."))
+        elif r["format_group"] == "ODI":
+            n = db.q1("""SELECT count(*) AS n FROM source_missing_matches WHERE match_type = 'Odi' AND gender = ?
+                         AND ? IN (team1, team2) AND date::DATE BETWEEN ? AND ?""",
+                      [r["gender"], r["team"], r["first_date"], r["last_date"]])["n"]
+            r["status"] = "COMPLETE_FOR_TEAM" if n == 0 else "PARTIAL"
+            r["note"] = (f"Cricsheet lists {n} {r['team']} ODI{'s' if n != 1 else ''} in this period that it could not source; "
+                         "this player may have played in some." if n else
+                         f"Cricsheet lists no unsourced {r['team']} ODIs in this period.")
+        elif r["format_group"] == "T20":
+            r["status"] = "UNKNOWN"
+            r["note"] = "Cricsheet does not track missing T20 internationals, so completeness can't be established."
+        if r["gender"] == "male" and r["team_type"] == "international":
+            r["note"] += " Matches against Afghanistan are withheld by Cricsheet."
+    return rows
+
+
 def batting_innings_sql(f: Filters) -> tuple[str, list]:
     """Per-innings batting lines for one player (match-level filters only)."""
     w, p = f.where("batter", "m", ball_level=False)
@@ -145,10 +183,10 @@ def profile(db: DB, pid: str, f: Filters) -> dict | None:
     return {
         "person_id": pid, "name": p["name"], "genders": p["genders"], "teams": p["teams"],
         "metadata": {k: _meta_field(p, k) for k in ("role", "batting_hand", "bowling_style", "bowling_arm", "bowling_family", "wicketkeeper")},
-        "coverage": {**(cov or {}), "competitions": comps, "notes": notes,
+        "coverage": {**(cov or {}), "competitions": comps, "breakdown": coverage_breakdown(db, pid, f), "notes": notes,
                      "statement": f"Analysed from {cov['matches'] if cov else 0} matches in our dataset"
                                   + (f" ({cov['first_date']} – {cov['last_date']})" if cov and cov['matches'] else "")
-                                  + ". Not official career totals."},
+                                  + ". These are not official career totals."},
         "batting": bat, "bowling": bowl if bowl and bowl["balls"] else None, "fielding": field,
         "filters": f.active(), "prov": "OBSERVED aggregates of source deliveries; role/keeper DERIVED; hand/style per source",
     }

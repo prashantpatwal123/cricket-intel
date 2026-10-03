@@ -33,6 +33,8 @@ JOIN innings i USING (match_id, innings_no)
 LEFT JOIN player_profile bp ON bp.person_id = d.bowler_id
 LEFT JOIN player_profile tp ON tp.person_id = d.batter_id
 LEFT JOIN batting_order bo ON bo.match_id = d.match_id AND bo.innings_no = d.innings_no AND bo.person_id = d.batter_id
+-- Cricsheet (contact page): "Super Overs don't count towards statistics" -> excluded from the analytical working set.
+WHERE NOT i.super_over
 """
 
 
@@ -49,6 +51,11 @@ class DB:
             self.con.execute(f"CREATE VIEW {t} AS SELECT * FROM read_parquet('{self.dataset_dir / t}/*.parquet')")
         for t in DERIVED:
             self.con.execute(f"CREATE VIEW {t} AS SELECT * FROM read_parquet('{self.dataset_dir / 'derived' / t}.parquet')")
+        for t in ("source_missing_matches", "source_coverage_periods", "source_coverage_pct"):
+            f = self.dataset_dir / "derived" / f"{t}.parquet"
+            self.has_source_coverage = f.exists()
+            if f.exists():
+                self.con.execute(f"CREATE VIEW {t} AS SELECT * FROM read_parquet('{f}')")
         if materialize:
             self.con.execute(BALLS_SQL)
             self.con.execute("""CREATE TABLE dis AS SELECT x.*, b.gender, b.format_group, b.team_type, b.competition,

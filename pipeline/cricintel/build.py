@@ -139,7 +139,7 @@ WITH stump AS (   -- who effected a stumping, for which bowling team, in which m
 ), by_career AS (
   SELECT match_id, team, person_id,
          CASE WHEN ncand = 1 THEN 'sole_career_keeper_in_xi' ELSE 'dominant_career_keeper_in_xi' END AS method,
-         (CASE WHEN ncand = 1 THEN 0.85 ELSE 0.75 END)::DOUBLE AS confidence
+         (CASE WHEN ncand = 1 THEN 0.95 ELSE 0.90 END)::DOUBLE AS confidence  -- measured precision on stumping-identified matches (docs/data/real-data-validation.md)
   FROM ranked WHERE rk = 1 AND stumping_matches >= 2
     AND (ncand = 1 OR stumping_matches >= 3 * coalesce(next_best, 0))
 )
@@ -214,6 +214,15 @@ def build(source: str) -> dict:
     info["derived"] = derive(out)
     t2 = time.time()
     info["metadata"] = enrich.run(out, source)
+    if source == "cricsheet":
+        from .sources import coverage_pages
+        ct = coverage_pages.coverage_tables()
+        mm = coverage_pages.missing_matches()
+        for name, rows in (("source_missing_matches", mm), ("source_coverage_periods", ct["periods"]),
+                           ("source_coverage_pct", ct["percentages"])):
+            if rows:
+                pq.write_table(pa.Table.from_pylist(rows), out / "derived" / f"{name}.parquet")
+        info["source_coverage"] = {"missing_matches_listed": len(mm), "periods": len(ct["periods"]), "pct_rows": len(ct["percentages"])}
     t3 = time.time()
     src = SOURCES[info["source_id"]]
     manifest = {
@@ -222,7 +231,7 @@ def build(source: str) -> dict:
         "attribution": src["attribution"], "matches_ingested": info["matches_ingested"],
         "quarantined": len(info["quarantined"]), "schema_drift": info["schema_drift"],
         "register_rows": info["register_rows"], "derived": info["derived"],
-        "metadata": info["metadata"], "enrichment_tables": ENRICHMENT_TABLES,
+        "metadata": info["metadata"], "enrichment_tables": ENRICHMENT_TABLES, "source_coverage": info.get("source_coverage"),
         "timings_s": {"ingest": round(t1 - t0, 1), "derive": round(t2 - t1, 1), "metadata": round(t3 - t2, 1)},
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2, default=str))

@@ -58,6 +58,14 @@ def phase_for(format_group: str, over: int, scheduled_overs: int | None, super_o
     return "none"  # multi-day: no limited-overs phase
 
 
+def overs_to_balls(overs, bpo: int) -> int | None:
+    """Cricket notation: 31.2 overs = 31 overs + 2 balls (NOT 31.2 x 6)."""
+    if overs is None:
+        return None
+    whole = int(overs)
+    return whole * bpo + int(round((float(overs) - whole) * 10))
+
+
 def _date(s):
     try:
         return dt.date.fromisoformat(s)
@@ -147,6 +155,7 @@ def parse_match(doc: dict, match_id: str, source_id: str, source_ref: str, check
             target_runs, target_overs, target_prov = first_innings_total + 1, sched, "DERIVED"
         chasing = target_runs is not None and format_group != "Test" and format_group != "MDM"
         limit_overs = target_overs if target_overs else (1 if super_over else sched)
+        limit_balls = overs_to_balls(limit_overs, bpo)
         pen = inn.get("penalty_runs") or {}
 
         score = wkts = legal_before = 0
@@ -178,7 +187,7 @@ def parse_match(doc: dict, match_id: str, source_id: str, source_ref: str, check
                 rb, rt = runs.get("batter", 0), runs.get("total", 0)
                 nb_flag = bool(runs.get("non_boundary"))
                 did = f"{match_id}:{i_idx}:{seq}"
-                balls_rem = (limit_overs * bpo - legal_before) if (chasing and limit_overs) else None
+                balls_rem = (limit_balls - legal_before) if (chasing and limit_balls) else None
                 req = (target_runs - score) if chasing else None
                 bid = pid(b)
                 wk_list = dl.get("wickets") or []
@@ -314,13 +323,14 @@ def import_verified(src: Path) -> dict:
         if got != h:
             raise SystemExit(f"CHECKSUM MISMATCH {name}: expected {h} got {got}")
         checked[name] = got
-        if name.startswith(("downloads/", "register/")):
+        if name.startswith(("downloads/", "register/", "pages/")):
             (out / name).parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(src / name, out / name)
     prov = json.loads((src / "PROVENANCE.json").read_text())
     manifest = {"route": "GitHub Actions retrieval from cricsheet.org", "provenance": prov,
                 "imported_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "files": checked}
-    (out / "manifest.json").write_text(json.dumps(manifest, indent=2))
+    mp = out / ("manifest.json" if any(n.startswith("downloads/") for n in checked) else "manifest-pages.json")
+    mp.write_text(json.dumps(manifest, indent=2))
     return manifest
 
 

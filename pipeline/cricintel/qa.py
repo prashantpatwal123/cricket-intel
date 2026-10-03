@@ -18,9 +18,10 @@ CHECKS = [
     ("dup_match_id", "duplicate matches", "ERROR", "match_id appears more than once",
      "SELECT match_id, count(*) n FROM matches GROUP BY 1 HAVING n > 1"),
     ("dup_match_fingerprint", "duplicate matches", "WARN",
-     "same teams + start date + venue under different ids (possible duplicate upload)",
-     """SELECT least(team1,team2) a, greatest(team1,team2) b, start_date, venue, list(match_id) AS ids, count(*) n
-        FROM matches GROUP BY 1,2,3,4 HAVING n > 1"""),
+     "same teams + date + venue + gender AND identical innings totals under different ids (likely duplicate upload; double-headers excluded)",
+     """WITH t AS (SELECT match_id, string_agg(total_runs || '/' || total_wickets, ',' ORDER BY innings_no) AS totals FROM innings GROUP BY 1)
+        SELECT least(team1,team2) a, greatest(team1,team2) b, start_date, venue, gender, totals, list(match_id) AS ids, count(*) n
+        FROM matches JOIN t USING (match_id) GROUP BY ALL HAVING n > 1"""),
     ("dup_delivery_id", "duplicate deliveries", "ERROR", "delivery_id not unique",
      "SELECT delivery_id, count(*) n FROM deliveries GROUP BY 1 HAVING n > 1"),
     ("dup_delivery_seq", "duplicate deliveries", "ERROR", "two deliveries share (match, innings, seq)",
@@ -99,7 +100,7 @@ CHECKS = [
      """SELECT i.match_id, i.batting_team, i.total_runs, i.target_runs, m.winner FROM innings i JOIN matches m USING (match_id)
         WHERE i.innings_no = 2 AND m.format_group IN ('T20','ODI') AND i.target_runs IS NOT NULL
           AND i.total_runs >= i.target_runs AND m.winner IS DISTINCT FROM i.batting_team AND m.result IS NULL"""),
-    ("chase_overshoot", "target/chase", "WARN", "chase continued after the target was reached",
+    ("chase_overshoot", "target/chase", "WARN", "deliveries after the (final, possibly DLS-revised) target was already reached",
      """SELECT d.match_id, d.delivery_id FROM deliveries d WHERE d.chasing AND d.runs_required <= 0"""),
     ("context_required_rate", "target/chase", "ERROR", "required rate inconsistent with runs required / balls remaining",
      """SELECT delivery_id FROM deliveries WHERE required_rate IS NOT NULL
