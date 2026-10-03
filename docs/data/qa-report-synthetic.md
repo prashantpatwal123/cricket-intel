@@ -2,22 +2,22 @@
 
 > ⚠️ SYNTHETIC FIXTURE (fictional matches). This report validates the pipeline, not real data.
 
-**32 checks · 0 failing ERROR · 2 WARN · 0 matches quarantined at ingest · ran in 0.39s**
+**32 checks · 0 failing ERROR · 3 WARN · 0 matches quarantined at ingest · ran in 0.3s**
 
 | Table | Rows |
 |---|---|
 | matches | 1,534 |
 | innings | 3,068 |
-| deliveries | 417,655 |
-| wickets | 21,161 |
-| wicket_fielders | 13,580 |
+| deliveries | 415,676 |
+| wickets | 21,408 |
+| wicket_fielders | 13,728 |
 | players_in_match | 33,748 |
 | persons | 674 |
 
 | Status | Area | Check | Violations | Example |
 |---|---|---|---|---|
 | ✅ PASS | duplicate matches | match_id appears more than once (`dup_match_id`) | 0 |  |
-| ✅ PASS | duplicate matches | same teams + start date + venue under different ids (possible duplicate upload) (`dup_match_fingerprint`) | 0 |  |
+| 🟡 WARN | duplicate matches | same teams + start date + venue under different ids (possible duplicate upload) (`dup_match_fingerprint`) | 1 | `Dunmere · Estrova · 2016-09-07 · Estrova Arena · ['9000986', '9001221'] · 2` |
 | ✅ PASS | duplicate deliveries | delivery_id not unique (`dup_delivery_id`) | 0 |  |
 | ✅ PASS | duplicate deliveries | two deliveries share (match, innings, seq) (`dup_delivery_seq`) | 0 |  |
 | ✅ PASS | innings totals | runs.total != runs.batter + runs.extras (`runs_total_sum`) | 0 |  |
@@ -29,7 +29,7 @@
 | ✅ PASS | wicket totals | dismissals >= batting XI size (`wickets_vs_xi`) | 0 |  |
 | ✅ PASS | legal deliveries | over has more legal balls than balls_per_over (umpire miscount?) (`legal_per_over`) | 0 |  |
 | ✅ PASS | legal deliveries | non-final over with fewer legal balls than balls_per_over (`short_over_mid_innings`) | 0 |  |
-| 🟡 WARN | player identity | player name without a Register id (fallback id used) (`identity_unresolved`) | 17 | `9000020 · Stonebridge Wolves · Z Thistleholt` |
+| 🟡 WARN | player identity | player name without a Register id (fallback id used) (`identity_unresolved`) | 17 | `9000060 · Stonebridge Wolves · T Dunson` |
 | ✅ PASS | player identity | one person_id appears under several names (`identity_multi_name`) | 0 |  |
 | ✅ PASS | player identity | batter/non-striker not in batting XI (check replacements) (`batter_not_in_xi`) | 0 |  |
 | ✅ PASS | team identity | bowler not in bowling XI (and not a listed replacement) (`bowler_not_in_xi`) | 0 |  |
@@ -43,7 +43,7 @@
 | ✅ PASS | dismissal consistency | bowled/lbw/caught/stumped on a no-ball (impossible) (`wicket_on_noball_kind`) | 0 |  |
 | ✅ PASS | fielder references | caught/stumped without a named fielder (`fielder_required`) | 0 |  |
 | ✅ PASS | fielder references | non-substitute fielder not in fielding XI (`fielder_not_in_xi`) | 0 |  |
-| 🟡 WARN | fielder references | catches whose wicketkeeper status could not be inferred (`keeper_unresolved`) | 274 | `9000724:2:20 · F Quarrwell` |
+| 🟡 WARN | fielder references | catches whose wicketkeeper status could not be inferred (`keeper_unresolved`) | 468 | `9000674:1:26 · L Wexson` |
 | ✅ PASS | target/chase | observed target != first-innings total + 1 without a DLS-type method (`target_mismatch`) | 0 |  |
 | ✅ PASS | target/chase | chasing side reached target but is not recorded as winner (`chase_result`) | 0 |  |
 | ✅ PASS | target/chase | chase continued after the target was reached (`chase_overshoot`) | 0 |  |

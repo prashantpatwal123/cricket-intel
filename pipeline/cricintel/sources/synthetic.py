@@ -348,6 +348,7 @@ def generate(scale: float = 1.0, seed: int = 7) -> dict:
                         t.players[i] = g.player(old.role, gender == "female")
             for k in range(max(1, int(per_year * scale))):
                 t1, t2 = g.r.sample(teams, 2)
+                t1, t2 = Team(t1.name, list(t1.players)), Team(t2.name, list(t2.players))  # squad as of this season
                 d = dt.date(y, g.r.randint(1, 12), g.r.randint(1, 28))
                 nmatch += 1
                 plan.append((f"9{nmatch:06d}", fmt, team_type, gender, comp, t1, t2, d,

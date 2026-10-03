@@ -8,4 +8,4 @@ RAW = DATA_ROOT / "raw"
 CANONICAL = DATA_ROOT / "canonical"
 METADATA = DATA_ROOT / "metadata"
 MODELS = DATA_ROOT / "models"
-DOCS_DATA = REPO_ROOT / "docs" / "data"
+DOCS_DATA = Path(os.environ.get("CRICINTEL_DOCS", REPO_ROOT / "docs" / "data"))

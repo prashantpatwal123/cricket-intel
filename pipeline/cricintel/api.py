@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import os
 import time
-from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,6 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import scene
 from .analytics import player as P
 from .analytics.filters import Filters
+from .build import dataset_dir
 from .db import DB
 from .provenance import SOURCES
 
@@ -24,9 +24,17 @@ FILTER_KEYS = ["format", "team_type", "competition", "year_from", "year_to", "op
                "bowler_family", "bowler_arm", "bowler_style", "chasing", "over_from", "over_to"]
 
 
-@lru_cache(maxsize=1)
+_DB: dict = {}
+
+
 def db() -> DB:
-    return DB(os.environ.get("CRICINTEL_DATASET", "synthetic"))
+    """Current dataset. Reloads if the dataset was rebuilt (manifest changed), so the in-memory
+    working tables can never drift from the Parquet files they were derived from."""
+    name = os.environ.get("CRICINTEL_DATASET", "synthetic")
+    stamp = (dataset_dir(name) / "manifest.json").stat().st_mtime_ns
+    if _DB.get("stamp") != stamp:
+        _DB["db"], _DB["stamp"] = DB(name), stamp
+    return _DB["db"]
 
 
 def filters(req: Request) -> Filters:

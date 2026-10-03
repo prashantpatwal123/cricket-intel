@@ -4,9 +4,9 @@
   "counts": {
     "matches": 1534,
     "innings": 3068,
-    "deliveries": 417655,
-    "wickets": 21161,
-    "wicket_fielders": 13580,
+    "deliveries": 415676,
+    "wickets": 21408,
+    "wicket_fielders": 13728,
     "players_in_match": 33748,
     "persons": 674
   },
@@ -25,9 +25,18 @@
       "area": "duplicate matches",
       "severity": "WARN",
       "description": "same teams + start date + venue under different ids (possible duplicate upload)",
-      "violations": 0,
-      "examples": [],
-      "status": "PASS"
+      "violations": 1,
+      "examples": [
+        [
+          "Dunmere",
+          "Estrova",
+          "2016-09-07",
+          "Estrova Arena",
+          "['9000986', '9001221']",
+          "2"
+        ]
+      ],
+      "status": "WARN"
     },
     {
       "id": "dup_delivery_id",
@@ -136,19 +145,19 @@
       "violations": 17,
       "examples": [
         [
-          "9000020",
+          "9000060",
           "Stonebridge Wolves",
-          "Z Thistleholt"
+          "T Dunson"
         ],
         [
-          "9000048",
-          "Riverton Owls",
-          "L Inchaway"
+          "9000234",
+          "Lakeside Falcons",
+          "G Coldbank"
         ],
         [
-          "9000085",
-          "Riverton Owls",
-          "Y Greyholt"
+          "9000335",
+          "Lakeside Falcons",
+          "B Foxmoor"
         ]
       ],
       "status": "WARN"
@@ -275,19 +284,19 @@
       "area": "fielder references",
       "severity": "WARN",
       "description": "catches whose wicketkeeper status could not be inferred",
-      "violations": 274,
+      "violations": 468,
       "examples": [
         [
-          "9000724:2:20",
-          "F Quarrwell"
+          "9000674:1:26",
+          "L Wexson"
         ],
         [
-          "9000724:2:51",
-          "B Merriby"
+          "9000674:1:50",
+          "H Ravenfield"
         ],
         [
-          "9000724:2:100",
-          "P Coldwell"
+          "9000674:1:60",
+          "L Thistlestoke"
         ]
       ],
       "status": "WARN"
@@ -330,7 +339,7 @@
     }
   ],
   "errors": 0,
-  "warnings": 2,
+  "warnings": 3,
   "quarantined": 0,
-  "seconds": 0.39
+  "seconds": 0.3
 }

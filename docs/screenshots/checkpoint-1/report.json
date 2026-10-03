@@ -1,0 +1,309 @@
+[
+  {
+    "shot": "home",
+    "errors": []
+  },
+  {
+    "shot": "player-mobile",
+    "errors": []
+  },
+  {
+    "role": "elite_men_batter",
+    "player": {
+      "person_id": "syn00325",
+      "name": "O Valestoke"
+    },
+    "checks": {
+      "coverage": "i\nData coverage: Analysed from 111 matches in our dataset (2010-01-26 – 2025-10-12). Not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for Synthetic International ODI Series, Synthetic International T20 Series. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nDERIVED",
+        "Bats:\nleft-handed\nOBSERVED",
+        "Bowls:\nRight-arm fast-medium\nOBSERVED"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n23 23.2%",
+        "LBW\nOBSERVED\n17 17.2%",
+        "Caught by wicketkeeper\nDERIVED\n13 13.1%",
+        "Caught & bowled\nOBSERVED\n4 4%",
+        "Caught by a fielder\nDERIVED\n31 31.3%",
+        "Stumped\nOBSERVED\n2 2%",
+        "Run out\nOBSERVED\n9 9.1%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/syn00325?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n0 0%",
+        "LBW\nOBSERVED\n3 42.9%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n3 42.9%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 14.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "3 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Caldora v Fenmarch · Estrova Arena · innings 1 (Fenmarch)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t100\t189\t189.0\t6\t31.5\t34.0\t29.0\t34\t32\t4\t1\t14\t15",
+        "pace\t50\t100\t200.0\t3\t33.3\t32.0\t32.0\t16\t15\t2\t1\t9\t7",
+        "spin\t40\t79\t197.5\t2\t39.5\t35.0\t30.0\t14\t13\t1\t0\t4\t8",
+        "unknown · small n\t10\t10\t100.0\t1\t10.0\t40.0\t10.0\t4\t4\t1\t0\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "elite_women_batter",
+    "player": {
+      "person_id": "syn00360",
+      "name": "I Amberholt"
+    },
+    "checks": {
+      "coverage": "i\nData coverage: Analysed from 64 matches in our dataset (2014-01-23 – 2025-09-12). Not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for Synthetic Women's International ODI Series, Synthetic Women's International T20 Series. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nDERIVED",
+        "Bats:\nright-handed\nOBSERVED",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n13 23.6%",
+        "LBW\nOBSERVED\n10 18.2%",
+        "Caught by wicketkeeper\nDERIVED\n3 5.5%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n22 40%",
+        "Caught (keeper status unknown)\nOBSERVED\n1 1.8%",
+        "Stumped\nOBSERVED\n3 5.5%",
+        "Run out\nOBSERVED\n3 5.5%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/syn00360?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n2 40%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n1 20%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n2 40%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n0 0%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Brenmark Women v Dunmere Women · Caldora Gardens · innings 1 (Brenmark Women)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t107\t209\t195.3\t5\t41.8\t35.5\t29.9\t38\t27\t10\t0\t15\t17",
+        "pace\t56\t99\t176.8\t2\t49.5\t33.9\t25.0\t19\t17\t6\t0\t7\t7",
+        "spin\t35\t65\t185.7\t2\t32.5\t42.9\t28.6\t15\t7\t3\t0\t4\t6",
+        "unknown · small n\t16\t45\t281.2\t1\t45.0\t25.0\t50.0\t4\t3\t1\t0\t4\t4"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "low_sample_missing_meta",
+    "player": {
+      "person_id": "syn00597",
+      "name": "C Wexcombe",
+      "matches": 12
+    },
+    "checks": {
+      "coverage": "i\nData coverage: Analysed from 12 matches in our dataset (2025-01-09 – 2025-11-13). Not official career totals.",
+      "notes": [],
+      "chips": [
+        "Role:\nbowler\nDERIVED",
+        "Bats: unknown",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n2 50%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n1 25%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n0 0%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 25%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/syn00597?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n2 66.7%",
+        "LBW\nOBSERVED\n0 0%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n0 0%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 33.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Highcliff Rams v Westmoor Lancers · Harbourside Ground · innings 1 (Highcliff Rams)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t47\t54\t114.9\t2\t27.0\t40.4\t12.8\t19\t18\t4\t0\t4\t2",
+        "unknown · small n\t19\t28\t147.4\t0\t–\t31.6\t15.8\t6\t8\t2\t0\t1\t2",
+        "pace · small n\t17\t14\t82.4\t1\t14.0\t47.1\t5.9\t8\t6\t2\t0\t1\t0",
+        "spin · small n\t11\t12\t109.1\t1\t12.0\t45.5\t18.2\t5\t4\t0\t0\t2\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "bowler",
+    "player": {
+      "person_id": "syn00338",
+      "name": "B Wexford"
+    },
+    "checks": {
+      "coverage": "i\nData coverage: Analysed from 112 matches in our dataset (2010-01-26 – 2025-12-23). Not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for Synthetic International ODI Series, Synthetic International T20 Series. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbowler\nDERIVED",
+        "Bats:\nleft-handed\nOBSERVED",
+        "Bowls:\nRight-arm fast\nOBSERVED"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n6 15.4%",
+        "LBW\nOBSERVED\n4 10.3%",
+        "Caught by wicketkeeper\nDERIVED\n5 12.8%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n20 51.3%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n4 10.3%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/syn00338?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n2 22.2%",
+        "LBW\nOBSERVED\n1 11.1%",
+        "Caught by wicketkeeper\nDERIVED\n2 22.2%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n4 44.4%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n0 0%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Dunmere v Fenmarch · Avalon Oval · innings 1 (Fenmarch)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t80\t88\t110.0\t9\t9.8\t52.5\t16.2\t42\t20\t5\t0\t10\t3",
+        "spin\t52\t57\t109.6\t6\t9.5\t55.8\t17.3\t29\t11\t3\t0\t7\t2",
+        "pace · small n\t21\t21\t100.0\t3\t7.0\t57.1\t14.3\t12\t5\t1\t0\t2\t1",
+        "unknown · small n\t7\t10\t142.9\t0\t–\t14.3\t14.3\t1\t4\t1\t0\t1\t0"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "role": "incomplete_coverage",
+    "player": {
+      "person_id": "syn00122",
+      "name": "L Inchwick"
+    },
+    "checks": {
+      "coverage": "i\nData coverage: Analysed from 125 matches in our dataset (2015-01-13 – 2025-10-19). Not official career totals.",
+      "notes": [
+        "This player already appears in the first season of our data for Synthetic Premier League. Earlier matches are probably missing, so treat totals as partial."
+      ],
+      "chips": [
+        "Role:\nbatter\nDERIVED",
+        "Bats:\nright-handed\nOBSERVED",
+        "Bowls: unknown"
+      ],
+      "routes": [
+        "Bowled\nOBSERVED\n24 21.8%",
+        "LBW\nOBSERVED\n25 22.7%",
+        "Caught by wicketkeeper\nDERIVED\n8 7.3%",
+        "Caught & bowled\nOBSERVED\n2 1.8%",
+        "Caught by a fielder\nDERIVED\n35 31.8%",
+        "Stumped\nOBSERVED\n6 5.5%",
+        "Run out\nOBSERVED\n9 8.2%",
+        "Hit wicket\nOBSERVED\n1 0.9%"
+      ],
+      "matchup_rows": 13,
+      "after_filter_url": "http://localhost:3000/players/syn00122?format=T20&phase=death",
+      "after_filter_routes": [
+        "Bowled\nOBSERVED\n2 25%",
+        "LBW\nOBSERVED\n1 12.5%",
+        "Caught by wicketkeeper\nDERIVED\n0 0%",
+        "Caught & bowled\nOBSERVED\n0 0%",
+        "Caught by a fielder\nDERIVED\n4 50%",
+        "Stumped\nOBSERVED\n0 0%",
+        "Run out\nOBSERVED\n1 12.5%",
+        "Hit wicket\nOBSERVED\n0 0%"
+      ],
+      "evidence": "2 deliveries · newest first · tap one to inspect",
+      "scene_banner": "Northshire Comets v Stonebridge Wolves · Kingsmead Common · innings 2 (Stonebridge Wolves)",
+      "scene_unknowns": [
+        "Bat contact\nUNKNOWN",
+        "Ball direction after contact\nUNKNOWN",
+        "Length\nUNKNOWN",
+        "Line\nUNKNOWN",
+        "Pitch point\nUNKNOWN",
+        "Shot played\nUNKNOWN",
+        "Speed\nUNKNOWN",
+        "Ball path\nUNKNOWN"
+      ],
+      "family_rows": [
+        "All bowlers\t156\t247\t158.3\t7\t35.3\t36.5\t22.4\t57\t54\t9\t1\t19\t16",
+        "pace\t76\t112\t147.4\t5\t22.4\t38.2\t21.1\t29\t28\t3\t0\t9\t7",
+        "spin\t49\t84\t171.4\t1\t84.0\t36.7\t24.5\t18\t14\t5\t0\t6\t6",
+        "unknown\t31\t51\t164.5\t1\t51.0\t32.3\t22.6\t10\t12\t1\t1\t4\t3"
+      ]
+    },
+    "errors": []
+  },
+  {
+    "shot": "sections-mobile",
+    "errors": []
+  }
+]
