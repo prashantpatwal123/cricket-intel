@@ -1,0 +1,457 @@
+player,cricsheet_id,gender,teams,matches,batting_hand,bowling_hand,bowling_style,bowling_family,role,wicketkeeper_status,metadata_source,confidence,manual_override
+N Pellcourt,syn00094,male,Highcliff Rams,133,left,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Ravenholt,syn00489,male,Stonebridge Wolves,126,right,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Northby,syn00570,male,Stonebridge Wolves,125,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Glenholt,syn00086,male,Highcliff Rams,125,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Oakvan,syn00464,male,Westmoor Lancers,124,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Kestrelwell,syn00502,male,Highcliff Rams,123,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+C Wexcombe,syn00597,male,Highcliff Rams,123,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+H Dunvan,syn00528,male,Westmoor Lancers,122,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+X Foxstoke,syn00487,male,Lakeside Falcons,122,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Wexwell,syn00563,male,Riverton Owls,122,left,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Foxmoor,syn00503,male,Lakeside Falcons,121,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Larkridge,syn00533,male,Highcliff Rams,120,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Kestrelwick,syn00035,male,Westmoor Lancers,120,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Thistleridge,syn00098,male,Highcliff Rams,120,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Ironridge,syn00043,male,Westmoor Lancers,120,right,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Yarrowcombe,syn00537,male,Stonebridge Wolves,119,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+U Corrmoor,syn00091,male,Highcliff Rams,119,,,,,batter,,derived:role_from_usage/v1,0.95,false
+I Ashmoor,syn00069,male,Riverton Owls,119,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Z Thistleholt,syn00601,male,Stonebridge Wolves,119,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+Y Ravenby,syn00592,male,Westmoor Lancers,119,left,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Inchwick,syn00122,male,Stonebridge Wolves,119,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+K Glenson,syn00121,male,Stonebridge Wolves,119,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Drayley,syn00047,male,Westmoor Lancers,119,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Northhart,syn00287,male,Caldora,119,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Kingaway,syn00544,male,Westmoor Lancers,118,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Larkwick,syn00270,male,Brenmark,117,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Glenford,syn00108,male,Lakeside Falcons,117,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+T Dunson,syn00135,male,Stonebridge Wolves,117,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Underley,syn00550,male,Highcliff Rams,117,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+V Marchholt,syn00582,male,Highcliff Rams,117,left,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Understoke,syn00599,male,Lakeside Falcons,117,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Harrowby,syn00522,male,Stonebridge Wolves,116,left,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Junipermoor,syn00576,male,Westmoor Lancers,116,right,right,Right-arm medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Yarrowvan,syn00257,male,Brenmark,116,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Z Coldwood,syn00479,male,Westmoor Lancers,116,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Corrbank,syn00552,male,Lakeside Falcons,115,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Ironvan,syn00586,male,Stonebridge Wolves,115,left,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Thistlehart,syn00334,male,Fenmarch,115,right,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Stormwick,syn00538,male,Stonebridge Wolves,115,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+R Foxton,syn00337,male,Fenmarch,114,left,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Drayfield,syn00324,male,Fenmarch,114,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+V Inchridge,syn00515,male,Riverton Owls,114,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Glenstoke,syn00494,male,Eastvale Kites,114,right,left,Left-arm wrist-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+G Ashley,syn00283,male,Caldora,114,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+M Farrowmere,syn00534,male,Highcliff Rams,114,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Q Glenton,syn00560,male,Westmoor Lancers,114,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Greycombe,syn00531,male,Riverton Owls,113,right,right,Off-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Underwick,syn00335,male,Fenmarch,113,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+P Kingholt,syn00602,male,Stonebridge Wolves,113,left,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Pellwell,syn00471,male,Lakeside Falcons,113,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+N Ashgrove,syn00128,male,Stonebridge Wolves,113,left,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Valestoke,syn00325,male,Fenmarch,113,left,right,Right-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Amberbank,syn00591,male,Westmoor Lancers,113,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Kestrelley,syn00087,male,Highcliff Rams,113,,,,,batter,,derived:role_from_usage/v1,0.95,false
+J Birchholt,syn00600,male,Lakeside Falcons,113,right,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Thistlevan,syn00549,male,Highcliff Rams,113,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+J Valeley,syn00447,male,Westmoor Lancers,113,right,right,Right-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+G Yarrowby,syn00519,male,Lakeside Falcons,113,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+F Pellstoke,syn00486,male,Highcliff Rams,113,right,left,Left-arm wrist-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Inchmoor,syn00496,male,Westmoor Lancers,112,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Undermere,syn00583,male,Lakeside Falcons,112,right,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Coldton,syn00026,male,Eastvale Kites,112,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Merrimoor,syn00125,male,Stonebridge Wolves,112,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+V Merriwick,syn00111,male,Lakeside Falcons,112,left,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Emberridge,syn00584,male,Lakeside Falcons,112,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Northbank,syn00561,male,Southbay Herons,111,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Emberton,syn00327,male,Fenmarch,111,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+P Elderholt,syn00521,male,Stonebridge Wolves,111,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Junipermere,syn00265,male,Brenmark,111,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+G Coldbank,syn00117,male,Lakeside Falcons,110,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+K Northaway,syn00032,male,Eastvale Kites,110,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Valecourt,syn00318,male,Estrova,110,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Embermere,syn00267,male,Brenmark,109,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Underwood,syn00523,male,Northshire Comets,109,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+X Valecombe,syn00062,male,Southbay Herons,109,left,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Greyholt,syn00580,male,Riverton Owls,109,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+G Northwind,syn00529,male,Southbay Herons,109,,,,,batter,,derived:role_from_usage/v1,0.95,false
+S Greywood,syn00546,male,Southbay Herons,109,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Drayholt,syn00305,male,Dunmere,109,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Marchstoke,syn00266,male,Brenmark,109,right,left,Left-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Dunby,syn00477,male,Eastvale Kites,109,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Glengrove,syn00483,male,Riverton Owls,109,right,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Lowenholt,syn00259,male,Brenmark,109,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Elderbank,syn00278,male,Caldora,108,,,,,batter,,derived:role_from_usage/v1,0.95,false
+B Oakwell,syn00488,male,Lakeside Falcons,108,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Juniperholt,syn00336,male,Fenmarch,108,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Dunwind,syn00491,male,Northshire Comets,108,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Marchson,syn00077,male,Riverton Owls,108,right,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Foxwood,syn00131,male,Stonebridge Wolves,108,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Stormvan,syn00285,male,Caldora,107,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+Y Ironwood,syn00541,male,Eastvale Kites,107,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Ironwind,syn00555,male,Northshire Comets,107,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Amberwell,syn00068,male,Southbay Herons,107,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+I Larkvan,syn00328,male,Fenmarch,107,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Z Lowenfield,syn00274,male,Caldora,107,right,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Greyley,syn00052,male,Southbay Herons,106,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+R Quarraway,syn00454,male,Highcliff Rams,106,left,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Marchley,syn00256,male,Brenmark,106,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Northstoke,syn00596,male,Riverton Owls,106,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+M Amberwick,syn00277,male,Caldora,106,,,,,batter,,derived:role_from_usage/v1,0.95,false
+I Hollowley,syn00029,male,Eastvale Kites,106,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+A Dungrove,syn00302,male,Dunmere,106,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Farrowmoor,syn00497,male,Southbay Herons,106,left,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Draywind,syn00339,male,Fenmarch,105,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Farrowbank,syn00304,male,Dunmere,105,left,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Embercourt,syn00510,male,Eastvale Kites,105,left,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Harrowwood,syn00459,male,Northshire Comets,105,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Inchaway,syn00595,male,Riverton Owls,105,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Undercombe,syn00577,male,Southbay Herons,105,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Pellmoor,syn00016,male,Northshire Comets,105,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Lowengrove,syn00273,male,Caldora,105,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Z Valefield,syn00590,male,Eastvale Kites,105,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+G Underaway,syn00030,male,Eastvale Kites,104,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Stormcombe,syn00573,male,Eastvale Kites,104,left,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Amberwind,syn00275,male,Caldora,104,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+A Stormcourt,syn00588,male,Northshire Comets,104,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Marchgrove,syn00589,male,Eastvale Kites,104,,,,,batter,,derived:role_from_usage/v1,0.95,false
+S Lowenwick,syn00504,male,Lakeside Falcons,104,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Thistleton,syn00268,male,Brenmark,104,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Stormton,syn00269,male,Brenmark,104,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+G Valegrove,syn00593,male,Southbay Herons,104,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Harrowvan,syn00485,male,Highcliff Rams,104,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Wexton,syn00284,male,Caldora,104,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Drayton,syn00581,male,Highcliff Rams,103,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+J Lowenmoor,syn00559,male,Westmoor Lancers,103,left,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Glenmere,syn00579,male,Riverton Owls,103,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Foxgrove,syn00542,male,Eastvale Kites,103,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Undervan,syn00332,male,Fenmarch,103,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+C Greywell,syn00292,male,Dunmere,102,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+F Kingwind,syn00074,male,Riverton Owls,102,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+O Thistlecourt,syn00547,male,Riverton Owls,102,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Kestrelvan,syn00476,male,Northshire Comets,102,left,left,Left-arm wrist-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Wexaway,syn00545,male,Southbay Herons,102,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+P Pellwind,syn00340,male,Fenmarch,102,left,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Kestrelgrove,syn00548,male,Riverton Owls,102,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Kestrelaway,syn00071,male,Riverton Owls,102,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+E Ashhart,syn00333,male,Fenmarch,102,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Junipercombe,syn00282,male,Caldora,101,right,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Oakcombe,syn00326,male,Fenmarch,101,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+S Ravenridge,syn00082,male,Riverton Owls,101,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Ravenford,syn00063,male,Southbay Herons,101,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Ironmoor,syn00290,male,Dunmere,101,,,,,batter,,derived:role_from_usage/v1,0.95,false
+D Coldmoor,syn00495,male,Westmoor Lancers,101,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Ravengrove,syn00260,male,Brenmark,101,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+L Glenvan,syn00300,male,Dunmere,101,right,left,Left-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Emberwood,syn00551,male,Lakeside Falcons,100,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Foxaway,syn00315,male,Estrova,100,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+I Foxford,syn00540,male,Northshire Comets,100,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Harrowwind,syn00294,male,Dunmere,99,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Ravencombe,syn00027,male,Eastvale Kites,99,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Quarrvan,syn00578,male,Southbay Herons,99,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Kestrelcourt,syn00018,male,Eastvale Kites,99,right,right,Right-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Dunley,syn00010,male,Northshire Comets,99,right,left,Left-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Brackbank,syn00298,male,Dunmere,99,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+V Lowenford,syn00574,male,Eastvale Kites,99,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Elderstoke,syn00295,male,Dunmere,99,,,,,batter,,derived:role_from_usage/v1,0.95,false
+M Foxmere,syn00272,male,Brenmark,99,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+Z Quarrwind,syn00507,male,Northshire Comets,99,left,right,Right-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Emberley,syn00286,male,Caldora,99,left,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Birchwind,syn00291,male,Dunmere,98,,,,,batter,,derived:role_from_usage/v1,0.95,false
+M Ravenaway,syn00310,male,Estrova,98,right,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Dunstoke,syn00261,male,Brenmark,98,,,,,batter,,derived:role_from_usage/v1,0.95,false
+Z Irongrove,syn00571,male,Northshire Comets,98,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Oakgrove,syn00299,male,Dunmere,98,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Wexford,syn00338,male,Fenmarch,98,left,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Larkby,syn00562,male,Southbay Herons,98,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Hollowton,syn00258,male,Brenmark,98,,,,,batter,,derived:role_from_usage/v1,0.95,false
+L Oakford,syn00288,male,Caldora,97,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Yarrowson,syn00309,male,Estrova,97,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+T Inchstoke,syn00524,male,Northshire Comets,97,,,,,batter,,derived:role_from_usage/v1,0.95,false
+O Quarrwood,syn00323,male,Estrova,97,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Harrowson,syn00316,male,Estrova,97,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+C Oakaway,syn00306,male,Dunmere,97,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Glenmoor,syn00293,male,Dunmere,97,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Birchwell,syn00061,male,Southbay Herons,97,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+Z Greywick,syn00249,male,Avalor,96,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+C Kestrelbank,syn00307,male,Estrova,96,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Birchgrove,syn00311,male,Estrova,96,right,left,Left-arm orthodox,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Ironcourt,syn00321,male,Estrova,96,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Greyaway,syn00572,male,Northshire Comets,95,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Quarrholt,syn00281,male,Caldora,95,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Glencombe,syn00554,male,Stonebridge Wolves,95,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+B Merrifield,syn00289,male,Caldora,94,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Ravenson,syn00271,male,Brenmark,94,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+K Birchley,syn00244,male,Avalor,94,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Quarrgrove,syn00329,male,Fenmarch,94,,,,,batter,,derived:role_from_usage/v1,0.95,false
+S Larkwood,syn00264,male,Brenmark,94,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+S Ashmere,syn00594,male,Southbay Herons,93,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+T Marchmoor,syn00556,male,Northshire Comets,93,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Thistlegrove,syn00312,male,Estrova,93,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Birchcombe,syn00239,male,Avalor,92,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Dunford,syn00322,male,Estrova,92,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Raventon,syn00252,male,Avalor,92,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Inchvan,syn00240,male,Avalor,92,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+A Ravenley,syn00251,male,Avalor,92,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+G Inchcombe,syn00254,male,Avalor,91,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Coldley,syn00058,male,Southbay Herons,91,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+M Hollowwell,syn00253,male,Avalor,91,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Farrowvan,syn00301,male,Dunmere,90,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+H Ashby,syn00320,male,Estrova,90,left,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Stormmoor,syn00276,male,Caldora,90,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+P Ambermoor,syn00508,male,Northshire Comets,89,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+A Harrowmoor,syn00297,male,Dunmere,89,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+U Harrowridge,syn00303,male,Dunmere,89,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Brackmere,syn00042,male,Westmoor Lancers,89,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+G Greybank,syn00248,male,Avalor,88,right,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Merriley,syn00308,male,Estrova,88,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Amberson,syn00317,male,Estrova,87,left,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Merrivan,syn00243,male,Avalor,85,,,,,batter,,derived:role_from_usage/v1,0.95,false
+X Valeson,syn00568,male,Lakeside Falcons,85,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+I Ironton,syn00331,male,Fenmarch,85,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+C Foxwick,syn00242,male,Avalor,85,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+V Merriaway,syn00109,male,Lakeside Falcons,84,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+V Glenhart,syn00041,male,Westmoor Lancers,84,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+N Emberaway,syn00241,male,Avalor,84,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+F Ashbank,syn00250,male,Avalor,83,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+V Oakridge,syn00319,male,Estrova,83,left,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Coldridge,syn00076,male,Riverton Owls,83,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+N Northgrove,syn00446,male,Eastvale Kites,83,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+A Yarrowhart,syn00255,male,Avalor,83,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Ashwood,syn00263,male,Brenmark,82,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+X Dunridge,syn00539,male,Northshire Comets,82,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+Z Emberbank,syn00247,male,Avalor,82,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Yarrowwood,syn00585,male,Stonebridge Wolves,80,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+U Hollowwick,syn00279,male,Caldora,79,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+W Farrowwick,syn00452,male,Riverton Owls,79,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+N Thistleby,syn00280,male,Caldora,76,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+K Thistleford,syn00330,male,Fenmarch,75,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+B Farrowstoke,syn00262,male,Brenmark,75,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+G Foxby,syn00024,male,Eastvale Kites,75,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+B Hollowhart,syn00313,male,Estrova,74,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+A Merribank,syn00246,male,Avalor,73,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+C Coldmere,syn00598,male,Highcliff Rams,73,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+V Yarrowgrove,syn00007,male,Northshire Comets,69,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+B Emberholt,syn00314,male,Estrova,68,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+V Birchfield,syn00059,male,Southbay Herons,65,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+S Pellton,syn00359,female,Brenmark Women,63,,,,,batter,,derived:role_from_usage/v1,0.95,false
+S Birchson,syn00367,female,Brenmark Women,61,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+P Brackvan,syn00372,female,Brenmark Women,60,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Dunwick,syn00296,male,Dunmere,60,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+C Ravenbank,syn00207,female,Riverton Owls Women,60,,,,,batter,,derived:role_from_usage/v1,0.95,false
+I Amberholt,syn00360,female,Brenmark Women,60,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+V Northton,syn00245,male,Avalor,60,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+O Ravenvan,syn00370,female,Brenmark Women,60,left,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Yarrowwind,syn00163,female,Eastvale Kites Women,59,right,left,Left-arm wrist-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Kestrelson,syn00371,female,Brenmark Women,58,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Valeaway,syn00363,female,Brenmark Women,58,,,,,batter,,derived:role_from_usage/v1,0.95,false
+Q Kestrelwood,syn00366,female,Brenmark Women,57,right,left,Left-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+K Coldstoke,syn00157,female,Eastvale Kites Women,57,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+V Yarrowstoke,syn00158,female,Eastvale Kites Women,56,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+N Farrowcourt,syn00369,female,Brenmark Women,56,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Elderton,syn00617,female,Eastvale Kites Women,56,right,left,Left-arm wrist-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Stormridge,syn00166,female,Eastvale Kites Women,56,left,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Brackfield,syn00406,female,Dunmere Women,55,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Birchcourt,syn00167,female,Eastvale Kites Women,55,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Ravenwood,syn00395,female,Dunmere Women,55,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Hollowaway,syn00349,female,Avalor Women,54,right,right,Right-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Birchbank,syn00374,female,Brenmark Women,54,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Inchwind,syn00361,female,Brenmark Women,53,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Q Hollowvan,syn00652,female,Northshire Comets Women,53,left,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Merriridge,syn00630,female,Eastvale Kites Women,53,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+K Ashholt,syn00380,female,Caldora Women,53,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Harrowcombe,syn00165,female,Eastvale Kites Women,53,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+D Quarrcourt,syn00641,female,Eastvale Kites Women,53,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Elderwood,syn00390,female,Caldora Women,53,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Underholt,syn00659,female,Riverton Owls Women,53,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Juniperford,syn00386,female,Caldora Women,52,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+G Wexfield,syn00346,female,Avalor Women,52,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Ironson,syn00345,female,Avalor Women,52,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+L Northridge,syn00378,female,Caldora Women,52,right,right,Leg-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Farrowwood,syn00384,female,Caldora Women,52,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Birchvan,syn00358,female,Brenmark Women,52,,,,,batter,,derived:role_from_usage/v1,0.95,false
+C Stormhart,syn00437,female,Fenmarch Women,52,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Junipergrove,syn00653,female,Eastvale Kites Women,52,right,left,Left-arm wrist-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Larkstoke,syn00387,female,Caldora Women,52,left,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Amberford,syn00391,female,Caldora Women,52,left,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Duncombe,syn00168,female,Eastvale Kites Women,52,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Inchhart,syn00192,female,Southbay Herons Women,52,right,right,Off-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Quarrson,syn00379,female,Caldora Women,51,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+U Corrholt,syn00402,female,Dunmere Women,51,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Stormson,syn00603,female,Northshire Comets Women,51,,,,,batter,,derived:role_from_usage/v1,0.95,false
+L Kingwick,syn00651,female,Northshire Comets Women,51,right,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Quarrhart,syn00356,female,Avalor Women,51,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+K Oakmere,syn00636,female,Riverton Owls Women,51,right,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Elderridge,syn00140,female,Northshire Comets Women,51,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+P Coldwell,syn00663,female,Northshire Comets Women,51,right,right,Right-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Ashfield,syn00152,female,Northshire Comets Women,51,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+C Kingstoke,syn00169,female,Eastvale Kites Women,51,right,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Hollowwind,syn00383,female,Caldora Women,51,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Amberhart,syn00397,female,Dunmere Women,51,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Farrowfield,syn00666,female,Eastvale Kites Women,51,right,right,Right-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Corrfield,syn00626,female,Highcliff Rams Women,51,left,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Farrowford,syn00203,female,Southbay Herons Women,51,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+G Draywell,syn00342,female,Avalor Women,50,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+L Kestrelridge,syn00427,female,Fenmarch Women,50,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+G Ironhart,syn00442,female,Fenmarch Women,50,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+G Ambergrove,syn00198,female,Southbay Herons Women,50,left,right,Right-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Glenby,syn00362,female,Brenmark Women,50,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+A Ashcourt,syn00368,female,Brenmark Women,50,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+Y Valemoor,syn00401,female,Dunmere Women,50,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+V Draymere,syn00430,female,Fenmarch Women,49,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+R Inchcourt,syn00376,female,Caldora Women,49,,,,,batter,,derived:role_from_usage/v1,0.95,false
+D Underson,syn00434,female,Fenmarch Women,49,right,left,Left-arm wrist-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+I Farrowgrove,syn00639,female,Northshire Comets Women,49,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Inchgrove,syn00355,female,Avalor Women,49,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Larkson,syn00408,female,Dunmere Women,49,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Yarrowley,syn00164,female,Eastvale Kites Women,49,right,left,Left-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Ironby,syn00190,female,Southbay Herons Women,48,right,right,Right-arm medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Thistleson,syn00657,female,Southbay Herons Women,48,left,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Larkhart,syn00423,female,Estrova Women,48,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Merriby,syn00615,female,Northshire Comets Women,48,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Dunhart,syn00352,female,Avalor Women,48,left,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Emberwell,syn00647,female,Riverton Owls Women,48,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Juniperwell,syn00147,female,Northshire Comets Women,48,left,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Eldercourt,syn00217,female,Riverton Owls Women,48,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Wexridge,syn00200,female,Southbay Herons Women,48,left,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Merriford,syn00357,female,Avalor Women,48,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Lowenhart,syn00393,female,Dunmere Women,48,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Underridge,syn00614,female,Highcliff Rams Women,48,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+W Emberby,syn00660,female,Riverton Owls Women,48,right,right,Right-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Lowenridge,syn00661,female,Highcliff Rams Women,48,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+U Stormmere,syn00635,female,Riverton Owls Women,48,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+I Glenwick,syn00389,female,Caldora Women,47,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Ironmere,syn00227,female,Highcliff Rams Women,47,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Marchaway,syn00664,female,Northshire Comets Women,47,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Elderwick,syn00235,female,Highcliff Rams Women,47,right,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+I Juniperaway,syn00344,female,Avalor Women,47,,,,,batter,,derived:role_from_usage/v1,0.95,false
+V Hollowson,syn00669,female,Southbay Herons Women,47,left,right,Right-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Wexson,syn00205,female,Riverton Owls Women,47,right,right,Right-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Valemere,syn00431,female,Fenmarch Women,47,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+A Marchford,syn00604,female,Northshire Comets Women,47,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+A Birchwick,syn00426,female,Fenmarch Women,47,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Y Harrowbank,syn00403,female,Dunmere Women,47,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+C Ironstoke,syn00629,female,Eastvale Kites Women,47,right,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+O Ironcombe,syn00139,female,Northshire Comets Women,47,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+N Juniperley,syn00404,female,Dunmere Women,46,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Quarrton,syn00191,female,Southbay Herons Women,46,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+S Glenley,syn00438,female,Fenmarch Women,46,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Quarrwell,syn00628,female,Northshire Comets Women,46,right,left,Left-arm fast-medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Larkmere,syn00197,female,Southbay Herons Women,46,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Stormwind,syn00184,female,Westmoor Lancers Women,46,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+C Farrowridge,syn00150,female,Northshire Comets Women,46,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Ravenwind,syn00375,female,Caldora Women,46,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+A Quarrridge,syn00233,female,Highcliff Rams Women,46,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+I Larkcourt,syn00607,female,Westmoor Lancers Women,46,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+R Stormfield,syn00221,female,Riverton Owls Women,46,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Elderaway,syn00645,female,Southbay Herons Women,46,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Merrimere,syn00671,female,Riverton Owls Women,46,left,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+T Emberhart,syn00440,female,Fenmarch Women,46,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Pellridge,syn00350,female,Avalor Women,46,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Brackcombe,syn00396,female,Dunmere Women,46,right,right,Right-arm medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+K Larkwind,syn00373,female,Brenmark Women,46,left,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Elderfield,syn00175,female,Westmoor Lancers Women,45,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Z Glenwell,syn00419,female,Estrova Women,45,left,right,Right-arm fast,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Valeholt,syn00424,female,Estrova Women,45,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+V Coldson,syn00407,female,Dunmere Women,45,left,left,Left-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Kinggrove,syn00410,female,Estrova Women,45,,,,,batter,,derived:role_from_usage/v1,0.95,false
+T Marchcourt,syn00405,female,Dunmere Women,45,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Merricourt,syn00186,female,Westmoor Lancers Women,45,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+N Valewick,syn00364,female,Brenmark Women,45,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+C Drayaway,syn00171,female,Westmoor Lancers Women,45,,,,,batter,,derived:role_from_usage/v1,0.95,false
+C Wexvan,syn00385,female,Caldora Women,45,right,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Brackton,syn00377,female,Caldora Women,45,,,,,batter,,derived:role_from_usage/v1,0.95,false
+R Thistlecombe,syn00394,female,Dunmere Women,45,right,right,Right-arm medium,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Amberton,syn00209,female,Riverton Owls Women,45,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+H Ravenfield,syn00206,female,Riverton Owls Women,45,left,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Lowenson,syn00436,female,Fenmarch Women,45,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+J Amberridge,syn00343,female,Avalor Women,44,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+X Quarrbank,syn00354,female,Avalor Women,44,left,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+U Inchbank,syn00439,female,Fenmarch Women,44,left,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Larkton,syn00608,female,Westmoor Lancers Women,44,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+D Quarrmoor,syn00148,female,Northshire Comets Women,44,left,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Juniperton,syn00435,female,Fenmarch Women,44,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+C Brackridge,syn00222,female,Highcliff Rams Women,44,,,,,batter,,derived:role_from_usage/v1,0.95,false
+C Corrcourt,syn00187,female,Westmoor Lancers Women,43,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Larkholt,syn00223,female,Highcliff Rams Women,43,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+B Kingbank,syn00667,female,Westmoor Lancers Women,43,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+J Kingford,syn00612,female,Riverton Owls Women,43,right,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+V Pellgrove,syn00392,female,Dunmere Women,43,right,right,Off-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Brackford,syn00353,female,Avalor Women,43,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Valeton,syn00400,female,Dunmere Women,43,right,right,Off-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+V Foxvan,syn00201,female,Southbay Herons Women,42,left,right,Leg-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Larkwell,syn00672,female,Riverton Owls Women,42,right,right,Off-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+B Harrowaway,syn00665,female,Eastvale Kites Women,42,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+Q Merriwood,syn00351,female,Avalor Women,42,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+Z Undercourt,syn00428,female,Fenmarch Women,42,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Q Oakhart,syn00414,female,Estrova Women,42,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+F Marchvan,syn00193,female,Southbay Herons Women,42,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+C Drayhart,syn00422,female,Estrova Women,42,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Marchbank,syn00633,female,Southbay Herons Women,42,right,left,Left-arm orthodox,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+L Eldervan,syn00411,female,Estrova Women,41,,,,,batter,,derived:role_from_usage/v1,0.95,false
+Z Oakcourt,syn00646,female,Southbay Herons Women,41,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Valebank,syn00656,female,Westmoor Lancers Women,41,left,right,Leg-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+E Juniperstoke,syn00429,female,Fenmarch Women,41,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+J Farrowson,syn00412,female,Estrova Women,41,,,,,batter,,derived:role_from_usage/v1,0.95,false
+B Dunmere,syn00637,female,Highcliff Rams Women,41,right,right,Right-arm medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Glenbank,syn00418,female,Estrova Women,41,right,right,Leg-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+P Northwell,syn00189,female,Southbay Herons Women,41,right,right,Leg-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+S Ironfield,syn00409,female,Estrova Women,41,left,right,Leg-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Hollowmoor,syn00399,female,Dunmere Women,41,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+A Kestrelmere,syn00182,female,Westmoor Lancers Women,40,,,,,bowler,,derived:role_from_usage/v1,0.95,false
+W Oakholt,syn00620,female,Westmoor Lancers Women,40,right,left,Left-arm wrist-spin,spin,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Ashwick,syn00644,female,Westmoor Lancers Women,40,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+V Thistlefield,syn00388,female,Caldora Women,40,right,left,Left-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Lowenley,syn00625,female,Highcliff Rams Women,40,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+K Valewind,syn00662,female,Highcliff Rams Women,39,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Draymoor,syn00425,female,Estrova Women,39,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+F Thistlemoor,syn00185,female,Westmoor Lancers Women,39,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+X Brackwood,syn00623,female,Riverton Owls Women,39,left,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+Q Kingridge,syn00631,female,Westmoor Lancers Women,39,right,left,Left-arm wrist-spin,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Z Corrwind,syn00144,female,Northshire Comets Women,39,,,,,batter,,derived:role_from_usage/v1,0.95,false
+Q Wexstoke,syn00341,female,Avalor Women,39,right,,,,batter,,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.95,false
+S Harrowcourt,syn00236,female,Highcliff Rams Women,39,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Corrley,syn00365,female,Brenmark Women,39,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+T Oakby,syn00433,female,Fenmarch Women,39,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+B Northley,syn00347,female,Avalor Women,39,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+E Glenwind,syn00417,female,Estrova Women,38,right,left,Left-arm fast-medium,pace,all-rounder,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Kestrelford,syn00382,female,Caldora Women,38,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+H Amberstoke,syn00420,female,Estrova Women,38,right,right,Right-arm medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Y Kingley,syn00441,female,Fenmarch Women,38,left,left,Left-arm orthodox,spin,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+M Corrstoke,syn00413,female,Estrova Women,38,right,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+C Wexby,syn00654,female,Eastvale Kites Women,38,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+Z Lowenton,syn00194,female,Southbay Herons Women,37,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+E Kingson,syn00668,female,Westmoor Lancers Women,37,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+M Marchton,syn00234,female,Highcliff Rams Women,37,right,right,Right-arm fast,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+Q Inchby,syn00648,female,Riverton Owls Women,36,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+G Hollowcombe,syn00381,female,Caldora Women,36,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+G Yarrowwell,syn00421,female,Estrova Women,36,right,right,Right-arm fast-medium,pace,bowler,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+W Corrcombe,syn00673,female,Highcliff Rams Women,36,,,,,all-rounder,,derived:role_from_usage/v1,0.95,false
+L Kingcourt,syn00211,female,Riverton Owls Women,35,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+N Greyford,syn00416,female,Estrova Women,35,left,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+B Merriton,syn00176,female,Westmoor Lancers Women,34,right,left,Left-arm fast,pace,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+D Ashvan,syn00224,female,Highcliff Rams Women,34,right,right,Off-spin,spin,batter,,synthetic_fixture:synthetic_external_metadata/v1 | synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1,0.99 | 0.99 | 0.95,false
+K Ambercombe,syn00143,female,Northshire Comets Women,34,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+Z Coldgrove,syn00674,female,Highcliff Rams Women,33,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+N Juniperridge,syn00670,female,Southbay Herons Women,32,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+A Underfield,syn00348,female,Avalor Women,32,,,,,batter,occasional,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.61,false
+M Juniperwick,syn00649,female,Highcliff Rams Women,31,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+L Stormwell,syn00398,female,Dunmere Women,31,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+L Quarrford,syn00432,female,Fenmarch Women,30,,,,,wicketkeeper-batter,yes,derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.95 | 0.97,false
+S Oakton,syn00415,female,Estrova Women,27,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.95 | 0.97,false
+A Ravenmoor,syn00632,female,Westmoor Lancers Women,26,right,,,,wicketkeeper-batter,yes,synthetic_fixture:synthetic_external_metadata/v1 | derived:role_from_usage/v1 | derived:keeper_inference_aggregate/v1,0.99 | 0.93 | 0.97,false
+D Amberwell,unres:772b13cb87,male,Southbay Herons,2,,,,,,,"","",false
+Y Greyholt,unres:f87d0364ae,male,Riverton Owls,2,,,,,,,"","",false
+P Kingholt,unres:acc24101a3,male,Stonebridge Wolves,2,,,,,,,"","",false
+Z Thistleholt,unres:acbaed13bb,male,Stonebridge Wolves,1,,,,,,,"","",false
+F Understoke,unres:8cfb551ef4,male,Lakeside Falcons,1,,,,,,,"","",false
+T Embermere,unres:48957996d3,male,Brenmark,1,,,,,,,"","",false
+D Larkby,unres:0b3389b138,male,Southbay Herons,1,,,,,,,"","",false
+S Larkwell,unres:51f6ffed02,female,Riverton Owls Women,1,,,,,,,"","",false
+N Juniperley,unres:e87507a6fa,female,Dunmere Women,1,,,,,,,"","",false
+L Inchaway,unres:cb48184f0a,male,Riverton Owls,1,,,,,,,"","",false
+Z Brackford,unres:eac8fe21c8,female,Avalor Women,1,,,,,,,"","",false
+K Larkwind,unres:9269de0647,female,Brenmark Women,1,,,,,,,"","",false
+B Kestrelson,unres:61a9207716,female,Brenmark Women,1,,,,,,,"","",false
+Z Ravenford,unres:428db18cf9,male,Southbay Herons,1,,,,,,,"","",false

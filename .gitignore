@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/raw/
+data/canonical/
+data/models/*.json
+!data/models/.gitkeep
+web/node_modules/
+web/.next/
+web/out/
+*.duckdb
+*.duckdb.wal
+.DS_Store

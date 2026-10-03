@@ -1,0 +1,336 @@
+{
+  "dataset": "synthetic",
+  "synthetic": true,
+  "counts": {
+    "matches": 1534,
+    "innings": 3068,
+    "deliveries": 417655,
+    "wickets": 21161,
+    "wicket_fielders": 13580,
+    "players_in_match": 33748,
+    "persons": 674
+  },
+  "checks": [
+    {
+      "id": "dup_match_id",
+      "area": "duplicate matches",
+      "severity": "ERROR",
+      "description": "match_id appears more than once",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "dup_match_fingerprint",
+      "area": "duplicate matches",
+      "severity": "WARN",
+      "description": "same teams + start date + venue under different ids (possible duplicate upload)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "dup_delivery_id",
+      "area": "duplicate deliveries",
+      "severity": "ERROR",
+      "description": "delivery_id not unique",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "dup_delivery_seq",
+      "area": "duplicate deliveries",
+      "severity": "ERROR",
+      "description": "two deliveries share (match, innings, seq)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "runs_total_sum",
+      "area": "innings totals",
+      "severity": "ERROR",
+      "description": "runs.total != runs.batter + runs.extras",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "innings_total",
+      "area": "innings totals",
+      "severity": "ERROR",
+      "description": "innings total != \u03a3 delivery totals + penalty runs",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "extras_sum",
+      "area": "extras",
+      "severity": "ERROR",
+      "description": "runs.extras != wides + noballs + byes + legbyes + penalty",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "extras_combo",
+      "area": "extras",
+      "severity": "WARN",
+      "description": "wide and no-ball on the same delivery",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "boundary_four_six",
+      "area": "extras",
+      "severity": "WARN",
+      "description": "4 or 6 flagged non_boundary (all-run)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "wickets_per_innings",
+      "area": "wicket totals",
+      "severity": "ERROR",
+      "description": "more than 10 dismissals in an innings",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "wickets_vs_xi",
+      "area": "wicket totals",
+      "severity": "ERROR",
+      "description": "dismissals >= batting XI size",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "legal_per_over",
+      "area": "legal deliveries",
+      "severity": "WARN",
+      "description": "over has more legal balls than balls_per_over (umpire miscount?)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "short_over_mid_innings",
+      "area": "legal deliveries",
+      "severity": "WARN",
+      "description": "non-final over with fewer legal balls than balls_per_over",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "identity_unresolved",
+      "area": "player identity",
+      "severity": "WARN",
+      "description": "player name without a Register id (fallback id used)",
+      "violations": 17,
+      "examples": [
+        [
+          "9000020",
+          "Stonebridge Wolves",
+          "Z Thistleholt"
+        ],
+        [
+          "9000048",
+          "Riverton Owls",
+          "L Inchaway"
+        ],
+        [
+          "9000085",
+          "Riverton Owls",
+          "Y Greyholt"
+        ]
+      ],
+      "status": "WARN"
+    },
+    {
+      "id": "identity_multi_name",
+      "area": "player identity",
+      "severity": "WARN",
+      "description": "one person_id appears under several names",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "batter_not_in_xi",
+      "area": "player identity",
+      "severity": "WARN",
+      "description": "batter/non-striker not in batting XI (check replacements)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "bowler_not_in_xi",
+      "area": "team identity",
+      "severity": "ERROR",
+      "description": "bowler not in bowling XI (and not a listed replacement)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "innings_team",
+      "area": "team identity",
+      "severity": "ERROR",
+      "description": "innings batting team not one of the match teams",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "winner_team",
+      "area": "match identity",
+      "severity": "ERROR",
+      "description": "winner is not one of the teams",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "match_required",
+      "area": "match identity",
+      "severity": "ERROR",
+      "description": "match missing gender/format/date/teams",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "player_out_on_ball",
+      "area": "dismissal consistency",
+      "severity": "ERROR",
+      "description": "player out is neither batter nor non-striker",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "bowler_kind_non_striker",
+      "area": "dismissal consistency",
+      "severity": "ERROR",
+      "description": "bowler-credited dismissal of the non-striker",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "dismissed_twice",
+      "area": "dismissal consistency",
+      "severity": "ERROR",
+      "description": "same batter dismissed twice in one innings",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "wicket_on_wide_kind",
+      "area": "dismissal consistency",
+      "severity": "ERROR",
+      "description": "bowled/lbw/caught on a wide (impossible)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "wicket_on_noball_kind",
+      "area": "dismissal consistency",
+      "severity": "ERROR",
+      "description": "bowled/lbw/caught/stumped on a no-ball (impossible)",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "fielder_required",
+      "area": "fielder references",
+      "severity": "WARN",
+      "description": "caught/stumped without a named fielder",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "fielder_not_in_xi",
+      "area": "fielder references",
+      "severity": "WARN",
+      "description": "non-substitute fielder not in fielding XI",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "keeper_unresolved",
+      "area": "fielder references",
+      "severity": "WARN",
+      "description": "catches whose wicketkeeper status could not be inferred",
+      "violations": 274,
+      "examples": [
+        [
+          "9000724:2:20",
+          "F Quarrwell"
+        ],
+        [
+          "9000724:2:51",
+          "B Merriby"
+        ],
+        [
+          "9000724:2:100",
+          "P Coldwell"
+        ]
+      ],
+      "status": "WARN"
+    },
+    {
+      "id": "target_mismatch",
+      "area": "target/chase",
+      "severity": "WARN",
+      "description": "observed target != first-innings total + 1 without a DLS-type method",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "chase_result",
+      "area": "target/chase",
+      "severity": "ERROR",
+      "description": "chasing side reached target but is not recorded as winner",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "chase_overshoot",
+      "area": "target/chase",
+      "severity": "WARN",
+      "description": "chase continued after the target was reached",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    },
+    {
+      "id": "context_required_rate",
+      "area": "target/chase",
+      "severity": "ERROR",
+      "description": "required rate inconsistent with runs required / balls remaining",
+      "violations": 0,
+      "examples": [],
+      "status": "PASS"
+    }
+  ],
+  "errors": 0,
+  "warnings": 2,
+  "quarantined": 0,
+  "seconds": 0.39
+}

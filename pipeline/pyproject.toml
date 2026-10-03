@@ -1,0 +1,19 @@
+[project]
+name = "cricintel"
+version = "0.1.0"
+description = "Cricket intelligence pipeline: canonical event store, provenance, analytics, API"
+requires-python = ">=3.11"
+dependencies = ["duckdb>=1.1", "pyarrow>=15", "fastapi>=0.110", "uvicorn>=0.29", "pydantic>=2"]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["cricintel*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

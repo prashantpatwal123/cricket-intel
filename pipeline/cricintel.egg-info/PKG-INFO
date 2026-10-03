@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: cricintel
+Version: 0.1.0
+Summary: Cricket intelligence pipeline: canonical event store, provenance, analytics, API
+Requires-Python: >=3.11
+Requires-Dist: duckdb>=1.1
+Requires-Dist: pyarrow>=15
+Requires-Dist: fastapi>=0.110
+Requires-Dist: uvicorn>=0.29
+Requires-Dist: pydantic>=2
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: httpx; extra == "dev"
