@@ -34,7 +34,7 @@ KNOWN_INNINGS_KEYS = {
     "team", "overs", "powerplays", "target", "absent_hurt", "penalty_runs", "declared", "forfeited",
     "super_over", "miscounted_overs",
 }
-KNOWN_DELIVERY_KEYS = {"batter", "bowler", "non_striker", "runs", "extras", "wickets", "replacements", "review"}
+KNOWN_DELIVERY_KEYS = {"actual_delivery", "batter", "bowler", "non_striker", "runs", "extras", "wickets", "replacements", "review"}
 
 
 class Quarantine(Exception):
@@ -168,7 +168,8 @@ def parse_match(doc: dict, match_id: str, source_id: str, source_ref: str, check
                 runs = dl.get("runs") or {}
                 wides, nbs = ex.get("wides", 0), ex.get("noballs", 0)
                 legal = wides == 0 and nbs == 0
-                label = f"{over_no}.{legal_in_over + 1}"
+                # v1.2.0: actual_delivery is the source's own over.ball label (OBSERVED); derive only if absent
+                label = dl.get("actual_delivery") or f"{over_no}.{legal_in_over + 1}"
                 if legal:
                     legal_in_over += 1
                 b, bw, ns = dl.get("batter"), dl.get("bowler"), dl.get("non_striker")

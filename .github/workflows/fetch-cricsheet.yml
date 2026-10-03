@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       files:
-        description: "Space-separated Cricsheet download file names (from https://cricsheet.org/downloads/)"
+        description: "Space-separated Cricsheet download file names (from https://cricsheet.org/downloads/), or 'none' for pages only"
         default: "ipl_json.zip wpl_json.zip t20s_male_json.zip t20s_female_json.zip odis_male_json.zip odis_female_json.zip"
       extra_pages:
         description: "Space-separated extra cricsheet.org page paths to archive (e.g. coverage/ missing/)"
@@ -33,8 +33,9 @@ jobs:
             n=$(echo "index/${p}" | tr '/' '_')
             curl -fsSL -A "$UA" -D "out/headers/page_${n}.txt" -o "out/pages/${n}.html" "https://cricsheet.org/${p}"
           done
+          [ "$FILES" = "none" ] && FILES=""
           for f in $FILES; do
-            curl -fsSL -A "$UA" -D "out/headers/${f}.txt" -o "out/downloads/${f}" "https://cricsheet.org/downloads/${f}"
+            curl -fsSL --retry 3 --retry-delay 5 -A "$UA" -D "out/headers/${f}.txt" -o "out/downloads/${f}" "https://cricsheet.org/downloads/${f}"
             unzip -tq "out/downloads/${f}"
           done
           touch out/downloads/.keep

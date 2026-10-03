@@ -1,0 +1,2886 @@
+{
+ "files": 10247,
+ "per_zip": {
+  "ipl_json.zip": 1243,
+  "odis_female_json.zip": 611,
+  "odis_male_json.zip": 2576,
+  "t20s_female_json.zip": 2171,
+  "t20s_male_json.zip": 3558,
+  "wpl_json.zip": 88
+ },
+ "fields": {
+  "info": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.balls_per_over": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "6"
+   ]
+  },
+  "info.bowl_out": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "info.bowl_out[].bowler": {
+   "occurrences": 23,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "info.bowl_out[].outcome": {
+   "occurrences": 23,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "info.city": {
+   "occurrences": 9711,
+   "files_with_field": 9711,
+   "pct_files": 94.77
+  },
+  "info.dates": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.event": {
+   "occurrences": 10167,
+   "files_with_field": 10167,
+   "pct_files": 99.22
+  },
+  "info.event.group": {
+   "occurrences": 1437,
+   "files_with_field": 1437,
+   "pct_files": 14.02
+  },
+  "info.event.match_number": {
+   "occurrences": 9353,
+   "files_with_field": 9353,
+   "pct_files": 91.28
+  },
+  "info.event.name": {
+   "occurrences": 10167,
+   "files_with_field": 10167,
+   "pct_files": 99.22
+  },
+  "info.event.stage": {
+   "occurrences": 724,
+   "files_with_field": 724,
+   "pct_files": 7.07,
+   "values": [
+    "11th Place Play-Off",
+    "3rd Place Play-Off",
+    "3rd Place Play-off",
+    "4th Place Play-Off",
+    "5th Place Play-Off",
+    "5th place playoff",
+    "7th Place Play-Off",
+    "7th place playoff",
+    "9th Place Play-Off",
+    "Elimination Final",
+    "Eliminator",
+    "Final",
+    "First Round",
+    "ODI",
+    "Play-Off",
+    "Play-off",
+    "Play-off Semi-Final",
+    "Preliminary Final",
+    "Qualifier",
+    "Qualifier 1",
+    "Qualifier 2",
+    "Qualifier 3",
+    "Qualifier 4",
+    "Qualifying Group",
+    "Qualifying Play-off",
+    "Quarter Final",
+    "Semi Final",
+    "Semi-Final",
+    "Semi-final",
+    "Super 10",
+    "Super Four",
+    "Super League Final",
+    "Super Sixes",
+    "Super Three",
+    "T20",
+    "Trophy Final"
+   ]
+  },
+  "info.event.sub_name": {
+   "occurrences": 85,
+   "files_with_field": 85,
+   "pct_files": 0.83
+  },
+  "info.gender": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "female",
+    "male"
+   ]
+  },
+  "info.match_type": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "ODI",
+    "T20"
+   ]
+  },
+  "info.match_type_number": {
+   "occurrences": 8916,
+   "files_with_field": 8916,
+   "pct_files": 87.01
+  },
+  "info.missing": {
+   "occurrences": 1083,
+   "files_with_field": 1083,
+   "pct_files": 10.57
+  },
+  "info.missing[].powerplays": {
+   "occurrences": 322,
+   "files_with_field": 322,
+   "pct_files": 3.14
+  },
+  "info.missing[].powerplays.1": {
+   "occurrences": 219,
+   "files_with_field": 219,
+   "pct_files": 2.14
+  },
+  "info.missing[].powerplays.2": {
+   "occurrences": 298,
+   "files_with_field": 298,
+   "pct_files": 2.91
+  },
+  "info.officials": {
+   "occurrences": 9820,
+   "files_with_field": 9820,
+   "pct_files": 95.83
+  },
+  "info.officials.match_referees": {
+   "occurrences": 8935,
+   "files_with_field": 8935,
+   "pct_files": 87.2
+  },
+  "info.officials.reserve_umpires": {
+   "occurrences": 8796,
+   "files_with_field": 8796,
+   "pct_files": 85.84
+  },
+  "info.officials.tv_umpires": {
+   "occurrences": 6073,
+   "files_with_field": 6073,
+   "pct_files": 59.27
+  },
+  "info.officials.umpires": {
+   "occurrences": 9820,
+   "files_with_field": 9820,
+   "pct_files": 95.83
+  },
+  "info.outcome": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.outcome.bowl_out": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "info.outcome.by": {
+   "occurrences": 9898,
+   "files_with_field": 9898,
+   "pct_files": 96.59
+  },
+  "info.outcome.by.runs": {
+   "occurrences": 4905,
+   "files_with_field": 4905,
+   "pct_files": 47.87
+  },
+  "info.outcome.by.wickets": {
+   "occurrences": 4993,
+   "files_with_field": 4993,
+   "pct_files": 48.73
+  },
+  "info.outcome.eliminator": {
+   "occurrences": 73,
+   "files_with_field": 73,
+   "pct_files": 0.71
+  },
+  "info.outcome.method": {
+   "occurrences": 484,
+   "files_with_field": 484,
+   "pct_files": 4.72,
+   "values": [
+    "Awarded",
+    "D/L"
+   ]
+  },
+  "info.outcome.result": {
+   "occurrences": 345,
+   "files_with_field": 345,
+   "pct_files": 3.37,
+   "values": [
+    "no result",
+    "tie"
+   ]
+  },
+  "info.outcome.winner": {
+   "occurrences": 9902,
+   "files_with_field": 9902,
+   "pct_files": 96.63
+  },
+  "info.overs": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.player_of_match": {
+   "occurrences": 9499,
+   "files_with_field": 9499,
+   "pct_files": 92.7
+  },
+  "info.players": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.players.<key>": {
+   "occurrences": 20494,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.registry": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.registry.people": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.registry.people.<key>": {
+   "occurrences": 270804,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.season": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.supersubs": {
+   "occurrences": 55,
+   "files_with_field": 55,
+   "pct_files": 0.54
+  },
+  "info.supersubs.<key>": {
+   "occurrences": 97,
+   "files_with_field": 55,
+   "pct_files": 0.54
+  },
+  "info.team_type": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "club",
+    "international"
+   ]
+  },
+  "info.teams": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.toss": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.toss.decision": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "bat",
+    "field"
+   ]
+  },
+  "info.toss.uncontested": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "info.toss.winner": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "info.venue": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].absent_hurt": {
+   "occurrences": 103,
+   "files_with_field": 103,
+   "pct_files": 1.01
+  },
+  "innings[].miscounted_overs": {
+   "occurrences": 252,
+   "files_with_field": 240,
+   "pct_files": 2.34
+  },
+  "innings[].miscounted_overs.0": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.0.balls": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.0.umpire": {
+   "occurrences": 5,
+   "files_with_field": 5,
+   "pct_files": 0.05
+  },
+  "innings[].miscounted_overs.1": {
+   "occurrences": 9,
+   "files_with_field": 9,
+   "pct_files": 0.09
+  },
+  "innings[].miscounted_overs.1.balls": {
+   "occurrences": 9,
+   "files_with_field": 9,
+   "pct_files": 0.09
+  },
+  "innings[].miscounted_overs.1.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.10": {
+   "occurrences": 14,
+   "files_with_field": 14,
+   "pct_files": 0.14
+  },
+  "innings[].miscounted_overs.10.balls": {
+   "occurrences": 14,
+   "files_with_field": 14,
+   "pct_files": 0.14
+  },
+  "innings[].miscounted_overs.10.umpire": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.11": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.11.balls": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.11.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.12": {
+   "occurrences": 11,
+   "files_with_field": 11,
+   "pct_files": 0.11
+  },
+  "innings[].miscounted_overs.12.balls": {
+   "occurrences": 11,
+   "files_with_field": 11,
+   "pct_files": 0.11
+  },
+  "innings[].miscounted_overs.12.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.13": {
+   "occurrences": 16,
+   "files_with_field": 16,
+   "pct_files": 0.16
+  },
+  "innings[].miscounted_overs.13.balls": {
+   "occurrences": 16,
+   "files_with_field": 16,
+   "pct_files": 0.16
+  },
+  "innings[].miscounted_overs.13.umpire": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.14": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.14.balls": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.14.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.15": {
+   "occurrences": 13,
+   "files_with_field": 13,
+   "pct_files": 0.13
+  },
+  "innings[].miscounted_overs.15.balls": {
+   "occurrences": 13,
+   "files_with_field": 13,
+   "pct_files": 0.13
+  },
+  "innings[].miscounted_overs.15.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.16": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.16.balls": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.16.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.17": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.17.balls": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.17.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.18": {
+   "occurrences": 8,
+   "files_with_field": 8,
+   "pct_files": 0.08
+  },
+  "innings[].miscounted_overs.18.balls": {
+   "occurrences": 8,
+   "files_with_field": 8,
+   "pct_files": 0.08
+  },
+  "innings[].miscounted_overs.18.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.19": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.19.balls": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.19.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.2": {
+   "occurrences": 13,
+   "files_with_field": 11,
+   "pct_files": 0.11
+  },
+  "innings[].miscounted_overs.2.balls": {
+   "occurrences": 13,
+   "files_with_field": 11,
+   "pct_files": 0.11
+  },
+  "innings[].miscounted_overs.2.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.20": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.20.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.20.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.21": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.21.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.21.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.22": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.22.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.22.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.23": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.23.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.23.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.24": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.24.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.24.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.25": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.25.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.25.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.26": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.26.balls": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.26.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.27": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.27.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.27.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.28": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.28.balls": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.28.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.29": {
+   "occurrences": 5,
+   "files_with_field": 5,
+   "pct_files": 0.05
+  },
+  "innings[].miscounted_overs.29.balls": {
+   "occurrences": 5,
+   "files_with_field": 5,
+   "pct_files": 0.05
+  },
+  "innings[].miscounted_overs.29.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.3": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.3.balls": {
+   "occurrences": 6,
+   "files_with_field": 6,
+   "pct_files": 0.06
+  },
+  "innings[].miscounted_overs.30": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.30.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.31": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.31.balls": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.31.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.32": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.32.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.32.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.33": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.33.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.33.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.34": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.34.balls": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.34.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.35": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.35.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.35.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.36": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.36.balls": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.36.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.37": {
+   "occurrences": 5,
+   "files_with_field": 5,
+   "pct_files": 0.05
+  },
+  "innings[].miscounted_overs.37.balls": {
+   "occurrences": 5,
+   "files_with_field": 5,
+   "pct_files": 0.05
+  },
+  "innings[].miscounted_overs.37.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.38": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.38.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.39": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.39.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.39.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.4": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.4.balls": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.4.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.40": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.40.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.40.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.41": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.41.balls": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.41.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.42": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.42.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.42.umpire": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.43": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.43.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.43.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.44": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.44.balls": {
+   "occurrences": 2,
+   "files_with_field": 2,
+   "pct_files": 0.02
+  },
+  "innings[].miscounted_overs.44.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.46": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.46.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.46.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.48": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.48.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.48.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.49": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.49.balls": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.5": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.5.balls": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.5.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.6": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.6.balls": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].miscounted_overs.6.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].miscounted_overs.7": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.7.balls": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.7.umpire": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].miscounted_overs.8": {
+   "occurrences": 12,
+   "files_with_field": 12,
+   "pct_files": 0.12
+  },
+  "innings[].miscounted_overs.8.balls": {
+   "occurrences": 12,
+   "files_with_field": 12,
+   "pct_files": 0.12
+  },
+  "innings[].miscounted_overs.8.umpire": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].miscounted_overs.9": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.9.balls": {
+   "occurrences": 10,
+   "files_with_field": 10,
+   "pct_files": 0.1
+  },
+  "innings[].miscounted_overs.9.umpire": {
+   "occurrences": 1,
+   "files_with_field": 1,
+   "pct_files": 0.01
+  },
+  "innings[].overs": {
+   "occurrences": 20475,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries": {
+   "occurrences": 532645,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].actual_delivery": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].batter": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].bowler": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].extras": {
+   "occurrences": 172260,
+   "files_with_field": 10232,
+   "pct_files": 99.85
+  },
+  "innings[].overs[].deliveries[].extras.byes": {
+   "occurrences": 9741,
+   "files_with_field": 5761,
+   "pct_files": 56.22
+  },
+  "innings[].overs[].deliveries[].extras.legbyes": {
+   "occurrences": 36048,
+   "files_with_field": 9397,
+   "pct_files": 91.7
+  },
+  "innings[].overs[].deliveries[].extras.noballs": {
+   "occurrences": 15371,
+   "files_with_field": 6374,
+   "pct_files": 62.2
+  },
+  "innings[].overs[].deliveries[].extras.penalty": {
+   "occurrences": 43,
+   "files_with_field": 42,
+   "pct_files": 0.41
+  },
+  "innings[].overs[].deliveries[].extras.wides": {
+   "occurrences": 111537,
+   "files_with_field": 10205,
+   "pct_files": 99.59
+  },
+  "innings[].overs[].deliveries[].non_striker": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].replacements": {
+   "occurrences": 1175,
+   "files_with_field": 851,
+   "pct_files": 8.3
+  },
+  "innings[].overs[].deliveries[].replacements.match": {
+   "occurrences": 665,
+   "files_with_field": 391,
+   "pct_files": 3.82
+  },
+  "innings[].overs[].deliveries[].replacements.match[].in": {
+   "occurrences": 705,
+   "files_with_field": 391,
+   "pct_files": 3.82
+  },
+  "innings[].overs[].deliveries[].replacements.match[].out": {
+   "occurrences": 705,
+   "files_with_field": 391,
+   "pct_files": 3.82
+  },
+  "innings[].overs[].deliveries[].replacements.match[].reason": {
+   "occurrences": 705,
+   "files_with_field": 391,
+   "pct_files": 3.82,
+   "values": [
+    "concussion_substitute",
+    "impact_player",
+    "supersub",
+    "unknown"
+   ]
+  },
+  "innings[].overs[].deliveries[].replacements.match[].team": {
+   "occurrences": 705,
+   "files_with_field": 391,
+   "pct_files": 3.82
+  },
+  "innings[].overs[].deliveries[].replacements.role": {
+   "occurrences": 510,
+   "files_with_field": 486,
+   "pct_files": 4.74
+  },
+  "innings[].overs[].deliveries[].replacements.role[].in": {
+   "occurrences": 510,
+   "files_with_field": 486,
+   "pct_files": 4.74
+  },
+  "innings[].overs[].deliveries[].replacements.role[].out": {
+   "occurrences": 395,
+   "files_with_field": 384,
+   "pct_files": 3.75
+  },
+  "innings[].overs[].deliveries[].replacements.role[].reason": {
+   "occurrences": 510,
+   "files_with_field": 486,
+   "pct_files": 4.74,
+   "values": [
+    "excluded - high full pitched balls",
+    "injury",
+    "too many overs",
+    "unknown"
+   ]
+  },
+  "innings[].overs[].deliveries[].replacements.role[].role": {
+   "occurrences": 510,
+   "files_with_field": 486,
+   "pct_files": 4.74,
+   "values": [
+    "batter",
+    "bowler"
+   ]
+  },
+  "innings[].overs[].deliveries[].review": {
+   "occurrences": 6566,
+   "files_with_field": 2524,
+   "pct_files": 24.63
+  },
+  "innings[].overs[].deliveries[].review.batter": {
+   "occurrences": 6566,
+   "files_with_field": 2524,
+   "pct_files": 24.63
+  },
+  "innings[].overs[].deliveries[].review.by": {
+   "occurrences": 6566,
+   "files_with_field": 2524,
+   "pct_files": 24.63
+  },
+  "innings[].overs[].deliveries[].review.decision": {
+   "occurrences": 6566,
+   "files_with_field": 2524,
+   "pct_files": 24.63,
+   "values": [
+    "struck down",
+    "technical failure",
+    "upheld"
+   ]
+  },
+  "innings[].overs[].deliveries[].review.type": {
+   "occurrences": 2843,
+   "files_with_field": 1028,
+   "pct_files": 10.03,
+   "values": [
+    "wicket"
+   ]
+  },
+  "innings[].overs[].deliveries[].review.umpire": {
+   "occurrences": 6422,
+   "files_with_field": 2467,
+   "pct_files": 24.08
+  },
+  "innings[].overs[].deliveries[].review.umpires_call": {
+   "occurrences": 818,
+   "files_with_field": 686,
+   "pct_files": 6.69,
+   "values": [
+    "True"
+   ]
+  },
+  "innings[].overs[].deliveries[].runs": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].runs.batter": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].runs.extras": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].runs.non_boundary": {
+   "occurrences": 309,
+   "files_with_field": 289,
+   "pct_files": 2.82
+  },
+  "innings[].overs[].deliveries[].runs.total": {
+   "occurrences": 3298987,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].overs[].deliveries[].wickets": {
+   "occurrences": 134127,
+   "files_with_field": 10228,
+   "pct_files": 99.81
+  },
+  "innings[].overs[].deliveries[].wickets[].fielders": {
+   "occurrences": 86670,
+   "files_with_field": 10211,
+   "pct_files": 99.65
+  },
+  "innings[].overs[].deliveries[].wickets[].fielders[].name": {
+   "occurrences": 92438,
+   "files_with_field": 10211,
+   "pct_files": 99.65
+  },
+  "innings[].overs[].deliveries[].wickets[].fielders[].substitute": {
+   "occurrences": 1458,
+   "files_with_field": 1181,
+   "pct_files": 11.53
+  },
+  "innings[].overs[].deliveries[].wickets[].kind": {
+   "occurrences": 134143,
+   "files_with_field": 10228,
+   "pct_files": 99.81,
+   "values": [
+    "bowled",
+    "caught",
+    "caught and bowled",
+    "hit the ball twice",
+    "hit wicket",
+    "lbw",
+    "obstructing the field",
+    "retired hurt",
+    "retired not out",
+    "retired out",
+    "run out",
+    "stumped",
+    "timed out"
+   ]
+  },
+  "innings[].overs[].deliveries[].wickets[].player_out": {
+   "occurrences": 134143,
+   "files_with_field": 10228,
+   "pct_files": 99.81
+  },
+  "innings[].overs[].over": {
+   "occurrences": 532645,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "innings[].penalty_runs": {
+   "occurrences": 7,
+   "files_with_field": 7,
+   "pct_files": 0.07
+  },
+  "innings[].penalty_runs.post": {
+   "occurrences": 3,
+   "files_with_field": 3,
+   "pct_files": 0.03
+  },
+  "innings[].penalty_runs.pre": {
+   "occurrences": 4,
+   "files_with_field": 4,
+   "pct_files": 0.04
+  },
+  "innings[].powerplays": {
+   "occurrences": 19844,
+   "files_with_field": 10005,
+   "pct_files": 97.64
+  },
+  "innings[].powerplays[].from": {
+   "occurrences": 27561,
+   "files_with_field": 10005,
+   "pct_files": 97.64
+  },
+  "innings[].powerplays[].to": {
+   "occurrences": 27561,
+   "files_with_field": 10005,
+   "pct_files": 97.64
+  },
+  "innings[].powerplays[].type": {
+   "occurrences": 27561,
+   "files_with_field": 10005,
+   "pct_files": 97.64,
+   "values": [
+    "batting",
+    "fielding",
+    "mandatory"
+   ]
+  },
+  "innings[].super_over": {
+   "occurrences": 152,
+   "files_with_field": 73,
+   "pct_files": 0.71
+  },
+  "innings[].target": {
+   "occurrences": 10042,
+   "files_with_field": 10042,
+   "pct_files": 98.0
+  },
+  "innings[].target.overs": {
+   "occurrences": 10042,
+   "files_with_field": 10042,
+   "pct_files": 98.0
+  },
+  "innings[].target.runs": {
+   "occurrences": 10042,
+   "files_with_field": 10042,
+   "pct_files": 98.0
+  },
+  "innings[].team": {
+   "occurrences": 20475,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "meta": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "meta.created": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  },
+  "meta.data_version": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0,
+   "values": [
+    "1.2.0"
+   ]
+  },
+  "meta.revision": {
+   "occurrences": 10247,
+   "files_with_field": 10247,
+   "pct_files": 100.0
+  }
+ },
+ "presence_by_zip_pct": {
+  "info.city": {
+   "ipl_json.zip": 95.9,
+   "odis_female_json.zip": 95.9,
+   "odis_male_json.zip": 89.1,
+   "t20s_female_json.zip": 97.4,
+   "t20s_male_json.zip": 96.5,
+   "wpl_json.zip": 100.0
+  },
+  "info.player_of_match": {
+   "ipl_json.zip": 99.3,
+   "odis_female_json.zip": 87.6,
+   "odis_male_json.zip": 94.3,
+   "t20s_female_json.zip": 90.1,
+   "t20s_male_json.zip": 91.5,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].powerplays": {
+   "ipl_json.zip": 100.0,
+   "odis_female_json.zip": 100.0,
+   "odis_male_json.zip": 90.6,
+   "t20s_female_json.zip": 100.0,
+   "t20s_male_json.zip": 100.0,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].powerplays[].from": {
+   "ipl_json.zip": 100.0,
+   "odis_female_json.zip": 100.0,
+   "odis_male_json.zip": 90.6,
+   "t20s_female_json.zip": 100.0,
+   "t20s_male_json.zip": 100.0,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].powerplays[].to": {
+   "ipl_json.zip": 100.0,
+   "odis_female_json.zip": 100.0,
+   "odis_male_json.zip": 90.6,
+   "t20s_female_json.zip": 100.0,
+   "t20s_male_json.zip": 100.0,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].powerplays[].type": {
+   "ipl_json.zip": 100.0,
+   "odis_female_json.zip": 100.0,
+   "odis_male_json.zip": 90.6,
+   "t20s_female_json.zip": 100.0,
+   "t20s_male_json.zip": 100.0,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].target": {
+   "ipl_json.zip": 99.5,
+   "odis_female_json.zip": 97.4,
+   "odis_male_json.zip": 97.2,
+   "t20s_female_json.zip": 98.5,
+   "t20s_male_json.zip": 97.8,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].target.overs": {
+   "ipl_json.zip": 99.5,
+   "odis_female_json.zip": 97.4,
+   "odis_male_json.zip": 97.2,
+   "t20s_female_json.zip": 98.5,
+   "t20s_male_json.zip": 97.8,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].target.runs": {
+   "ipl_json.zip": 99.5,
+   "odis_female_json.zip": 97.4,
+   "odis_male_json.zip": 97.2,
+   "t20s_female_json.zip": 98.5,
+   "t20s_male_json.zip": 97.8,
+   "wpl_json.zip": 100.0
+  },
+  "innings[].overs[].deliveries[].runs.non_boundary": {
+   "ipl_json.zip": 2.3,
+   "odis_female_json.zip": 3.3,
+   "odis_male_json.zip": 6.7,
+   "t20s_female_json.zip": 0.6,
+   "t20s_male_json.zip": 1.5,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements": {
+   "ipl_json.zip": 26.6,
+   "odis_female_json.zip": 6.5,
+   "odis_male_json.zip": 9.2,
+   "t20s_female_json.zip": 4.6,
+   "t20s_male_json.zip": 4.0,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements.role": {
+   "ipl_json.zip": 4.7,
+   "odis_female_json.zip": 5.6,
+   "odis_male_json.zip": 6.8,
+   "t20s_female_json.zip": 4.1,
+   "t20s_male_json.zip": 3.6,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].overs[].deliveries[].replacements.role[].in": {
+   "ipl_json.zip": 4.7,
+   "odis_female_json.zip": 5.6,
+   "odis_male_json.zip": 6.8,
+   "t20s_female_json.zip": 4.1,
+   "t20s_male_json.zip": 3.6,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].overs[].deliveries[].replacements.role[].reason": {
+   "ipl_json.zip": 4.7,
+   "odis_female_json.zip": 5.6,
+   "odis_male_json.zip": 6.8,
+   "t20s_female_json.zip": 4.1,
+   "t20s_male_json.zip": 3.6,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].overs[].deliveries[].replacements.role[].role": {
+   "ipl_json.zip": 4.7,
+   "odis_female_json.zip": 5.6,
+   "odis_male_json.zip": 6.8,
+   "t20s_female_json.zip": 4.1,
+   "t20s_male_json.zip": 3.6,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].super_over": {
+   "ipl_json.zip": 1.3,
+   "odis_female_json.zip": 0.7,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.6,
+   "t20s_male_json.zip": 0.9,
+   "wpl_json.zip": 1.1
+  },
+  "info.event.stage": {
+   "ipl_json.zip": 6.0,
+   "odis_female_json.zip": 4.6,
+   "odis_male_json.zip": 4.4,
+   "t20s_female_json.zip": 10.4,
+   "t20s_male_json.zip": 7.7,
+   "wpl_json.zip": 9.1
+  },
+  "innings[].overs[].deliveries[].review": {
+   "ipl_json.zip": 39.6,
+   "odis_female_json.zip": 25.0,
+   "odis_male_json.zip": 37.7,
+   "t20s_female_json.zip": 9.7,
+   "t20s_male_json.zip": 17.4,
+   "wpl_json.zip": 88.6
+  },
+  "innings[].overs[].deliveries[].review.by": {
+   "ipl_json.zip": 39.6,
+   "odis_female_json.zip": 25.0,
+   "odis_male_json.zip": 37.7,
+   "t20s_female_json.zip": 9.7,
+   "t20s_male_json.zip": 17.4,
+   "wpl_json.zip": 88.6
+  },
+  "innings[].overs[].deliveries[].review.umpire": {
+   "ipl_json.zip": 39.6,
+   "odis_female_json.zip": 23.4,
+   "odis_male_json.zip": 37.6,
+   "t20s_female_json.zip": 9.1,
+   "t20s_male_json.zip": 16.5,
+   "wpl_json.zip": 88.6
+  },
+  "innings[].overs[].deliveries[].review.batter": {
+   "ipl_json.zip": 39.6,
+   "odis_female_json.zip": 25.0,
+   "odis_male_json.zip": 37.7,
+   "t20s_female_json.zip": 9.7,
+   "t20s_male_json.zip": 17.4,
+   "wpl_json.zip": 88.6
+  },
+  "innings[].overs[].deliveries[].review.decision": {
+   "ipl_json.zip": 39.6,
+   "odis_female_json.zip": 25.0,
+   "odis_male_json.zip": 37.7,
+   "t20s_female_json.zip": 9.7,
+   "t20s_male_json.zip": 17.4,
+   "wpl_json.zip": 88.6
+  },
+  "innings[].overs[].deliveries[].review.umpires_call": {
+   "ipl_json.zip": 10.1,
+   "odis_female_json.zip": 8.3,
+   "odis_male_json.zip": 9.1,
+   "t20s_female_json.zip": 3.0,
+   "t20s_male_json.zip": 5.1,
+   "wpl_json.zip": 31.8
+  },
+  "innings[].overs[].deliveries[].replacements.role[].out": {
+   "ipl_json.zip": 3.7,
+   "odis_female_json.zip": 5.1,
+   "odis_male_json.zip": 4.0,
+   "t20s_female_json.zip": 4.0,
+   "t20s_male_json.zip": 3.3,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs": {
+   "ipl_json.zip": 0.6,
+   "odis_female_json.zip": 2.1,
+   "odis_male_json.zip": 4.2,
+   "t20s_female_json.zip": 2.9,
+   "t20s_male_json.zip": 1.3,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.11": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.11.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.11.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].absent_hurt": {
+   "ipl_json.zip": 0.5,
+   "odis_female_json.zip": 2.9,
+   "odis_male_json.zip": 0.8,
+   "t20s_female_json.zip": 1.3,
+   "t20s_male_json.zip": 0.8,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].overs[].deliveries[].review.type": {
+   "ipl_json.zip": 20.2,
+   "odis_female_json.zip": 15.4,
+   "odis_male_json.zip": 8.4,
+   "t20s_female_json.zip": 5.4,
+   "t20s_male_json.zip": 8.1,
+   "wpl_json.zip": 69.3
+  },
+  "innings[].overs[].deliveries[].replacements.match": {
+   "ipl_json.zip": 23.4,
+   "odis_female_json.zip": 1.1,
+   "odis_male_json.zip": 2.7,
+   "t20s_female_json.zip": 0.5,
+   "t20s_male_json.zip": 0.4,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements.match[].in": {
+   "ipl_json.zip": 23.4,
+   "odis_female_json.zip": 1.1,
+   "odis_male_json.zip": 2.7,
+   "t20s_female_json.zip": 0.5,
+   "t20s_male_json.zip": 0.4,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements.match[].out": {
+   "ipl_json.zip": 23.4,
+   "odis_female_json.zip": 1.1,
+   "odis_male_json.zip": 2.7,
+   "t20s_female_json.zip": 0.5,
+   "t20s_male_json.zip": 0.4,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements.match[].team": {
+   "ipl_json.zip": 23.4,
+   "odis_female_json.zip": 1.1,
+   "odis_male_json.zip": 2.7,
+   "t20s_female_json.zip": 0.5,
+   "t20s_male_json.zip": 0.4,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].overs[].deliveries[].replacements.match[].reason": {
+   "ipl_json.zip": 23.4,
+   "odis_female_json.zip": 1.1,
+   "odis_male_json.zip": 2.7,
+   "t20s_female_json.zip": 0.5,
+   "t20s_male_json.zip": 0.4,
+   "wpl_json.zip": 1.1
+  },
+  "innings[].miscounted_overs.7": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.7.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.7.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.10": {
+   "ipl_json.zip": 0.2,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.10.balls": {
+   "ipl_json.zip": 0.2,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.14": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.14.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.14.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.10.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.18": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.18.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.18.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.5": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.5.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.5.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.9": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.9.balls": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.9.umpire": {
+   "ipl_json.zip": 0.1,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.match_type_number": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 100.0,
+   "odis_male_json.zip": 100.0,
+   "t20s_female_json.zip": 100.0,
+   "t20s_male_json.zip": 100.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.missing": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 36.0,
+   "odis_male_json.zip": 6.4,
+   "t20s_female_json.zip": 14.6,
+   "t20s_male_json.zip": 10.7,
+   "wpl_json.zip": 0.0
+  },
+  "info.missing[].powerplays": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 31.3,
+   "odis_male_json.zip": 5.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.missing[].powerplays.1": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 27.2,
+   "odis_male_json.zip": 2.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.missing[].powerplays.2": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 29.3,
+   "odis_male_json.zip": 4.6,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.event.group": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 2.3,
+   "odis_male_json.zip": 9.4,
+   "t20s_female_json.zip": 22.2,
+   "t20s_male_json.zip": 19.6,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.32": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.3,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.32.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.3,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.6": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.6.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.26": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.26.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.26.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.16": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.16.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.16.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.49": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.49.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].penalty_runs": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].penalty_runs.pre": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.32.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.29": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.29.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.2": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.2.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.30": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.30.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.27": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.27.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.27.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.28": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.28.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.19": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.19.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.1": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.1.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.2,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.39": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.39.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.39.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.13": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.2,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.13.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.2,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.13.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.28.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.43": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.43.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.43.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.20": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.20.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.20.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.15": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.15.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.15.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.35": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.35.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.31": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.31.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.31.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.38": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.38.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.17": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.17.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.17.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.1,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.19.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.33": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.33.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.33.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.41": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.41.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.34": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.34.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.34.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.46": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.46.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.46.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].penalty_runs.post": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.37": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.37.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.37.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.2.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.12": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.12.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "info.supersubs": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 2.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.supersubs.<key>": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 2.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.24": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.24.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.0": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.0.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.0.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.23": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.23.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.36": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.36.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.36.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.2,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.24.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.42": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.42.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.42.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.12.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.41.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.25": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.25.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.25.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.40": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.40.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.40.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.35.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.21": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.21.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.21.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.8": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.8.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.3,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.8.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.22": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.22.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.22.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.23.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.4": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.4.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.4.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.44": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.44.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.44.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.29.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.1,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.48": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.48.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.48.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.1.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.3": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.3.balls": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.2,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "innings[].miscounted_overs.6.umpire": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.0,
+   "wpl_json.zip": 0.0
+  },
+  "info.bowl_out": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "info.bowl_out[].bowler": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "info.bowl_out[].outcome": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  },
+  "info.outcome.bowl_out": {
+   "ipl_json.zip": 0.0,
+   "odis_female_json.zip": 0.0,
+   "odis_male_json.zip": 0.0,
+   "t20s_female_json.zip": 0.0,
+   "t20s_male_json.zip": 0.1,
+   "wpl_json.zip": 0.0
+  }
+ }
+}
