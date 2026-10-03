@@ -44,10 +44,12 @@ def _flush(out: Path, buf: dict[str, list[dict]], part: int):
 
 def ingest(source: str, out: Path) -> dict:
     if source == "cricsheet":
-        z = RAW / "cricsheet" / "all_json.zip"
-        if not z.exists():
-            raise SystemExit(f"{z} not found. Run: python -m cricintel.sources.cricsheet download")
-        it, source_id, reg = cricsheet.iter_zip(z), "cricsheet", RAW / "cricsheet" / "register" / "people.csv"
+        zips = sorted((RAW / "cricsheet" / "downloads").glob("*.zip"))
+        if not zips:
+            raise SystemExit("no Cricsheet zips in data/raw/cricsheet/downloads. Run `python -m cricintel.sources.cricsheet download` "
+                             "(direct) or `... import --src <checkout of data/cricsheet-raw>` (GitHub Actions route)")
+        it = (x for z in zips for x in cricsheet.iter_zip(z))  # duplicates across zips are quarantined by match_id
+        source_id, reg = "cricsheet", RAW / "cricsheet" / "register" / "people.csv"
     elif source == "synthetic":
         it, source_id, reg = cricsheet.iter_dir(RAW / "synthetic"), "synthetic_fixture", RAW / "synthetic" / "register" / "people.csv"
     else:

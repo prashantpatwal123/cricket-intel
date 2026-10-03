@@ -30,7 +30,10 @@ _DB: dict = {}
 def db() -> DB:
     """Current dataset. Reloads if the dataset was rebuilt (manifest changed), so the in-memory
     working tables can never drift from the Parquet files they were derived from."""
-    name = os.environ.get("CRICINTEL_DATASET", "synthetic")
+    mode = os.environ.get("CRICINTEL_MODE", "TEST_SYNTHETIC")
+    name = os.environ.get("CRICINTEL_DATASET", "synthetic" if mode == "TEST_SYNTHETIC" else "cricsheet")
+    if mode == "REAL_DATA" and name == "synthetic":
+        raise RuntimeError("REAL_DATA mode refuses to serve the synthetic fixture")
     stamp = (dataset_dir(name) / "manifest.json").stat().st_mtime_ns
     if _DB.get("stamp") != stamp:
         _DB["db"], _DB["stamp"] = DB(name), stamp
@@ -46,7 +49,7 @@ def filters(req: Request) -> Filters:
 
 def envelope(data, t0: float):
     m = db().manifest
-    return {"data": data, "dataset": {"name": m["dataset"], "synthetic": m["synthetic"], "source_id": m["source_id"],
+    return {"data": data, "dataset": {"mode": "TEST_SYNTHETIC" if m["synthetic"] else "REAL_DATA", "name": m["dataset"], "synthetic": m["synthetic"], "source_id": m["source_id"],
                                       "attribution": m["attribution"], "built_at": m["built_at"]},
             "ms": round((time.perf_counter() - t0) * 1000, 1)}
 

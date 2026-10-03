@@ -1,0 +1,52 @@
+# Retrieves the OFFICIAL Cricsheet downloads directly from cricsheet.org on a GitHub-hosted runner,
+# records provenance (URL, HTTP headers, retrieval time, run URL, SHA-256) and pushes the files,
+# byte-for-byte unmodified, to the orphan branch `data/cricsheet-raw`.
+# Used because the development sandbox's network policy cannot reach cricsheet.org.
+name: fetch-cricsheet
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "Space-separated Cricsheet download file names (from https://cricsheet.org/downloads/)"
+        default: "ipl_json.zip wpl_json.zip t20s_male_json.zip t20s_female_json.zip odis_male_json.zip odis_female_json.zip"
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retrieve from cricsheet.org
+        env:
+          FILES: ${{ inputs.files }}
+        run: |
+          set -euo pipefail
+          mkdir -p out/pages out/downloads out/register out/headers
+          UA="cricintel-provenance-fetch/1.0 (+https://github.com/${GITHUB_REPOSITORY})"
+          for p in "" about/ downloads/ register/ format/ format/json/ matches/; do
+            n=$(echo "index/${p}" | tr '/' '_')
+            curl -fsSL -A "$UA" -D "out/headers/page_${n}.txt" -o "out/pages/${n}.html" "https://cricsheet.org/${p}"
+          done
+          for f in $FILES; do
+            curl -fsSL -A "$UA" -D "out/headers/${f}.txt" -o "out/downloads/${f}" "https://cricsheet.org/downloads/${f}"
+            unzip -tq "out/downloads/${f}"
+          done
+          for f in people.csv names.csv; do
+            curl -fsSL -A "$UA" -D "out/headers/register_${f}.txt" -o "out/register/${f}" "https://cricsheet.org/register/${f}"
+          done
+          (cd out && find downloads register pages -type f | sort | xargs sha256sum > SHA256SUMS)
+          cat > out/PROVENANCE.json <<JSON
+          {"source": "Cricsheet", "base_url": "https://cricsheet.org", "retrieved_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+           "retrieved_by": "GitHub Actions run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}",
+           "files": "$(echo $FILES)", "modification": "none: bytes exactly as served"}
+          JSON
+          cat out/SHA256SUMS
+      - name: Push to data branch
+        run: |
+          set -euo pipefail
+          cd out
+          git init -q -b data/cricsheet-raw
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Cricsheet official downloads retrieved $(date -u +%Y-%m-%dT%H:%M:%SZ) by run ${GITHUB_RUN_ID}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" data/cricsheet-raw

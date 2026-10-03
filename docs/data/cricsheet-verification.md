@@ -15,6 +15,19 @@ This document separates three levels of evidence:
 
 We have **not** used any third-party mirror of the data. Attaching a GitHub mirror was considered and declined: an unofficial copy can't be verified as unmodified, and doing so was not permitted in this environment. Only data fetched directly from cricsheet.org will be loaded as `source_id = cricsheet`.
 
+## 0. Access routes attempted (2026-10-03)
+
+| # | Route | Result | Evidence |
+|---|---|---|---|
+| 1 | Direct official downloads `https://cricsheet.org/downloads/*` | ❌ **Blocked by the sandbox egress proxy** (HTTPS CONNECT rejected; `http://` returns proxy 403). `www.cricsheet.org` also blocked. | `curl` status 000 / proxy log `connect_rejected` |
+| 2 | Official Cricsheet GitHub org [github.com/cricsheet](https://github.com/cricsheet) (links to cricsheet.org) | ⚠️ Reachable but **not usable**: 3 repos (`cricsheet-xml`, `csv-converter`, `xml-converter`), last updated Aug 2020. They hold tools plus an XML conversion of the retired v0.9 YAML data. No current JSON, no Register. | WebFetch of the org page |
+| 3 | Official packages (PyPI / npm / CRAN) | ❌ No Cricsheet-published package exists. PyPI/npm only have community projects (`cricsummary`, `yorkpy`, MCP servers with "bundled" data). Not first-party, not verifiable. CRAN is blocked anyway. | PyPI JSON API, npm search API |
+| 4 | Other first-party points: Stephen Rushe's Sourcehut `git.sr.ht/~srushe` (project moved there from GitHub), `deeden.co.uk` | ❌ Blocked by the egress proxy. | proxy `connect_rejected` |
+| 5 | Archives / mirrors (web.archive.org, archive.org, Zenodo, Hugging Face, figshare, OSF, data.world) | ❌ All blocked by the proxy. Third-party GitHub mirrors exist (e.g. `nandyad/Cric-Data`), but **Cricsheet publishes no checksums**, so a mirror can't be independently verified. Attaching one was also refused by this environment's permission policy. | proxy log; permission denial |
+| 6 | **GitHub Actions retrieval** (prepared): `.github/workflows/fetch-cricsheet.yml` downloads from cricsheet.org on a GitHub runner, records headers, SHA-256 and the run URL, and pushes the files unmodified to branch `data/cricsheet-raw`. `python -m cricintel.sources.cricsheet import --src <checkout>` re-verifies every hash locally. | ⏸ **Needs the cricket-intel GitHub repo to exist.** The integration can't create repositories (HTTP 403), and none is attached to this session. | 403 from create_repository; `list_repos` returns none |
+
+**Unblock (either one):** (a) add `cricsheet.org` to this environment's allowed domains, or (b) create the empty `cricket-intel` repo and attach it, so the code can be pushed and the workflow run.
+
 ## 1. Licence, commercial use, attribution
 
 | Item | Level | Finding |

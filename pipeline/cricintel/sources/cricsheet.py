@@ -281,14 +281,44 @@ def _fetch(url: str, dest: Path) -> str:
     return h.hexdigest()
 
 
-def download(files=("all_json.zip",), register=True) -> dict:
+PRIORITY_FILES = ("ipl_json.zip", "wpl_json.zip", "t20s_male_json.zip", "t20s_female_json.zip",
+                  "odis_male_json.zip", "odis_female_json.zip")
+
+
+def download(files=PRIORITY_FILES, register=True) -> dict:
+    """Direct route: fetch official downloads from cricsheet.org into raw/cricsheet/{downloads,register}."""
     out = RAW / "cricsheet"
-    manifest = {"fetched_at": dt.datetime.now(dt.timezone.utc).isoformat(), "files": {}}
+    manifest = {"route": "direct cricsheet.org", "retrieved_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "files": {}}
     for f in files:
-        manifest["files"][f] = _fetch(f"{BASE}/downloads/{f}", out / f)
+        manifest["files"][f"downloads/{f}"] = _fetch(f"{BASE}/downloads/{f}", out / "downloads" / f)
     if register:
         for f in ("people.csv", "names.csv"):
-            manifest["files"][f] = _fetch(f"{BASE}/register/{f}", out / "register" / f)
+            manifest["files"][f"register/{f}"] = _fetch(f"{BASE}/register/{f}", out / "register" / f)
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=2))
+    return manifest
+
+
+def import_verified(src: Path) -> dict:
+    """GitHub-Actions route: `src` is a checkout of branch data/cricsheet-raw. Every file listed in
+    SHA256SUMS is re-hashed locally; any mismatch aborts. Files are copied byte-for-byte."""
+    import shutil
+    sums = {}
+    for line in (src / "SHA256SUMS").read_text().splitlines():
+        h, name = line.split(maxsplit=1)
+        sums[name.strip()] = h
+    out = RAW / "cricsheet"
+    checked = {}
+    for name, h in sums.items():
+        got = hashlib.sha256((src / name).read_bytes()).hexdigest()
+        if got != h:
+            raise SystemExit(f"CHECKSUM MISMATCH {name}: expected {h} got {got}")
+        checked[name] = got
+        if name.startswith(("downloads/", "register/")):
+            (out / name).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src / name, out / name)
+    prov = json.loads((src / "PROVENANCE.json").read_text())
+    manifest = {"route": "GitHub Actions retrieval from cricsheet.org", "provenance": prov,
+                "imported_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(), "files": checked}
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2))
     return manifest
 
@@ -303,13 +333,14 @@ def verify() -> None:
             lines.append(f"- `{page}` fetched ({len(html)} bytes). Licence-related lines: {lic}")
         except Exception as e:  # noqa: BLE001
             lines.append(f"- `{page}` FAILED: {e}")
-    m = download()
-    zpath = RAW / "cricsheet" / "all_json.zip"
-    with zipfile.ZipFile(zpath) as z:
-        names = [n for n in z.namelist() if n.endswith(".json")]
-        keys: Counter = Counter()
-        g: Counter = Counter()
-        for n in names:
+    m = json.loads((RAW / "cricsheet" / "manifest.json").read_text()) if (RAW / "cricsheet" / "manifest.json").exists() else download()
+    keys: Counter = Counter()
+    g: Counter = Counter()
+    names = []
+    for zpath in sorted((RAW / "cricsheet" / "downloads").glob("*.zip")):
+      with zipfile.ZipFile(zpath) as z:
+        for n in [x for x in z.namelist() if x.endswith(".json")]:
+            names.append(n)
             d = json.loads(z.read(n))
             g[(d["info"].get("gender"), d["info"].get("match_type"), d["info"].get("team_type"))] += 1
             keys.update("info." + k for k in d["info"])
@@ -318,7 +349,7 @@ def verify() -> None:
                 for ov in inn.get("overs", []):
                     for dl in ov.get("deliveries", []):
                         keys.update("delivery." + k for k in dl)
-    lines.append(f"- all_json.zip sha256 `{m['files']['all_json.zip']}`, {len(names)} match files")
+    lines.append(f"- files + sha256: {json.dumps(m['files'])}; {len(names)} match files")
     lines.append("- Matches by (gender, match_type, team_type): " + json.dumps({"|".join(map(str, k)): v for k, v in g.most_common()}))
     lines.append("- Keys observed (count of occurrences): " + json.dumps(dict(keys.most_common())))
     with open(DOCS_DATA / "cricsheet-verification.md", "a") as fh:
@@ -344,11 +375,14 @@ def iter_dir(path: Path):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["download", "verify"])
+    ap.add_argument("cmd", choices=["download", "import", "verify"])
     ap.add_argument("--file", action="append")
+    ap.add_argument("--src", help="checkout of branch data/cricsheet-raw (for import)")
     a = ap.parse_args()
     if a.cmd == "download":
-        print(json.dumps(download(tuple(a.file or ["all_json.zip"])), indent=2))
+        print(json.dumps(download(tuple(a.file or PRIORITY_FILES)), indent=2))
+    elif a.cmd == "import":
+        print(json.dumps(import_verified(Path(a.src)), indent=2))
     else:
         verify()
     sys.exit(0)
