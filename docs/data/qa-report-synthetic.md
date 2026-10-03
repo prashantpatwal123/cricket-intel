@@ -43,7 +43,7 @@
 | ✅ PASS | dismissal consistency | bowled/lbw/caught/stumped on a no-ball (impossible) (`wicket_on_noball_kind`) | 0 |  |
 | ✅ PASS | fielder references | caught/stumped without a named fielder (`fielder_required`) | 0 |  |
 | ✅ PASS | fielder references | non-substitute fielder not in fielding XI (`fielder_not_in_xi`) | 0 |  |
-| 🟡 WARN | fielder references | catches whose wicketkeeper status could not be inferred (`keeper_unresolved`) | 468 | `9000674:1:26 · L Wexson` |
+| 🟡 WARN | fielder references | catches whose wicketkeeper status could not be inferred (`keeper_unresolved`) | 468 | `9000009:1:80 · R Northholt` |
 | ✅ PASS | target/chase | observed target != first-innings total + 1 without a DLS-type method (`target_mismatch`) | 0 |  |
 | ✅ PASS | target/chase | chasing side reached target but is not recorded as winner (`chase_result`) | 0 |  |
 | ✅ PASS | target/chase | chase continued after the target was reached (`chase_overshoot`) | 0 |  |
