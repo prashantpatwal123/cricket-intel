@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+
+
+ <html lang="en-gb" class="no-js"> 
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" href='http://cricsheet.org/articles.xml' />
+
+<script src="/js/modernizr-3.6.0.min.js"></script>
+<script type="text/javascript" src="//use.typekit.net/mjy1jks.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<title>Match Data Formats - Cricsheet</title>
+
+</head>
+
+<body>
+  <div class="wrapper wrapper_banner">
+  <div id="banner">
+    <header>
+      <h1><a href="/">Cricsheet</a></h1>
+      <h2>Freely-available structured data for cricket, including ball-by-ball data international and T20 League cricket matches, and identifier (register) mapping for people involved in cricket. <a href="/about/">Learn more about&nbsp;Cricsheet</a></h2>
+    </header>
+  </div>
+</div>
+
+<div class="wrapper wrapper_nav">
+  <nav id="navigation">
+    <ul id="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/register/">Register data</a></li>
+      <li><a href="/matches/">Match data</a>
+        <ul>
+          <li><a href="/downloads/">Downloads</a></li>
+          <li><a href="/format/">Format</a></li>
+          <li><a href="/coverage/">Coverage</a></li>
+          <li><a href="/missing/">Missing</a></li>
+        </ul>
+      </li>
+      <li><a href="/article/">Articles</a></li>
+      <li><a href="/contact/">Get in touch</a></li>
+    </ul>
+  </nav>
+</div>
+
+  <div class="wrapper">
+    <div id="main">
+      
+  <h3>Match Data Formats</h3>
+
+  <div>
+    <p>Cricsheet provides match data in multiple different formats. The current formats are JSON, YAML, XML, and 2 versions in CSV. The data for the JSON, YAML, and CSV formats can be found on the <a href="/downloads/">downloads page</a>, and is available gathered together in zip files, whereas the XML data files can be downloaded individually via <a href="https://git.sr.ht/~srushe/cricsheet-xml">the cricsheet-xml Sourcehut repository</a>.</p>
+<p>If you&rsquo;re planning to work with the data then you should be aware of the benefits/drawbacks of each. This page gives a summary on each, and you can find the full details on each format linked from each summary.</p>
+<hr>
+<h3 id="json"><a href="json/">JSON</a></h3>
+<p>The &ldquo;main&rdquo; data provided by Cricsheet is in <a href="json/">JSON format</a>. It is the most complete of all of the formats provided, and <em>should be</em> easier to work with than the previous default format YAML. This format is the official Cricsheet format, and is the most likely to receive updates as extra data becomes available. The other formats are either deprecated (YAML), or experimental (XML, and CSV).</p>
+<hr>
+<h3 id="yaml"><a href="yaml/">YAML</a></h3>
+<p>The original data provided by Cricsheet is in <a href="yaml/">YAML format</a>. A version of the YAML data has been provided ever since the project first started, however has now been superseded by the JSON format. It may not be the easiest format to work with if you&rsquo;re not familiar with YAML.</p>
+<p>It&rsquo;s worth noting that the YAML format will eventually disappear now that the JSON format is in place, however I will give at least 6 months notice of that happening, and will continue to add new match data in the format until that time. No additions are likely to be made to this format though, so the fields that are available in it now won&rsquo;t be added to.</p>
+<hr>
+<h3 id="xml"><a href="xml/">XML</a></h3>
+<p>The 3rd format provided is in <a href="xml/">XML format</a>. This type of format was requested by one of the users of the data, as they found it easier to use than the YAML version, however it is still regarded as an experimental version and may be discontinued in the future (although a long warning period will be provided should that ever happen).</p>
+<p>If you&rsquo;re the type of person who is really into XML you might find use for the <a href="xml/schema.xsd">schema file</a> which can be used to validate the XML, and will also give you a much more detailed breakdown of the format.</p>
+<hr>
+<h3 id="csv">CSV</h3>
+<p>If you&rsquo;re someone who would prefer to have a format that is easier to work with, and that will open directly in Excel (or your equivalent), then you probably want one of the CSV formats. The more recent (&ldquo;Ashwin&rdquo;) is a format suggested by a user, and the other (&ldquo;Original&rdquo;) is loosely based on the format that <a href="https://retrosheet.org/">Retrosheet</a> uses for baseball, with some suitable hacks applied. I would definitely recommend the &ldquo;Ashwin&rdquo; format if you&rsquo;re coming to this new; it doesn&rsquo;t have all of the data provided in the other versions, however it is probably the most straightforward data format to use if you&rsquo;re looking to do something with Cricsheet data.</p>
+<h4 id="heading"><a href="csv_ashwin/">&ldquo;Ashwin&rdquo; format</a></h4>
+<p>This CSV format takes it&rsquo;s nickname from <a href="https://twitter.com/AshwinRaman_">Ashwin Raman</a> who kindly suggested the initial format that I tweaked (in a few minor ways). This format consists of two files, the first a ball-by-ball file featuring a single header row, with names for each column, and then each subsequent row detailing a single delivery, with information on the match itself duplicated on each delivery row. The second file contains information on the match itself, such as the players involved, the venue etc.</p>
+<h4 id="heading-1"><a href="csv_original/">&ldquo;Original&rdquo; format</a></h4>
+<p>The &ldquo;original&rdquo; CSV format was the first version of CSV data we provided, hence the &ldquo;original&rdquo; nickname. Each file has a version row, multiple info rows, and multiple ball rows, with the info rows roughly corresponding to the same data in the YAML format, and the ball rows matching the deliveries. This format can be opened directly in Excel (or the like), but still requires some work to be properly useful.</p>
+
+  </div>
+
+    </div>
+  </div>
+  <div class="wrapper wrapper_footer">
+  <footer id="footer">
+    <ul>
+      <li>Site &copy; 2009–2026 Cricsheet. <span>All rights reserved.</span></li>
+      <li id="mastodon"><a href="https://social.deeden.co.uk/@cricsheet" rel="me">@cricsheet@deeden.co.uk</a></li>
+      <li id="powered_by"><a href="/humans.txt">Powered by tea, obsessiveness, and a fascination for cricket&nbsp;stats</a>.</li>
+      <li id="zaltz"><q>I just like cricket, really</q> - <a href="http://andyzaltzman.co.uk/">Andy&nbsp;Zaltzman</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

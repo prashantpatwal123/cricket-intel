@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+
+
+ <html lang="en-gb" class="no-js"> 
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" href='http://cricsheet.org/articles.xml' />
+
+<script src="/js/modernizr-3.6.0.min.js"></script>
+<script type="text/javascript" src="//use.typekit.net/mjy1jks.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<title>Cricsheet Register - Cricsheet</title>
+
+</head>
+
+<body>
+  <div class="wrapper wrapper_banner">
+  <div id="banner">
+    <header>
+      <h1><a href="/">Cricsheet</a></h1>
+      <h2>Freely-available structured data for cricket, including ball-by-ball data international and T20 League cricket matches, and identifier (register) mapping for people involved in cricket. <a href="/about/">Learn more about&nbsp;Cricsheet</a></h2>
+    </header>
+  </div>
+</div>
+
+<div class="wrapper wrapper_nav">
+  <nav id="navigation">
+    <ul id="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/register/">Register data</a></li>
+      <li><a href="/matches/">Match data</a>
+        <ul>
+          <li><a href="/downloads/">Downloads</a></li>
+          <li><a href="/format/">Format</a></li>
+          <li><a href="/coverage/">Coverage</a></li>
+          <li><a href="/missing/">Missing</a></li>
+        </ul>
+      </li>
+      <li><a href="/article/">Articles</a></li>
+      <li><a href="/contact/">Get in touch</a></li>
+    </ul>
+  </nav>
+</div>
+
+  <div class="wrapper">
+    <div id="main">
+      
+  <h3>The Cricsheet Register</h3>
+
+  <div>
+    <h4>What is the register?</h4>
+
+    <p>The Cricsheet Register consists of <a href="#data">multiple CSV files</a> containing a unique identifier for <strong>18,554</strong> people, and including <strong>28,456</strong> identifiers from <strong>12</strong> sources, all linked together so that an id from one site can be used to find the identifer for that same person at another site. The data also contains <strong>8,816</strong> name variations for the people covered.</p>
+
+    <p>The people currently covered by the data include:
+      <ul>
+        <li>Every player and official who appears in a match for which Cricsheet provides data.</li>
+        <li>Every player who appears in a match covered by the <a href="https://thesanctityofwickets.com/">Cricket Scorecard Accuracy Project</a>.</li>
+        <li>A smattering of random players encountered while fixing some incorrect data on matches Cricsheet covers.</li>
+      </ul>
+    </p>
+
+    <p>Bear in mind that not all ids are available for each person in the data. Only those required by either Cricsheet itself, or the <a href="https://thesanctityofwickets.com/">Cricket Scorecard Accuracy Project</a> will be provided.</p>
+
+    <h4>What sites are covered?</h4>
+
+    <p>The data includes identifiers from 12 different sites. They, along with the number of identifiers from each, are:
+      <ul>
+        
+        <li>BCCI (1,329)</li>
+        
+        <li>Big Bash (296)</li>
+        
+        <li>Cricbuzz (50)</li>
+        
+        <li>CricHeroes (111)</li>
+        
+        <li>CricHQ (24)</li>
+        
+        <li>Cricingif (130)</li>
+        
+        <li>CricketArchive (4,509)</li>
+        
+        <li>Cricketworld (127)</li>
+        
+        <li>ESPNcricinfo (18,690)</li>
+        
+        <li>NV Play (1,176)</li>
+        
+        <li>Opta (68)</li>
+        
+        <li>Pulse (2,023)</li>
+        
+      </ul>
+    </p>
+
+    <h4>Where is the Register currently used?</h4>
+
+    <p>The data is currently used within 2 projects:
+      <ul>
+        <li>Cricsheet itself uses the data in order to recognise and map players and officials when processing various data sources for matches, and is gradually adding the Cricsheet identifier from the Register to the <a href="/matches/">match data</a>. Most of the initial work of collecting ids was done to make Cricsheet work easier.</li>
+        <li>The <a href="https://thesanctityofwickets.com/">Cricket Scorecard Accuracy Project</a> (CSAP) uses Register data to check whether the players mentioned in the different scorecards for a match are actually the same person. CSAP provided a valuable push in getting this project into a releasable state, as I suddenly had a second case where I needed the mapping data, and also had to collect, and check, many more mappings into order for the project to work.</ul>
+      </ul>
+    </p>
+
+    <h4 id="data">What data is available?</h4>
+
+    <h5>People</h5>
+
+    <p>The people in the Register can be found in the file <code><a href="people.csv">people.csv</a></code>.</p>
+
+    <p>This file is a CSV consisting of a single row for each person, containing the id for the person, as assigned by Cricsheet and used in Cricsheet data, their name, a unique version of their name (as used in the match data files), and columns for the various identifiers used for the person. Not all ids are provided for all people, only those determined so far through use in Cricsheet or the <a href="https://thesanctityofwickets.com/">Cricket Scorecard Accuracy Project</a>.</p>
+
+    <p>The fields on each row (after the header) include, but are not limited to, the following:</p>
+
+    <dl>
+      <dt>identifier</dt>
+      <dd>The Cricsheet identifier for the person, as used in <code>people.csv</code></dd>
+      <dt>name</dt>
+      <dd>The name used for the person in Cricsheet data. This can (and will) be used for multiple people of the same name</dd>
+      <dt>unique_name</dt>
+      <dd>The unique name used for the person in Cricsheet data. Guaranteed not to be used for another person</dd>
+      
+      <dt>key_bcci</dt>
+      <dd>The person's identifier on BCCI</dd>
+      
+      <dt>key_bigbash</dt>
+      <dd>The person's identifier on Big Bash</dd>
+      
+      <dt>key_cricbuzz</dt>
+      <dd>The person's identifier on Cricbuzz</dd>
+      
+      <dt>key_cricheroes</dt>
+      <dd>The person's identifier on CricHeroes</dd>
+      
+      <dt>key_crichq</dt>
+      <dd>The person's identifier on CricHQ</dd>
+      
+      <dt>key_cricingif</dt>
+      <dd>The person's identifier on Cricingif</dd>
+      
+      <dt>key_cricketarchive</dt>
+      <dd>The person's identifier on CricketArchive</dd>
+      
+      <dt>key_cricketworld</dt>
+      <dd>The person's identifier on Cricketworld</dd>
+      
+      <dt>key_cricinfo</dt>
+      <dd>The person's identifier on ESPNcricinfo</dd>
+      
+      <dt>key_nvplay</dt>
+      <dd>The person's identifier on NV Play</dd>
+      
+      <dt>key_opta</dt>
+      <dd>The person's identifier on Opta</dd>
+      
+      <dt>key_pulse</dt>
+      <dd>The person's identifier on Pulse</dd>
+      
+    </dl>
+
+    <h5>Names</h5>
+
+    <p>The file <code><a href="names.csv">names.csv</a></code> provides a list of alternate or variant names for people, if they are different from that provided for the person in <code>people.csv</code>. These names generally include the variations used on the different sources, although some will be due to name changes (for a variety of reasons). These names are not unique, so the same name may appear multiple times.</p>
+
+    <p>Each row of the file, other than the header, consists of the following fields:</p>
+
+    <dl>
+      <dt>identifier</dt>
+      <dd>The Cricsheet identifier for the person</dd>
+      <dt>name</dt>
+      <dd>The variant name for the person</dd>
+    </dl>
+
+    <h4>How often are the files updated?</h4>
+
+    <p>The data is updated whenever either a new person is added to the Cricsheet match data, or a new identifier is added for an existing person. The files are then uploaded to this site when it is rebuild.</p>
+
+    <h4>What if I spot an issue/error?</h4>
+
+    <p>If you spot an issue or error in the Register data you should <a href="/contact/">get in touch</a> by following the instructions on the <a href="/contact/">Contact</a> page.</p>
+
+    <h4>The License</h4>
+
+    <p>This dataset is made available under the Open Data Commons Attribution License: <a href="http://opendatacommons.org/licenses/by/1.0/">http://opendatacommons.org/licenses/by/1.0/</a>. If you're going to use the data you should have a read of the license, however here is a human-readable expression of some of its key terms, although this is just a summary.</p>
+
+    <p>You're free:</p>
+
+    <ul>
+      <li>To share: To copy, distribute and use the dataset.</li>
+      <li>To create: To produce works from the dataset.</li>
+      <li>To adapt: To modify, transform and build upon the dataset.</li>
+    </ul>
+
+    <p>As long as you:</p>
+
+    <ul>
+      <li>Attribute: You must attribute any public use of the dataset, or works produced from the dataset, in the manner specified in the license. For any use or redistribution of the dataset, or works produced from it, you must make clear to others the license of the dataset and keep intact any notices on the original dataset.</li>
+    </ul>
+  </div>
+
+    </div>
+  </div>
+  <div class="wrapper wrapper_footer">
+  <footer id="footer">
+    <ul>
+      <li>Site &copy; 2009–2026 Cricsheet. <span>All rights reserved.</span></li>
+      <li id="mastodon"><a href="https://social.deeden.co.uk/@cricsheet" rel="me">@cricsheet@deeden.co.uk</a></li>
+      <li id="powered_by"><a href="/humans.txt">Powered by tea, obsessiveness, and a fascination for cricket&nbsp;stats</a>.</li>
+      <li id="zaltz"><q>I just like cricket, really</q> - <a href="http://andyzaltzman.co.uk/">Andy&nbsp;Zaltzman</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="/js/plugins.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

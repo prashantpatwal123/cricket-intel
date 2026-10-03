@@ -1,0 +1,13 @@
+HTTP/2 200 
+cache-control: public, max-age=2592000
+expires: Mon, 02 Nov 2026 17:31:36 GMT
+content-type: application/zip
+last-modified: Wed, 09 Sep 2026 19:11:39 GMT
+accept-ranges: bytes
+content-length: 4039766
+date: Sat, 03 Oct 2026 17:31:36 GMT
+server: LiteSpeed
+x-served-by: web2.ams1
+x-ua-compatible: IE=Edge,chrome=1
+alt-svc: h3=":443"; ma=2592000, h3-29=":443"; ma=2592000
+

@@ -1,0 +1,2272 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Cricsheet JSON format</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sa {
+  color: #6c71c4;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="../stylesheets/screen-096664d9.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-9902d4e3.css" rel="stylesheet" media="print" />
+      <script src="../javascripts/all-024da600.js"></script>
+
+  </head>
+
+  <body class="json json_index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="../images/logo-a28fe060.jpg" class="logo" alt="" />
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction-to-the-json-format" class="toc-h1 toc-link" data-title="Introduction to the JSON format">Introduction to the JSON format</a>
+          </li>
+          <li>
+            <a href="#the-meta-section" class="toc-h1 toc-link" data-title="The meta section">The <code>meta</code> section</a>
+          </li>
+          <li>
+            <a href="#the-info-section" class="toc-h1 toc-link" data-title="The info section">The <code>info</code> section</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#bowl_out" class="toc-h2 toc-link" data-title="bowl_out">bowl_out</a>
+                  </li>
+                  <li>
+                    <a href="#dates" class="toc-h2 toc-link" data-title="dates">dates</a>
+                  </li>
+                  <li>
+                    <a href="#event" class="toc-h2 toc-link" data-title="event">event</a>
+                  </li>
+                  <li>
+                    <a href="#missing" class="toc-h2 toc-link" data-title="missing">missing</a>
+                  </li>
+                  <li>
+                    <a href="#officials" class="toc-h2 toc-link" data-title="officials">officials</a>
+                  </li>
+                  <li>
+                    <a href="#outcome" class="toc-h2 toc-link" data-title="outcome">outcome</a>
+                  </li>
+                  <li>
+                    <a href="#players" class="toc-h2 toc-link" data-title="players">players</a>
+                  </li>
+                  <li>
+                    <a href="#registry" class="toc-h2 toc-link" data-title="registry">registry</a>
+                  </li>
+                  <li>
+                    <a href="#supersubs" class="toc-h2 toc-link" data-title="supersubs">supersubs</a>
+                  </li>
+                  <li>
+                    <a href="#toss" class="toc-h2 toc-link" data-title="toss">toss</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#the-innings-section" class="toc-h1 toc-link" data-title="The innings section">The <code>innings</code> section</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#penalty_runs" class="toc-h2 toc-link" data-title="penalty_runs">penalty_runs</a>
+                  </li>
+                  <li>
+                    <a href="#powerplays" class="toc-h2 toc-link" data-title="powerplays">powerplays</a>
+                  </li>
+                  <li>
+                    <a href="#miscounted_overs" class="toc-h2 toc-link" data-title="miscounted_overs">miscounted_overs</a>
+                  </li>
+                  <li>
+                    <a href="#target" class="toc-h2 toc-link" data-title="target">target</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#over-data" class="toc-h1 toc-link" data-title="Over data">Over data</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#delivery-data" class="toc-h2 toc-link" data-title="Delivery data">Delivery data</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#changelog" class="toc-h1 toc-link" data-title="Changelog">Changelog</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#version-1-2-0" class="toc-h2 toc-link" data-title="Version 1.2.0">Version 1.2.0</a>
+                  </li>
+                  <li>
+                    <a href="#version-1-1-0" class="toc-h2 toc-link" data-title="Version 1.1.0">Version 1.1.0</a>
+                  </li>
+                  <li>
+                    <a href="#version-1-0-0" class="toc-h2 toc-link" data-title="Version 1.0.0">Version 1.0.0</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href="/">Home</a></li>
+            <li><a href="/downloads/">Downloads</a></li>
+            <li><a href="../json/">JSON format</a></li>
+            <li><a href="../yaml/">YAML format</a></li>
+            <li><a href="../csv_original/">"Original" CSV format</a></li>
+            <li><a href="../csv_ashwin/">"Ashwin" CSV format</a></li>
+            <li><a href="../xml/">XML format</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction-to-the-json-format'>Introduction to the JSON format</h1>
+<p>This document details the JSON data provided by Cricsheet. It describes the organisation of the file and attempts to give some idea of the possible contents for each field.</p>
+
+<p>The current version number for the JSON format is <strong>1.2.0</strong>, but you can also see the changes that have happened over time in the <a href="#changelog">changelog</a>.</p>
+<h1 id='the-meta-section'>The <code>meta</code> section</h1><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"data_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-07-06"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>meta</code> section contains details related to the data file itself, specifically the version of the data format, the date the file was created, and the revision of the file.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>data_version</code></td>
+<td><strong>string (required)</strong> The version of the data format the file contains, in this case <strong>1.2.0</strong>. This version number updates when the data format changes, and follows the <a href="https://semver.org/">semantic versioning</a> rules.</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><strong>string (required)</strong> The date on which the data file was first created. This will be in the format <strong>YYYY-MM-DD</strong>.</td>
+</tr>
+<tr>
+<td><code>revision</code></td>
+<td><strong>integer (required)</strong> The revision number for this data version of the file. When first created this will be <strong>1</strong>, and it will increment on subsequent revisions.</td>
+</tr>
+</tbody></table>
+<h1 id='the-info-section'>The <code>info</code> section</h1><div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"balls_per_over"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"venue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Daren Sammy National Cricket Stadium, Gros Islet"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"2016-07-26"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Caribbean Premier League"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"match_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"male"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"teams"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"St Lucia Zouks"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Trinbago Knight Riders"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trinbago Knight Riders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"toss"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trinbago Knight Riders"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"player_of_match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Umar Akmal"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"match_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T20"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"team_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"club"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"people"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"ADS Fletcher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1bae756b-ce38-4b99-af93-d34c8dadc379"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"AP Devcich"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed90abe4-c676-4501-b7df-ad80935e8e1b"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"BB McCullum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b8a55852-72a5-4667-999d-28f845354af9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"C Munro"</span><span class="p">:</span><span class="w"> </span><span class="s2">"af2c687b-04d1-4fd0-bcc0-61e7fdbe4ef4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"D Ramdin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d1523761-c316-4e18-92f7-6e048af72422"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DE Johnson"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c0babb93-b6a0-43e8-bfe5-00c1a38c3fd3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DJ Bravo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"87e562a9-a160-4e25-bbac-5d70c61b754f"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"DJG Sammy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c03c6200-a23c-43ab-8b77-76b71fae379b"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Denavon Hayles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5cbeeb02-fa35-4ee0-8dc8-84873c42044d"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"GD Elliott"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c03449e0-5c0d-480b-901f-c744a56737e5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"J Charles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"09a9d073-9f18-486a-8d67-1ba665a1bae4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"JD Cloete"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b0419f8c-68dc-4d18-8727-f51227a9a3be"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"JE Taylor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4180d897-7347-482a-a1d2-ac51bf262eae"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"K Lesporis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fb496f7a-d8f3-4c59-8ec8-829647161bb9"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"KK Cooper"</span><span class="p">:</span><span class="w"> </span><span class="s2">"557153ca-f977-4398-a2f0-f47c10b44929"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"KR Mayers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"73c18486-c4e8-4708-830d-0d7b700361d5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"MEK Hussey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48fd7349-6426-4791-806b-0644a8d8ae5c"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"NO Miller"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ea3ffd1b-23f2-4490-8796-074cfb5b90ce"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"PA Gustard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"25bcf808-a2d9-4d8b-8bca-37977305221c"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"RR Beaton"</span><span class="p">:</span><span class="w"> </span><span class="s2">"684a56df-eaf3-4191-8887-7f4c7cfe55e2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"S Shillingford"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d76b0d2d-f791-423b-950f-4a6d022b1db8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"SP Narine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9d430b40-abd3-472f-9dc6-45129c0f41ea"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"SR Watson"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4329fbb5-8f2d-4fe8-bddb-6f34c9815a4a"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Umar Akmal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fd2bf2a0-1a89-430c-9a7d-f34eaf7b120d"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"WKD Perkins"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1920c721-f06c-45e9-b8a7-f938774f9fc8"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Zahid Bassarath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ca6bf044-4d96-4a41-94af-9d6f6c6fc46a"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"St Lucia"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"officials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"match_referees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Denavon Hayles"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"tv_umpires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"Zahid Bassarath"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"umpires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"JD Cloete"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"PA Gustard"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"players"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"St Lucia Zouks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"J Charles"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ADS Fletcher"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SR Watson"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"MEK Hussey"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"GD Elliott"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"DJG Sammy"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"KR Mayers"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"DE Johnson"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"S Shillingford"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"K Lesporis"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"JE Taylor"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"Trinbago Knight Riders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"WKD Perkins"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"BB McCullum"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"C Munro"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"D Ramdin"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Umar Akmal"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"DJ Bravo"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"AP Devcich"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SP Narine"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"KK Cooper"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NO Miller"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"RR Beaton"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"season"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>info</code> section contains the information on the actual match, such as when and where it was played, any event it was part of, the type of match etc. Some of the fields are required, whereas some are optional.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>balls_per_over</code></td>
+<td><strong>integer (required)</strong> The number of balls expected per over, generally <strong>6</strong>.</td>
+</tr>
+<tr>
+<td><code>bowl_out</code></td>
+<td><strong>array</strong> The balls of any bowl-out used to decide the outcome of the match. If provided this will be an array. <a href="#bowl_out">More details on the <code>bowl_out</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td><strong>string</strong> The city in which the game took place, such as <strong>Chennai</strong>.</td>
+</tr>
+<tr>
+<td><code>dates</code></td>
+<td><strong>array (required)</strong> An array of dates on which the match took place. Matches on a single day will still be an array. <a href="#dates">More details on the <code>dates</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><strong>object</strong> If provided, this will provide information on the event the match is part of. <a href="#event">More details on the <code>event</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>gender</code></td>
+<td><strong>string (required)</strong> The gender of the players who took part on the match. At the moment this value will be either <strong>female</strong> or <strong>male</strong>, however <em>these should not be regarded as the only possible options</em>.</td>
+</tr>
+<tr>
+<td><code>match_type</code></td>
+<td><strong>string (required)</strong> The type of match this data file refers to. Currently the possible values are <strong>Test</strong>, <strong>ODI</strong>, <strong>T20</strong>, <strong>IT20</strong> (International T20), <strong>ODM</strong> (One-day match) or <strong>MDM</strong> (multi-day match).</td>
+</tr>
+<tr>
+<td><code>match_type_number</code></td>
+<td><strong>integer</strong> If provided, the number of this particular match type, for example the <strong>2404</strong>th Test match.</td>
+</tr>
+<tr>
+<td><code>missing</code></td>
+<td><strong>array</strong> Details on any data regarded as missing from the match. If provided this will be an array of strings, or objects containing more detailed information. <a href="#missing">More details on the <code>missing</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>officials</code></td>
+<td><strong>object</strong> If this field appears then it contain details on the officials involved in the match, both their roles and names. Only roles we know about are provided, if any. <a href="#officials">More details on the <code>officials</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>outcome</code></td>
+<td><strong>object (required)</strong> The outcome of the match. It contains information such as which team won the match, whether the game was a draw, tie, or no result, and any margin of victory. <a href="#outcome">More details on the <code>outcome</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>overs</code></td>
+<td><strong>integer</strong> The number of overs for this type of match, if appropriate. For T20s, this will be <strong>20</strong>, and for ODIs/ODMs this will be <strong>50</strong>.</td>
+</tr>
+<tr>
+<td><code>player_of_match</code></td>
+<td><strong>array</strong> If this field appears then it will be an array of the names of any players who were adjudged to be the player of the match.</td>
+</tr>
+<tr>
+<td><code>players</code></td>
+<td><strong>object (required)</strong> A list of players officially involved in the match for each team. <a href="#players">More details on the <code>players</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>registry</code></td>
+<td><strong>object (required)</strong> Mappings of names to ids, currently used for mapping the names of people involved in the match to unique identifiers for those people. <a href="#registry">More details on the <code>registry</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>season</code></td>
+<td><strong>string (required)</strong> The season during which the match took place, such as <strong>2018</strong>, or <strong>2011/12</strong>.</td>
+</tr>
+<tr>
+<td><code>supersubs</code></td>
+<td><strong>object (required)</strong> Any supersubs used by each team in the match. <a href="#supersubs">More details on the <code>supersubs</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>team_type</code></td>
+<td><strong>string (required)</strong> The type of team playing in the match, either <strong>international</strong> or <strong>club</strong>.</td>
+</tr>
+<tr>
+<td><code>teams</code></td>
+<td><strong>array (required)</strong> The names of the teams who played in the match.</td>
+</tr>
+<tr>
+<td><code>toss</code></td>
+<td><strong>object (required)</strong> The winner, and decision, from the toss. <a href="#toss">More details on the <code>toss</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>venue</code></td>
+<td><strong>string</strong> The venue in which the game took place, such as <strong>Old Trafford</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='bowl_out'>bowl_out</h3>
+<blockquote>
+<p>A bowl-out with 3 hits and 3 misses.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"bowl_out"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"V Sehwag"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hit"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yasir Arafat"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"miss"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Harbhajan Singh"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hit"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Umar Gul"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"miss"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RV Uthappa"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hit"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shahid Afridi"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="s2">"miss"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>An array containing an entry for each delivery attempted in the bowl-out.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>bowler</td>
+<td><strong>string (required)</strong> The name of the bowler who bowled the ball.</td>
+</tr>
+<tr>
+<td>outcome</td>
+<td><strong>string (required)</strong> The outcome of the bowl-out ball, either <strong>hit</strong>, or <strong>miss</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='dates'>dates</h3>
+<blockquote>
+<p>A match played on a single day, such as an ODI.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"2016-07-26"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match played on multiple days, such as a Test match.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"2018-03-01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"2018-03-02"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"2018-03-03"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"2018-03-04"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"2018-03-05"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p><code>dates</code> is always an array, regardless of the number of days on which the match took place. Each date will be in the format <code>YYYY-MM-DD</code>.</p>
+<h3 id='event'>event</h3>
+<blockquote>
+<p>The 3rd match of a series between the West Indies and South Africa.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"West Indies Women in South Africa T20I Series"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The 24th match in the Caribbean Premier League.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Caribbean Premier League"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"match_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A T20 Blast match within a group.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"North"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NatWest T20 Blast"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match in group C, the 8th of the ICC World Twenty20.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"match_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ICC World Twenty20"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Match 18 of the World T20 played in Group 1 of the Super 10 stage.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w"> </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"match_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"World T20"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"stage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Super 10"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>event</code> is an object which contains information such as the name of the event, the match number within it, and any group or stage the match took place at.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><strong>string (required)</strong> The name of the event the match took place in.</td>
+</tr>
+<tr>
+<td>match_number</td>
+<td><strong>integer</strong> The match number of the match. This might indicate that it was the 3rd match of a series, or the 19th match of a competition.</td>
+</tr>
+<tr>
+<td>group</td>
+<td><strong>string</strong> The group the match was part of, if any, for example <strong>1</strong>, <strong>C</strong>, or <strong>North</strong>.</td>
+</tr>
+<tr>
+<td>stage</td>
+<td><strong>string</strong> The stage of the event at which the match took place, for example <strong>Final</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='missing'>missing</h3>
+<blockquote>
+<p>A player of the match is expected, but we don&#39;t know who it was.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"player_of_match"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The umpires for the match are unknown.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"umpires"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Reviews are possible, however we haven&#39;t been able to determine their existence and/or details.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"reviews"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Both fielding and batting powerplay details are missing from both innings.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"fielding"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"batting"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"fielding"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"batting"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Details on the batting powerplay are missing from the 1st innings.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"batting"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>An example with multiple missing fields.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"missing"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"player_of_match"</span><span class="p">,</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"batting"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"batting"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"reviews"</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>The <code>missing</code> field contains an array that provides details on information that is known to be missing from the match data. As shown in the examples it can contain either string or object entries, as many as are needed. If a string is provided it will currently be one of <strong>player_of_match</strong>, <strong>umpires</strong>, or <strong>reviews</strong>; if an object is provided it will contain a single <strong>powerplays</strong> key with an object detailing innings and any powerplays that are missing in those innings. If powerplays are included each will be one of <strong>mandatory</strong>, <strong>batting</strong>, or <strong>fielding</strong>.</p>
+<h3 id='officials'>officials</h3>
+<blockquote>
+<p>The officials for a match between Sri Lanka and Australia in 2017.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"officials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match_referees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"JJ Crowe"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"reserve_umpires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"MW Graham-Smith"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"tv_umpires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"P Wilson"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"umpires"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"SD Fry"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"SJ Nogajski"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The data for this field is an object where the keys for the entries are the roles we have details for, while the value will be a list of the names of the relevant officials. The currently supported roles are: <strong>match_referees</strong>, <strong>reserve_umpires</strong>, <strong>tv_umpires</strong>, and <strong>umpires</strong>.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>match_referees</td>
+<td><strong>array</strong> If this field appears then it will be an array of the names of any match referees who officiated in the match.</td>
+</tr>
+<tr>
+<td>reserve_umpires</td>
+<td><strong>array</strong> If this field appears then it will be an array of the names of any reserve umpires who officiated in the match.</td>
+</tr>
+<tr>
+<td>tv_umpires</td>
+<td><strong>array</strong> If this field appears then it will be an array of the names of any tv umpires who officiated in the match.</td>
+</tr>
+<tr>
+<td>umpires</td>
+<td><strong>array</strong> If this field appears then it will be an array of the names of any umpires who officiated in the match.</td>
+</tr>
+</tbody></table>
+<h3 id='outcome'>outcome</h3>
+<blockquote>
+<p>A match where Trinbago Knight Riders won by a number of wickets.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Trinbago Knight Riders"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match where Australia won by a number of runs.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Australia"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">118</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match where England won by an innings and a number of runs.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"England"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"innings"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">209</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match that ended in a tie, with Kings XI Punjab winning the super over.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tie"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"eliminator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kings XI Punjab"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match that ended in with no result.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no result"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match won by Hong Kong, by a number of runs, under the Duckworth Lewis method.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hong Kong"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D/L"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match that ended in a tie, with New Zealand winning the bowl out.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"outcome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"bowl_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Zealand"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tie"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>outcome</code> is an object which contains information such as which team won the match, whether the game was a draw, tie, or no result, and any margin of victory.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>by</code></td>
+<td><strong>object</strong> Information on how much the winning team, if there was one, won by. <a href="#by">More details on the <code>by</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>bowl_out</code></td>
+<td><strong>string</strong> The team name of the winner of any bowl-out used to decide a tie in a T20 match.</td>
+</tr>
+<tr>
+<td><code>eliminator</code></td>
+<td><strong>string</strong> The team name of the winner of any elimination super-over used to decide a tie in a T20 match.</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td><strong>string</strong> Any method used to determine the winner where a match has been curtailed for some reason, or decided in an &quot;unusual&quot; manner. Currently the only values this will contain are <code>D/L</code> (when a match uses the Duckworth Lewis, and possibly Stern, method), <code>VJD</code> (when a match uses the <a href="https://en.wikipedia.org/wiki/Jayadevan%27s_system">Jayadevan system</a>), <code>Awarded</code> (when a match is awarded to a team), <code>1st innings score</code> (when the team with the highest 1st inning score is determined to have won the match), or <code>Lost fewer wickets</code> (when losing fewer wickets than the opponent determined the winner).</td>
+</tr>
+<tr>
+<td><code>result</code></td>
+<td><strong>string</strong> The result of the match if the match was not won by one of the teams. Currently the possible values are <strong>draw</strong>, <strong>no result</strong>, or <strong>tie</strong>.</td>
+</tr>
+<tr>
+<td><code>winner</code></td>
+<td><strong>string</strong> If a team won the match then this will be the name of the winning team.</td>
+</tr>
+</tbody></table>
+<h4 id='by'>by</h4>
+<p>Information on how much the winning team, if there was one, won by.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>innings</code></td>
+<td><strong>integer</strong> If the match was won by an innings and something then this entry will appear with a value of <strong>1</strong>.</td>
+</tr>
+<tr>
+<td><code>runs</code></td>
+<td><strong>integer</strong> If the match was won by a number of runs, or an innings and a number of runs, then this will contain the runs.</td>
+</tr>
+<tr>
+<td><code>wickets</code></td>
+<td><strong>integer</strong> If the match was won by a number of wickets, then this will contain the number of wickets.</td>
+</tr>
+</tbody></table>
+<h3 id='players'>players</h3>
+<blockquote>
+<p>The players involved in a match between Australia and New Zealand.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"players"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Australia"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"M Klinger"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"AJ Finch"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"BR Dunk"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"MC Henriques"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TM Head"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"AJ Turner"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JP Faulkner"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TD Paine"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"PJ Cummins"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"AJ Tye"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JA Richardson"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"Sri Lanka"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"N Dickwella"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"WU Tharanga"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"EMDY Munaweera"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"BKG Mendis"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"DAS Gunaratne"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TAM Siriwardana"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CK Kapugedera"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"S Prasanna"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"KMDN Kulasekara"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"SL Malinga"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JRMVB Sanjaya"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>players</code> section lists, for each team, the players officially involved in the match, including the starting eleven, and any supersubs, concussion substitutes, covid replacements, or other replacements. The section itself is an object containing the names of the teams as the key, and each value being an array of the names of the players for that team.</p>
+<h3 id='registry'>registry</h3>
+<blockquote>
+<p>The players and officials involved in a match.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"people"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"AJ Finch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b8d490fd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AJ Turner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ff1e12a0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"AJ Tye"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7c7d63a2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BKG Mendis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5d1e7582"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BR Dunk"</span><span class="p">:</span><span class="w"> </span><span class="s2">"272d796e"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"CK Kapugedera"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cfad138c"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DAS Gunaratne"</span><span class="p">:</span><span class="w"> </span><span class="s2">"770494eb"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"EMDY Munaweera"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a22d91c"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"JA Richardson"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1ee08e9a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"JJ Crowe"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2e760301"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"JP Faulkner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"808f425a"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"JRMVB Sanjaya"</span><span class="p">:</span><span class="w"> </span><span class="s2">"530b20e3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"KMDN Kulasekara"</span><span class="p">:</span><span class="w"> </span><span class="s2">"469ea22b"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"M Klinger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b970a03f"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"MC Henriques"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32198ae0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"MW Graham-Smith"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18aca3ce"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"N Dickwella"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45963d9e"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"P Wilson"</span><span class="p">:</span><span class="w"> </span><span class="s2">"68304a36"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"PJ Cummins"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ded9240e"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"S Prasanna"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f78e7113"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"SD Fry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6b725ed1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"SJ Nogajski"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9b3f9323"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"SL Malinga"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a12e1d51"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"TAM Siriwardana"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bf7842c9"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"TD Paine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5748e866"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"TM Head"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12b610c2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"WU Tharanga"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7ed9fd56"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>registry</code> entry contains a single entry (<code>people</code>) which provides a mapping between the names used for people mentioned in the data file and the stable unique identifier used for those people (regardless of the name the person appeared in the match under). The same person will always have the same identifier across all matches. The identifier is always an 8 character string consisting of digits or the lowercase letters <code>a</code> to <code>f</code>.</p>
+
+<p>A name in this section will always be used to refer to the person in the data file, whether as a batter, non-striker, bowler, fielder, official, or in some other capacity.</p>
+
+<aside class="notice">
+The identifiers for each person are those defined in the <a href="/register/">Cricsheet Register</a>. This can be used to map a person to their entry in various sites, such as Cricinfo, CricketArchive, Pulse, etc.
+</aside>
+<h3 id='supersubs'>supersubs</h3>
+<blockquote>
+<p>A match where only a single team (Melbourne Stars) used a supersub.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"supersubs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Melbourne Stars"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LR Morris"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A match where both teams used a supersub.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"supersubs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Adelaide Strikers"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MW Short"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Hobart Hurricanes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M Wright"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The data for this field is an object which details any supersubs used by each team in the match. The keys for the entry will be the names of any teams that used a super-sub, while the values will be the names of the super-subs for those teams.</p>
+<h3 id='toss'>toss</h3>
+<blockquote>
+<p>Canterbury won the toss and decided to bat.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"toss"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bat"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Canterbury"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Adelaide Strikers won the toss and decided to field.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"toss"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Adelaide Strikers"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Somerset decided to field as the away team in a County Championship match, and thus the toss was uncontested.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"toss"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"field"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uncontested"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"winner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Somerset"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The result of the toss before the match.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>uncontested</code></td>
+<td><strong>boolean</strong> If this is provided the value will be <strong>true</strong>. This indicates that the toss was not contested, and that instead it was automatically awarded to the winning team with the specified decision. Generally this is for County Championship matches from 2016 to 2019.</td>
+</tr>
+<tr>
+<td><code>decision</code></td>
+<td><strong>string (required)</strong> The decision made by the team winning the toss. This will be either <strong>bat</strong> or <strong>field</strong>.</td>
+</tr>
+<tr>
+<td><code>winner</code></td>
+<td><strong>string (required)</strong> The name of the team which won the toss.</td>
+</tr>
+</tbody></table>
+<h1 id='the-innings-section'>The <code>innings</code> section</h1>
+<blockquote>
+<p>The simple example here shows a small part of both innings of a one-day match. The first innings shows Ireland facing 2 balls, with William Porterfield batting, while the second innings shows 1 ball of the Indian reply.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"innings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ireland"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"over"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deliveries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WTS Porterfield"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"wides"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JP Bray"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WTS Porterfield"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JP Bray"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"India"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"over"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deliveries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G Gambhir"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WB Rankin"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RG Sharma"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>innings</code> section contains an array of objects, with each entry representing an innings within the game, in the order in which they took place. Each object contains the details of a single innings, such as the team batting, and the deliveries faced within the innings.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>team</code></td>
+<td><strong>string (required)</strong> The team which is batting must be specified in the data for the innings. This will be one of the two teams mentioned in the <code>teams</code> section in <code>info</code> for the match.</td>
+</tr>
+<tr>
+<td><code>overs</code></td>
+<td><strong>array</strong> An array containing an entry for each over in the innings. Each entry is an object containing details of that particular over. There is a separate section covering the <a href="#over-data">details on the over data</a>. This will be provided for all <em>non-forfeited</em> innings.</td>
+</tr>
+<tr>
+<td><code>absent_hurt</code></td>
+<td><strong>array</strong> If this is provided it will contain an array of the names of players who did not take part in the innings due to being absent hurt.</td>
+</tr>
+<tr>
+<td><code>penalty_runs</code></td>
+<td><strong>object</strong> If this field is provided it will be a object which details any penalty runs added either before or after the innings. <a href="#penalty_runs">More details on the <code>penalty_runs</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>declared</code></td>
+<td><strong>boolean</strong> If this is provided the value will be <strong>true</strong>. This indicates that the innings was declared.</td>
+</tr>
+<tr>
+<td><code>forfeited</code></td>
+<td><strong>boolean</strong> If this is provided the value will be <strong>true</strong>. This indicates that the innings was forfeited by the batting team.</td>
+</tr>
+<tr>
+<td><code>powerplays</code></td>
+<td><strong>array</strong> If this is provided it will be an array of objects containing details on each powerplay in the innings. <a href="#powerplays">More details on the <code>powerplays</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>miscounted_overs</code></td>
+<td><strong>object</strong> If this is provided it will be an object containing details on any miscounted overs in the innings. <a href="#miscounted_overs">More details on the <code>miscounted_overs</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>target</code></td>
+<td><strong>object</strong> If this is provided it will be an object showing the number of overs (and deliveries) available, and the target the team batting in the innings is aiming for (for example, 143 runs off 20 overs). <a href="#target">More details on the <code>target</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>super_over</code></td>
+<td><strong>boolean</strong> If this is provided the value will be <strong>true</strong>. This indicates that the innings consisted of a super-over.</td>
+</tr>
+</tbody></table>
+<h2 id='penalty_runs'>penalty_runs</h2>
+<blockquote>
+<p>Penalty runs added before the start of the innings. In this case the batting team start with 5 runs.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"penalty_runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"pre"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Penalty runs added after the end of the innings. In this case the batting team has 6 runs added to their total.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"penalty_runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"post"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Details on any penalty runs applied to an innings either before it begins or after it finishes. Penalty runs applied on particular deliveries will be indicated on the deliveries themselves rather than here.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>pre</code></td>
+<td><strong>integer</strong> The number of penalty runs applied to the innings before it begins.</td>
+</tr>
+<tr>
+<td><code>post</code></td>
+<td><strong>integer</strong> The number of penalty runs applied to the innings after it finishes.</td>
+</tr>
+</tbody></table>
+<h2 id='powerplays'>powerplays</h2>
+<blockquote>
+<p>The mandatory powerplay in an innings for a T20 match.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mandatory"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Multiple powerplays, such as when all overs are part of mandatory powerplays.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">9.6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mandatory"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">10.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">39.6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mandatory"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">40.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">45.4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mandatory"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The 2 powerplays expected in some forms of ODIs, specifically 1 mandatory to start, and 1 at the batting teams discretion.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"powerplays"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">9.6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mandatory"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mf">39.6</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batting"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>Each entry in the <code>powerplays</code> section consists of a <code>from</code>, <code>to</code>, and <code>type</code> field detailing the deliveries covered by the powerplay, along with it&#39;s type.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>from</code></td>
+<td><strong>number (required)</strong> The first delivery that forms part of the powerplay, for example <strong>0.1</strong>.</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td><strong>number (required)</strong> The final delivery that forms part of the powerplay, for example <strong>9.6</strong>.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><strong>string (required)</strong> The type of powerplay. This will always be one of <strong>batting</strong>, <strong>fielding</strong>, or <strong>mandatory</strong>.</td>
+</tr>
+</tbody></table>
+<h2 id='miscounted_overs'>miscounted_overs</h2>
+<blockquote>
+<p>A single miscounted over with only 5 balls bowled, with AV Jayaprakash as the umpire.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"miscounted_overs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"36"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"balls"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AV Jayaprakash"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A single miscounted over where the umpire is unknown.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"miscounted_overs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"10"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"balls"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Two miscounted overs in the same innings, by the same umpire, one with too few deliveries, and the other with too many,</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"miscounted_overs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"35"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"balls"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asad Rauf"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"39"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"balls"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Asad Rauf"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The <code>miscounted_overs</code> section consists of an object, with each key being the number of an over, and the value the details of the miscount, such as the umpire, and the number of deliveries that actually occurred in the over.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>balls</code></td>
+<td><strong>number (required)</strong> The number of deliveries actually bowled in the over.</td>
+</tr>
+<tr>
+<td><code>umpire</code></td>
+<td><strong>string</strong> If known, the name of the umpire who miscounted the over..</td>
+</tr>
+</tbody></table>
+<h2 id='target'>target</h2>
+<blockquote>
+<p>An innings of 20 overs where the batting team is trying to reach 151 runs to win.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">151</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>An innings of 50 overs where the batting team is trying to reach 259 runs to win.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">259</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A weather-affected match where the batting team required 253 by the time the game was called off (after 35.1 overs).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"overs"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="mi">253</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Details on any target for the batting team in the innings, showing the number of overs (and deliveries) available and the number of runs required.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>overs</code></td>
+<td><strong>number</strong> The number of overs (and deliveries) available in which to chase the target.</td>
+</tr>
+<tr>
+<td><code>runs</code></td>
+<td><strong>integer</strong> The number of runs to be chased.</td>
+</tr>
+</tbody></table>
+<h1 id='over-data'>Over data</h1>
+<blockquote>
+<p>The opening over of an innings, featuring 6 simple deliveries.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"over"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"deliveries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IK Pathan"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>over</code></td>
+<td><strong>number (required)</strong> The number of the over in the innings.</td>
+</tr>
+<tr>
+<td><code>deliveries</code></td>
+<td><strong>array (required)</strong> An array containing each delivery in the over. Each entry is an object containing details of that particular delivery. There is a separate section covering the <a href="#delivery-data">details on the delivery data</a>.</td>
+</tr>
+</tbody></table>
+<h2 id='delivery-data'>Delivery data</h2>
+<blockquote>
+<p>An example delivery in which Harbhajan Singh bowled to Matt Prior, with Andrew Strauss at the non-striker&#39;s end. Prior was out leg-before-wicket.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.3"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Harbhajan Singh"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AJ Strauss"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lbw"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>An example delivery in which Gautam Gambhir bowled to Paul Collingwood, with Kevin Pietersen at the non-striker&#39;s end. Gambhir bowled a wide.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"actual_delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27.5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PD Collingwood"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bowler"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G Gambhir"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"wides"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"non_striker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KP Pietersen"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Each individual delivery is an object containing the details of the batter, non-striker, and bowler for the delivery, along with any runs scored. If applicable there may also be information on any extra, player replacements, or wickets that occurred on the delivery. There is also a field listing the actual delivery number which takes into account wides and no-balls, meaning that a delivery after one of those will have the same <code>actual_delivery</code> value as the previous delivery.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>actual_delivery</code></td>
+<td><strong>string (required)</strong> The actual delivery number.</td>
+</tr>
+<tr>
+<td><code>batter</code></td>
+<td><strong>string (required)</strong> The name of the batter who faced the delivery.</td>
+</tr>
+<tr>
+<td><code>bowler</code></td>
+<td><strong>string (required)</strong> The name of the bowler of the delivery.</td>
+</tr>
+<tr>
+<td><code>extras</code></td>
+<td><strong>object</strong> The types and number of extras conceded on the delivery, if any. <a href="#extras">More details on the <code>extras</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>non_striker</code></td>
+<td><strong>string (required)</strong> The name of the non-striker during the delivery.</td>
+</tr>
+<tr>
+<td><code>replacements</code></td>
+<td><strong>object</strong> Any player replacements that happened before this delivery took place, for example when a bowler is replaced during an over due to injury. <a href="#replacements">More details on the <code>replacements</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>review</code></td>
+<td><strong>object</strong> The details of any review that took place during the delivery, including which team took the review, and the outcome. <a href="#review">More details on the <code>review</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>runs</code></td>
+<td><strong>object (required)</strong> The runs scored on the delivery, whether by the batter or as extras. Also covers the possibility that a 4 or 6 was not an actual boundary should, for example if the batsmen ran a 4. <a href="#runs">More details on the <code>runs</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>wickets</code></td>
+<td><strong>array</strong> The details of any wickets that took place during the delivery, including the method of dismissal, the name of the dismissed player, and any fielders involved in the dismissal. <a href="#wickets">More details on the <code>wickets</code> field</a>.</td>
+</tr>
+</tbody></table>
+<h3 id='extras'>extras</h3>
+<blockquote>
+<p>Byes</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"byes"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Leg-byes</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"legbyes"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>No-balls</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"noballs"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Penalty runs</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"penalty"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Wides</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"wides"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>If extras were conceded on a delivery then this field will indicate how the extras came about. The value of the field will be an object with byes, legbyes, noballs, penalty, and wides as the possible keys, and the associated value for each will be the number of runs from each.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>byes</code></td>
+<td><strong>integer</strong> The number of byes conceded on the delivery.</td>
+</tr>
+<tr>
+<td><code>legbyes</code></td>
+<td><strong>integer</strong> The number of legbyes conceded on the delivery.</td>
+</tr>
+<tr>
+<td><code>noballs</code></td>
+<td><strong>integer</strong> The number of no-balls conceded on the delivery.</td>
+</tr>
+<tr>
+<td><code>penalty</code></td>
+<td><strong>integer</strong> The number of penalty runs conceded on the delivery.</td>
+</tr>
+<tr>
+<td><code>wides</code></td>
+<td><strong>integer</strong> The number of wides conceded on the delivery.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Only the types of extras that occurred on a delivery will be included in the data.
+</aside>
+<h3 id='replacements'>replacements</h3>
+<blockquote>
+<p>Yasir Shah takes over as the bowler due to an injury to the existing bowler.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yasir Shah"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"injury"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Sam Whiteman (of Perth Scorchers) leaves the match due to a concussion and is replaced permanently by Cameron Bancroft,</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CT Bancroft"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SM Whiteman"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"concussion_substitute"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Perth Scorchers"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This field is an object providing the details of any replacements that happened before this delivery took place. It shows who was substituted in and out, why, and which team it was for, as well as what type of replacement it is, <strong>match</strong> or <strong>role</strong>. These different types are grouped together within the replacements section, and it’s possible that a delivery could have both types.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>match</code></td>
+<td><strong>array</strong> Match replacements detail players who replace others <em>and</em> take their place in the match. <a href="#match">More details on the <code>match</code> field</a>.</td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td><strong>array</strong> Role replacements are occasions where a player replaces another as a bowler or batter (but does not take their place in the match). <a href="#role">More details on the <code>role</code> field</a>.</td>
+</tr>
+</tbody></table>
+<h4 id='match'>match</h4>
+<blockquote>
+<p>James Marshall replaces Jeetan Patel for New Zealand as a supersub.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JAH Marshall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JS Patel"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"supersub"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Zealand"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Chris Tremain replaces Daniel Sams for Sydney Thunder as a concussion substitute.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CP Tremain"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DR Sams"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sydney Thunder"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"concussion_substitute"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Jack Brooks replaces Lewis Gregory for Somerset as a covid replacement.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JA Brooks"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L Gregory"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Somerset"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"covid_replacement"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Charlie Stobo replaces Sean Abbott for New South Wales as an injury substitute.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CH Stobo"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SA Abbott"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New South Wales"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"injury_substitute"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Graham Clarke replaces Ben Stokes due to Stokes receiving a callup to the national team.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G Clark"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BA Stokes"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Durham"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"national_callup"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Tim Murtagh replaces Ethan Bamber after Murtagh was released from his national commitments with Ireland.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TJ Murtagh"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ER Bamber"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"team"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Middlesex"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"national_release"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>match</code> replacements involve one player completely replacing another in a match, such as a occurs when a concussion substitution takes places.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>in</code></td>
+<td><strong>string (required)</strong> The name of the player who came in as part of the replacement. If the replacement is a supersub replacement then this value will match the player listed as a supersub for the team.</td>
+</tr>
+<tr>
+<td><code>out</code></td>
+<td><strong>string (required)</strong> The name of the player who went out as part of the replacement.</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td><strong>string (required)</strong> The reason for the replacement. This must be one of <strong>concussion_substitute</strong>, <strong>covid_replacement</strong>, <strong>injury_substitute</strong>, <strong>national_callup</strong>, <strong>national_release</strong>, <strong>supersub</strong>, <strong>tactical_substitute</strong>, or <strong>unknown</strong>.</td>
+</tr>
+<tr>
+<td><code>team</code></td>
+<td><strong>string (required)</strong> The name of the team the substitution was for.</td>
+</tr>
+</tbody></table>
+<h4 id='role'>role</h4>
+<blockquote>
+<p>Alex Thomson replaces George Scrimshaw as the bowler, after Scrimshaw is excluded for bowling excessive short-pitched deliveries.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AT Thomson"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GLS Scrimshaw"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excluded - excessive short-pitched deliveries"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Rob Taylor replaces Nathan Buck as the bowler, after Buck is excluded for bowling multiple high-pitched deliveries.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RML Taylor"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NL Buck"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excluded - high full pitched balls"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Steve Finn replaces the existing (un-named) bowler who is excluded for having run on the pitch.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ST Finn"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"excluded - running on the pitch"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>George Dockrell comes in as bowler, replacing the injured David Delany.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GH Dockrell"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DC Delany"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"injury"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Ravindra Jadeja replaces the (un-named) bowler after it is determined that the existing bowler has bowled too many overs. This actually happened in an <a href="https://www.espncricinfo.com/series/commonwealth-bank-series-2011-12-518940/australia-vs-india-1st-match-518956/ball-by-ball-commentary">ODI between Australia and India in 2012</a>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RA Jadeja"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"too many overs"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Charles Perchard replaces Anthony Hawkins-Kay as bowler for an unknown reason.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"replacements"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"in"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CW Perchard"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AW Hawkins-Kay"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowler"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>role</code> replacements involve one player replacing another in a role, such as a bowler being replaced due to being injured.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>in</code></td>
+<td><strong>string (required)</strong> The name of the player who came in as part of the replacement.</td>
+</tr>
+<tr>
+<td><code>out</code></td>
+<td><strong>string</strong> The name of the player who went out as part of the replacement. This may not be provided for a <code>bowler</code> replacement.</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td><strong>string (required)</strong> The reason for the replacement. This must be one of <strong>excluded - excessive short-pitched deliveries</strong>, <strong>excluded - high full pitched balls</strong>, <strong>excluded - running on the pitch</strong>, <strong>injury</strong>, <strong>too many overs</strong>, or <strong>unknown</strong>.</td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td><strong>string (required)</strong> The role of the player being replaced, currently either <strong>batter</strong>, or <strong>bowler</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='review'>review</h3>
+<blockquote>
+<p>A review where the request was struck down.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"review"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pakistan"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG Wharf"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DJ Malan"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"struck down"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A review where the request was upheld.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"review"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"England"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG Wharf"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Imam-ul-Haq"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"upheld"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A review where the request was struck down, due to one of the constituent parts being an umpires call.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"review"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pakistan"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"umpire"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AG Wharf"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Saud Shakeel"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"struck down"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"umpires_call"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A review where the umpire is unknown.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"review"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Australia"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MS Dhoni"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"struck down"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Details on any review that took place as part of the delivery.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>batter</code></td>
+<td><strong>string (required)</strong> The name of the batter for whom the decision was reviewed.</td>
+</tr>
+<tr>
+<td><code>by</code></td>
+<td><strong>string (required)</strong> The name of the team that called for the review.</td>
+</tr>
+<tr>
+<td><code>decision</code></td>
+<td><strong>string (required)</strong> The decision made following the review. This will be one of <strong>struck down</strong>, or <strong>upheld</strong>.</td>
+</tr>
+<tr>
+<td><code>umpire</code></td>
+<td><strong>string</strong> The name of the umpire who&#39;s decision was reviewed.</td>
+</tr>
+<tr>
+<td><code>umpires_call</code></td>
+<td><strong>boolean</strong> If a review was struck down due to it being down to the umpires call this field will be <strong>true</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='runs'>runs</h3>
+<blockquote>
+<p>A delivery where the batter scored 4 runs, and no extras were scored. As <code>non_boundary</code> is not specified this was a boundary.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A delivery where the batter didn&#39;t score, but some extras occurred.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A delivery where the batter scored 1 runs, and 2 extras occurred.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>A delivery where the batter scored 4 runs, but it wasn&#39;t a boundary.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"runs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"batter"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extras"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"non_boundary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Details on how the runs scored on the delivery should be assigned. Runs scored by the batter, and the total extras conceded, are shown individually along with the total of both. It may also contain a <code>non_boundary</code> entry to indicate that any 4 or 6 should not be regarded as a boundary.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>batsman</code></td>
+<td><strong>integer (required)</strong> The total number of runs scored by the batter off the ball. If the batter failed to score this will show <strong>0</strong>.</td>
+</tr>
+<tr>
+<td><code>extras</code></td>
+<td><strong>integer (required)</strong> The total number of runs conceded via extras off the ball. If no extras were conceded this will show <strong>0</strong>.</td>
+</tr>
+<tr>
+<td><code>non_boundary</code></td>
+<td><strong>boolean</strong> If this is listed against the delivery then the value will be <strong>true</strong>. This indicates that the 4 or 6 scored was not via an actual boundary, for example it was all run, or overthrows.</td>
+</tr>
+<tr>
+<td><code>total</code></td>
+<td><strong>integer (required)</strong> The total number of runs scored off this delivery. If no runs were scored from the delivery then this will display <strong>0</strong>.</td>
+</tr>
+</tbody></table>
+<h3 id='wickets'>wickets</h3>
+<blockquote>
+<p>Stephen Fleming is out <code>bowled</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bowled"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SP Fleming"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>MS Dhoni is out <code>caught</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"caught"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MS Dhoni"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fielders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shoaib Malik"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Kevin Pietersen is out <code>caught and bowled</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"caught and bowled"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KP Pietersen"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Austin Richards is out leg before wicket (<code>lbw</code>).</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lbw"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACL Richards"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Paul Collingwood is out <code>stumped</code>, by Denesh Ramdin.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stumped"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PD Collingwood"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fielders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D Ramdin"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Dwayne Smith is <code>run out</code>, by Kevin Pietersen and Matt Prior.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run out"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DR Smith"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fielders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KP Pietersen"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MJ Prior"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Sachin Tendulkar is out <code>retired hurt</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"retired hurt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SR Tendulkar"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Saurabh Tiwary is out <code>hit wicket</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hit wicket"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SS Tiwary"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Diego Lord is out <code>obstructing the field</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obstructing the field"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DM Lord"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Zhang Yu Fei is out <code>handled the ball</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zhang Yu Fei"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"handled the ball"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Two wickets listed on the same delivery, one played <code>stumped</code>, and the other played <code>retired hurt</code>.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"wickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stumped"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sarfraz Ahmed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fielders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BJ Haddin"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"retired hurt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"player_out"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zulfiqar Babar"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>If a wicket occurs on the delivery then this entry will be an array containing a single entry for each wicket, with details such as which player is out, what type of dismissal it was, and any fielders who were involved. Generally this array will contain a single entry, but in the <em>very unlikely</em> case that a wicket falls and another player retires hurt on the same ball, the array will contain an entry for each wicket. At the moment we only have a few matches that meet this criteria, the first being the <a href="https://www.espncricinfo.com/series/australia-tour-of-united-arab-emirates-2014-15-727905/australia-vs-pakistan-1st-test-727927/full-scorecard">1st Test between Pakistan and Australia in 2014</a> where Sarfaraz Ahmed was stumped, the tea interval was taken, and Zulfiqar Babar retired hurt during it (effectively meaning he had retired on the same delivery).</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>fielders</code></td>
+<td><strong>array</strong> If we know them this will contain the names of any fielders who were involved in the dismissal. Generally this will be the player (or players) who took a catch, or were involved in a run-out.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><strong>string (required)</strong> The kind of dismissal that took place. This will be one of <strong>bowled</strong>, <strong>caught</strong>, <strong>caught and bowled</strong>, <strong>lbw</strong>, <strong>stumped</strong>, <strong>run out</strong>, <strong>retired hurt</strong>, <strong>hit wicket</strong>, <strong>obstructing the field</strong>, <strong>hit the ball twice</strong>, <strong>handled the ball</strong>, or <strong>timed out</strong>.</td>
+</tr>
+<tr>
+<td><code>player_out</code></td>
+<td><strong>string (required)</strong> The name of the player who was dismissed.</td>
+</tr>
+</tbody></table>
+<h1 id='changelog'>Changelog</h1><h2 id='version-1-2-0'>Version 1.2.0</h2>
+<ul>
+<li>Added <code>actual_delivery</code> as a required field within each entry in <code>deliveries</code>.</li>
+</ul>
+<h2 id='version-1-1-0'>Version 1.1.0</h2>
+<ul>
+<li>Added <code>uncontested</code> as a possible field within <code>toss</code> in <code>info</code>.</li>
+<li>Added <code>forfeited</code> as a possible field within each <code>innings</code>.</li>
+</ul>
+<h2 id='version-1-0-0'>Version 1.0.0</h2>
+<ul>
+<li>Initial JSON version.</li>
+</ul>
+
+      </div>
+      <div class="dark-box">
+      </div>
+    </div>
+  </body>
+</html>
