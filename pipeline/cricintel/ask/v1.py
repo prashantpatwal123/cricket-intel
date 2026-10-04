@@ -297,7 +297,8 @@ def interpretation(it: Intent) -> list[dict]:
               "year_from": lambda v: f"from {v}", "year_to": lambda v: f"to {v}", "opposition": lambda v: f"against {v}",
               "faced_from": lambda v: f"from ball {v + 1}", "faced_to": lambda v: f"up to ball {v + 1}", "full_members": lambda v: "Full members & leagues",
               "over_from": lambda v: f"from over {v}", "over_to": lambda v: f"to over {v}", "rrr_from": lambda v: f"required rate ≥ {v:g}",
-              "chase_state": lambda v: "behind the required rate" if v == "behind" else f"{v} of the required rate", "batter_stage": lambda v: f"{v} batters"}
+              "chase_state": lambda v: "behind the required rate" if v == "behind" else f"{v} of the required rate", "batter_stage": lambda v: f"{v} batters",
+              "before_date": lambda v: f"before {v}"}
     for k, v in it.filters.items():
         chips.append({"key": f"filters.{k}", "label": labels.get(k, lambda v: f"{k}={v}")(v), "removable": True})
     if it.gender:
@@ -347,6 +348,8 @@ def _scope(f: dict, gender=None) -> str:
         bits.append("when behind the required rate" if f["chase_state"] == "behind" else f"when {f['chase_state']} of the required rate")
     if f.get("batter_stage"):
         bits.append({"new": "against new batters (0–9 balls faced)", "set": "against set batters (30+ balls)", "settling": "against batters on 10–29 balls"}[f["batter_stage"]])
+    if f.get("before_date"):
+        bits.append(f"before {f['before_date']}")
     return (" ".join(bits) + " " if bits else "") + "in our covered data"
 
 
@@ -553,25 +556,55 @@ def _items(rows, label, value, href, sub=None):
     return [{"label": label(r), "value": value(r), "href": href(r), "sub": sub(r) if sub else None} for r in rows]
 
 
+# Filters each knowledge-graph question type can honour. Anything else is refused, never silently dropped.
+V3_SUPPORTED = {
+    "innings_list": {"format", "competition", "team_type", "opposition", "year_from", "year_to", "before_date", "chasing"},
+    "spells_list": {"format", "competition", "team_type", "opposition", "year_from", "year_to", "before_date", "chasing", "phase"},
+    "match_lookup": {"year_from", "year_to", "before_date"},
+    "partners": {"format"},
+    "troubled_by": None,          # None = any Filters key (computed from balls when filtered)
+    "period_compare": set(),
+    "rivalry_battles": set(),
+}
+
+
+def _graph_where(fl: dict, gender: str | None, chasing_col: str, invert_chasing: bool = False) -> tuple[list, list]:
+    """WHERE clauses for bat_innings / bowl_innings from Ask filters (columns shared by both tables)."""
+    from ..analytics.filters import team_names
+    w, p = [], []
+    for key, col in (("format", "format_group"), ("competition", "competition"), ("team_type", "team_type")):
+        if fl.get(key):
+            w.append(f"{col} = ?"); p.append(fl[key])
+    if gender:
+        w.append("gender = ?"); p.append(gender)
+    if fl.get("opposition"):
+        names = team_names(fl["opposition"])
+        w.append(f"opponent IN ({','.join('?' * len(names))})"); p.extend(names)
+    if fl.get("year_from"):
+        w.append("year >= ?"); p.append(fl["year_from"])
+    if fl.get("year_to"):
+        w.append("year <= ?"); p.append(fl["year_to"])
+    if fl.get("before_date"):
+        w.append("start_date < ?::DATE"); p.append(str(fl["before_date"]))
+    if "chasing" in fl:
+        w.append(f"coalesce({chasing_col}, false) = ?"); p.append((not fl["chasing"]) if invert_chasing else bool(fl["chasing"]))
+    return w, p
+
+
 def _execute_v3(db: DB, it: Intent, f: Filters, scope: str, base: dict) -> dict | None:
     """Ask v3: questions that resolve to objects in the knowledge graph (innings, spells, matches, partners, battles)."""
     from ..analytics import partnerships as PT
     from ..analytics.entities import _nm, canon
     k = it.kind
+    if k in V3_SUPPORTED and V3_SUPPORTED[k] is not None:
+        extra = set(it.filters) - V3_SUPPORTED[k]
+        if extra:
+            return {**base, "status": "needs_clarification",
+                    "message": f"This kind of question can't yet be limited by {', '.join(sorted(extra))}; remove that condition or ask it another way."}
     if k == "innings_list":
         pid = it.subject["person_id"]
-        w, p = ["batter_id = ?"], [pid]
-        for key, col in (("format", "format_group"), ("competition", "competition"), ("team_type", "team_type")):
-            if it.filters.get(key):
-                w.append(f"{col} = ?"); p.append(it.filters[key])
-        if "chasing" in it.filters:
-            w.append("coalesce(chasing, false) = ?"); p.append(bool(it.filters["chasing"]))
-        if it.filters.get("opposition"):
-            w.append("opponent = ?"); p.append(it.filters["opposition"])
-        if it.filters.get("year_from"):
-            w.append("year >= ?"); p.append(it.filters["year_from"])
-        if it.filters.get("year_to"):
-            w.append("year <= ?"); p.append(it.filters["year_to"])
+        w, p = _graph_where(it.filters, it.gender, "chasing")
+        w, p = ["batter_id = ?"] + w, [pid] + p
         rows = db.q(f"""SELECT match_id, innings_no, runs, balls, not_out, opponent, competition, start_date, won, format_group FROM bat_innings
                         WHERE {' AND '.join(w)} ORDER BY runs DESC, balls LIMIT 10""", p)
         if not rows:
@@ -584,10 +617,10 @@ def _execute_v3(db: DB, it: Intent, f: Filters, scope: str, base: dict) -> dict 
                 "definition": "Ranked by runs, then fewer balls. Opens the ball-by-ball Innings Story.", "link": {"kind": "player", "id": pid, "tab": "innings"}}
     if k == "spells_list":
         pid = it.subject["person_id"]
-        w, p = ["bowler_id = ?"], [pid]
-        for key, col in (("format", "format_group"), ("competition", "competition")):
-            if it.filters.get(key):
-                w.append(f"{col} = ?"); p.append(it.filters[key])
+        w, p = _graph_where(it.filters, it.gender, "defending", invert_chasing=True)   # bowler side: chasing batters = defending
+        w, p = ["bowler_id = ?"] + w, [pid] + p
+        if it.filters.get("phase") not in (None, "death"):
+            return {**base, "status": "needs_clarification", "message": "Spell lists support death overs only as a phase."}
         death = it.filters.get("phase") == "death"
         order = "death_wkts DESC, death_runs * 1.0 / death_balls ASC" if death else "wickets DESC, runs ASC"
         if death:
@@ -614,6 +647,8 @@ def _execute_v3(db: DB, it: Intent, f: Filters, scope: str, base: dict) -> dict 
             w.append("year >= ?"); p.append(it.filters["year_from"])
         if it.filters.get("year_to"):
             w.append("year <= ?"); p.append(it.filters["year_to"])
+        if it.filters.get("before_date"):
+            w.append("start_date < ?::DATE"); p.append(str(it.filters["before_date"]))
         if place:
             w.append("(lower(city) LIKE ? OR lower(venue) LIKE ?)"); p += [f"%{place}%", f"%{place}%"]
         if it.gender:
@@ -651,7 +686,18 @@ def _execute_v3(db: DB, it: Intent, f: Filters, scope: str, base: dict) -> dict 
                 "definition": r["method"], "link": {"kind": "player", "id": pid, "tab": "partners"}}
     if k == "troubled_by":
         pid = it.subject["person_id"]
-        rows = db.q("""SELECT bowler_id, balls, runs, outs, batter_rpb, batter_out_rate FROM battles WHERE batter_id = ? AND balls >= 30""", [pid])
+        if it.filters:   # filtered (e.g. before a replayed match): recompute battles and the batter's usual rates under the same filters
+            fw, fp = Filters.parse(it.filters).where("batter", "b")
+            u = db.q1(f"""SELECT count(*) FILTER (WHERE b.faced) AS balls, sum(b.runs_batter) AS runs, count(x.delivery_id) AS outs
+                          FROM balls b LEFT JOIN dis x ON x.delivery_id = b.delivery_id AND x.player_out_id = b.batter_id AND x.bowler_credited
+                          WHERE b.batter_id = ? AND {fw}""", [pid] + fp)
+            rows = db.q(f"""SELECT b.bowler_id, count(*) FILTER (WHERE b.faced) AS balls, sum(b.runs_batter) AS runs, count(x.delivery_id) AS outs
+                            FROM balls b LEFT JOIN dis x ON x.delivery_id = b.delivery_id AND x.player_out_id = b.batter_id AND x.bowler_credited
+                            WHERE b.batter_id = ? AND {fw} GROUP BY 1 HAVING count(*) FILTER (WHERE b.faced) >= 30""", [pid] + fp) if u["balls"] else []
+            for r in rows:
+                r["batter_rpb"], r["batter_out_rate"] = (u["runs"] or 0) / u["balls"], (u["outs"] or 0) / u["balls"]
+        else:
+            rows = db.q("""SELECT bowler_id, balls, runs, outs, batter_rpb, batter_out_rate FROM battles WHERE batter_id = ? AND balls >= 30""", [pid])
         for r in rows:
             r["exp"] = r["balls"] * (r["batter_out_rate"] or 0)
             r["sr"] = round(100 * r["runs"] / r["balls"], 1)

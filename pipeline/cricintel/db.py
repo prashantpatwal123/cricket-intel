@@ -38,7 +38,7 @@ WHERE NOT i.super_over
 """
 
 
-WORKING_VERSION = "working-1.0"
+WORKING_VERSION = "working-1.1"
 DIS_SQL = """CREATE TABLE dis AS SELECT x.*, b.gender, b.format_group, b.team_type, b.competition,
                 b.season, b.start_date, b.year, b.batting_team, b.bowling_team, b.bowler, b.batter, b.bowler_family,
                 b.bowler_family_prov, b.bowler_arm, b.bowler_style, b.chasing, b.score_before, b.wickets_before,
@@ -77,6 +77,12 @@ def _setup(con, dsdir: Path, materialize: bool, graph: bool) -> dict:
     if materialize:
         con.execute(BALLS_SQL.format(ctx_cols=ctx_cols, ctx_join=ctx_join))
         con.execute(DIS_SQL)
+        # Historical Live Lab (Phase 5): raw events sorted by match so one match's rows are read via zone maps, not a scan.
+        con.execute("CREATE TABLE live_deliveries AS SELECT * FROM deliveries ORDER BY match_id, innings_no, seq")
+        con.execute("CREATE TABLE live_wickets AS SELECT * FROM wickets ORDER BY match_id, delivery_id, wicket_idx")
+        con.execute("CREATE TABLE live_fielders AS SELECT * FROM wicket_fielders ORDER BY match_id, delivery_id, wicket_idx, fielder_idx")
+        con.execute("CREATE TABLE live_players AS SELECT * FROM players_in_match ORDER BY match_id")
+        flags["has_live"] = True
         if graph and flags["has_context"]:
             from .analytics.graph import GRAPH_TABLES
             for sql in GRAPH_TABLES.values():

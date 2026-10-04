@@ -22,6 +22,8 @@ function Battle() {
   const sp = useSearchParams();
   const router = useRouter();
   const batId = sp.get("bat"), bowlId = sp.get("bowl");
+  const fl = /^live:(\w+):(\d+)$/.exec(sp.get("from") || "");
+  const fromLive = fl ? { mid: fl[1], n: fl[2] } : null;
   const [bat, setBat] = useState<P>(null), [bowl, setBowl] = useState<P>(null);
   const [d, setD] = useState<any | null>(null);
   const [uni, setUni] = useState<any | null>(null);
@@ -48,6 +50,12 @@ function Battle() {
 
   return (
     <div className="fade-in">
+      {fromLive && (
+        <div className="from-live" data-testid="from-live">
+          <span>Opened from a historical replay.</span>
+          <Link href={`/live-lab/${fromLive.mid}?n=${fromLive.n}`}>← Back to the replay at the same ball</Link>
+          <span>This page shows every covered meeting, including any after that match.</span>
+        </div>)}
       <section className="section" style={{ marginTop: 22 }}>
         <div className="kicker">Battles</div>
         <h1 className="big-title" style={{ fontSize: "clamp(34px, 8vw, 58px)", margin: "6px 0 14px" }}>Batter v bowler</h1>

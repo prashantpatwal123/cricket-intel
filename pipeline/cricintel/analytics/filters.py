@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, fields
 
-MATCH_LEVEL = {"format", "team_type", "competition", "year_from", "year_to", "opposition", "gender", "full_members", "team"}
+MATCH_LEVEL = {"format", "team_type", "competition", "year_from", "year_to", "opposition", "gender", "full_members", "team", "before_date"}
 FULL_MEMBERS = ("India", "Australia", "England", "South Africa", "New Zealand", "Pakistan", "Sri Lanka", "West Indies",
                 "Bangladesh", "Zimbabwe", "Ireland", "Afghanistan")
 BALL_LEVEL = {"phase", "bowler_family", "bowler_arm", "bowler_style", "chasing", "bowler_id", "batter_id", "over_from", "over_to",
@@ -49,6 +49,7 @@ class Filters:
     chase_state: str | None = None    # ahead | around | behind (Context Engine; chases only)
     batter_stage: str | None = None   # new | settling | set (Context Engine)
     non_striker_id: str | None = None  # partner at the other end
+    before_date: str | None = None     # only matches that started before this date (Match Ask in a replay: no future data)
 
     @classmethod
     def parse(cls, d: dict) -> "Filters":
@@ -91,6 +92,8 @@ class Filters:
             c.append(f"{a}year >= ?"); p.append(self.year_from)
         if self.year_to:
             c.append(f"{a}year <= ?"); p.append(self.year_to)
+        if self.before_date:
+            c.append(f"{a}start_date < ?::DATE"); p.append(str(self.before_date))
         if self.full_members:
             fm = ",".join("'" + t + "'" for t in FULL_MEMBERS)
             c.append(f"({a}team_type = 'club' OR ({a}batting_team IN ({fm}) AND {a}bowling_team IN ({fm})))")

@@ -79,6 +79,8 @@ export default function Play() {
         <div><div className="kicker">Play · historical moments</div><div className="h2">What happens next?</div></div>
         <button className="btn" onClick={() => setShowStats(!showStats)} aria-expanded={showStats}>{showStats ? "Hide" : "Session"} stats</button>
       </div>
+      <Link href="/live-lab" className="from-live" style={{ background: "var(--surface)", color: "var(--text)" }} data-testid="play-whole-match">
+        <span><b>Play a whole match:</b> predict every ball of a historical replay in the Live Lab →</span></Link>
       <div className="mvy" aria-label="Model versus you">
         <div className="mvy-side you"><div className="l">You</div><div className="v num">{st.points}</div><div className="mini">{st.correct}/{st.n} right{acc != null ? ` · ${acc}%` : ""}</div></div>
         <div className="mvy-mid"><div className="mini">streak</div><b className="num">{st.streak}</b><div className="mini">best {st.best}</div>

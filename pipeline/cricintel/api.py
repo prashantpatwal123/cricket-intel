@@ -497,6 +497,13 @@ def _warm():
             D.discover(d, experimental() and d.has_situation)
             for g in ("male", "female"):
                 L._sim_space(d, g)
+            # Historical Live Lab: as-of baselines for the featured replays
+            from .live import service as LS
+            for mid in LS.FEATURED:
+                try:
+                    _replay(mid)
+                except Exception:  # noqa: BLE001
+                    pass
             # Pre-render the most visited competition and rivalry pages
             for c in _comp_index()[:10]:
                 _competition(c["competition"], c["gender"], None)
@@ -506,6 +513,61 @@ def _warm():
         except Exception:  # noqa: BLE001 - warm-up must never take the server down
             pass
     _th.Thread(target=go, daemon=True).start()
+
+
+# ------------------------------------------------------------------ Historical Live Lab (Phase 5)
+def _replay(mid: str):
+    from .live import service as LS
+    from .model import baseline
+    d = db()
+    if not getattr(d, "has_live", False):
+        raise HTTPException(503, "live tables missing: run python -m cricintel.precompute")
+    if "whn_model" not in _DB:
+        try:
+            _DB["whn_model"] = baseline.load(d.dataset)
+        except FileNotFoundError:
+            _DB["whn_model"] = None
+    try:
+        return LS.get(d, mid, _DB["whn_model"], sdx_model())
+    except KeyError:
+        raise HTTPException(404, "match not found")
+
+
+@app.get("/api/live/featured")
+def live_featured():
+    from .live import service as LS
+    t0 = time.perf_counter()
+    return envelope({"matches": LS.featured(db()), "label": LS.LABEL,
+                     "note": "Completed matches replayed ball by ball through the same event pipeline a live feed would use. Nothing here is live."}, t0)
+
+
+@app.get("/api/live/{mid}")
+def live_state(mid: str, cursor: int = Query(0, ge=0)):
+    t0 = time.perf_counter()
+    return envelope(_replay(mid).at(cursor, experimental()), t0)
+
+
+@app.get("/api/live/{mid}/seek")
+def live_seek(mid: str, cursor: int = Query(0, ge=0), to: str = Query(..., pattern=r"^(next_over|prev_over|start|end|innings:\d+)$")):
+    from .live import service as LS
+    t0 = time.perf_counter()
+    _replay(mid)
+    return envelope({"cursor": LS.seek(db(), mid, cursor, to)}, t0)
+
+
+@app.get("/api/live/{mid}/play")
+def live_play(mid: str, cursor: int = Query(..., ge=0), pick: str = Query(..., pattern=r"^(DOT|1|2|3|4|6|WICKET)$")):
+    t0 = time.perf_counter()
+    try:
+        return envelope(_replay(mid).score_pick(cursor, pick), t0)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/api/live/{mid}/ask")
+def live_ask(mid: str, q: str = Query(min_length=3, max_length=300), cursor: int = Query(0, ge=0)):
+    t0 = time.perf_counter()
+    return envelope(_replay(mid).ask(cursor, q), t0)
 
 
 def SR_INDEX():

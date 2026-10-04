@@ -31,6 +31,7 @@ On desktop, a search box sits in the header on every page.
 | Stories | `/story/innings/…`, `/story/match/[id]`, `/story/battle` | "How it unfolded" buttons on innings, match and battle pages |
 | Share cards | `/share?type=…` | "Share card" buttons; export only |
 | Data & methodology | `/data` | Search browse, footer, licence banner |
+| Historical Live Lab and Match Centre (Phase 5) | `/live-lab`, `/live-lab/[id]?n=` | Explore gateway, Search browse, Play ("Play a whole match"). The Match Centre has local tabs (Now · Scorecard · Timeline · Ask) inside the unchanged five-tab global navigation. |
 
 ## The rabbit hole
 

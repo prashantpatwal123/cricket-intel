@@ -68,15 +68,29 @@ def methodology(db: DB, experimental: bool) -> dict:
                             "spell_library": [{"key": k, "label": v[0], "definition": v[1]} for k, v in SPELL_CATS.items()],
                             "battles": [{"key": k, "label": v[0], "definition": v[1]} for k, v in BATTLE_CATS.items()]},
             "models": models,
-            "versions": {"context": CONTEXT_VERSION, "graph": GRAPH_VERSION, "working_db": WORKING_VERSION, "search": SEARCH_V, "discovery": DISC_V, "feed": FEED_V},
+            "versions": {"live_engine": _live_versions()[0], "right_now": _live_versions()[1], "context": CONTEXT_VERSION, "graph": GRAPH_VERSION, "working_db": WORKING_VERSION, "search": SEARCH_V, "discovery": DISC_V, "feed": FEED_V},
             "experimental": [{"name": "Situation Difficulty — Experimental (SDX v0.1)", "status": "on" if experimental else "off",
                               "doc": "docs/models/situation-difficulty.md"},
                              {"name": "Performance in difficult chases", "status": "on" if experimental else "off",
                               "doc": "Split-half test found no stable trait; the word 'clutch' is not used."}],
             "rejected": [{"name": "What Would You Do?", "why": "Intent is not recorded; ~80–90% of balls can't be labelled without guessing."},
+                         {"name": "Win probability (not shipped)", "why": "Research gate: ODI men and women fail calibration (over-confident, slope 0.75/0.84). "
+                          "T20 passes the pre-registered rules but a wicket can raise the probability in some states and club T20 is poorly calibrated; "
+                          "display needs owner approval. See docs/models/win-probability-research.md."},
                          {"name": "Turning points", "why": "No validated turning-point algorithm; match pages list defined factual events instead."},
                          {"name": "'Clutch'", "why": "Beating expectation in hard chases does not persist across halves of a career (split-half r ≈ 0)."},
                          {"name": "Pace/spin, line/length, shot maps", "why": "Not in the data; bowling-style metadata covers only a few % of deliveries."}],
-            "limitations": ["Franchise renames are grouped for rivalries and team filters (e.g. Kings XI Punjab → Punjab Kings); original names stay on every match.",
+            "live_lab": {"what": "Historical Live Lab: completed matches replayed ball by ball through a provider-neutral live event contract. Never live.",
+                         "spoiler_safety": "The server reads and sends only deliveries up to the cursor; every historical comparison uses matches before the replayed one.",
+                         "in_sample": "The next-ball model (trained before 2024-01-01) and Situation Difficulty (before 2025-01-01) are in-sample for earlier matches; the Match Centre says so.",
+                         "docs": ["docs/architecture/live-data-contract.md", "docs/models/right-now-engine.md", "docs/architecture/notifications.md"]},
+            "limitations": ["Historical Live Lab: Cricsheet records only the final D/L target, so a revised target is applied from the start of the chase and labelled.",
+                            "Franchise renames are grouped for rivalries and team filters (e.g. Kings XI Punjab → Punjab Kings); original names stay on every match.",
                             "T20I completeness cannot be established from Cricsheet's pages; competition pages say when completeness is unknown.",
                             "Cricsheet withholds matches involving Afghanistan men.", "Batting hand is unknown for almost all players."]}
+
+
+def _live_versions() -> tuple[str, str]:
+    from ..live.engine import VERSION as E
+    from ..live.insights import VERSION as R
+    return E, R

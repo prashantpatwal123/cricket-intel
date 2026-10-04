@@ -1,0 +1,112 @@
+{
+ "full": {
+  "matches": 10247,
+  "innings": 20475,
+  "deliveries": 3298987,
+  "mismatches": 0,
+  "examples": [],
+  "seconds": 1679.8,
+  "deliveries_per_second": 1964
+ },
+ "edge_cases": {
+  "retired hurt": {
+   "matches": 25,
+   "innings": 49,
+   "deliveries": 10173,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 5.2,
+   "deliveries_per_second": 1973
+  },
+  "retired out": {
+   "matches": 25,
+   "innings": 50,
+   "deliveries": 5920,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 3.1,
+   "deliveries_per_second": 1909
+  },
+  "retired not out": {
+   "matches": 11,
+   "innings": 22,
+   "deliveries": 3965,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 2.1,
+   "deliveries_per_second": 1875
+  },
+  "obstructing the field": {
+   "matches": 20,
+   "innings": 42,
+   "deliveries": 7297,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 4.1,
+   "deliveries_per_second": 1762
+  },
+  "timed out": {
+   "matches": 2,
+   "innings": 4,
+   "deliveries": 812,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 0.4,
+   "deliveries_per_second": 1991
+  },
+  "hit the ball twice": {
+   "matches": 1,
+   "innings": 2,
+   "deliveries": 243,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 0.1,
+   "deliveries_per_second": 2235
+  },
+  "stumped": {
+   "matches": 25,
+   "innings": 50,
+   "deliveries": 12561,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 6.0,
+   "deliveries_per_second": 2099
+  },
+  "run out": {
+   "matches": 25,
+   "innings": 50,
+   "deliveries": 10862,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 5.8,
+   "deliveries_per_second": 1864
+  },
+  "hit wicket": {
+   "matches": 25,
+   "innings": 50,
+   "deliveries": 8634,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 4.3,
+   "deliveries_per_second": 2002
+  },
+  "super overs (all covered)": {
+   "matches": 73,
+   "innings": 298,
+   "deliveries": 22360,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 12.5,
+   "deliveries_per_second": 1793
+  },
+  "D/L revised targets": {
+   "matches": 100,
+   "innings": 200,
+   "deliveries": 36456,
+   "mismatches": 0,
+   "examples": [],
+   "seconds": 18.6,
+   "deliveries_per_second": 1961
+  }
+ }
+}

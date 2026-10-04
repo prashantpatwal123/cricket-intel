@@ -1,0 +1,141 @@
+{
+  "errors": [],
+  "aborted_by_navigation": 99,
+  "assertions": [],
+  "leaks": [],
+  "responses_checked": 29,
+  "log": [
+    {
+      "step": "lab-list",
+      "n": 7,
+      "first": "Pakistan v India\nICC Men's T20 World Cup · 2022-10-23 · Melbourne · Men · T20 · international\nReplay →",
+      "overflow_px": 0
+    },
+    {
+      "step": "mcg-steps",
+      "before": "PAKISTAN | 0/0 | 0.0/20.0 ov",
+      "after": "PAKISTAN | 0/0 | 0.3/20.0 ov · RR 0",
+      "pos": "3",
+      "overflow_px": 0
+    },
+    {
+      "step": "mcg-236",
+      "strip": "INDIA | 129/4 | 18.0/20.0 ov · RR 7.17 | Need 31 off 12 · req 15.5 | Pakistan 159/8 (20.0)",
+      "battle": "CURRENT BATTLE OBSERVED Hardik Pandya v Haris Rauf 12 BALLS 18 RUNS 150 SR (USUAL 147.1) 1 OUT (EXP 0.6) T20 men, covered matches before 2022-10-23. 2 matches, ",
+      "right_now": [
+        "CHASE DERIVED  India need 31 off 12: required 15.5 an over, scoring at 7.17 so far.  Why t",
+        "PARTNERSHIP DERIVED  Virat Kohli and Hardik Pandya: 98 together today; before today 10 sta",
+        "BATTER V USUAL DERIVED  Virat Kohli 61 (47): strike rate 129.8 against 169.4 usually at ba"
+      ],
+      "sdx": 1,
+      "nothing_new": 1,
+      "overflow_px": 0
+    },
+    {
+      "step": "timeline",
+      "events": 28,
+      "top": [
+        "17.1Virat Kohli reached 50 off 43 balls · ball →",
+        "14.6India 100 up in 15.0 overs · ball →",
+        "12.4Virat Kohli and Hardik Pandya: 50 partnership off 39 balls · ball →",
+        "10.3India 50 up in 10.3 overs · ball →"
+      ],
+      "record_watch": "RECORD WATCH Virat Kohli is 20 runs from moving up the run-scoring list in covered ICC Men's T20 World Cup data before this match. Within CRICINTEL's covered data, not an official record (Cricsheet completeness for this competition: unknown",
+      "overflow_px": 0
+    },
+    {
+      "step": "match-ask",
+      "How has this batter done against this bowler?": "this bowler → Haris Rauf this batter → Hardik Pandya only matches before this one (2022-10-23) Batter v bowler Hardik Pandya v Haris Rauf T20 Men  Hardik Pandya v Haris Rauf in T20s (T20Is, IPL, WPL) before 2022-10-23 in",
+      "Has this pair batted together before?": "this pair → Hardik Pandya and Virat Kohli only matches before this one (2022-10-23)  Hardik Pandya and Virat Kohli had batted together 10 times in covered T20 matches before this one: 291 runs, average 29.1, best 81, 2 f",
+      "Who has dismissed this batter most?": "this batter → Hardik Pandya only matches before this one (2022-10-23) Bowlers who dismissed Hardik Pandya T20 Men  Jofra Archer and Mohammed Shami and Jason Holder and Ish Sodhi and Dasun Shanaka have dismissed Hardik Pa",
+      "overflow_px": 0
+    },
+    {
+      "step": "play-this-match",
+      "from": "17.6",
+      "to": "18.3",
+      "session": "10 pts · 1/3 right · model 20 pts · beat the model 0×",
+      "reveal": "Ball was DOT. You picked 4: 0 pts. Model picked 1: 0 pts (it gave DOT 17%).",
+      "overflow_px": 0
+    },
+    {
+      "step": "wpl-autoplay",
+      "position": "35",
+      "overflow_px": 0
+    },
+    {
+      "step": "next-over",
+      "position": "5.6",
+      "overflow_px": 0
+    },
+    {
+      "step": "innings-2",
+      "strip": "ROYAL CHALLENGERS BENGALURU | 0/0 | 0.0/20.0 ov | Need 204 off 120 · req 10.2 | Delhi Capitals 203/4 (20.0)",
+      "overflow_px": 0
+    },
+    {
+      "step": "battle-roundtrip",
+      "back": "http://localhost:3000/live-lab/1298150?n=200",
+      "overflow_px": 0
+    },
+    {
+      "step": "m12-ipl-dl-chase",
+      "strip": "CHENNAI SUPER KINGS | 72/0 | 6.0/15.0 ov · RR 12 | Need 99 off 54 · req 11 · D/L target | Gujarat Titans 214/4 (20.0)",
+      "rn": 3,
+      "overflow_px": 0
+    },
+    {
+      "step": "m13-women-odi",
+      "strip": "SOUTH AFRICA | 96/2 | 17.5/50.0 ov · RR 5.38 | Need 203 off 193 · req 6.31 | India 298/7 (50.0)",
+      "rn": 3,
+      "overflow_px": 0
+    },
+    {
+      "step": "m14-men-odi-final",
+      "strip": "AUSTRALIA | 77/3 | 14.5/50.0 ov · RR 5.19 | Need 164 off 211 · req 4.66 | India 240/10 (50.0)",
+      "rn": 2,
+      "overflow_px": 0
+    },
+    {
+      "step": "m15-women-t20",
+      "strip": "AUSTRALIA | 39/1 | 3.5/20.0 ov · RR 10.17 | Need 112 off 97 · req 6.93 | England 150/4 (20.0)",
+      "rn": 1,
+      "overflow_px": 0
+    },
+    {
+      "step": "m16-super-over",
+      "strip": "KINGS XI PUNJAB · SUPER OVER | 1/1 | 0.2/1.0 ov · RR 3 | Mumbai Indians 176/6 (20.0) · Kings XI Punjab 176/6 (20.0)",
+      "rn": 0,
+      "overflow_px": 0
+    },
+    {
+      "step": "so-end",
+      "strip": "KINGS XI PUNJAB · SUPER OVER | 15/0 | 0.4/1.0 ov · RR 22.5 | Mumbai Indians 176/6 (20.0) · Kings XI Punjab 176/6 (20.0) · Kings XI Punjab 5/2 (1.0) · Mumbai Indians 5/1 (1.0) · Mumbai Indians 11/1 (1.0) | Match tied; Kings XI Punjab won the super over",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-live-lab",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-mcg-236",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-mcg-timeline",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-ipl-chase",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-women-odi",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-mcg-card",
+      "overflow_px": 0
+    }
+  ]
+}

@@ -53,6 +53,13 @@ export default function DataPage() {
           <ul className="edge-list">{d.limitations.map((l: string) => <li key={l}>{l}</li>)}</ul>
         </div>
       </section>
+      {d.live_lab && (
+        <section className="rule-section" data-testid="data-live-lab">
+          <div className="eyebrow">Historical Live Lab</div>
+          <ul className="edge-list">{["what", "spoiler_safety", "in_sample"].map((k) => <li key={k}>{d.live_lab[k]}</li>)}</ul>
+          <div className="mini">Method notes: {d.live_lab.docs.join(" · ")}</div>
+          <Link className="btn" href="/live-lab" style={{ marginTop: 8, display: "inline-block" }}>Open the Live Lab →</Link>
+        </section>)}
 
       <section className="rule-section">
         <div className="eyebrow">Provenance</div>

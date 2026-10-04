@@ -110,6 +110,7 @@ export default function Explore() {
       </section>
       <section className="section">
         <div className="ex-cards">
+          <Link href="/live-lab" className="rcard" data-testid="gw-live-lab"><div className="kicker">Historical Live Lab</div><div style={{ fontWeight: 800, marginTop: 4 }}>Replay a finished match ball by ball, with the Match Centre a second screen would show. Not live.</div></Link>
           <Link href="/competitions" className="rcard"><div className="kicker">Competitions</div><div style={{ fontWeight: 800, marginTop: 4 }}>IPL, WPL, World Cups: editions, leaders, trends and coverage</div></Link>
           <Link href="/innings" className="rcard"><div className="kicker">Innings & spells</div><div style={{ fontWeight: 800, marginTop: 4 }}>Libraries of the highest, fastest and hardest innings, and the best spells</div></Link>
           <Link href="/players" className="rcard"><div className="kicker">Players</div><div style={{ fontWeight: 800, marginTop: 4 }}>Search any player: fingerprint, strengths, dismissals, timeline</div></Link>
