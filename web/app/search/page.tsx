@@ -12,6 +12,7 @@ const BROWSE: [string, string, string][] = [
   ["/spells", "Spell library", "Best figures, death overs, bursts"], ["/battle", "Battle universe", "Batter v bowler, every angle"],
   ["/records", "Records", "Build any leaderboard"], ["/partnerships", "Partnerships", "Best pairs and biggest stands"],
   ["/live-lab", "Historical Live Lab", "Replay a finished match ball by ball"],
+  ["/visual-lab", "Visual Lab", "What our graphics can and cannot show, and why"],
   ["/data", "Data & methodology", "Coverage, definitions, licence status"],
 ];
 const ICON: Record<string, string> = { player: "●", team: "◆", competition: "🏆", edition: "🏆", match: "▣", innings: "▮", spell: "◎", battle: "⚔", pair: "∞", rivalry: "⇄", record: "≡" };

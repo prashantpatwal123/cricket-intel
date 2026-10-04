@@ -9,6 +9,7 @@ import ProvBadge from "@/components/Prov";
 import ExploreNext from "@/components/ExploreNext";
 import DeliveryScene from "@/components/viz/DeliveryScene";
 import MatchSituation from "@/components/viz/MatchSituation";
+import { DismissalTheatre, LayerLadder, NotRecorded } from "@/components/visual";
 
 export default function Replay() {
   const { id } = useParams<{ id: string }>();
@@ -51,6 +52,8 @@ export default function Replay() {
       <section className="section" style={{ marginTop: 14 }}>
         <div className="card"><DeliveryScene model={model} /></div>
       </section>
+
+      <Layers did={did} />
 
       <section className="section">
         <div className="section-head"><div><div className="kicker">The record</div><div className="h2">What the data says about this ball</div></div></div>
@@ -111,5 +114,27 @@ export default function Replay() {
       <div className="mini" style={{ marginTop: 12 }}>Match: {m.innings.map((i: any) => `${i.batting_team} ${i.total_runs}/${i.total_wickets} (${i.overs} ov)`).join(" · ")}</div>
       <ExploreNext type="delivery" id={did} />
     </div>
+  );
+}
+
+
+// Delivery Replay V2: progressive fidelity. Each layer is shown only if a source records it; the rest say so.
+function Layers({ did }: { did: string }) {
+  const [v, setV] = useState<any | null>(null);
+  useEffect(() => { api(`/visual/delivery/${did}`).then((r) => setV(r.data)).catch(() => setV(null)); }, [did]);
+  if (!v) return null;
+  const L0 = v.layers[0].data;
+  return (
+    <section className="section" data-testid="delivery-layers">
+      <div className="section-head"><div><div className="kicker">Progressive replay · layer {v.fidelity} of 5</div><div className="h2">What we can draw, and what we can&apos;t</div></div></div>
+      <div className="av-split">
+        <div><LayerLadder layers={v.layers} /></div>
+        <div>
+          {L0.dismissal.length > 0 && <DismissalTheatre d={L0.dismissal[0]} keeperNote="Keeper identified by inference for this match; not the same as 'caught behind'." />}
+          <div style={{ marginTop: 10 }}><NotRecorded what="Pitch point, shot, edge and ball path" why="Layers 2–5 are not recorded for this ball (see the ladder), so none of them is drawn." /></div>
+          <p className="mini" style={{ marginTop: 8 }}>Text equivalent: {v.text}</p>
+        </div>
+      </div>
+    </section>
   );
 }

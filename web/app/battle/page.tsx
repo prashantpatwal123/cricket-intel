@@ -130,6 +130,7 @@ function Battle() {
           <div className="mini" style={{ marginTop: 10 }}>Not shown, because the data doesn&apos;t record it: {d.not_available.join(" · ")}.</div>
         </section>
         {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
+        <Knowledge bat={batId!} bowl={bowlId!} />
         <section className="rule-section">
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Link className="btn primary" href={`/story/battle?bat=${batId}&bowl=${bowlId}`}>What this battle shows (story) →</Link>
@@ -240,5 +241,25 @@ function Edge({ d }: { d: any }) {
       <div className="note">{e.sample_note}</div>
       <div className="mini" style={{ marginTop: 8 }}>{e.explain}</div>
     </div>
+  );
+}
+
+
+// "What do we actually know about why this matchup behaves this way?" Known / derived / unavailable, with missing data made explicit.
+function Knowledge({ bat, bowl }: { bat: string; bowl: string }) {
+  const [k, setK] = useState<any | null>(null);
+  useEffect(() => { if (bat && bowl) api("/visual/battle", { bat, bowl }).then((r) => setK(r.data)).catch(() => setK(null)); }, [bat, bowl]);
+  if (!k) return null;
+  return (
+    <section className="rule-section" data-testid="battle-knowledge">
+      <div className="eyebrow">What do we actually know about this matchup?</div>
+      <div className="know">
+        <div className="col k"><b>Known</b> <ProvBadge prov="OBSERVED" /><ul>{k.known.map((x: any) => <li key={x.item}>{x.item}</li>)}</ul></div>
+        <div className="col d"><b>Derived</b> <ProvBadge prov="DERIVED" /><ul>{k.derived.map((x: any) => <li key={x.item}>{x.item}</li>)}</ul></div>
+        <div className="col u"><b>Not available</b><ul>{k.unavailable.map((x: any) => <li key={x.item}>{x.item}<div className="mini">{x.why}</div></li>)}</ul></div>
+      </div>
+      <div className="mini" style={{ marginTop: 8 }}>{k.metadata.map((m: any) => `${m.who}: ${m.field.replace("_", " ")} ${m.value ?? "unknown"} (${m.status})`).join(" · ")}</div>
+      <p style={{ fontSize: 14, marginTop: 8 }} data-testid="cannot-say">{k.cannot_say}</p>
+    </section>
   );
 }

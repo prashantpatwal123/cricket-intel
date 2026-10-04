@@ -1,7 +1,7 @@
 "use client";
 // Data Quality & Methodology centre: coverage, gaps, metadata completeness, definitions, provenance, models, licence status.
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 
@@ -24,6 +24,7 @@ export default function DataPage() {
         <div className="mini" style={{ marginTop: 6 }}>Dataset build {d.built_at}.</div>
       </section>
 
+      <Capability />
       <section className="rule-section">
         <div className="eyebrow">Coverage by group</div>
         <div className="tablist">{d.groups.map((g: any, i: number) => (
@@ -87,5 +88,36 @@ export default function DataPage() {
       </section>
       <div className="mini" style={{ marginTop: 12 }}>Per-delivery context definitions: <Link href="/context" className="ul">Context Engine</Link>.</div>
     </div>
+  );
+}
+
+
+const GROUP: Record<string, string> = { event: "Events", player: "Player metadata", geometry: "Delivery geometry", shot: "Shot", contact: "Contact", fielding: "Fielding" };
+// Data Quality Centre V2: field-level capability, from the same audit the docs are generated from (enrich/capability.py).
+function Capability() {
+  const [c, setC] = useState<any | null>(null);
+  const [all, setAll] = useState(false);
+  useEffect(() => { api("/capability").then((r) => setC(r.data)).catch(() => setC(null)); }, []);
+  if (!c) return null;
+  const groups = ["event", "player", "fielding", "geometry", "shot", "contact"];
+  return (
+    <section className="rule-section" data-testid="capability">
+      <div className="eyebrow">What the data can and cannot support · field by field</div>
+      <div className="statline"><div><b className="num">{c.counts.available}</b><span>✓ available</span></div><div><b className="num">{c.counts.partial}</b><span>△ partial</span></div>
+        <div><b className="num">{c.counts.unavailable}</b><span>✕ unavailable</span></div></div>
+      <p className="mini" style={{ fontSize: 13 }}>Cricsheet match-data licence: unresolved (no licence statement found; site footer &quot;All rights reserved&quot;), so everything is internal preview only.
+        This is why some CRICINTEL features exist and others don&apos;t: there are no line, length, shot, edge, speed or tracking
+        fields in any source we can use, so no feature depends on them. Evidence: {c.evidence}.</p>
+      <div style={{ overflowX: "auto" }}><table className="capm"><tbody>
+        {groups.map((g) => { const rows = c.fields.filter((f: any) => f.group === g); const show = all || g !== "geometry" ? rows : rows.slice(0, 4);
+          return <React.Fragment key={g}><tr className="grp"><th colSpan={3}>{GROUP[g]}</th></tr>
+            {show.map((f: any) => <tr key={f.field}><td className={`st ${f.status}`} aria-label={f.status}>{c.legend[f.status]}</td>
+              <td><b>{f.field.replace(/_/g, " ")}</b><div className="mini">{f.coverage}</div>{f.notes && <div className="mini">{f.notes}</div>}</td>
+              <td className="mini">{f.status === "unavailable" ? <>Unlock: {f.unlock || "a licensed source"}</> : <>{f.source.startsWith("Cricsheet") ? "Cricsheet" + (f.source.includes("derived") ? " (derived)" : "") : f.source.split(";")[0]}
+                <br />Licence: {f.licence.startsWith("UNRESOLVED") ? "unresolved (see above)" : f.licence.split(";")[0]}<br />Usable now: {f.usable_now ? "yes" : "no"}</>}</td></tr>)}
+            {!all && g === "geometry" && rows.length > 4 && <tr><td /><td colSpan={2}><button className="btn" onClick={() => setAll(true)}>Show all {rows.length} geometry fields</button></td></tr>}</React.Fragment>; })}
+      </tbody></table></div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}><Link className="btn" href="/visual-lab">See it in the Visual Lab →</Link></div>
+    </section>
   );
 }

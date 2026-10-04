@@ -18,7 +18,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   // IA: five destinations. Search is the gateway to every entity (players, matches, competitions, rivalries, libraries,
   // records, methodology); Explore is the gateway to discovery and stories. See docs/architecture/information-architecture.md.
   const nav = [["/", "Explore"], ["/search", "Search"], ["/battle", "Battles"], ["/ask", "Ask"], ["/play", "Play"]];
-  const SEARCH_AREA = ["/search", "/players", "/match", "/competition", "/rivalr", "/innings", "/spells", "/spell/", "/records", "/partnerships", "/data", "/context"];
+  const SEARCH_AREA = ["/search", "/players", "/match", "/competition", "/rivalr", "/innings", "/spells", "/spell/", "/records", "/partnerships", "/data", "/context", "/visual-lab", "/how-out"];
   const isOn = (h: string) => h === "/" ? path === "/" || path.startsWith("/story") || path.startsWith("/share") || path.startsWith("/lab") || path.startsWith("/live-lab")
     : h === "/search" ? SEARCH_AREA.some((p) => path.startsWith(p))
     : h === "/battle" ? path.startsWith("/battle") || path.startsWith("/compare") : path === h || path.startsWith(h + "/");

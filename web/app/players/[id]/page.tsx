@@ -162,6 +162,7 @@ function PlayerPage() {
         <section className="section" style={{ marginTop: 12 }}>
           <div className="section-head"><div><div className="kicker">Dismissal DNA</div><div className="h2">How {prof.name} gets out</div>
             <div className="sub">{total ? <>{total} dismissals in {fmt(dis.innings)} innings · one every {fmt(dis.balls_per_dismissal, 1)} balls faced. Tap a route for its full story.</> : "No dismissals in this selection."}</div></div></div>
+          <Link className="btn primary" href={`/how-out/${id}`} data-testid="explore-how-out" style={{ display: "inline-block", marginBottom: 10 }}>Explore how {prof.name} gets out, step by step →</Link>
           <div className="grid2">
             <div className="card">{dis && <HowOut routes={dis.routes} hand={m.batting_hand.value} selected={route} onSelect={pickRoute} name={prof.name} />}</div>
             <div className="card">

@@ -515,6 +515,74 @@ def _warm():
     _th.Thread(target=go, daemon=True).start()
 
 
+# ------------------------------------------------------------------ Visual Cricket Engine V2 / data capability (Phase 6)
+LAB_EXAMPLES = [
+    ("1473508:2:20", "Caught by the wicketkeeper (keeper DERIVED), Layer 0 only"),
+    ("1473467:1:85", "Stumped, bowler style known from CC0 metadata: Layers 0 + 1"),
+    ("1529308:2:95", "Bowled; bowler style not in a licence-cleared source: Layer 0 only"),
+    ("1168247:1:54", "Kohli v Zampa: caught, keeper status unknown for this match"),
+]
+
+
+@app.get("/api/visual/delivery/{did}")
+@cached
+def visual_delivery(did: str):
+    from .analytics import visual as V
+    t0 = time.perf_counter()
+    r = V.delivery_layers(db(), did)
+    if not r:
+        raise HTTPException(404, "delivery not found")
+    return envelope(r, t0)
+
+
+@app.get("/api/visual/dismissals/{pid}")
+def visual_dismissals(pid: str, route: str | None = None, bowler: str | None = None, format: str | None = None, phase: str | None = None,
+                      style: str | None = None):
+    from .analytics import visual as V
+    t0 = time.perf_counter()
+    return envelope(V.dismissal_dna(db(), pid, route, bowler, format, phase, style), t0)
+
+
+@app.get("/api/visual/battle")
+def visual_battle(bat: str, bowl: str):
+    from .analytics import visual as V
+    t0 = time.perf_counter()
+    return envelope(V.battle_knowledge(db(), bat, bowl), t0)
+
+
+@app.get("/api/visual/lab")
+@cached
+def visual_lab():
+    from .analytics import visual as V
+    from .enrich.taxonomy import taxonomy_doc
+    t0 = time.perf_counter()
+    ex = []
+    for did, why in LAB_EXAMPLES:
+        r = V.delivery_layers(db(), did)
+        if r:
+            ex.append({**r, "why_chosen": why})
+    return envelope({"examples": ex, "layers": [{"code": c, "name": n, "describes": d} for c, n, d in V.LAYERS], "taxonomy": taxonomy_doc()}, t0)
+
+
+@app.get("/api/capability")
+@cached
+def capability():
+    from .enrich.capability import audit
+    t0 = time.perf_counter()
+    return envelope(audit(db()), t0)
+
+
+@app.get("/api/metadata/pilot")
+def metadata_pilot():
+    import json as _json
+    from pathlib import Path as _P
+    t0 = time.perf_counter()
+    f = _P(__file__).resolve().parents[2] / "docs" / "data" / "metadata-pilot.json"
+    if not f.exists():
+        raise HTTPException(404, "pilot report not built")
+    return envelope(_json.loads(f.read_text()), t0)
+
+
 # ------------------------------------------------------------------ Historical Live Lab (Phase 5)
 def _replay(mid: str):
     from .live import service as LS

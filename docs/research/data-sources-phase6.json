@@ -1,0 +1,600 @@
+{
+  "title": "CRICINTEL Phase 6 data-source research",
+  "date": "2026-10-04",
+  "status": "Research only. Do not purchase anything yet. No sign-ups, quotes, contacts or scraping performed.",
+  "evidence_labels": {
+    "PRIMARY": "Page opened first-hand this session",
+    "PRIMARY-ARCHIVED": "Project's own first-hand archive (docs/data/cricsheet-verification.md, 2026-10-03)",
+    "SECONDARY": "Search-result summary / trade press / third-party; not sufficient for licensing conclusions",
+    "UNKNOWN": "No evidence; for licensing = UNKNOWN (contract review required)"
+  },
+  "score_scale": "0-5; 5 = best (cost: cheapest/most transparent; integration_complexity: easiest); UNKNOWN where no evidence",
+  "hosts": {
+    "reachable": [
+      "github.com",
+      "raw.githubusercontent.com",
+      "pypi.org"
+    ],
+    "blocked": [
+      "cricsheet.org",
+      "developer.sportradar.com",
+      "docs.sportradar.com",
+      "www.wikidata.org",
+      "query.wikidata.org",
+      "www.sportmonks.com",
+      "docs.sportmonks.com",
+      "www.entitysport.com",
+      "www.cricketapi.com",
+      "cricketdata.org",
+      "www.goalserve.com",
+      "cricviz.com",
+      "ellipsedata.com",
+      "www.statscore.com",
+      "www.statsperform.com",
+      "www.hawkeyeinnovations.com",
+      "www.kaggle.com",
+      "api.market",
+      "apify.com",
+      "support.nvplay.com",
+      "dbpedia.org",
+      "rapidapi.com",
+      "virtualeye.tv",
+      "pitchvision.com"
+    ]
+  },
+  "scorecard": [
+    {
+      "source": "Cricsheet match data",
+      "scores": {
+        "coverage": 4,
+        "granularity": 2,
+        "history": 4,
+        "live_latency": 0,
+        "reliability": 4,
+        "documentation": 4,
+        "legal_clarity": 2,
+        "commercial_rights": "UNKNOWN",
+        "cost": 5,
+        "integration_complexity": 5
+      },
+      "evidence": [
+        {
+          "url": "docs/data/cricsheet-verification.md",
+          "label": "PRIMARY-ARCHIVED"
+        }
+      ],
+      "notes": "Outcome-only ball-by-ball; no tracking/shot/handedness. Match-data licence UNRESOLVED (footer 'All rights reserved'); written confirmation required before public/commercial use."
+    },
+    {
+      "source": "Cricsheet People Register",
+      "scores": {
+        "coverage": 4,
+        "granularity": 1,
+        "history": "n/a",
+        "live_latency": 0,
+        "reliability": 4,
+        "documentation": 3,
+        "legal_clarity": 5,
+        "commercial_rights": 4,
+        "cost": 5,
+        "integration_complexity": 5
+      },
+      "evidence": [
+        {
+          "url": "docs/data/cricsheet-verification.md",
+          "label": "PRIMARY-ARCHIVED"
+        },
+        {
+          "url": "https://cricsheet.org/register/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "ODC-By 1.0 (attribution). Cross-site keys incl. ESPNcricinfo and Opta (key list SECONDARY)."
+    },
+    {
+      "source": "Wikidata",
+      "scores": {
+        "coverage": 1,
+        "granularity": 1,
+        "history": "n/a",
+        "live_latency": 0,
+        "reliability": 3,
+        "documentation": 4,
+        "legal_clarity": 4,
+        "commercial_rights": 4,
+        "cost": 5,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "docs/data/player-metadata-coverage-cricsheet.md",
+          "label": "PRIMARY"
+        }
+      ],
+      "notes": "P2545 bowling style 2.2% of Cricsheet players, batting hand 0%. CC0 per brief; not re-read first-hand this session (host blocked)."
+    },
+    {
+      "source": "DBpedia / Wikipedia infoboxes",
+      "scores": {
+        "coverage": 2,
+        "granularity": 1,
+        "history": "n/a",
+        "live_latency": 0,
+        "reliability": 2,
+        "documentation": 3,
+        "legal_clarity": 3,
+        "commercial_rights": 2,
+        "cost": 5,
+        "integration_complexity": 3
+      },
+      "evidence": [
+        {
+          "url": "https://dbpedia.org/page/Sachin_Tendulkar",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://dief.tools.dbpedia.org/server/mappings/en/pages/Mapping_en%3AInfobox_recent_cricketer",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "battingSide/bowlingSide. CC BY-SA share-alike scope for merged tables needs legal review."
+    },
+    {
+      "source": "Board sites / ESPNcricinfo",
+      "scores": {
+        "coverage": 5,
+        "granularity": 2,
+        "history": 5,
+        "live_latency": 4,
+        "reliability": 4,
+        "documentation": 0,
+        "legal_clarity": 1,
+        "commercial_rights": 0,
+        "cost": "UNKNOWN",
+        "integration_complexity": 0
+      },
+      "evidence": [
+        {
+          "url": "https://www.bcci.tv/news/article/copyright",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.espncricinfo.com/ci/content/site/company/terms_use.html",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "No API; indexed BCCI terms prohibit systematic retrieval to compile databases. Treat as no-reuse; licence UNKNOWN (contract review required)."
+    },
+    {
+      "source": "Kaggle / Baselight mirrors",
+      "scores": {
+        "coverage": 2,
+        "granularity": 2,
+        "history": 3,
+        "live_latency": 0,
+        "reliability": 2,
+        "documentation": 2,
+        "legal_clarity": 1,
+        "commercial_rights": "UNKNOWN",
+        "cost": 5,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "https://baselight.app/u/kaggle/dataset/lyc0riz_ipl_ball_by_ball_dataset_2008_2026",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Mostly re-flattened Cricsheet, some ESPNcricinfo-scraped; uploader licences cannot grant upstream rights. Do not use."
+    },
+    {
+      "source": "Stats Perform / Opta",
+      "scores": {
+        "coverage": 5,
+        "granularity": 5,
+        "history": 4,
+        "live_latency": 5,
+        "reliability": 5,
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 1,
+        "integration_complexity": 2
+      },
+      "evidence": [
+        {
+          "url": "https://www.statsperform.com/team-performance/performance-solutions-for-cricket/provision-cricket/",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://support.flowics.com/en_US/sports/working-with-data-connectors-stats-perform-sdapi-cricket",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.sportcal.com/news/icc-issues-data-rights-tender-through-2027/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Official ICC data partner to 2027 (press). Pitch maps by line/length/bowling type, spray charts, field position (SECONDARY). Licence UNKNOWN (contract review required). QUOTE REQUIRED."
+    },
+    {
+      "source": "CricViz (Ellipse Data)",
+      "scores": {
+        "coverage": 4,
+        "granularity": 5,
+        "history": "UNKNOWN",
+        "live_latency": 5,
+        "reliability": 4,
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 1,
+        "integration_complexity": 3
+      },
+      "evidence": [
+        {
+          "url": "https://cricviz.com/data-feeds/",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.sportcal.com/news/star-brings-in-cricviz-as-partner-for-ipl-and-t20-world-cup-coverage",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Advanced feeds (ball-by-ball, wagon wheels, WinViz), widgets; pitch maps/beehives in app. Owned by Ellipse Data; no Stats Perform acquisition found. Licence UNKNOWN. QUOTE REQUIRED."
+    },
+    {
+      "source": "Sportradar Cricket v2",
+      "scores": {
+        "coverage": 4,
+        "granularity": 4,
+        "history": "UNKNOWN",
+        "live_latency": 5,
+        "reliability": 4,
+        "documentation": 4,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 1,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "https://developer.sportradar.com/cricket/reference/cricket-overview",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://developer.sportradar.com/cricket/reference/cricket-faq",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://sportradar.com/content-hub/news/sportradar-launches-new-comprehensive-live-fielding-data-capture-solution-at-cricket-world-cup/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Coverage levels Post-match/Core/Advanced (shot, ball type, wagon wheel)/Fielding (fielder coordinates, ICC majors + CPL). 'Official for ICC' claim may be stale. Licence UNKNOWN. QUOTE REQUIRED."
+    },
+    {
+      "source": "Roanuz Cricket API",
+      "scores": {
+        "coverage": 3,
+        "granularity": 3,
+        "history": "UNKNOWN",
+        "live_latency": 4,
+        "reliability": "UNKNOWN",
+        "documentation": 3,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 3,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/roanuz/py-cricket",
+          "label": "PRIMARY"
+        },
+        {
+          "url": "https://github.com/roanuz",
+          "label": "PRIMARY"
+        },
+        {
+          "url": "https://www.cricketapi.com/v5/resource/match-wagon-zone",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.cricketapi.com/v5/package-pricing/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Ball-by-ball endpoint and SDKs (PRIMARY); Wagon Zone API (SECONDARY). ToS not read. Prices SECONDARY only."
+    },
+    {
+      "source": "Sportmonks Cricket",
+      "scores": {
+        "coverage": 3,
+        "granularity": 1,
+        "history": "UNKNOWN",
+        "live_latency": 4,
+        "reliability": "UNKNOWN",
+        "documentation": 3,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 3,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "https://www.sportmonks.com/cricket-api",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.sportmonks.com/blogs/introducing-our-new-pricing-setup/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Ball objects without target fields. Prices SECONDARY (Major EUR29, World EUR75; Enterprise custom)."
+    },
+    {
+      "source": "EntitySport",
+      "scores": {
+        "coverage": 3,
+        "granularity": 2,
+        "history": "UNKNOWN",
+        "live_latency": 4,
+        "reliability": "UNKNOWN",
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 3,
+        "integration_complexity": 4
+      },
+      "evidence": [
+        {
+          "url": "https://www.entitysport.com/pricing/",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://apis.io/plans/entitysport/entitysport-plans-pricing/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Fantasy-oriented ball-by-ball; commentary tiers. Prices SECONDARY."
+    },
+    {
+      "source": "Goalserve",
+      "scores": {
+        "coverage": 3,
+        "granularity": 1,
+        "history": "UNKNOWN",
+        "live_latency": 4,
+        "reliability": "UNKNOWN",
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 3,
+        "integration_complexity": 3
+      },
+      "evidence": [
+        {
+          "url": "https://www.goalserve.com/en/sport-data-feeds/cricket-api/prices",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Basic live/ball-by-ball. Prices SECONDARY ($125/1mo, $550/6mo, $1000/12mo)."
+    },
+    {
+      "source": "STATSCORE",
+      "scores": {
+        "coverage": 2,
+        "granularity": 1,
+        "history": "UNKNOWN",
+        "live_latency": 5,
+        "reliability": "UNKNOWN",
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 1,
+        "integration_complexity": 3
+      },
+      "evidence": [
+        {
+          "url": "https://www.gamblinginsider.com/news/22328/statscore-expands-cricket-coverage-with-2023-asia-cup-data",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Betting-oriented scouted-from-TV ball-by-ball; provenance raises rights questions. QUOTE REQUIRED."
+    },
+    {
+      "source": "CricketData.org (CricAPI)",
+      "scores": {
+        "coverage": 3,
+        "granularity": 1,
+        "history": "UNKNOWN",
+        "live_latency": 3,
+        "reliability": "UNKNOWN",
+        "documentation": 2,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 4,
+        "integration_complexity": 5
+      },
+      "evidence": [
+        {
+          "url": "https://raw.githubusercontent.com/api-evangelist/cricapi/main/README.md",
+          "label": "PRIMARY (third-party page)"
+        },
+        {
+          "url": "https://cricketdata.org/",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Simple REST live scores/ball-by-ball. Prices only from a third-party profile ($0-$64.99/mo). ToS not read."
+    },
+    {
+      "source": "NV Play / CricHQ",
+      "scores": {
+        "coverage": 2,
+        "granularity": 4,
+        "history": "UNKNOWN",
+        "live_latency": 4,
+        "reliability": "UNKNOWN",
+        "documentation": "UNKNOWN",
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": "UNKNOWN",
+        "integration_complexity": 1
+      },
+      "evidence": [
+        {
+          "url": "https://www.nvplay.com/products/analysis",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Scorer-entered shot, pitch map, wagon wheel in domestic/grassroots; no public data API."
+    },
+    {
+      "source": "Hawk-Eye (Sony)",
+      "scores": {
+        "coverage": 2,
+        "granularity": 5,
+        "history": "UNKNOWN",
+        "live_latency": 5,
+        "reliability": 5,
+        "documentation": 0,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 0,
+        "integration_complexity": 0
+      },
+      "evidence": [
+        {
+          "url": "https://www.sportcal.com/news/icc-issues-data-rights-tender-through-2027/",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://www.wipo.int/web-publications/spark-sports-technology/en/game-changing-technologies.html",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "True tracking (speed, trajectory, bounce, edge). No third-party licensing route found; rights-holder (ICC/board) consent required."
+    },
+    {
+      "source": "Virtual Eye (ARL)",
+      "scores": {
+        "coverage": 1,
+        "granularity": 5,
+        "history": "UNKNOWN",
+        "live_latency": 5,
+        "reliability": 4,
+        "documentation": 0,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": 0,
+        "integration_complexity": 0
+      },
+      "evidence": [
+        {
+          "url": "https://virtualeye.tv/the-sports/virtual-eye-cricket",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "DRS/broadcast ball tracking; no data product found."
+    },
+    {
+      "source": "PitchVision",
+      "scores": {
+        "coverage": 0,
+        "granularity": 4,
+        "history": 0,
+        "live_latency": 2,
+        "reliability": "UNKNOWN",
+        "documentation": 1,
+        "legal_clarity": "UNKNOWN",
+        "commercial_rights": "UNKNOWN",
+        "cost": "UNKNOWN",
+        "integration_complexity": 1
+      },
+      "evidence": [
+        {
+          "url": "https://www.pitchvision.com/products",
+          "label": "SECONDARY"
+        }
+      ],
+      "notes": "Nets/academy tracking only; not professional match data."
+    },
+    {
+      "source": "Cricbuzz unofficial wrappers (RapidAPI/Apify/pycricbuzz)",
+      "scores": {
+        "coverage": 4,
+        "granularity": 2,
+        "history": 2,
+        "live_latency": 4,
+        "reliability": 1,
+        "documentation": 1,
+        "legal_clarity": 0,
+        "commercial_rights": 0,
+        "cost": 4,
+        "integration_complexity": 3
+      },
+      "evidence": [
+        {
+          "url": "https://apify.com/solidcode/cricbuzz-scraper.md",
+          "label": "SECONDARY"
+        },
+        {
+          "url": "https://github.com/codophobia/pycricbuzz",
+          "label": "PRIMARY"
+        }
+      ],
+      "notes": "Unofficial scraping of a site with no public API. LEGALLY RISKY - excluded."
+    }
+  ],
+  "stacks": {
+    "A_near_zero_cost": {
+      "sources": [
+        "Cricsheet match data (internal preview)",
+        "Cricsheet Register (ODC-By)",
+        "Wikidata (CC0)",
+        "CRICINTEL derived features"
+      ],
+      "preconditions": [
+        "Written Cricsheet match-data licence confirmation before public/commercial release",
+        "Re-verify Wikidata CC0 first-hand",
+        "No DBpedia/infobox data until share-alike review",
+        "No Kaggle mirrors or scraping"
+      ]
+    },
+    "B_serious_consumer": {
+      "sources": [
+        "Stack A",
+        "Sportradar Cricket v2 (lead candidate)",
+        "Roanuz (fallback)"
+      ],
+      "preconditions": [
+        "Read vendor terms/contract: storage, display, consumer use, derivation, deletion on termination",
+        "Confirm official vs scouted provenance"
+      ]
+    },
+    "C_maximum_intelligence": {
+      "sources": [
+        "Stats Perform / Opta",
+        "CricViz",
+        "Sportradar Fielding",
+        "Hawk-Eye-derived fields via rights holder if obtainable"
+      ],
+      "preconditions": [
+        "Enterprise contracts with consumer display and derived-analytics rights",
+        "ICC/board consent for tracking data",
+        "Exclusivity and per-competition rights matrix"
+      ]
+    }
+  },
+  "unknown_licensing_questions": [
+    "Cricsheet match-data licence",
+    "Wikidata CC0 / DBpedia CC BY-SA not re-read first-hand",
+    "All commercial vendor storage/display/derivation rights",
+    "Third-party availability of Hawk-Eye/Virtual Eye tracking",
+    "Provenance of mid-tier API data",
+    "Board/ESPNcricinfo/Cricbuzz reuse (treated as no-reuse)"
+  ],
+  "pricing_planning_value": "QUOTE REQUIRED for every commercial option; no vendor pricing page was read first-hand"
+}

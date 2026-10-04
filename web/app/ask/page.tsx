@@ -37,7 +37,7 @@ function Ask() {
   };
   const pickCandidate = (amb: string, name: string) => go((res.question as string).replace(amb.trim(), name));
   const lbs = res ? (res.leaderboards || (res.leaderboard ? [res.leaderboard] : [])) : [];
-  const linkHref = (l: any) => !l ? null : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
+  const linkHref = (l: any) => !l ? null : l.kind === "how_out" ? `/how-out/${l.id}` : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
     : l.kind === "match" ? `/match/${l.id}` : l.kind === "rivalry" ? `/rivalry?a=${encodeURIComponent(l.a)}&b=${encodeURIComponent(l.b)}&gender=${l.gender}`
     : l.kind === "partnerships" ? `/partnerships?sort=${l.sort}${l.phase ? `&phase=${l.phase}` : ""}${l.format ? `&format=${l.format}` : ""}`
     : l.kind === "records" ? `/records?${new URLSearchParams({ metric: l.metric, ...Object.fromEntries(Object.entries(l.filters || {}).map(([k, v]) => [k, String(v)])) })}` : null;
@@ -161,7 +161,7 @@ function Ask() {
               </dl>
               {linkHref(res.link) && <Link className="btn primary" style={{ display: "inline-block", marginTop: 12 }} href={linkHref(res.link)!}>
                 {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →"
-                  : res.link.kind === "match" ? "Open the match →" : res.link.kind === "rivalry" ? "Open the rivalry →" : "Open the evidence →"}</Link>}
+                  : res.link.kind === "match" ? "Open the match →" : res.link.kind === "rivalry" ? "Open the rivalry →" : res.link.kind === "how_out" ? "Explore every dismissal →" : "Open the evidence →"}</Link>}
             </div>
           )}
           <div className="chips" style={{ marginTop: 16 }}>{EXAMPLES.filter((e) => e !== res.question).slice(0, 4).map((e) => <button key={e} className="chip wrap" onClick={() => go(e)}>{e}</button>)}</div>

@@ -1,0 +1,1176 @@
+{
+ "retrieved": {
+  "pilot": "2026-10-04T08:06:53+00:00",
+  "pilot_run": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+ },
+ "wikidata_coverage": {
+  "P552": 29,
+  "P2545": 1157,
+  "P413": 420,
+  "P2697_total": 31699,
+  "P552_values": [
+   {
+    "qid": "Q3039938",
+    "label": "right-handedness",
+    "n": 23
+   },
+   {
+    "qid": "Q789447",
+    "label": "left-handedness",
+    "n": 8
+   }
+  ]
+ },
+ "players": {
+  "ba607b88": {
+   "name": "Virat Kohli",
+   "join": {
+    "register_id": "ba607b88",
+    "register_cricinfo": "253802",
+    "wikidata_items": [
+     "Q213854"
+    ],
+    "join_ok": true,
+    "name_check": "Virat Kohli",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "ba607b88",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377420029",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "ba607b88",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377420029",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "ba607b88",
+     "field": "role",
+     "value": "batter",
+     "used_source": "wikidata",
+     "retrieved_at": "2026-10-04T08:06:53+00:00",
+     "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "batter",
+       "normalized": "batter",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": "batter",
+       "normalized": "batter",
+       "mapping_confidence": 0.85,
+       "licence": "CC0 1.0",
+       "usable": true,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 3
+    },
+    "wicketkeeper": {
+     "entity_id": "ba607b88",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "740742ef": {
+   "name": "Rohit Sharma",
+   "join": {
+    "register_id": "740742ef",
+    "register_cricinfo": "34102",
+    "wikidata_items": [
+     "Q3520045"
+    ],
+    "join_ok": true,
+    "name_check": "Rohit Sharma",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "740742ef",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378291268",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "740742ef",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378291268",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "740742ef",
+     "field": "role",
+     "value": "batter",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "batter",
+       "normalized": "batter",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "740742ef",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "462411b3": {
+   "name": "Jasprit Bumrah",
+   "join": {
+    "register_id": "462411b3",
+    "register_cricinfo": "625383",
+    "wikidata_items": [
+     "Q16227998"
+    ],
+    "join_ok": true,
+    "name_check": "Jasprit Bumrah",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "462411b3",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378283059",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "462411b3",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378283059",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "462411b3",
+     "field": "role",
+     "value": "bowler",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "bowler",
+       "normalized": "bowler",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "462411b3",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "4a8a2e3b": {
+   "name": "MS Dhoni",
+   "join": {
+    "register_id": "4a8a2e3b",
+    "register_cricinfo": "28081",
+    "wikidata_items": [
+     "Q470774"
+    ],
+    "join_ok": true,
+    "name_check": null,
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "4a8a2e3b",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1376676455",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "4a8a2e3b",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1376676455",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "4a8a2e3b",
+     "field": "role",
+     "value": "wicketkeeper-batter",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "wicketkeeper-batter",
+       "normalized": "wicketkeeper-batter",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "4a8a2e3b",
+     "field": "wicketkeeper",
+     "value": "yes",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "keeper_inference_aggregate/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "yes",
+       "normalized": "yes",
+       "mapping_confidence": 0.97,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "keeper_inference_aggregate/v1"
+      }
+     ],
+     "history_length": 1
+    }
+   }
+  },
+  "5d2eda89": {
+   "name": "Smriti Mandhana",
+   "join": {
+    "register_id": "5d2eda89",
+    "register_cricinfo": "597806",
+    "wikidata_items": [
+     "Q16224802"
+    ],
+    "join_ok": true,
+    "name_check": "Smriti Mandhana",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "5d2eda89",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378066746",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "5d2eda89",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1378066746",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "5d2eda89",
+     "field": "role",
+     "value": "batter",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "batter",
+       "normalized": "batter",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "5d2eda89",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "27e003ce": {
+   "name": "Meg Lanning",
+   "join": {
+    "register_id": "27e003ce",
+    "register_cricinfo": "329336",
+    "wikidata_items": [
+     "Q6807995"
+    ],
+    "join_ok": true,
+    "name_check": "Meg Lanning",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "27e003ce",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377890537",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "27e003ce",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377890537",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "27e003ce",
+     "field": "role",
+     "value": "batter",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "batter",
+       "normalized": "batter",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "27e003ce",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "cdb82f1c": {
+   "name": "Sophie Ecclestone",
+   "join": {
+    "register_id": "cdb82f1c",
+    "register_cricinfo": "878039",
+    "wikidata_items": [
+     "Q25339050"
+    ],
+    "join_ok": true,
+    "name_check": "Sophie Ecclestone",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "cdb82f1c",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1369543241",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "cdb82f1c",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1369543241",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "cdb82f1c",
+     "field": "role",
+     "value": "bowler",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "bowler",
+       "normalized": "bowler",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "cdb82f1c",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  },
+  "14f96089": {
+   "name": "Adam Zampa",
+   "join": {
+    "register_id": "14f96089",
+    "register_cricinfo": "379504",
+    "wikidata_items": [
+     "Q16225921"
+    ],
+    "join_ok": true,
+    "name_check": "Adam Zampa",
+    "method": "Register cricinfo id == Wikidata P2697 (unique item)"
+   },
+   "fields": {
+    "batting_hand": {
+     "entity_id": "14f96089",
+     "field": "batting_hand",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.95,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377737427",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "bowling_style": {
+     "entity_id": "14f96089",
+     "field": "bowling_style",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "blocked_by_licence",
+     "source_changed_since_first_seen": {
+      "wikidata": false,
+      "wikipedia": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      },
+      {
+       "source": "wikipedia",
+       "original": "WITHHELD (CC BY-SA, licence review pending)",
+       "normalized": "WITHHELD (CC BY-SA, licence review pending)",
+       "mapping_confidence": 0.9,
+       "licence": "CC BY-SA 4.0: licence review required before product use",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "1377737427",
+       "has_value": true
+      }
+     ],
+     "history_length": 2
+    },
+    "role": {
+     "entity_id": "14f96089",
+     "field": "role",
+     "value": "bowler",
+     "used_source": "derived",
+     "retrieved_at": "dataset build",
+     "source_version": "role_from_usage/v1",
+     "status": "resolved",
+     "source_changed_since_first_seen": {
+      "derived": false,
+      "wikidata": false
+     },
+     "sources_disagree": false,
+     "candidates": [
+      {
+       "source": "derived",
+       "original": "bowler",
+       "normalized": "bowler",
+       "mapping_confidence": 0.95,
+       "licence": "derived from Cricsheet match data (licence unresolved)",
+       "usable": true,
+       "retrieved_at": "dataset build",
+       "source_version": "role_from_usage/v1"
+      },
+      {
+       "source": "wikidata",
+       "original": null,
+       "normalized": null,
+       "mapping_confidence": 0.0,
+       "licence": "CC0 1.0",
+       "usable": false,
+       "retrieved_at": "2026-10-04T08:06:53+00:00",
+       "source_version": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520"
+      }
+     ],
+     "history_length": 2
+    },
+    "wicketkeeper": {
+     "entity_id": "14f96089",
+     "field": "wicketkeeper",
+     "value": null,
+     "used_source": null,
+     "retrieved_at": null,
+     "source_version": null,
+     "status": "no_source",
+     "source_changed_since_first_seen": {},
+     "sources_disagree": false,
+     "candidates": [],
+     "history_length": 0
+    }
+   }
+  }
+ },
+ "summary": {
+  "players": 8,
+  "joined_by_id": 8,
+  "batting_hand_usable": 0,
+  "bowling_style_usable": 0,
+  "blocked_by_licence": 16,
+  "observations": 50,
+  "verdict": "PARTIAL. Identity joins are reliable (stable ids, unique Wikidata item for all 8). The CC0 source holds no batting hand and no bowling style for any pilot player; the only open source that does (Wikipedia infoboxes) is CC BY-SA and needs a licence review before storage or product use. Nothing questionable was populated."
+ }
+}

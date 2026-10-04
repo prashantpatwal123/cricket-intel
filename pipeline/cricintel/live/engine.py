@@ -342,6 +342,13 @@ class Engine:
                       "boundary": d.get("boundary"), "wicket": team_w, "extras": {k: v for k, v in (("wides", wd), ("noballs", nb), ("byes", by), ("legbyes", lb), ("penalty", pen)) if v},
                       "batter": d["batter"], "bowler": d["bowler"], "non_striker": d["non_striker"],
                       "dismissals": [w for w in d.get("wickets", [])]}
+        enr = d.get("enrichment") or {}
+        if enr:                                    # optional richer layers: carried, never used for scoring
+            st["last"]["enrichment"] = enr
+            inn["recent"][-1]["layers"] = sorted(enr)
+            caps = st.setdefault("capabilities", {})
+            for layer in enr:
+                caps[layer] = caps.get(layer, 0) + 1
         st["pre_ball"] = None
         if legal and inn["legal"] % CHECKPOINT_EVERY == 0:
             self.checkpoints[st["n"]] = copy.deepcopy(st)

@@ -154,7 +154,9 @@ def parse(db: DB, question: str) -> Intent:
             break
     ranking = (re.search(r"^\s*(who|which)\b", q) and re.search(r"\b(most|highest|lowest|best|fewest|least|top)\b", q)) or \
         re.search(r"^\s*(most|highest|lowest|best|fewest|top|leaders?)\b", q)
-    if players and re.search(r"\b(innings|knocks?|scores)\b", q) and re.search(r"\b(best|top|highest|biggest)\b", q):
+    if players and re.search(r"how (does|do|did|has) .+ (get|got|been|gets) (out|dismissed)|how (is|was) .+ dismissed|how .+ gets? out", q):
+        it.kind, it.subject = "how_out", players[0]
+    elif players and re.search(r"\b(innings|knocks?|scores)\b", q) and re.search(r"\b(best|top|highest|biggest)\b", q):
         it.kind, it.subject = "innings_list", players[0]
     elif players and re.search(r"\bspells?\b|bowling figures|\bfigures\b", q):
         it.kind, it.subject = "spells_list", players[0]
@@ -281,7 +283,7 @@ def interpretation(it: Intent) -> list[dict]:
              "phase_change": "Middle → death change", "dismissal_list": "List of dismissals", "bowler_summary": "Bowling summary",
              "innings_list": "Best innings", "spells_list": "Best spells", "match_lookup": "Find a match", "partners": "Best partners",
              "troubled_by": "Bowlers who troubled", "period_compare": "Before / after", "faced_change": "Change after N balls",
-             "rivalry_battles": "Unusual battles in a rivalry"}
+             "rivalry_battles": "Unusual battles in a rivalry", "how_out": "How they get out"}
     chips.append({"key": "kind", "label": names.get(it.kind, it.kind), "removable": False})
     if it.subject:
         chips.append({"key": "subject", "label": it.subject["name"], "removable": False})
@@ -561,6 +563,7 @@ V3_SUPPORTED = {
     "innings_list": {"format", "competition", "team_type", "opposition", "year_from", "year_to", "before_date", "chasing"},
     "spells_list": {"format", "competition", "team_type", "opposition", "year_from", "year_to", "before_date", "chasing", "phase"},
     "match_lookup": {"year_from", "year_to", "before_date"},
+    "how_out": {"format"},
     "partners": {"format"},
     "troubled_by": None,          # None = any Filters key (computed from balls when filtered)
     "period_compare": set(),
@@ -601,6 +604,19 @@ def _execute_v3(db: DB, it: Intent, f: Filters, scope: str, base: dict) -> dict 
         if extra:
             return {**base, "status": "needs_clarification",
                     "message": f"This kind of question can't yet be limited by {', '.join(sorted(extra))}; remove that condition or ask it another way."}
+    if k == "how_out":
+        from ..analytics.visual import dismissal_dna
+        pid = it.subject["person_id"]
+        d = dismissal_dna(db, pid, fmt=it.filters.get("format"))
+        if not d["total"]:
+            return {**base, "status": "ok", "answer": f"No dismissals of {it.subject['name']} {scope}.", "numbers": []}
+        top = d["tree"]["route"][:4]
+        ans = (f"{it.subject['name']} has been dismissed {d['total']} times {scope}: " + ", ".join(f"{x['label'].lower()} {x['n']}" for x in top) + ". "
+               + (f"{d['keeper_unknown']} catches have keeper status unknown. " if d["keeper_unknown"] else "")
+               + "Where the ball pitched, the shot and any edge are not recorded.")
+        return {**base, "status": "ok", "answer": ans, "numbers": [],
+                "items": _items(d["tree"]["route"], lambda r: r["label"], lambda r: str(r["n"]), lambda r: f"/how-out/{pid}?route={r['key']}"),
+                "definition": d["keeper_note"], "link": {"kind": "how_out", "id": pid}}
     if k == "innings_list":
         pid = it.subject["person_id"]
         w, p = _graph_where(it.filters, it.gender, "chasing")

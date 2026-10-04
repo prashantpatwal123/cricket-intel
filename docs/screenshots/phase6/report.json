@@ -1,0 +1,70 @@
+{
+  "errors": [],
+  "aborted_by_navigation": 30,
+  "assertions": [],
+  "log": [
+    {
+      "step": "ask-how-out",
+      "answer": "Virat Kohli has been dismissed 567 times in our covered data: caught by a fielder 239, bowled 89, caught (keeper status unknown) 75, caught by wicketkeeper 74. 75 catches have keeper status unknown. Where the ball pitched, the shot and any edge are not recorded.",
+      "overflow_px": 0
+    },
+    {
+      "step": "keeper-catches",
+      "total": 74,
+      "top_bowlers": [
+        "Ravi Rampaul 3",
+        "Tim Southee 3",
+        "Morne Morkel 3"
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "by-bowler",
+      "rows": 3,
+      "crumbs": "All dismissals How out: Caught by wicketkeeper ✕ By bowler: Ravi Rampaul ✕",
+      "overflow_px": 0
+    },
+    {
+      "step": "delivery-layers",
+      "url": "http://localhost:3000/delivery/676533:2:53",
+      "overflow_px": 0
+    },
+    {
+      "step": "kohli-zampa",
+      "cannot_say": "We cannot say why this matchup behaves as it does in terms of line, length, shot or spin: none of that is recorded. We can say what happened, how often, and how that compares with each player's usual outcomes.",
+      "overflow_px": 0
+    },
+    {
+      "step": "visual-lab",
+      "real_examples": 4,
+      "illustrative_frames": 5,
+      "pilot": "PLAYER METADATA PILOT · 8 PLAYERS, JOINED BY STABLE IDS  PARTIAL. Identity joins are reliable (stable ids, unique Wikidata item for all 8). The CC0 source holds",
+      "overflow_px": 0
+    },
+    {
+      "step": "data",
+      "counts": "4\n✓",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-visual-lab",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-how-out-kohli",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-kohli-zampa",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-delivery-layers",
+      "overflow_px": 0
+    },
+    {
+      "step": "d-data",
+      "overflow_px": 0
+    }
+  ]
+}
