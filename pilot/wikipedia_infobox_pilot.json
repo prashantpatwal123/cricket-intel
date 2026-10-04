@@ -1,0 +1,82 @@
+{
+ "ba607b88": {
+  "title": "Virat Kohli",
+  "revid": 1377420029,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[Fast bowling|medium]]",
+   "role": "[[Batting order (cricket)#Top order|Top-order batter]]",
+   "club1": "[[Delhi cricket team|Delhi]]"
+  }
+ },
+ "740742ef": {
+  "title": "Rohit Sharma",
+  "revid": 1378291268,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[off break]]",
+   "role": "[[Batting order (cricket)#Top order|Top-order batter]]",
+   "club1": "[[Mumbai cricket team|Mumbai]]"
+  }
+ },
+ "462411b3": {
+  "title": "Jasprit Bumrah",
+  "revid": 1378283059,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[Fast bowling|fast]]{{efn|name=speed|Some sources list Bumrah as a fast-medium paced bowler.<ref name=ca>{{Cite web|title=Jasprit Bumrah|url=https://cricketarchive.com/Archive/Players/1196/1196767/1196767.html|access-date=17 January 2022|work=CricketArchive|archive-date=29 December 2021|archive-url=https://web.archive.org/web/20211229025800/https://cricketarchive.com/Archive/Players/1196/1196767/1196767.html|url-status=live}}</ref><ref name=ci>{{Cite web|url=https://www.espncricinfo.com/cricketers/jasprit-bumrah-625383|title=Jasprit Bumrah|publisher=ESPNcricinfo|access-date=13 July 2023|archive-date=1 August 2023|archive-url=https://web.archive.org/web/20230801135047/https://www.espncricinfo.com/cricketers/jasprit-bumrah-625383|url-status=live}}</ref>}}",
+   "role": "[[Bowling (cricket)|Bowler]]",
+   "club1": "[[Gujarat cricket team|Gujarat]]"
+  }
+ },
+ "4a8a2e3b": {
+  "title": "MS Dhoni",
+  "revid": 1376676455,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[Pace bowling|medium]]",
+   "role": "[[Wicket-keeper-batter]]",
+   "club1": "[[Bihar cricket team|Bihar]]"
+  }
+ },
+ "5d2eda89": {
+  "title": "Smriti Mandhana",
+  "revid": 1378066746,
+  "fields": {
+   "batting": "Left-handed",
+   "bowling": "Right-arm [[Fast bowling|medium]]",
+   "role": "[[Batting order (cricket)|Opening]] [[Batsman (cricket)|batter]]",
+   "club1": "[[Maharashtra women's cricket team|Maharashtra]]"
+  }
+ },
+ "27e003ce": {
+  "title": "Meg Lanning",
+  "revid": 1377890537,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[Fast bowling|medium]]",
+   "role": "[[Batting order (cricket)#Top order|Top-order batter]]",
+   "club1": "[[Victoria women's cricket team|Victoria]]"
+  }
+ },
+ "cdb82f1c": {
+  "title": "Sophie Ecclestone",
+  "revid": 1369543241,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "[[Left-arm orthodox spin|Slow left-arm orthodox]]",
+   "role": "[[Bowling (cricket)|Bowler]]",
+   "club1": "[[Cheshire Women cricket team|Cheshire]]"
+  }
+ },
+ "14f96089": {
+  "title": "Adam Zampa",
+  "revid": 1377737427,
+  "fields": {
+   "batting": "Right-handed",
+   "bowling": "Right-arm [[Leg-spin|Leg-Break]]",
+   "role": "[[Bowling (cricket)|Bowler]]",
+   "club1": "[[New South Wales cricket team|New South Wales]]"
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "retrieved_at_utc": "2026-10-04T08:06:53+00:00",
+ "retrieved_by": "https://github.com/prashantpatwal123/cricket-intel/actions/runs/37187863520",
+ "sources": {
+  "wikidata": {
+   "endpoints": [
+    "https://query.wikidata.org/sparql",
+    "https://www.wikidata.org/w/api.php"
+   ],
+   "licence": "CC0 1.0"
+  },
+  "wikipedia": {
+   "endpoint": "https://en.wikipedia.org/w/api.php",
+   "licence": "CC BY-SA 4.0 (text); comparison only, not stored in product"
+  }
+ },
+ "join_key": "Cricsheet Register cricinfo identifier == Wikidata P2697"
+}

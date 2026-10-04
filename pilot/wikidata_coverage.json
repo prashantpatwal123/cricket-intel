@@ -1,0 +1,18 @@
+{
+ "P552": 29,
+ "P2545": 1157,
+ "P413": 420,
+ "P2697_total": 31699,
+ "P552_values": [
+  {
+   "qid": "Q3039938",
+   "label": "right-handedness",
+   "n": 23
+  },
+  {
+   "qid": "Q789447",
+   "label": "left-handedness",
+   "n": 8
+  }
+ ]
+}

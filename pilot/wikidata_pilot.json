@@ -1,0 +1,850 @@
+{
+ "ba607b88": {
+  "register_id": "ba607b88",
+  "cricinfo_id": "253802",
+  "wikidata_items": [
+   "Q213854"
+  ],
+  "claims": {
+   "P413": {
+    "property_label": "position played on team / speciality",
+    "values": [
+     {
+      "value": {
+       "qid": "Q75737868",
+       "label": "batter"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581097",
+       "label": "male"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1988-11-05T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q668",
+       "label": "India"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "253802",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Virat Kohli",
+  "label": "Virat Kohli",
+  "all_properties": [
+   "P106",
+   "P10757",
+   "P109",
+   "P11194",
+   "P11386",
+   "P13797",
+   "P140",
+   "P14750",
+   "P1532",
+   "P1618",
+   "P166",
+   "P18",
+   "P19",
+   "P1971",
+   "P2003",
+   "P2013",
+   "P2048",
+   "P2067",
+   "P21",
+   "P213",
+   "P214",
+   "P2163",
+   "P227",
+   "P244",
+   "P26",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3417",
+   "P345",
+   "P3526",
+   "P373",
+   "P40",
+   "P413",
+   "P5337",
+   "P5361",
+   "P54",
+   "P5421",
+   "P569",
+   "P641",
+   "P646",
+   "P6640",
+   "P7184",
+   "P734",
+   "P735",
+   "P856",
+   "P8672",
+   "P8687"
+  ]
+ },
+ "740742ef": {
+  "register_id": "740742ef",
+  "cricinfo_id": "34102",
+  "wikidata_items": [
+   "Q3520045"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581097",
+       "label": "male"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1987-04-30T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q668",
+       "label": "India"
+      },
+      "rank": "normal",
+      "references": 3
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "34102",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Rohit Sharma",
+  "label": "Rohit Sharma",
+  "all_properties": [
+   "P106",
+   "P14450",
+   "P1449",
+   "P14750",
+   "P1477",
+   "P1532",
+   "P1617",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P2013",
+   "P2048",
+   "P21",
+   "P214",
+   "P227",
+   "P2397",
+   "P244",
+   "P26",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3417",
+   "P3526",
+   "P373",
+   "P54",
+   "P569",
+   "P580",
+   "P641",
+   "P646",
+   "P6872",
+   "P69",
+   "P734",
+   "P735",
+   "P8687"
+  ]
+ },
+ "462411b3": {
+  "register_id": "462411b3",
+  "cricinfo_id": "625383",
+  "wikidata_items": [
+   "Q16227998"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581097",
+       "label": "male"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1993-12-06T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q668",
+       "label": "India"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "625383",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Jasprit Bumrah",
+  "label": "Jasprit Bumrah",
+  "all_properties": [
+   "P106",
+   "P1280",
+   "P1412",
+   "P14750",
+   "P1532",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P2013",
+   "P21",
+   "P26",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3368",
+   "P3417",
+   "P3526",
+   "P373",
+   "P54",
+   "P569",
+   "P641",
+   "P646",
+   "P734",
+   "P8672",
+   "P8687"
+  ]
+ },
+ "4a8a2e3b": {
+  "register_id": "4a8a2e3b",
+  "cricinfo_id": "28081",
+  "wikidata_items": [
+   "Q470774"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581097",
+       "label": "male"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1981-07-07T00:00:00Z",
+      "rank": "normal",
+      "references": 2
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q668",
+       "label": "India"
+      },
+      "rank": "normal",
+      "references": 2
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "28081",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "MS Dhoni",
+  "label": null,
+  "all_properties": [
+   "P106",
+   "P10757",
+   "P10832",
+   "P11194",
+   "P12098",
+   "P13797",
+   "P13951",
+   "P140",
+   "P1417",
+   "P1532",
+   "P1617",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P2013",
+   "P2048",
+   "P21",
+   "P213",
+   "P214",
+   "P2163",
+   "P227",
+   "P244",
+   "P2581",
+   "P26",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3368",
+   "P3417",
+   "P345",
+   "P3526",
+   "P373",
+   "P3910",
+   "P40",
+   "P4204",
+   "P4666",
+   "P4985",
+   "P54",
+   "P5421",
+   "P551",
+   "P569",
+   "P6327",
+   "P641",
+   "P646",
+   "P69",
+   "P7178",
+   "P7184",
+   "P734",
+   "P735",
+   "P7923",
+   "P8125",
+   "P856",
+   "P8687",
+   "P910"
+  ]
+ },
+ "5d2eda89": {
+  "register_id": "5d2eda89",
+  "cricinfo_id": "597806",
+  "wikidata_items": [
+   "Q16224802"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581072",
+       "label": "female"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1996-07-18T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q668",
+       "label": "India"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "597806",
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   }
+  },
+  "enwiki": "Smriti Mandhana",
+  "label": "Smriti Mandhana",
+  "all_properties": [
+   "P106",
+   "P11386",
+   "P1532",
+   "P1617",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P2013",
+   "P21",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3368",
+   "P373",
+   "P3883",
+   "P54",
+   "P569",
+   "P641",
+   "P646",
+   "P8687"
+  ]
+ },
+ "27e003ce": {
+  "register_id": "27e003ce",
+  "cricinfo_id": "329336",
+  "wikidata_items": [
+   "Q6807995"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581072",
+       "label": "female"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1992-03-25T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q408",
+       "label": "Australia"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "329336",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Meg Lanning",
+  "label": "Meg Lanning",
+  "all_properties": [
+   "P106",
+   "P12310",
+   "P1477",
+   "P1532",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P2013",
+   "P21",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P3368",
+   "P3373",
+   "P373",
+   "P54",
+   "P569",
+   "P641",
+   "P646",
+   "P6640",
+   "P69",
+   "P734",
+   "P735"
+  ]
+ },
+ "cdb82f1c": {
+  "register_id": "cdb82f1c",
+  "cricinfo_id": "878039",
+  "wikidata_items": [
+   "Q25339050"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581072",
+       "label": "female"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1999-05-06T00:00:00Z",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q145",
+       "label": "United Kingdom"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "878039",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Sophie Ecclestone",
+  "label": "Sophie Ecclestone",
+  "all_properties": [
+   "P106",
+   "P11892",
+   "P1412",
+   "P1532",
+   "P166",
+   "P18",
+   "P19",
+   "P2002",
+   "P2003",
+   "P21",
+   "P2671",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P373",
+   "P54",
+   "P569",
+   "P641",
+   "P735",
+   "P8687"
+  ]
+ },
+ "14f96089": {
+  "register_id": "14f96089",
+  "cricinfo_id": "379504",
+  "wikidata_items": [
+   "Q16225921"
+  ],
+  "claims": {
+   "P106": {
+    "property_label": "occupation",
+    "values": [
+     {
+      "value": {
+       "qid": "Q12299841",
+       "label": "cricketer"
+      },
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   },
+   "P21": {
+    "property_label": "sex or gender",
+    "values": [
+     {
+      "value": {
+       "qid": "Q6581097",
+       "label": "male"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P569": {
+    "property_label": "date of birth",
+    "values": [
+     {
+      "value": "+1992-03-31T00:00:00Z",
+      "rank": "normal",
+      "references": 2
+     }
+    ]
+   },
+   "P27": {
+    "property_label": "country of citizenship",
+    "values": [
+     {
+      "value": {
+       "qid": "Q408",
+       "label": "Australia"
+      },
+      "rank": "normal",
+      "references": 0
+     }
+    ]
+   },
+   "P2697": {
+    "property_label": "Cricinfo player ID",
+    "values": [
+     {
+      "value": "379504",
+      "rank": "normal",
+      "references": 1
+     }
+    ]
+   }
+  },
+  "enwiki": "Adam Zampa",
+  "label": "Adam Zampa",
+  "all_properties": [
+   "P106",
+   "P14750",
+   "P1532",
+   "P18",
+   "P19",
+   "P2003",
+   "P21",
+   "P2697",
+   "P2698",
+   "P27",
+   "P31",
+   "P373",
+   "P54",
+   "P569",
+   "P641",
+   "P646",
+   "P734",
+   "P735"
+  ]
+ }
+}
