@@ -1,5 +1,6 @@
-# Fetches cricketer metadata (batting hand, bowling style, playing position) from Wikidata (CC0),
-# discovering the property IDs empirically, and publishes the raw results to branch data/wikidata-cricketers.
+# Phase 6 metadata pilot (branch phase6/metadata-pilot): Wikidata (CC0) claims for 8 pilot players joined by ESPNcricinfo id,
+# Wikidata coverage of handedness / bowling style / position, and Wikipedia infobox lines for comparison only.
+# Publishes raw results to branch data/wikidata-pilot (does not touch data/wikidata-cricketers).
 name: fetch-wikidata
 on: workflow_dispatch
 permissions:
@@ -9,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Query Wikidata
+      - name: Pilot fetch
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          python3 pipeline/cricintel/metadata/wikidata_fetch.py
-          (cd out && find wikidata -type f | sort | xargs sha256sum > SHA256SUMS && cat SHA256SUMS)
+          python3 pipeline/cricintel/metadata/pilot_fetch.py
+          (cd out && find pilot -type f | sort | xargs sha256sum > SHA256SUMS && cat SHA256SUMS)
       - name: Push to data branch
         run: |
           set -euo pipefail
           cd out
-          git init -q -b data/wikidata-cricketers
+          git init -q -b data/wikidata-pilot
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -q -m "Wikidata cricketer metadata retrieved $(date -u +%Y-%m-%dT%H:%M:%SZ) by run ${GITHUB_RUN_ID}"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" data/wikidata-cricketers
+          git commit -q -m "Metadata pilot retrieved $(date -u +%Y-%m-%dT%H:%M:%SZ) by run ${GITHUB_RUN_ID}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${GITHUB_REPOSITORY}.git" data/wikidata-pilot
