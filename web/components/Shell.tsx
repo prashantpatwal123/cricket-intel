@@ -7,7 +7,14 @@ import { api, Dataset } from "@/lib/api";
 export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const [ds, setDs] = useState<Dataset | null>(null);
-  useEffect(() => { api("/meta").then((r) => setDs(r.dataset)).catch(() => {}); }, []);
+  // Internal-preview notice: full on the first visit in this browser, then a compact status pill that expands on tap.
+  const [seen, setSeen] = useState(true);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    api("/meta").then((r) => setDs(r.dataset)).catch(() => {});
+    try { setSeen(localStorage.getItem("ci-preview-notice") === "1"); } catch { setSeen(false); }
+  }, []);
+  const ack = () => { try { localStorage.setItem("ci-preview-notice", "1"); } catch { /* storage blocked: show full notice again next time */ } setSeen(true); setOpen(false); };
   const nav = [["/", "Explore"], ["/players", "Players"], ["/battle", "Battles"], ["/ask", "Ask"], ["/play", "Play"]];
   const isOn = (h: string) => h === "/" ? path === "/" || path.startsWith("/records") : h === "/battle" ? path.startsWith("/battle") || path.startsWith("/compare") : path === h || path.startsWith(h + "/");
   return (
@@ -17,9 +24,17 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           SYNTHETIC TEST DATA: fictional players and matches, used to test the product. These are not real cricket statistics.
         </div>
       )}
-      {ds && !ds.synthetic && (
-        <div className="realdata">REAL DATA · {ds.attribution} · internal preview, not for publication (match-data licence pending confirmation)</div>
-      )}
+      {ds && !ds.synthetic && (!seen || open ? (
+        <div className="preview-detail" role="note">
+          <b>INTERNAL PREVIEW · DATA LICENCE PENDING.</b> Real ball-by-ball data: {ds.attribution} Not for publication: the licence for Cricsheet
+          match data has not been confirmed. Every number is computed from this dataset.{" "}
+          <button className="btn" style={{ padding: "2px 10px", fontSize: 12, marginLeft: 6 }} onClick={ack}>{seen ? "Hide" : "Understood"}</button>
+        </div>
+      ) : (
+        <button className="preview-pill" onClick={() => setOpen(true)} aria-expanded={false} aria-label="Internal preview, data licence pending. Show details">
+          <span className="dot" />Internal preview · data licence pending<span aria-hidden style={{ opacity: .7 }}>ⓘ</span>
+        </button>
+      ))}
       <header className="topbar">
         <Link href="/" className="brand"><span className="brand-dot" />cricintel</Link>
         <nav className="nav">

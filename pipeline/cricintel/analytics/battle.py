@@ -8,7 +8,8 @@ from .stats import poisson_interval, rate_ratio, wilson
 
 BATTLE_COLS = """count(*) FILTER (WHERE faced) AS balls, coalesce(sum(runs_batter), 0) AS runs,
   count(*) FILTER (WHERE faced AND runs_batter = 0) AS dots, count(*) FILTER (WHERE faced AND runs_batter = 1) AS singles,
-  count(*) FILTER (WHERE faced AND runs_batter IN (2, 3)) AS twos_threes, count(*) FILTER (WHERE is_four) AS fours,
+  count(*) FILTER (WHERE faced AND runs_batter IN (2, 3)) AS twos_threes, count(*) FILTER (WHERE faced AND runs_batter = 2) AS twos,
+  count(*) FILTER (WHERE faced AND runs_batter = 3) AS threes, count(*) FILTER (WHERE faced AND runs_batter = 5) AS fives, count(*) FILTER (WHERE is_four) AS fours,
   count(*) FILTER (WHERE is_six) AS sixes, count(DISTINCT match_id) AS matches, min(start_date) AS first_date, max(start_date) AS last_date"""
 
 

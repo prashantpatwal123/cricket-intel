@@ -60,6 +60,7 @@ class Resolver:
         self.by_pid = {r["person_id"]: r for r in rows}
         self.full: dict[str, set] = {}
         self.sur: dict[str, set] = {}
+        self.first: dict[str, set] = {}  # first names ("Rohit", "Smriti"): fallback only, same dominance rule
         for r in rows:
             for a in set((r["aliases"] or []) + [r["name"]]):
                 a = re.sub(r"\s*\(\d+\)$", "", a).strip().lower()
@@ -68,6 +69,9 @@ class Resolver:
                 last = a.split()[-1] if a.split() else ""
                 if len(last) >= 4 and last not in STOP and last.isalpha():
                     self.sur.setdefault(last, set()).add(r["person_id"])
+                parts = a.split()
+                if len(parts) >= 2 and len(parts[0]) >= 4 and parts[0].isalpha() and parts[0] not in STOP:
+                    self.first.setdefault(parts[0], set()).add(r["person_id"])
 
     def find(self, text: str) -> list[tuple[int, int, list]]:
         """n-gram dictionary lookup (longest first, non-overlapping): O(words), not O(aliases)."""
@@ -90,6 +94,9 @@ class Resolver:
             if w2 in self.sur:
                 used.add(i)
                 hits.append((a, b, self.sur[w2]))
+            elif w2 in self.first:
+                used.add(i)
+                hits.append((a, b, self.first[w2]))
         return [(a, b, [self.by_pid[p] for p in pids]) for a, b, pids in sorted(hits)]
 
     @staticmethod

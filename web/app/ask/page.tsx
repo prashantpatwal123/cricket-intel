@@ -6,9 +6,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { api, apiPost, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
+import Deliveries from "@/components/Deliveries";
 
-const EXAMPLES = ["Who has dismissed Virat Kohli most?", "Most sixes in death overs", "Kohli strike rate chasing in ODIs", "How many times has MS Dhoni been stumped?",
-  "Mandhana average in T20Is", "Bumrah v Warner", "Lowest economy in death overs since 2020", "Most times run out"];
+const EXAMPLES = ["How does Kohli score after facing 30 balls?", "Who is best while chasing 10+ an over?", "Which bowler has dismissed Rohit most?",
+  "How does Bumrah perform in overs 17-20?", "Who has the highest boundary rate after 30 balls?", "Which partnerships score fastest in the death overs?",
+  "Show Kohli's dismissals between balls 20 and 30", "Who improves most from middle overs to death overs?", "Most sixes in death overs", "Bumrah v Warner"];
 
 export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><Ask /></Suspense>; }
 
@@ -33,7 +35,8 @@ function Ask() {
   };
   const pickCandidate = (amb: string, name: string) => go((res.question as string).replace(amb.trim(), name));
   const lbs = res ? (res.leaderboards || (res.leaderboard ? [res.leaderboard] : [])) : [];
-  const linkHref = (l: any) => !l ? null : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : ""}`
+  const linkHref = (l: any) => !l ? null : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
+    : l.kind === "partnerships" ? `/partnerships?sort=${l.sort}${l.phase ? `&phase=${l.phase}` : ""}${l.format ? `&format=${l.format}` : ""}`
     : l.kind === "records" ? `/records?${new URLSearchParams({ metric: l.metric, ...Object.fromEntries(Object.entries(l.filters || {}).map(([k, v]) => [k, String(v)])) })}` : null;
   const ambiguous = (res?.notes || []).filter((n: any) => n.ambiguous);
   const assumed = (res?.notes || []).filter((n: any) => n.assumed);
@@ -114,12 +117,41 @@ function Ask() {
                   </div>
                 </div>
               ))}
+              {(res.pairs || []).map((g: any) => (
+                <div key={g.gender} style={{ marginTop: 14 }}>
+                  <div className="sit-title">{g.gender === "female" ? "Women" : "Men"} · {g.thresholds}</div>
+                  <div className="rec-list">
+                    {g.rows.slice(0, 5).map((r: any) => (
+                      <Link key={r.p1 + r.p2} className="rec-row" href={`/partnerships?p1=${r.p1}&p2=${r.p2}`}>
+                        <span className="rec-rank">{r.rank}</span>
+                        <span style={{ minWidth: 0 }}><b style={{ display: "block" }}>{r.p1_name} & {r.p2_name}</b><span className="mini">{r.innings} stands · {r.runs} runs off {r.balls}</span></span>
+                        <span className="rec-val num">{r[g.sort]}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {(res.changes || []).map((g: any) => (
+                <div key={g.gender} style={{ marginTop: 14 }}>
+                  <div className="sit-title">{g.gender === "female" ? "Women" : "Men"} · typical change {g.typical_change > 0 ? "+" : ""}{g.typical_change}</div>
+                  <div className="rec-list">
+                    {g.rows.slice(0, 5).map((r: any) => (
+                      <Link key={r.person_id} className="rec-row" href={`/players/${r.person_id}?tab=states`}>
+                        <span className="rec-rank">{r.rank}</span>
+                        <span style={{ minWidth: 0 }}><b style={{ display: "block" }}>{r.name}</b><span className="mini">middle {r.middle_sr} ({r.middle_balls} balls) → death {r.death_sr} ({r.death_balls})</span></span>
+                        <span className="rec-val num">+{r.change}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {res.deliveries_query && <Deliveries title="The dismissals" query={res.deliveries_query} onClose={() => {}} />}
               <dl className="kv" style={{ marginTop: 14, fontSize: 12.5 }}>
                 {res.definition && <><dt>Definition</dt><dd>{res.definition}</dd></>}
                 {res.caveat && <><dt>Caveat</dt><dd style={{ fontWeight: 500 }}>{res.caveat}</dd></>}
               </dl>
               {linkHref(res.link) && <Link className="btn primary" style={{ display: "inline-block", marginTop: 12 }} href={linkHref(res.link)!}>
-                {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : "Open the evidence →"}</Link>}
+                {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →" : "Open the evidence →"}</Link>}
             </div>
           )}
           <div className="chips" style={{ marginTop: 16 }}>{EXAMPLES.filter((e) => e !== res.question).slice(0, 4).map((e) => <button key={e} className="chip wrap" onClick={() => go(e)}>{e}</button>)}</div>

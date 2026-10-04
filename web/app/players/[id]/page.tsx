@@ -12,6 +12,10 @@ import InsightCard from "@/components/InsightCard";
 import DismissalStory from "@/components/DismissalStory";
 import Timeline from "@/components/Timeline";
 import Link from "next/link";
+import StateAnalysis from "@/components/StateAnalysis";
+import Partners from "@/components/Partners";
+import InningsList from "@/components/InningsList";
+import SpellsList from "@/components/SpellsList";
 
 const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "format", label: "Format", opts: [["", "All"], ["T20", "T20"], ["ODI", "ODI"]] },
@@ -20,8 +24,8 @@ const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "bowler_family", label: "Bowler", opts: [["", "All"], ["pace", "Pace"], ["spin", "Spin"]] },
 ];
 
-const TABS = [["overview", "Overview"], ["strengths", "Strengths & weaknesses"], ["dismissals", "Dismissals"], ["matchups", "Matchups"],
-  ["timeline", "Timeline"], ["numbers", "Numbers"]] as const;
+const TABS = [["overview", "Overview"], ["strengths", "Strengths & weaknesses"], ["states", "When they change"], ["dismissals", "Dismissals"],
+  ["matchups", "Matchups"], ["partners", "Partners"], ["innings", "Innings"], ["bowling", "Bowling"], ["timeline", "Timeline"], ["numbers", "Numbers"]] as const;
 // Phase and bowler-type filters only make sense where every number is ball-level.
 const BALL_LEVEL_TABS = new Set(["dismissals", "matchups"]);
 
@@ -111,7 +115,7 @@ function PlayerPage() {
 
       {/* ---------------- TABS + FILTERS */}
       <nav className="tabs" aria-label="Player sections">
-        {TABS.map(([k, l]) => <button key={k} className={tab === k ? "on" : ""} onClick={() => goTab(k)} aria-current={tab === k}>{l}</button>)}
+        {TABS.filter(([k]) => k !== "bowling" || bowl?.balls).map(([k, l]) => <button key={k} className={tab === k ? "on" : ""} onClick={() => goTab(k)} aria-current={tab === k}>{l}</button>)}
       </nav>
       <div className="filters" style={{ position: "static" }}>
         {shown.map((f) => (
@@ -186,6 +190,46 @@ function PlayerPage() {
           <div className="section-head"><div><div className="kicker">Situation map</div><div className="h2">When does it happen?</div>
             <div className="sub">Scoring and dismissal patterns by match situation. Tap an over to see its deliveries.</div></div></div>
           <Situations pid={id} filters={filters} onDrill={onDrill} />
+        </section>
+      </>)}
+
+      {tab === "states" && (
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Batter state analysis</div><div className="h2">When does {prof.name} change?</div>
+            <div className="sub">Scoring through the innings and the match situation, against {prof.name}&apos;s own average and against similar batters in the same state.</div></div></div>
+          <StateAnalysis pid={id} role="batting" format={filters.format as string} teamType={filters.team_type as string} onDrill={onDrill} />
+        </section>
+      )}
+
+      {tab === "partners" && (
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Partnership intelligence</div><div className="h2">Who {prof.name} bats with</div>
+            <div className="sub">Partnerships and whether {prof.name}&apos;s own scoring changes with the partner, adjusted for phase and season.</div></div>
+            <Link className="btn" href="/partnerships">Best partnerships →</Link></div>
+          <Partners pid={id} format={filters.format as string} teamType={filters.team_type as string} onDrill={onDrill} />
+        </section>
+      )}
+
+      {tab === "innings" && (
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Innings stories</div><div className="h2">Replay an innings</div></div></div>
+          <InningsList pid={id} format={filters.format as string} />
+        </section>
+      )}
+
+      {tab === "bowling" && bowl?.balls > 0 && (<>
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Bowler fingerprint</div><div className="h2">How {prof.name} bowls, against peers</div>
+            <div className="sub">Built only from what the data records: runs, dots, boundaries, wickets, phases and the batter&apos;s stage. No pace, spin, line or length.</div></div></div>
+          <div className="card"><Fingerprint pid={id} format={filters.format as string} teamType={filters.team_type as string} onDrill={onDrill} initialRole="bowling" /></div>
+        </section>
+        <section className="section">
+          <div className="section-head"><div><div className="kicker">Bowler state analysis</div><div className="h2">When does {prof.name}&apos;s bowling change?</div></div></div>
+          <StateAnalysis pid={id} role="bowling" format={filters.format as string} teamType={filters.team_type as string} onDrill={onDrill} />
+        </section>
+        <section className="section">
+          <div className="section-head"><div><div className="kicker">Spell stories</div><div className="h2">Replay a spell</div></div></div>
+          <SpellsList pid={id} format={filters.format as string} />
         </section>
       </>)}
 

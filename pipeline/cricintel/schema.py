@@ -106,6 +106,28 @@ TABLES: dict[str, pa.Schema] = {
 
 ENRICHMENT_TABLES = ["delivery_tracking", "delivery_shot", "delivery_fielding", "delivery_contact"]
 
+# DORMANT data contracts (Phase 3). Declared so ingestion adapters and the visual engine share one shape, but never
+# created, loaded or rendered until a licensed source supplies real values. No current feature reads them.
+# See docs/architecture/visual-data-contracts.md.
+FUTURE_TABLES = {
+    "delivery_trajectory_points": pa.schema([   # sampled ball path, ordered by idx
+        ("delivery_id", S), ("idx", I), ("t_s", F), ("x_m", F), ("y_m", F), ("z_m", F), ("phase", S),  # release|flight|bounce|post_bounce|post_contact
+        *PROV_COLS,
+    ]),
+    "delivery_batter_state": pa.schema([          # stance, hand and movement for the striker on this ball
+        ("delivery_id", S), ("batter_id", S), ("handedness", S), ("stance", S), ("guard", S),
+        ("start_x_m", F), ("start_y_m", F), ("contact_x_m", F), ("contact_y_m", F), ("movement_ref", S), *PROV_COLS,
+    ]),
+    "field_configuration": pa.schema([            # all fielders at the moment of delivery
+        ("delivery_id", S), ("config_id", S), ("fielder_id", S), ("position_label", S), ("x_m", F), ("y_m", F),
+        ("inside_circle", B), *PROV_COLS,
+    ]),
+    "tracking_provider": pa.schema([              # one row per provider feed, referenced by source_id
+        ("source_id", S), ("provider", S), ("licence", S), ("coverage", S), ("units", S), ("coordinate_frame", S),
+        ("accuracy_note", S), ("reconstruction_method", S), ("retrieved_at", S),
+    ]),
+}
+
 # Dismissal semantics (Laws of Cricket).
 BOWLER_CREDITED = {"bowled", "caught", "caught and bowled", "lbw", "stumped", "hit wicket"}
 NOT_DISMISSAL = {"retired hurt", "retired not out"}

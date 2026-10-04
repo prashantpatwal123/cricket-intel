@@ -99,10 +99,29 @@ def parse(db: DB, question: str) -> Intent:
         f["year_from"] = f["year_to"] = int(m.group(1))
     elif (m := re.search(r"before (\d{4})", q)):
         f["year_to"] = int(m.group(1)) - 1
-    if (m := re.search(r"after (\d+) balls", q)):
+    if (m := re.search(r"after (?:facing )?(\d+) balls", q)):
         f["faced_from"] = int(m.group(1))
     if (m := re.search(r"(first|opening) (\d+) balls", q)):
         f["faced_to"] = int(m.group(2)) - 1
+    if (m := re.search(r"between balls (\d+) and (\d+)|\bballs (\d+) ?(?:-|–|to) ?(\d+)", q)):
+        a_, b_ = [int(x) for x in m.groups() if x][:2]
+        f["faced_from"], f["faced_to"] = a_ - 1, b_ - 1  # "ball 20" = the batter had already faced 19
+    if (m := re.search(r"\bovers? (\d+) ?(?:-|–|to|and) ?(\d+)", q)):
+        f["over_from"], f["over_to"] = int(m.group(1)), int(m.group(2))
+    elif (m := re.search(r"\b(?:last|final) (\d+) overs", q)) and f.get("format"):
+        n_ = int(m.group(1)); tot = 20 if f["format"] == "T20" else 50
+        f["over_from"], f["over_to"] = tot - n_ + 1, tot
+    if (m := re.search(r"(\d+(?:\.\d+)?) ?\+? (?:an|per|a) over|required (?:run )?rate (?:of |above |over )?(\d+(?:\.\d+)?)", q)):
+        f["rrr_from"] = float(next(x for x in m.groups() if x))
+        f["chasing"] = True
+    if re.search(r"behind (the )?(required )?rate", q):
+        f["chase_state"] = "behind"
+    elif re.search(r"ahead of (the )?(required )?rate", q):
+        f["chase_state"] = "ahead"
+    if re.search(r"\bnew batters?\b|\bfirst 10 balls\b", q) and "faced_to" not in f:
+        f["batter_stage"] = "new"
+    elif re.search(r"\bset batters?\b", q):
+        f["batter_stage"] = "set"
     if re.search(r"full members?|test nations", q):
         f["full_members"] = True
     if f.get("competition") == "Women's Premier League":
@@ -134,7 +153,21 @@ def parse(db: DB, question: str) -> Intent:
             break
     ranking = (re.search(r"^\s*(who|which)\b", q) and re.search(r"\b(most|highest|lowest|best|fewest|least|top)\b", q)) or \
         re.search(r"^\s*(most|highest|lowest|best|fewest|top|leaders?)\b", q)
-    if len(players) >= 2 and re.search(r"\b(against|vs\.?|versus|v|facing)\b", q):
+    if re.search(r"partnerships?|\bpairs?\b|batting pairs?", q) and not players:
+        it.kind = "partnership_leaderboard"
+        it.metric = "run_rate" if re.search(r"fastest|quickest|run rate|scoring rate", q) else ("average" if re.search(r"average", q) else "runs")
+    elif re.search(r"improves?|improvement|biggest (jump|rise)|accelerat", q) and re.search(r"middle", q) and re.search(r"death", q) and not players:
+        it.kind, it.metric = "phase_change", "strike_rate"
+        f.pop("phase", None)
+        if not ({"team_type", "competition", "opposition", "full_members"} & set(f)):
+            f["full_members"] = True
+            it.notes.append({"assumed": "limited to matches between ICC full members plus leagues; remove that condition to include all teams"})
+        if "format" not in f:
+            f["format"] = "T20"
+            it.notes.append({"assumed": "T20 (middle-to-death change is defined per format); remove to switch"})
+    elif players and re.search(r"\b(show|list)\b.*dismissals|dismissals (between|after|in|when)", q):
+        it.kind, it.subject = "dismissal_list", players[0]
+    elif len(players) >= 2 and re.search(r"\b(against|vs\.?|versus|v|facing)\b", q):
         a, b = players[0], players[1]
         n_ab = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [a["person_id"], b["person_id"]])["n"]
         n_ba = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [b["person_id"], a["person_id"]])["n"]
@@ -146,6 +179,9 @@ def parse(db: DB, question: str) -> Intent:
         it.kind, it.subject = "dismissed_by", players[0]
     elif ranking:
         it.kind = "leaderboard"
+        if not it.metric and re.search(r"\bbest\b", q):
+            it.metric = "strike_rate"
+            it.notes.append({"assumed": "'best' read as highest strike rate; name a statistic to change it"})
         if it.dismissal and not it.metric:
             it.metric = {"RUN_OUT": "times_run_out", "BOWLED": "times_bowled", "CAUGHT_KEEPER": "keeper_catches",
                          "STUMPED": "stumpings"}.get(it.dismissal)
@@ -159,8 +195,15 @@ def parse(db: DB, question: str) -> Intent:
     elif players and it.metric:
         it.kind, it.subject = "player_stat", players[0]
     elif players:
-        it.kind, it.subject, it.metric = "player_stat", players[0], "strike_rate"
-        it.notes.append({"assumed": "no statistic named; showing strike rate and core numbers"})
+        pid_ = players[0]["person_id"]
+        r_ = db.q1("""SELECT count(*) FILTER (WHERE batter_id = ?) AS bat, count(*) FILTER (WHERE bowler_id = ?) AS bowl
+                      FROM balls WHERE batter_id = ? OR bowler_id = ?""", [pid_] * 4)
+        if r_ and r_["bowl"] > 1.3 * r_["bat"]:
+            it.kind, it.subject = "bowler_summary", players[0]
+            it.notes.append({"assumed": f"{players[0]['name']} mostly bowls in our data, so this shows bowling"})
+        else:
+            it.kind, it.subject, it.metric = "player_stat", players[0], "strike_rate"
+            it.notes.append({"assumed": "no statistic named; showing strike rate and core numbers"})
     it.filters = f
     return it
 
@@ -169,12 +212,17 @@ def validate(db: DB, it: Intent) -> list[str]:
     errs = []
     if it.kind == "unknown":
         errs.append("I couldn't tell what you want to know. Try naming a player, a statistic, or a 'who has the most…' question.")
-    if it.metric and it.metric not in METRICS and it.metric != "average":
+    if it.kind != "partnership_leaderboard" and it.metric and it.metric not in METRICS and it.metric != "average":
         errs.append(f"unsupported statistic {it.metric}")
     try:
         Filters.parse(it.filters)
     except ValueError as e:
         errs.append(str(e))
+    if it.kind in ("dismissal_list",) and ({"chase_state", "batter_stage", "non_striker_id"} & set(it.filters)):
+        errs.append("Dismissal lists can't yet be filtered by chase state, batter stage or partner.")
+    amb = [n for n in it.notes if "ambiguous" in n]
+    if amb and (it.kind in ("unknown", "leaderboard") and re.search(r"dismiss|against|\bv\b", " ".join(n["ambiguous"] for n in amb) + " ") or it.kind == "unknown"):
+        errs.insert(0, f"Which player did you mean by \"{amb[0]['ambiguous'].strip()}\"?")
     if it.kind == "leaderboard" and not it.metric:
         errs.append("Which statistic should I rank by? (e.g. sixes, strike rate, wickets, economy)")
     return errs
@@ -183,20 +231,24 @@ def validate(db: DB, it: Intent) -> list[str]:
 def interpretation(it: Intent) -> list[dict]:
     chips = []
     names = {"player_stat": "Player statistic", "dismissal_count": "Dismissal count", "leaderboard": "Leaderboard",
-             "matchup": "Batter v bowler", "dismissed_by": "Bowlers who dismissed"}
+             "matchup": "Batter v bowler", "dismissed_by": "Bowlers who dismissed", "partnership_leaderboard": "Partnerships",
+             "phase_change": "Middle → death change", "dismissal_list": "List of dismissals", "bowler_summary": "Bowling summary"}
     chips.append({"key": "kind", "label": names.get(it.kind, it.kind), "removable": False})
     if it.subject:
         chips.append({"key": "subject", "label": it.subject["name"], "removable": False})
     if it.opponent:
         chips.append({"key": "opponent", "label": "v " + it.opponent["name"], "removable": False})
     if it.metric:
-        chips.append({"key": "metric", "label": METRICS.get(it.metric, ("Average",))[0], "removable": False})
+        chips.append({"key": "metric", "label": {"run_rate": "Run rate", "average": "Average"}.get(it.metric, METRICS.get(it.metric, ("Average",))[0]),
+                      "removable": False})
     if it.dismissal:
         chips.append({"key": "dismissal", "label": ROUTE_META.get(it.dismissal, {}).get("label", it.dismissal), "removable": False})
     labels = {"format": lambda v: v, "team_type": lambda v: "Internationals" if v == "international" else "Leagues",
               "competition": lambda v: v, "phase": lambda v: f"{v} overs", "chasing": lambda v: "Chasing" if v else "Batting first",
               "year_from": lambda v: f"from {v}", "year_to": lambda v: f"to {v}", "opposition": lambda v: f"against {v}",
-              "faced_from": lambda v: f"after {v} balls", "faced_to": lambda v: f"first {v + 1} balls", "full_members": lambda v: "Full members & leagues"}
+              "faced_from": lambda v: f"from ball {v + 1}", "faced_to": lambda v: f"up to ball {v + 1}", "full_members": lambda v: "Full members & leagues",
+              "over_from": lambda v: f"from over {v}", "over_to": lambda v: f"to over {v}", "rrr_from": lambda v: f"required rate ≥ {v:g}",
+              "chase_state": lambda v: "behind the required rate" if v == "behind" else f"{v} of the required rate", "batter_stage": lambda v: f"{v} batters"}
     for k, v in it.filters.items():
         chips.append({"key": f"filters.{k}", "label": labels.get(k, lambda v: f"{k}={v}")(v), "removable": True})
     if it.gender:
@@ -223,8 +275,20 @@ def _scope(f: dict, gender=None) -> str:
             bits.append(f"since {f['year_from']}")
         if f.get("year_to"):
             bits.append(f"up to {f['year_to']}")
-    if f.get("faced_from"):
+    if f.get("faced_from") is not None and f.get("faced_to") is not None:
+        bits.append(f"on balls {f['faced_from'] + 1}–{f['faced_to'] + 1} of their innings")
+    elif f.get("faced_from"):
         bits.append(f"after facing {f['faced_from']} balls")
+    elif f.get("faced_to") is not None:
+        bits.append(f"in their first {f['faced_to'] + 1} balls")
+    if f.get("over_from") or f.get("over_to"):
+        bits.append(f"in overs {f.get('over_from', 1)}–{f.get('over_to', '')}".rstrip("–"))
+    if f.get("rrr_from"):
+        bits.append(f"with a required rate of {f['rrr_from']:g}+ an over")
+    if f.get("chase_state"):
+        bits.append("when behind the required rate" if f["chase_state"] == "behind" else f"when {f['chase_state']} of the required rate")
+    if f.get("batter_stage"):
+        bits.append({"new": "against new batters (0–9 balls faced)", "set": "against set batters (30+ balls)", "settling": "against batters on 10–29 balls"}[f["batter_stage"]])
     return (" ".join(bits) + " " if bits else "") + "in our covered data"
 
 
@@ -238,6 +302,87 @@ def execute(db: DB, it: Intent) -> dict:
                 "ambiguous": [n for n in it.notes if "ambiguous" in n]}
     f = Filters.parse(it.filters)
     scope = _scope(it.filters, it.gender)
+    if it.kind == "partnership_leaderboard":
+        from ..analytics import partnerships as PT
+        parts = []
+        for g in ([it.gender] if it.gender else ["male", "female"]):
+            ph = it.filters.get("phase")
+            r = PT.best_pairs(db, g, it.filters.get("format"), it.filters.get("team_type"), it.metric, phase=ph,
+                              min_innings=8, min_balls=120 if ph else 240, limit=10)
+            if r["rows"]:
+                parts.append((g, r))
+        if not parts:
+            return {**base, "status": "ok", "answer": f"No partnership qualifies {scope}.", "numbers": []}
+        unit = {"run_rate": "run rate", "average": "average", "runs": "runs together"}[it.metric]
+        ans = " ".join(f"{'Men' if g == 'male' else 'Women'}: {r['rows'][0]['p1_name']} & {r['rows'][0]['p2_name']} lead for {unit} {scope} "
+                       f"({r['rows'][0][it.metric]})." for g, r in parts)
+        return {**base, "status": "ok", "answer": ans, "numbers": [],
+                "pairs": [{"gender": g, "rows": r["rows"][:8], "thresholds": r["thresholds"], "sort": it.metric} for g, r in parts],
+                "definition": parts[0][1]["definition"], "caveat": parts[0][1]["thresholds"] + ". Men's and women's pairs are ranked separately.",
+                "link": {"kind": "partnerships", "sort": it.metric, "phase": it.filters.get("phase"), "format": it.filters.get("format")}}
+    if it.kind == "phase_change":
+        fmt = it.filters.get("format", "T20")
+        mins = {"T20": (300, 150), "ODI": (600, 200)}[fmt]
+        out_lb = []
+        for g in ([it.gender] if it.gender else ["male", "female"]):
+            w, p_ = Filters.parse({**{k: v for k, v in it.filters.items() if k != "format"}, "format": fmt, "gender": g}).where("batter")
+            rows = db.q(f"""SELECT batter_id, count(*) FILTER (WHERE phase = 'middle') AS mb, sum(runs_batter) FILTER (WHERE phase = 'middle') AS mr,
+                                   count(*) FILTER (WHERE phase = 'death') AS db_, sum(runs_batter) FILTER (WHERE phase = 'death') AS dr
+                            FROM balls WHERE {w} AND wides = 0 GROUP BY 1
+                            HAVING count(*) FILTER (WHERE phase = 'middle') >= ? AND count(*) FILTER (WHERE phase = 'death') >= ?""", [*p_, *mins])
+            if not rows:
+                continue
+            lm = sum(r["mr"] for r in rows) / sum(r["mb"] for r in rows); ld = sum(r["dr"] for r in rows) / sum(r["db_"] for r in rows)
+            K_ = 60
+            for r in rows:
+                d_sh = (r["dr"] + K_ * ld) / (r["db_"] + K_)  # shrink the smaller death sample toward the league death rate
+                r["middle_sr"], r["death_sr"] = round(100 * r["mr"] / r["mb"], 1), round(100 * r["dr"] / r["db_"], 1)
+                r["change"] = round(100 * (d_sh - r["mr"] / r["mb"]), 1)
+                r["vs_typical"] = round(r["change"] - 100 * (ld - lm), 1)
+            rows.sort(key=lambda r: -r["change"])
+            names = {x["person_id"]: x["name"] for x in db.q(f"SELECT person_id, name FROM player_profile WHERE person_id IN ({','.join('?' * len(rows[:10]))})",
+                                                               [r["batter_id"] for r in rows[:10]])}
+            out_lb.append({"gender": g, "typical_change": round(100 * (ld - lm), 1), "rows": [
+                {"rank": i + 1, "person_id": r["batter_id"], "name": names.get(r["batter_id"], r["batter_id"]), "middle_sr": r["middle_sr"],
+                 "death_sr": r["death_sr"], "change": r["change"], "vs_typical": r["vs_typical"], "middle_balls": r["mb"], "death_balls": r["db_"]}
+                for i, r in enumerate(rows[:10])]})
+        if not out_lb:
+            return {**base, "status": "ok", "answer": f"No batter qualifies {scope}.", "numbers": []}
+        ans = " ".join(f"{'Men' if x['gender'] == 'male' else 'Women'}: {x['rows'][0]['name']} gains most, {x['rows'][0]['middle_sr']} → "
+                       f"{x['rows'][0]['death_sr']} (typical change {x['typical_change']:+}). " for x in out_lb)
+        return {**base, "status": "ok", "answer": ans.strip() + f" ({fmt}, {scope}.)", "numbers": [], "changes": out_lb,
+                "definition": f"Strike rate in death overs minus strike rate in middle overs, {fmt}. Death strike rate shrunk 60 balls toward "
+                              f"the league death rate. Minimum {mins[0]} middle-overs and {mins[1]} death-overs balls.",
+                "caveat": "Batters who rarely reach the death overs are excluded by the minimums."}
+    if it.kind == "dismissal_list":
+        pid = it.subject["person_id"]
+        w, p_ = f.where("batter")
+        rows = db.q(f"""SELECT route, count(*) AS n FROM dis WHERE player_out_id = ? AND counts_as_dismissal AND {w} GROUP BY 1 ORDER BY n DESC""", [pid, *p_])
+        tot = sum(r["n"] for r in rows)
+        q_ = {"out_id": pid, **{k: v for k, v in it.filters.items()}}
+        return {**base, "status": "ok",
+                "answer": f"{it.subject['name']} was dismissed {tot} time{'s' if tot != 1 else ''} {scope}."
+                          + (f" Most often {ROUTE_META.get(rows[0]['route'], {}).get('label', rows[0]['route']).lower()} ({rows[0]['n']})." if rows else ""),
+                "numbers": [{"label": ROUTE_META.get(r["route"], {}).get("label", r["route"]), "value": r["n"]} for r in rows[:4]],
+                "deliveries_query": q_, "link": {"kind": "player", "id": pid, "tab": "dismissals"}}
+    if it.kind == "bowler_summary":
+        pid = it.subject["person_id"]
+        fmts = [it.filters["format"]] if it.filters.get("format") else [r["format_group"] for r in db.q(
+            "SELECT format_group, count(*) AS n FROM balls WHERE bowler_id = ? GROUP BY 1 ORDER BY n DESC", [pid])]
+        nums, ans = [], []
+        for fm in fmts:
+            ff = Filters.parse({**it.filters, "format": fm, "bowler_id": pid})
+            vals = {m: leaderboard(db, m, ff, 0, 1)["rows"] for m in ("economy", "wickets", "bowl_dot_pct")}
+            if not vals["economy"]:
+                continue
+            e, wk, d = vals["economy"][0], (vals["wickets"][0]["value"] if vals["wickets"] else 0), vals["bowl_dot_pct"][0]
+            ans.append(f"{fm}: {int(wk)} wicket{'s' if int(wk) != 1 else ''}, economy {e['value_fmt']}, dot balls {d['value_fmt']}% from {e['sample']} legal balls")
+            nums += [{"label": f"Economy ({fm})", "value": e["value_fmt"]}, {"label": f"Wickets ({fm})", "value": int(wk)}]
+        if not ans:
+            return {**base, "status": "ok", "answer": f"No bowling for {it.subject['name']} {scope}.", "numbers": []}
+        return {**base, "status": "ok", "answer": f"{it.subject['name']} {scope}: " + "; ".join(ans) + ".", "numbers": nums,
+                "definition": "Economy = runs conceded (incl. wides and no-balls) per 6 legal balls; wickets credited to the bowler.",
+                "link": {"kind": "player", "id": pid, "tab": "bowling"}}
     if it.kind == "matchup":
         r = B.battle(db, it.subject["person_id"], it.opponent["person_id"], f)
         t = r["total"]

@@ -8,6 +8,7 @@ import PlayerPicker from "@/components/PlayerPicker";
 import Deliveries from "@/components/Deliveries";
 import ProvBadge from "@/components/Prov";
 import { C, Crease, Defs, Figure, Pitch, Stumps } from "@/components/cricket/primitives";
+import OutcomeMap from "@/components/viz/OutcomeMap";
 
 type P = { person_id: string; name: string } | null;
 const BREAKS = [["phase", "Phase"], ["innings", "Setting / chasing"], ["year", "Year"], ["format", "Format"]] as const;
@@ -51,7 +52,8 @@ function Battle() {
           <PlayerPicker label="Bowler" value={bowl} onPick={(p) => { setBowl(p); push(bat, p); }} placeholder="Search a bowler…" />
         </div>
         <div className="mini" style={{ marginTop: 8 }}>
-          <Link href="/compare" style={{ textDecoration: "underline" }}>Compare 2–4 players side by side →</Link>
+          <Link href="/compare" style={{ textDecoration: "underline" }}>Compare 2–4 players side by side →</Link>{" · "}
+          <Link href="/partnerships" style={{ textDecoration: "underline" }}>Best partnerships →</Link>
         </div>
       </section>
 
@@ -79,6 +81,14 @@ function Battle() {
               <BattleScene d={d} onPick={(r: any) => onDrill(`${d.batter.name} ${r.label.toLowerCase()} by ${d.bowler.name}`, { ...d.evidence_query, out_id: d.batter.person_id, route: r.route })} />
             </div>
             <Edge d={d} />
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="card">
+            <OutcomeMap title="Every ball faced in this battle" counts={{ DOT: Math.max(0, t.dots - t.dismissals), "1": t.singles, "2": t.twos, "3": t.threes,
+              "4": t.fours, "6": t.sixes, WICKET: t.dismissals }} />
+            <div className="mini" style={{ marginTop: 4 }}>DOT excludes balls on which the batter was dismissed (shown as WICKET).{t.fives ? ` ${t.fives} ball(s) with 5 runs are not shown.` : ""}</div>
           </div>
         </section>
 

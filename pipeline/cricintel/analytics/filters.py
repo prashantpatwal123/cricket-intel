@@ -11,7 +11,7 @@ MATCH_LEVEL = {"format", "team_type", "competition", "year_from", "year_to", "op
 FULL_MEMBERS = ("India", "Australia", "England", "South Africa", "New Zealand", "Pakistan", "Sri Lanka", "West Indies",
                 "Bangladesh", "Zimbabwe", "Ireland", "Afghanistan")
 BALL_LEVEL = {"phase", "bowler_family", "bowler_arm", "bowler_style", "chasing", "bowler_id", "batter_id", "over_from", "over_to",
-              "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no"}
+              "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "chase_state", "batter_stage", "non_striker_id"}
 
 
 @dataclass
@@ -39,6 +39,9 @@ class Filters:
     faced_to: int | None = None
     rrr_from: float | None = None     # required run rate (chases only)
     innings_no: int | None = None
+    chase_state: str | None = None    # ahead | around | behind (Context Engine; chases only)
+    batter_stage: str | None = None   # new | settling | set (Context Engine)
+    non_striker_id: str | None = None  # partner at the other end
 
     @classmethod
     def parse(cls, d: dict) -> "Filters":
@@ -89,7 +92,9 @@ class Filters:
             c.append(f"{a}{col} = ?"); p.append(self.opposition)
         if ball_level:
             for k, col in (("phase", "phase"), ("bowler_family", "bowler_family"), ("bowler_arm", "bowler_arm"),
-                           ("bowler_style", "bowler_style"), ("bowler_id", "bowler_id"), ("batter_id", "batter_id")):
+                           ("bowler_style", "bowler_style"), ("bowler_id", "bowler_id"), ("batter_id", "batter_id"),
+                           ("chase_state", "chase_state"), ("batter_stage", "batter_stage"),
+                           ("non_striker_id", "non_striker_id")):
                 v = getattr(self, k)
                 if v is not None:
                     c.append(f"{a}{col} = ?"); p.append(v)

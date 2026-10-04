@@ -1,0 +1,156 @@
+{
+  "errors": [],
+  "log": [
+    {
+      "step": "preview-banner",
+      "full_text": "INTERNAL PREVIEW · DATA LICENCE PENDING. Real ball-by-ball data: Ball-by-ball data and player register from Cricsheet (cricsheet.org). Register under the Open D",
+      "pill_height_px": 26,
+      "expands": true,
+      "overflow_px": 0
+    },
+    {
+      "step": "discovery",
+      "cards": 8,
+      "first": "Rohit Sharma and Virat Kohli average 59 per partnership, 1.8× the norm",
+      "overflow_px": 0
+    },
+    {
+      "step": "discovery-drill",
+      "card": "Amit Mishra: 33% of dismissals run out, against 7% typically",
+      "landed": "http://localhost:3000/players/6b19d823?tab=dismissals&format=T20&route=RUN_OUT",
+      "overflow_px": 0
+    },
+    {
+      "step": "replay-inspect",
+      "panel": "V Kohli\nOBSERVED\n×\nDirectly recorded in the source data.\nStriker identity is recorded. Batting hand unknown, so the figure is neutral. Stance and movement are not recorded.\nSource: Cricsheet match 1298150, innings 2, ball 17.6",
+      "overflow_px": 0
+    },
+    {
+      "step": "replay-next-key",
+      "url": "http://localhost:3000/delivery/1298150%3A2%3A111",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-keeper",
+      "chain": "Haris Rauf\n→\nBall 5.3\n→\nOUT · caught\n→\nKeeper: Mohammad Rizwan\n→\nSA Yadav out\n→\n26/2 → 26/3",
+      "theatre": "DISMISSAL THEATRE\nCaught by wicketkeeper: the credited fielder was keeping wicket. Whether the ball was edged is not recorded.",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-bowled",
+      "chain": "Naseem Shah\n→\nBall 1.5\n→\nOUT · bowled\n→\nKL Rahul out\n→\n7/0 → 7/1",
+      "theatre": "DISMISSAL THEATRE\nBowled: the delivery broke the striker's wicket. The data records that it happened, not where the ball pitched or what it hit first.",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-runout",
+      "chain": "Shadab Khan\n→\nBall 6.1\n→\nOUT · run out\n→\nFielder: Mohammad Rizwan\n→\nAR Patel out\n→\n31/3 → 31/4",
+      "theatre": "DISMISSAL THEATRE\nRun out: a fielder broke the wicket while a batter was out of their ground. Which end, and where the throw came from, are not recorded.",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-field",
+      "chain": "Haris Rauf\n→\nBall 3.2\n→\nOUT · caught\n→\nFielder: Iftikhar Ahmed\n→\nRG Sharma out\n→\n10/1 → 10/2",
+      "theatre": "DISMISSAL THEATRE\nCaught: a fielder took the catch. The data names the fielder but not where they were standing or how the ball came off the bat.",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-stumped",
+      "chain": "Mohammad Nawaz\n→\nBall 19.5\n→\nOUT · stumped\n→\nStumped by keeper Mohammad Rizwan\n→\nKD Karthik out\n→\n158/5 → 158/6",
+      "theatre": "DISMISSAL THEATRE\nStumped: the keeper broke the wicket with the batter out of their ground, off a legal delivery that wasn't a no-ball.",
+      "overflow_px": 0
+    },
+    {
+      "step": "theatre-lbw",
+      "chain": "Arshdeep Singh\n→\nBall 1.1\n→\nOUT · lbw\n→\nBabar Azam out\n→\n1/0 → 1/1",
+      "theatre": "DISMISSAL THEATRE\nLBW: the umpire (or review) judged the ball would have hit the stumps after striking the batter. Impact point and projected path are not recorded.",
+      "overflow_px": 0
+    },
+    {
+      "step": "innings-scrub",
+      "at60": "BALL 11.6 · HH PANDYA ON STRIKE | 6 from Mohammad Nawaz | Virat Kohli: 22 (26) after this ball · partner HH Pandya",
+      "milestone": "BALL 17.1 · VIRAT KOHLI ON STRIKE",
+      "overflow_px": 0
+    },
+    {
+      "step": "innings-to-replay",
+      "url": "http://localhost:3000/delivery/1298150%3A2%3A104",
+      "overflow_px": 0
+    },
+    {
+      "step": "bowler-tab",
+      "petals": 12,
+      "states": 18,
+      "spells": 20,
+      "overflow_px": 0
+    },
+    {
+      "step": "spell-story",
+      "url": "http://localhost:3000/spell/1276907/1/462411b3",
+      "head": "SPELL STORY · INDIA TOUR OF ENGLAND · 2022-07-12 · ODI | JASPRIT BUMRAH | 6/19 from 7.2 overs · economy 2.59 · 38 dots · longest dot run 14",
+      "overflow_px": 0
+    },
+    {
+      "step": "states-drill",
+      "evidence": "EVIDENCE | Balls already faced: 21–30",
+      "overflow_px": 0
+    },
+    {
+      "step": "states-low-sample",
+      "text": "No state differs clearly from what peers would predict (99% test, enough sample). That is a finding: this player changes the way typical batters do.",
+      "overflow_px": 0
+    },
+    {
+      "step": "pair",
+      "url": "http://localhost:3000/partnerships?p1=ba607b88&p2=c4487b84&format=T20&gender=male",
+      "head": "PAIR HISTORY · T20 DERIVED | Virat Kohli & AB de Villiers",
+      "overflow_px": 0
+    },
+    {
+      "step": "whn",
+      "mvy": "YOU 11 1/6 right · 17% streak 0 best 1 beat the model 1 × MODEL · MODELLED 10 1/6 right · 17%",
+      "sess": "6 predictions 17% your accuracy 17% model accuracy 11 your points 10 model points +1 you v model",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-1",
+      "q": "Which partnerships score fastest in the death overs?",
+      "chips": "Partnerships · Run rate · death overs · ×",
+      "ans": "Men: Virat Kohli & AB de Villiers lead for run rate in death overs in our covered data (13.37). Women: H Kaur & S Mandhana lead for run rate in death overs in our covered data (11.21).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-2",
+      "q": "Show Kohli's dismissals between balls 20 and 30",
+      "chips": "List of dismissals · Virat Kohli · from ball 20 · × · up to ball 30 · ×",
+      "ans": "Virat Kohli was dismissed 89 times on balls 20–30 of their innings in our covered data. Most often caught by a fielder (41).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-3",
+      "q": "How does Bumrah perform in overs 17-20?",
+      "chips": "Bowling summary · Jasprit Bumrah · from over 17 · × · to over 20 · ×",
+      "ans": "Jasprit Bumrah in overs 17–20 in our covered data: T20: 139 wickets, economy 7.90, dot balls 33.0% from 1883 legal balls; ODI: 1 wicket, economy 4.25, dot balls 58.3% from 120 legal balls.",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-4",
+      "q": "Who improves most from middle overs to death overs?",
+      "chips": "Middle → death change · Strike rate · Full members & leagues · × · T20 · ×",
+      "ans": "Men: AB de Villiers gains most, 131.1 → 212.5 (typical change +40.8). Women: Laura Wolvaardt gains most, 118.1 → 180.4 (typical change +33.0). (T20, in T20s (T20Is, IPL, WPL) in our covered data.)",
+      "overflow_px": 0
+    },
+    {
+      "step": "lanning-innings",
+      "url": "http://localhost:3000/innings/1085952/2/27e003ce",
+      "head": "INNINGS STORY · ICC WOMEN'S WORLD CUP · 2017-06-29 · ODI | MEG LANNING | 152* off 135 balls · SR 112.6 · 19×4 · 1×6 · 60 dots",
+      "overflow_px": 0
+    },
+    {
+      "step": "ecclestone-spell",
+      "url": "http://localhost:3000/spell/1490709/2/cdb82f1c",
+      "head": "SPELL STORY · ICC WOMEN'S T20 WORLD CUP · 2026-07-05 · T20 | S ECCLESTONE | 1/24 from 3.1 overs · economy 7.58 · 8 dots · longest dot run 3",
+      "overflow_px": 0
+    }
+  ]
+}

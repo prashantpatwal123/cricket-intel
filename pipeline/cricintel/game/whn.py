@@ -121,6 +121,10 @@ class Game:
             "chase": {"target": b["target_runs"], "runs_required": b["runs_required"], "balls_remaining": b["balls_remaining"],
                       "required_rate": round(b["required_rate"], 2) if b["required_rate"] else None} if b["chasing"] else None,
             "recent": [_ball_glyph(x) for x in reversed(prev)],
+            "situation": {"format": b["format_group"], "innings_no": b["innings_no"], "score": b["score_before"], "wickets": b["wickets_before"],
+                          "legal_balls": b["legal_balls_before"], "limit_balls": b.get("innings_balls_limit") or (120 if b["format_group"] == "T20" else 300),
+                          "target": b["target_runs"], "runs_required": b["runs_required"], "balls_left": b.get("balls_left"),
+                          "rrr": b["required_rate"], "crr": b["current_rate"], "phase": b["phase"], "prov": "DERIVED"},
             "options": CLASSES, "outcome_definition": "Runs off this delivery including extras (5 counts as 4, 7+ as 6). WICKET = any dismissal.",
         }
 

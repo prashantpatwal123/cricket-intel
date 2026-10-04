@@ -166,11 +166,12 @@ BOWL_DIM_MIN = {"T20": 60, "ODI": 120}
 
 BOWL_SQL = """
 WITH b AS (
-  SELECT bowler_id AS pid, legal, runs_batter + wides + noballs AS rc, runs_batter AS r, is_four, is_six, wides, noballs, phase, chasing
+  SELECT bowler_id AS pid, legal, runs_batter + wides + noballs AS rc, runs_batter AS r, is_four, is_six, wides, noballs, phase, chasing, batter_stage
   FROM balls WHERE format_group = ? AND gender = ? {extra}
 ), w AS (
   SELECT bowler_id AS pid, count(*) AS wkts, count(*) FILTER (WHERE kind IN ('bowled', 'lbw')) AS stumps_wkts,
-         count(*) FILTER (WHERE phase = 'death') AS death_w, count(*) FILTER (WHERE phase = 'powerplay') AS pp_w
+         count(*) FILTER (WHERE phase = 'death') AS death_w, count(*) FILTER (WHERE phase = 'powerplay') AS pp_w,
+         count(*) FILTER (WHERE batter_balls_before < 10) AS new_w
   FROM dis x WHERE bowler_credited AND format_group = ? AND gender = ? {extra_dis} GROUP BY 1
 )
 SELECT b.pid, count(*) FILTER (WHERE legal) AS balls, sum(rc) AS runs, count(*) FILTER (WHERE legal AND rc = 0) AS dots,
@@ -180,6 +181,9 @@ SELECT b.pid, count(*) FILTER (WHERE legal) AS balls, sum(rc) AS runs, count(*) 
   count(*) FILTER (WHERE legal AND phase = 'middle') AS mid_b, sum(rc) FILTER (WHERE phase = 'middle') AS mid_r,
   count(*) FILTER (WHERE legal AND phase = 'death') AS death_b, sum(rc) FILTER (WHERE phase = 'death') AS death_r,
   count(*) FILTER (WHERE legal AND chasing) AS def_b, sum(rc) FILTER (WHERE chasing) AS def_r,
+  count(*) FILTER (WHERE legal AND batter_stage = 'new') AS new_b,
+  count(*) FILTER (WHERE legal AND batter_stage = 'set') AS set_b, sum(rc) FILTER (WHERE batter_stage = 'set') AS set_r,
+  coalesce(any_value(w.new_w), 0) AS new_w,
   coalesce(any_value(w.wkts), 0) AS wkts, coalesce(any_value(w.stumps_wkts), 0) AS stumps_wkts,
   coalesce(any_value(w.death_w), 0) AS death_w, coalesce(any_value(w.pp_w), 0) AS pp_w
 FROM b LEFT JOIN w USING (pid) GROUP BY b.pid
@@ -211,6 +215,10 @@ BOWL_DIMS = [
      "Economy in death overs", {"phase": "death"}),
     ("def_econ", "Defending a target", "Situation", lambda a: _econ(a["def_r"], a["def_b"]), lambda a: a["def_b"], "runs/over",
      "Economy when the batting side is chasing", {"chasing": True}),
+    ("new_wkt", "Wickets v new batters", "Threat", lambda a: 100 * a["new_w"] / a["new_b"] if a["new_b"] else None, lambda a: a["new_b"],
+     "wkts / 100 balls", "Bowler-credited wickets per 100 legal balls to batters who had faced 0–9 balls", {"batter_stage": "new"}),
+    ("set_econ", "Economy v set batters", "Situation", lambda a: _econ(a["set_r"], a["set_b"]), lambda a: a["set_b"], "runs/over",
+     "Economy against batters who had already faced 30+ balls", {"batter_stage": "set"}),
 ]
 
 

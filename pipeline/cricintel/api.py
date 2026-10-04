@@ -22,7 +22,8 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "P
 
 FILTER_KEYS = ["format", "team_type", "competition", "year_from", "year_to", "opposition", "phase", "gender",
                "bowler_family", "bowler_arm", "bowler_style", "chasing", "over_from", "over_to",
-               "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "full_members"]
+               "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "full_members",
+               "chase_state", "batter_stage", "non_striker_id"]
 
 
 _DB: dict = {}
@@ -61,7 +62,7 @@ def meta():
     m = db().manifest
     comps = db().q("""SELECT competition, gender, format_group, team_type, count(*) AS matches, min(start_date) AS first_date,
                       max(start_date) AS last_date FROM matches GROUP BY ALL ORDER BY matches DESC""")
-    return envelope({"manifest": m, "competitions": comps, "source": SOURCES[m["source_id"]]}, t0)
+    return envelope({"manifest": m, "competitions": comps, "source": SOURCES[m["source_id"]], "experimental": experimental()}, t0)
 
 
 @app.get("/api/players/search")
@@ -282,3 +283,175 @@ def explore_ep():
     from .analytics import explore as EX
     t0 = time.perf_counter()
     return envelope(EX.feed(db()), t0)
+
+
+# ------------------------------------------------------------------ Phase 3: context engine, replay, stories, partnerships
+def experimental() -> bool:
+    """Experimental models (Situation Difficulty) are served only when explicitly enabled. Never on by default."""
+    return os.environ.get("CRICINTEL_EXPERIMENTAL") == "1"
+
+
+def sdx_model():
+    if not experimental():
+        return None
+    from .model import situation as S
+    d = db()
+    key = ("sdx", _DB.get("stamp"))
+    if _DB.get("sdx_key") != key:
+        path = S.artifact_path(d)
+        _DB["sdx"], _DB["sdx_key"] = (S.SDX.load(path) if path.exists() else None), key
+    return _DB["sdx"]
+
+
+def require_experimental():
+    if not experimental():
+        raise HTTPException(404, "experimental features are disabled (set CRICINTEL_EXPERIMENTAL=1)")
+
+
+@app.get("/api/deliveries/{did}/replay")
+def replay_ep(did: str):
+    from .analytics import replay as R
+    t0 = time.perf_counter()
+    r = R.delivery_replay(db(), did, sdx_model())
+    if not r:
+        raise HTTPException(404, "delivery not found")
+    return envelope(r, t0)
+
+
+@app.get("/api/players/{pid}/innings")
+def innings_list_ep(pid: str, sort: str = "recent", format: str | None = None, limit: int = Query(30, le=100)):
+    from .analytics import replay as R
+    t0 = time.perf_counter()
+    if sort not in ("recent", "runs", "sr"):
+        raise HTTPException(400, "sort must be recent, runs or sr")
+    return envelope(R.player_innings(db(), pid, sort, limit, format), t0)
+
+
+@app.get("/api/innings/{match_id}/{inn}/{pid}")
+def innings_story_ep(match_id: str, inn: int, pid: str):
+    from .analytics import replay as R
+    t0 = time.perf_counter()
+    r = R.innings_story(db(), match_id, inn, pid, sdx_model())
+    if not r:
+        raise HTTPException(404, "that player did not bat in that innings")
+    return envelope(r, t0)
+
+
+@app.get("/api/players/{pid}/spells")
+def spells_list_ep(pid: str, sort: str = "recent", format: str | None = None, limit: int = Query(30, le=100)):
+    from .analytics import replay as R
+    t0 = time.perf_counter()
+    if sort not in ("recent", "wickets", "economy"):
+        raise HTTPException(400, "sort must be recent, wickets or economy")
+    return envelope(R.player_spells(db(), pid, sort, limit, format), t0)
+
+
+@app.get("/api/spells/{match_id}/{inn}/{pid}")
+def spell_story_ep(match_id: str, inn: int, pid: str):
+    from .analytics import replay as R
+    t0 = time.perf_counter()
+    r = R.spell_story(db(), match_id, inn, pid, sdx_model())
+    if not r:
+        raise HTTPException(404, "that player did not bowl in that innings")
+    return envelope(r, t0)
+
+
+@app.get("/api/players/{pid}/states")
+def states_ep(pid: str, role: str = "batting", format: str | None = None, team_type: str | None = None):
+    from .analytics import states as ST
+    t0 = time.perf_counter()
+    if role not in ("batting", "bowling"):
+        raise HTTPException(400, "role must be batting or bowling")
+    return envelope(ST.states(db(), pid, role, format, team_type), t0)
+
+
+@app.get("/api/players/{pid}/partners")
+def partners_ep(pid: str, format: str | None = None, team_type: str | None = None):
+    from .analytics import partnerships as PT
+    t0 = time.perf_counter()
+    return envelope(PT.player_partners(db(), pid, format, team_type), t0)
+
+
+@app.get("/api/partnerships")
+def partnerships_ep(gender: str = "male", format: str | None = None, team_type: str | None = None, sort: str = "runs",
+                    phase: str | None = None, min_innings: int = 8, limit: int = Query(20, le=50)):
+    from .analytics import partnerships as PT
+    t0 = time.perf_counter()
+    if sort not in ("runs", "run_rate", "average", "innings"):
+        raise HTTPException(400, "bad sort")
+    return envelope(PT.best_pairs(db(), gender, format, team_type, sort, min_innings, 120 if phase else 240, phase, limit), t0)
+
+
+@app.get("/api/partnerships/stands")
+def stands_ep(gender: str = "male", format: str | None = None, team_type: str | None = None, limit: int = Query(20, le=50)):
+    from .analytics import partnerships as PT
+    t0 = time.perf_counter()
+    return envelope(PT.top_stands(db(), gender, format, team_type, limit), t0)
+
+
+@app.get("/api/partnerships/pair")
+def pair_ep(p1: str, p2: str, format: str | None = None):
+    t0 = time.perf_counter()
+    a, b = sorted([p1, p2])
+    w, p = "p1 = ? AND p2 = ?", [a, b]
+    if format:
+        w += " AND format_group = ?"; p.append(format)
+    rows = db().q(f"""SELECT partnership_id, match_id, innings_no, part_no, runs, balls, wicket_no, p1_runs, p1_balls, p2_runs, p2_balls, ended,
+                             start_date, competition, format_group, batting_team, bowling_team, boundaries, dots, rotations
+                      FROM partnerships WHERE {w} ORDER BY start_date DESC""", p)
+    names = {r["person_id"]: r["name"] for r in db().q("SELECT person_id, name FROM player_profile WHERE person_id IN (?, ?)", [a, b])}
+    for r in rows:
+        r["start_date"] = str(r["start_date"])
+    tot = {k: sum(r[k] for r in rows) for k in ("runs", "balls", "p1_runs", "p2_runs", "boundaries", "dots", "rotations")}
+    w_ = sum(1 for r in rows if r["ended"] == "wicket")
+    return envelope({"p1": {"id": a, "name": names.get(a, a)}, "p2": {"id": b, "name": names.get(b, b)}, "rows": rows, "innings": len(rows),
+                     "totals": {**tot, "run_rate": round(6 * tot["runs"] / tot["balls"], 2) if tot["balls"] else None,
+                                "average": round(tot["runs"] / w_, 1) if w_ else None, "wickets": w_, "best": max((r["runs"] for r in rows), default=None)},
+                     "prov": "DERIVED from OBSERVED deliveries"}, t0)
+
+
+@app.get("/api/context/features")
+def context_features_ep():
+    from .analytics import context as CX
+    t0 = time.perf_counter()
+    return envelope({"version": CX.CONTEXT_VERSION, "features": [{"key": k, "label": v[0], "definition": v[1], "prov": v[2], "format_note": v[3]}
+                                                                   for k, v in CX.FEATURES.items()]}, t0)
+
+
+@app.get("/api/discover")
+def discover_ep():
+    from .analytics import discovery as D
+    t0 = time.perf_counter()
+    return envelope(D.discover(db(), experimental() and db().has_situation), t0)
+
+
+@app.get("/api/exp/situation")
+def exp_situation_ep(format: str, gender: str, runs_required: int, balls_left: int, wickets_lost: int):
+    require_experimental()
+    t0 = time.perf_counter()
+    m = sdx_model()
+    if not m or not m.available(format, gender):
+        raise HTTPException(404, "no model for that format and gender")
+    return envelope({"score": m.score(format, gender, runs_required, balls_left, wickets_lost),
+                     "swing": m.swing(format, gender, runs_required, balls_left, wickets_lost), "version": m.a["version"],
+                     "definition": m.a["definition"], "status": "EXPERIMENTAL", "prov": "MODELLED"}, t0)
+
+
+@app.get("/api/exp/situation/validation")
+def exp_validation_ep():
+    require_experimental()
+    t0 = time.perf_counter()
+    import json
+    from pathlib import Path
+    p = Path(__file__).resolve().parents[2] / "docs" / "models" / "situation-difficulty-validation.json"
+    if not p.exists():
+        raise HTTPException(404, "validation report not generated")
+    return envelope(json.loads(p.read_text()), t0)
+
+
+@app.get("/api/exp/difficulty")
+def exp_difficulty_ep(format: str = "T20", gender: str = "male", role: str = "batting", metric: str = "scoring"):
+    require_experimental()
+    from .analytics import difficulty as DF
+    t0 = time.perf_counter()
+    return envelope({"leaderboard": DF.leaderboard(db(), format, gender, role, metric), "trait_test": DF.clutch_evidence(db(), format, gender, role)}, t0)

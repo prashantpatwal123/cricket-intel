@@ -14,7 +14,7 @@ const SEGS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "chasing", label: "Innings", opts: [["", "Both"], ["false", "Setting"], ["true", "Chasing"]] },
   { key: "full_members", label: "Teams", opts: [["", "All"], ["true", "Full members & leagues"]] },
 ];
-const FKEYS = ["format", "team_type", "phase", "chasing", "full_members", "year_from", "year_to"];
+const FKEYS = ["format", "team_type", "competition", "phase", "chasing", "full_members", "year_from", "year_to"];
 
 export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><Records /></Suspense>; }
 
@@ -93,6 +93,7 @@ function Records() {
               })}
             </div>
           ))}
+          {filt.competition && <div className="seg"><span className="lab">Competition</span><button className="on" onClick={() => set({ competition: null })}>{filt.competition} ×</button></div>}
           <div className="seg"><span className="lab">Years</span>
             <input className="yr" inputMode="numeric" placeholder="from" defaultValue={filt.year_from || ""} key={"f" + filt.year_from} onBlur={(e) => set({ year_from: e.target.value || null })} aria-label="From year" />
             <input className="yr" inputMode="numeric" placeholder="to" defaultValue={filt.year_to || ""} key={"t" + filt.year_to} onBlur={(e) => set({ year_to: e.target.value || null })} aria-label="To year" />

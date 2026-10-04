@@ -8,10 +8,10 @@ const GROUP_COLORS: Record<string, string> = {
   Control: "#35e0c2", Threat: "#ff5c74",
 };
 
-export default function Fingerprint({ pid, format, teamType, onDrill }: {
-  pid: string; format?: string; teamType?: string; onDrill: (title: string, q: Params) => void;
+export default function Fingerprint({ pid, format, teamType, onDrill, initialRole = "auto" }: {
+  pid: string; format?: string; teamType?: string; onDrill: (title: string, q: Params) => void; initialRole?: "auto" | "batting" | "bowling";
 }) {
-  const [role, setRole] = useState<"auto" | "batting" | "bowling">("auto");
+  const [role, setRole] = useState<"auto" | "batting" | "bowling">(initialRole);
   const [fp, setFp] = useState<any | null>(null);
   const [sel, setSel] = useState<string | null>(null);
   useEffect(() => {
