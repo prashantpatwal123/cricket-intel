@@ -1,6 +1,7 @@
 "use client";
 // Spell Story: a bowler's overs in one innings, over by over and ball by ball. Every ball opens Delivery Replay.
 import Link from "next/link";
+import { useRemember } from "@/lib/memory";
 import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
@@ -18,6 +19,7 @@ function Spell() {
   const [s, setS] = useState<any | null>(null);
   const [err, setErr] = useState(false);
   const [sel, setSel] = useState<any | null>(null);
+  useRemember("spell", `${match}|${inn}|${pid}`, s?.bowler ? `${s.bowler.name} ${s.totals?.wickets}/${s.totals?.runs}` : null, `/spell/${match}/${inn}/${pid}`);
   useEffect(() => {
     api(`/spells/${match}/${inn}/${pid}`).then((r) => {
       setS(r.data);

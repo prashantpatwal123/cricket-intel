@@ -7,8 +7,12 @@ import { Suspense, useEffect, useState } from "react";
 import { api, apiPost, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 import Deliveries from "@/components/Deliveries";
+import ExploreNext from "@/components/ExploreNext";
 
-const EXAMPLES = ["Show Kohli's best covered innings while chasing", "What happened in India v Pakistan in Melbourne in 2022?", "Who partners Mandhana best?",
+const EXAMPLES = ["Who dismisses Kohli most?", "Who has Kohli scored fastest against?", "What changes after Kohli faces 30 balls?",
+  "Who are the best death-over bowlers since 2020?", "Which players are most similar to Rohit?", "What is Bumrah's best spell?",
+  "Compare Kohli and Rohit in chases", "Show India's biggest successful T20 chases", "Which Kohli-Zampa dismissals happened in death overs?",
+  "Show Kohli's best covered innings while chasing", "What happened in India v Pakistan in Melbourne in 2022?", "Who partners Mandhana best?",
   "Show Bumrah's best death-over spells", "Which bowlers have troubled Kohli most?", "Compare Kohli before and after 2020", "Who improved their strike rate most after 30 balls?",
   "Show me unusual India-Australia battles", "How does Kohli score after facing 30 balls?", "Who is best while chasing 10+ an over?", "Which bowler has dismissed Rohit most?",
   "How does Bumrah perform in overs 17-20?", "Who has the highest boundary rate after 30 balls?", "Which partnerships score fastest in the death overs?",
@@ -37,7 +41,7 @@ function Ask() {
   };
   const pickCandidate = (amb: string, name: string) => go((res.question as string).replace(amb.trim(), name));
   const lbs = res ? (res.leaderboards || (res.leaderboard ? [res.leaderboard] : [])) : [];
-  const linkHref = (l: any) => !l ? null : l.kind === "how_out" ? `/how-out/${l.id}` : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
+  const linkHref = (l: any) => !l ? null : l.kind === "compare" ? `/compare?ids=${l.ids.join(",")}` : l.kind === "record" ? `/records/${l.id}` : l.kind === "how_out" ? `/how-out/${l.id}` : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
     : l.kind === "match" ? `/match/${l.id}` : l.kind === "rivalry" ? `/rivalry?a=${encodeURIComponent(l.a)}&b=${encodeURIComponent(l.b)}&gender=${l.gender}`
     : l.kind === "partnerships" ? `/partnerships?sort=${l.sort}${l.phase ? `&phase=${l.phase}` : ""}${l.format ? `&format=${l.format}` : ""}`
     : l.kind === "records" ? `/records?${new URLSearchParams({ metric: l.metric, ...Object.fromEntries(Object.entries(l.filters || {}).map(([k, v]) => [k, String(v)])) })}` : null;
@@ -47,8 +51,8 @@ function Ask() {
   return (
     <div className="search-hero fade-in" style={{ maxWidth: 780, marginTop: 26 }}>
       <div className="kicker">Ask Cricket · v3</div>
-      <h1 className="big-title" style={{ fontSize: "clamp(34px, 8vw, 58px)" }}>Ask. Every number is a query.</h1>
-      <p className="sub">Ask answers statistical questions; to find a player, match or record by name, use <Link href="/search" className="ul">Search</Link>. Your question is turned into a structured query you can see and edit. The numbers come from the same engines as the rest of the app. No language model writes them.</p>
+      <h1 className="big-title" style={{ fontSize: "clamp(34px, 8vw, 58px)" }}>Ask cricket.</h1>
+      <div className="sub">Who dismisses whom, who scores fastest against whom, best spells, chases, comparisons. You&apos;ll see exactly how your question was read. <details className="why" style={{ display: "inline-block", marginTop: 4 }}><summary>WHY trust it?</summary>Your question becomes a structured query you can see and edit; the numbers come from the same engines as the rest of the app. No language model writes them. To find a player or match by name, use <Link href="/search" className="ul">Search</Link>.</details></div>
       <form onSubmit={(e) => { e.preventDefault(); if (q.trim()) go(q.trim()); }} style={{ display: "flex", gap: 8, marginTop: 16 }}>
         <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. Who has dismissed Kohli most?" aria-label="Ask a question" />
         <button className="btn primary" type="submit" disabled={busy}>{busy ? "…" : "Ask"}</button>
@@ -96,7 +100,7 @@ function Ask() {
           {res.status === "ok" && (
             <div className="card answer" style={{ marginTop: 12 }}>
               <div className="kicker">In our covered data <ProvBadge prov="OBSERVED" /></div>
-              <div className="ans">{res.answer}</div>
+              <div className="ans" data-testid="ask-answer">{res.answer}</div>
               {res.numbers?.length > 0 && (
                 <div className="statstrip" style={{ gridTemplateColumns: `repeat(${Math.min(4, res.numbers.length)}, minmax(0, 1fr))` }}>
                   {res.numbers.map((n: any, i: number) => {
@@ -160,10 +164,16 @@ function Ask() {
                 {res.caveat && <><dt>Caveat</dt><dd style={{ fontWeight: 500 }}>{res.caveat}</dd></>}
               </dl>
               {linkHref(res.link) && <Link className="btn primary" style={{ display: "inline-block", marginTop: 12 }} href={linkHref(res.link)!}>
-                {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →"
+                {res.link.kind === "compare" ? "Open the full comparison →" : res.link.kind === "record" ? "Open the record →" : res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →"
                   : res.link.kind === "match" ? "Open the match →" : res.link.kind === "rivalry" ? "Open the rivalry →" : res.link.kind === "how_out" ? "Explore every dismissal →" : "Open the evidence →"}</Link>}
             </div>
           )}
+          {res.status === "ok" && (() => {
+            const l = res.link || {}, sub = res.intent?.subject, opp = res.intent?.opponent;
+            const t = l.kind === "battle" ? ["battle", `${l.bat}|${l.bowl}`] : l.kind === "match" ? ["match", l.id]
+              : sub && opp && res.intent.kind !== "compare_players" ? ["battle", `${sub.person_id}|${opp.person_id}`] : sub ? ["player", sub.person_id] : null;
+            return t ? <ExploreNext type={t[0]} id={t[1]} title="Keep exploring" /> : null;
+          })()}
           <div className="chips" style={{ marginTop: 16 }}>{EXAMPLES.filter((e) => e !== res.question).slice(0, 4).map((e) => <button key={e} className="chip wrap" onClick={() => go(e)}>{e}</button>)}</div>
         </div>
       )}

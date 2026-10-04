@@ -10,6 +10,8 @@ import ProvBadge from "@/components/Prov";
 import { C, Crease, Defs, Figure, Pitch, Stumps } from "@/components/cricket/primitives";
 import OutcomeMap from "@/components/viz/OutcomeMap";
 import ExploreNext from "@/components/ExploreNext";
+import MomentCard from "@/components/fan/MomentCard";
+import { useRemember } from "@/lib/memory";
 
 type P = { person_id: string; name: string } | null;
 const BREAKS = [["phase", "Phase"], ["innings", "Setting / chasing"], ["year", "Year"], ["format", "Format"]] as const;
@@ -47,6 +49,7 @@ function Battle() {
   useEffect(() => { setSim(null); if (batId && bowlId) api("/battles/similar", { bat: batId, bowl: bowlId }).then((r) => setSim(r.data)); }, [batId, bowlId]);
   const onDrill = (title: string, q: any) => { setDrill({ title, q }); setTimeout(() => document.getElementById("evidence")?.scrollIntoView({ behavior: "smooth" }), 60); };
   const t = d?.total;
+  useRemember("battle", batId && bowlId ? `${batId}|${bowlId}` : null, d?.met ? `${d.batter.name} v ${d.bowler.name}` : null, `/battle?bat=${batId}&bowl=${bowlId}`);
 
   return (
     <div className="fade-in">
@@ -87,6 +90,7 @@ function Battle() {
           <div className="mini" style={{ marginTop: 8 }}>Runs per dismissal: <b>{t.runs_per_dismissal != null ? fmt(t.runs_per_dismissal, 1) : "no dismissals"}</b> · dot balls {fmt(t.dot_pct, 1)}% · boundaries {fmt(t.boundary_pct, 1)}% of balls faced. 2s and 3s: {t.twos_threes}.</div>
         </section>
 
+        <MomentCard type="battle" k={`${batId}|${bowlId}`} context="A real ball from their most recent meetings. Make your call before the replay reveals it." />
         <section className="section">
           <div className="grid2">
             <div className="card">
@@ -127,7 +131,7 @@ function Battle() {
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
             <button className="btn primary" onClick={() => onDrill(`Every ball: ${d.batter.name} v ${d.bowler.name}`, d.evidence_query)}>Every ball they&apos;ve faced →</button>
           </div>
-          <div className="mini" style={{ marginTop: 10 }}>Not shown, because the data doesn&apos;t record it: {d.not_available.join(" · ")}.</div>
+          <div className="mini" style={{ marginTop: 10 }}>Not shown (the data doesn&apos;t record it): {d.not_available.join(" · ")}.</div>
         </section>
         {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
         <Knowledge bat={batId!} bowl={bowlId!} />

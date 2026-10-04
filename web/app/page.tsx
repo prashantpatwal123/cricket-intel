@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import InsightCard from "@/components/InsightCard";
 import DiscoveryCard from "@/components/DiscoveryCard";
+import DailyDiscovery from "@/components/fan/DailyDiscovery";
 
 const TYPES = [["all", "All"], ["matchup", "Matchups"], ["dismissal", "Dismissals"], ["partnership", "Partnerships"], ["state", "When they change"],
   ["trend", "Trends"], ["record", "Records"], ["comeback", "Comebacks"]] as const;
@@ -20,6 +21,7 @@ export default function Explore() {
   const [disc, setDisc] = useState<any | null>(null);
   const [type, setType] = useState("all");
   const [more, setMore] = useState(false);
+  const [above, setAbove] = useState<Set<string>>(new Set());
   useEffect(() => { api("/explore").then((r) => setFeed(r.data)).catch(() => setFeed({ error: true })); }, []);
   useEffect(() => { api("/discover").then((r) => setDisc(r.data)).catch(() => setDisc({ items: [] })); }, []);
   const [exp, setExp] = useState(false);
@@ -27,7 +29,8 @@ export default function Explore() {
   useEffect(() => { api("/feed").then((r) => setFeed2(r.data)).catch(() => setFeed2({ cards: [] })); }, []);
   useEffect(() => { api("/meta").then((r) => setExp(!!r.data.experimental)).catch(() => {}); }, []);
   // Findings already in today's feed are not repeated in the discovery grid below it.
-  const inFeed = new Set((feed2?.cards || []).map((c: any) => c.href));
+  const inFeed = new Set([...(feed2?.cards || []).map((c: any) => c.href), ...Array.from(above)]);
+  const why = (r: string) => String(r || "").replace(/\s*\(score [\d.]+\)/g, "");
   const items = (disc?.items || []).filter((c: any) => (type === "all" || c.type === type) && !inFeed.has(c.href));
   const types = TYPES.filter(([k]) => k === "all" || (disc?.items || []).some((c: any) => c.type === k));
   const ask = (text: string) => text.trim() && router.push(`/ask?q=${encodeURIComponent(text.trim())}`);
@@ -50,21 +53,22 @@ export default function Explore() {
         </div>
       </section>
 
-      <section className="section" aria-label="Today's feed">
-        <div className="eyebrow">Today · {feed2?.day ?? ""}</div>
-        <div className="h2" style={{ marginTop: 4 }}>{feed2?.cards?.length ? `${feed2.cards.length} things worth your time` : "Things worth your time"}</div>
-        <div className="mini" style={{ marginTop: 8 }}>A fresh, deterministic mix each day: findings, innings, spells, battles, records, partnerships, a historical moment and a game. Every item says why it was picked.</div>
+      <DailyDiscovery onItems={(h) => setAbove(new Set(h))} />
+
+      <section className="section" aria-label="Today's mix">
+        <div className="eyebrow">Today&apos;s mix · {feed2?.day ?? ""}</div>
+        <div className="h2" style={{ marginTop: 4 }}>Innings, spells and moments</div>
         {!feed2 ? <div className="loading">Building today&apos;s feed…</div> : feed2.cards.length > 0 && (<>
           <Link href={feed2.cards[0].href} className="feed-lead">
             <span className={`ft ${feed2.cards[0].type}`} style={{ fontSize: 11, fontWeight: 900, letterSpacing: ".12em", textTransform: "uppercase" }}>{feed2.cards[0].label}</span>
             <div className="t">{feed2.cards[0].title}</div>
             <div className="lead" style={{ marginTop: 8 }}>{feed2.cards[0].text}</div>
-            <div className="why mini" style={{ marginTop: 6 }}>Why this: {feed2.cards[0].reason}</div>
+            <div className="why mini" style={{ marginTop: 6 }}>Why this: {why(feed2.cards[0].reason)}</div>
           </Link>
-          <div>{feed2.cards.slice(1).map((c: any, i: number) => (
+          <div>{feed2.cards.slice(1).filter((c: any) => !above.has(c.href)).map((c: any, i: number) => (
             <Link key={i} href={c.href} className="feed-row" data-testid="feed-card">
               <span className={`ft ${c.type}`}>{c.label}</span>
-              <span className="fb"><b>{c.title}</b><span className="mini">{c.text}</span><div className="why">Why this: {c.reason}</div></span>
+              <span className="fb"><b>{c.title}</b><span className="mini">{c.text}</span><div className="why">Why this: {why(c.reason)}</div></span>
               <span className="fn num">{c.numbers?.[0]?.value ?? "→"}</span>
             </Link>))}</div>
         </>)}

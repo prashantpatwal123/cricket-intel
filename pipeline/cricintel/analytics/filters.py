@@ -111,7 +111,7 @@ class Filters:
                 if v is not None:
                     c.append(f"{a}{col} = ?"); p.append(v)
             if self.chasing is not None:
-                c.append(f"{a}coalesce(chasing, false) = ?"); p.append(self.chasing)
+                c.append(f"coalesce({a}chasing, false) = ?"); p.append(self.chasing)
             if self.over_from is not None:
                 c.append(f"{a}over + 1 >= ?"); p.append(self.over_from)  # 1-based, as fans count overs
             if self.over_to is not None:

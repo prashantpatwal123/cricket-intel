@@ -10,7 +10,13 @@ from __future__ import annotations
 from functools import lru_cache
 
 from ..db import DB
+from .filters import FULL_MEMBERS
 from .stats import percentile_rank, wilson
+
+_FM = ",".join("'" + t + "'" for t in FULL_MEMBERS)
+# "major" scope (Phase 7 fan home): leagues plus internationals between full members, for player AND peers alike
+MAJOR = f" AND (team_type = 'club' OR (batting_team IN ({_FM}) AND bowling_team IN ({_FM})))"
+MAJOR_DIS = MAJOR.replace("team_type", "x.team_type").replace("batting_team", "x.batting_team").replace("bowling_team", "x.bowling_team")
 
 PEER_MIN = {"T20": 500, "ODI": 800}
 DIM_MIN = {"T20": 60, "ODI": 100}  # min balls inside a dimension's subset before it is shown
@@ -108,16 +114,16 @@ DIMS = [
 
 
 @lru_cache(maxsize=32)
-def _peers(db: DB, fmt: str, gender: str, team_type: str | None) -> dict:
+def _peers(db: DB, fmt: str, gender: str, team_type: str | None, major: bool = False) -> dict:
     extra = " AND team_type = ?" if team_type else ""
     p = [fmt, gender] + ([team_type] if team_type else [])
     rr = PRESSURE_RRR.get(fmt, 10.0)
-    sql = AGG_SQL.format(extra=extra, extra_dis=extra.replace("team_type", "x.team_type"))
+    sql = AGG_SQL.format(extra=extra + (MAJOR if major else ""), extra_dis=extra.replace("team_type", "x.team_type") + (MAJOR_DIS if major else ""))
     rows = db.q(sql, [*p, *p, rr, rr, rr])
     return {r["pid"]: r for r in rows}
 
 
-def fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None = None) -> dict:
+def fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None = None, major: bool = False) -> dict:
     prof = db.q1("SELECT genders FROM player_profile WHERE person_id = ?", [pid])
     if not prof:
         return {"available": False, "reason": "unknown player"}
@@ -127,7 +133,7 @@ def fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None 
     if not avail:
         return {"available": False, "reason": "no batting in covered data"}
     fmt = fmt or avail[0]["format_group"]
-    peers = _peers(db, fmt, gender, team_type)
+    peers = _peers(db, fmt, gender, team_type, major)
     me = peers.get(pid)
     if not me or not me["balls"]:
         return {"available": False, "reason": f"no {fmt} batting", "formats": avail}
@@ -150,10 +156,11 @@ def fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None 
         dims.append(dim)
     # one-line interval for the headline rates (shown in WHY)
     lo, hi = wilson(me["outs"], me["balls"])
-    return {"available": True, "role": "batting", "format": fmt, "team_type": team_type, "gender": gender, "formats": avail,
+    return {"available": True, "role": "batting", "format": fmt, "team_type": team_type, "gender": gender, "scope": "major" if major else "all", "formats": avail,
             "balls": me["balls"], "runs": me["runs"], "outs": me["outs"], "below_peer_threshold": me["balls"] < PEER_MIN[fmt],
             "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} batters in our covered data "
-                          f"with >= {PEER_MIN[fmt]} balls faced" + (f" ({team_type})" if team_type else ""),
+                          f"with >= {PEER_MIN[fmt]} balls faced" + (f" ({team_type})" if team_type else "")
+                          + (" in leagues and full-member internationals (the player's own numbers use the same matches)" if major else ""),
                           "pressure_rrr": PRESSURE_RRR[fmt]},
             "out_rate_interval_90": [round(100 * lo, 2), round(100 * hi, 2)] if lo is not None else None,
             "dimensions": dims,
@@ -223,13 +230,13 @@ BOWL_DIMS = [
 
 
 @lru_cache(maxsize=32)
-def _bowl_peers(db: DB, fmt: str, gender: str, team_type: str | None) -> dict:
+def _bowl_peers(db: DB, fmt: str, gender: str, team_type: str | None, major: bool = False) -> dict:
     extra = " AND team_type = ?" if team_type else ""
     p = [fmt, gender] + ([team_type] if team_type else [])
-    return {r["pid"]: r for r in db.q(BOWL_SQL.format(extra=extra, extra_dis=extra), [*p, *p])}
+    return {r["pid"]: r for r in db.q(BOWL_SQL.format(extra=extra + (MAJOR if major else ""), extra_dis=extra + (MAJOR if major else "")), [*p, *p])}
 
 
-def bowling_fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None = None) -> dict:
+def bowling_fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None = None, major: bool = False) -> dict:
     prof = db.q1("SELECT genders FROM player_profile WHERE person_id = ?", [pid])
     gender = prof["genders"][0]
     avail = db.q("""SELECT format_group, count(*) FILTER (WHERE legal) AS balls FROM balls WHERE bowler_id = ?
@@ -237,7 +244,7 @@ def bowling_fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str
     if not avail:
         return {"available": False, "reason": "no bowling in covered data"}
     fmt = fmt or avail[0]["format_group"]
-    peers = _bowl_peers(db, fmt, gender, team_type)
+    peers = _bowl_peers(db, fmt, gender, team_type, major)
     me = peers.get(pid)
     if not me or not me["balls"]:
         return {"available": False, "reason": f"no {fmt} bowling", "formats": avail}
@@ -254,8 +261,9 @@ def bowling_fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str
                      "enough_sample": ok, "min_sample": minimum, "percentile": percentile_rank(v, popvals) if ok else None,
                      "peer_median": round(sorted(popvals)[len(popvals) // 2], 2) if popvals else None, "peer_n": len(popvals),
                      "evidence": {"format": fmt, **({"team_type": team_type} if team_type else {}), **ev}, "prov": "OBSERVED aggregate"})
-    return {"available": True, "role": "bowling", "format": fmt, "gender": gender, "formats": avail, "balls": me["balls"],
+    return {"available": True, "role": "bowling", "format": fmt, "gender": gender, "scope": "major" if major else "all", "formats": avail, "balls": me["balls"],
             "wickets": me["wkts"], "runs": me["runs"], "below_peer_threshold": me["balls"] < BOWL_PEER_MIN[fmt],
             "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} bowlers in our covered data "
-                          f"with >= {BOWL_PEER_MIN[fmt]} legal balls"},
+                          f"with >= {BOWL_PEER_MIN[fmt]} legal balls"
+                          + (" in leagues and full-member internationals (the player's own numbers use the same matches)" if major else "")},
             "dimensions": dims, "not_available": ["line & length", "pace/speed", "bowling type (metadata coverage too low)", "field settings"]}

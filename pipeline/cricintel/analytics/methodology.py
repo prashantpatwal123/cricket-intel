@@ -68,7 +68,19 @@ def methodology(db: DB, experimental: bool) -> dict:
                             "spell_library": [{"key": k, "label": v[0], "definition": v[1]} for k, v in SPELL_CATS.items()],
                             "battles": [{"key": k, "label": v[0], "definition": v[1]} for k, v in BATTLE_CATS.items()]},
             "models": models,
-            "versions": {"live_engine": _live_versions()[0], "right_now": _live_versions()[1], "context": CONTEXT_VERSION, "graph": GRAPH_VERSION, "working_db": WORKING_VERSION, "search": SEARCH_V, "discovery": DISC_V, "feed": FEED_V},
+            "versions": {"live_engine": _live_versions()[0], "right_now": _live_versions()[1], "context": CONTEXT_VERSION, "graph": GRAPH_VERSION, "working_db": WORKING_VERSION, "search": SEARCH_V, "discovery": DISC_V, "feed": FEED_V, **_fan_versions()},
+            "fan": {"rabbit_hole": "Explore-next destinations are real relationships in covered data, ranked by strength, unusualness, sample, "
+                                   "recognisability, recency and relationship kind, diversified, and pushed down when already opened in this browser. "
+                                   "Session memory stays in the browser; the page sends the list of opened pages with each request and nothing is stored.",
+                    "similar_players": "Nearest neighbours on fingerprint dimensions (style, not quality), validated on held-out halves of each player's "
+                                       "matches; pools that fail the stability bar are not shown.",
+                    "didnt_know": "Discovery findings that survive Benjamini–Hochberg (q = 0.01) across every candidate tested, with minimum samples.",
+                    "compare": "Per-dimension verdicts with a Bonferroni-corrected test; no overall score.",
+                    "records": "Record book: named definitions × scope, each with definition, minimum sample, filters, coverage and evidence. "
+                               "Single-match records have a 'major teams' view (leagues + full-member internationals) and an all-covered view.",
+                    "on_this_day": "'N years ago today' only for single-day matches; matches spanning days are labelled as having begun that day.",
+                    "play_moments": "Pre-ball state only; the replay opens at that cursor and reveals the ball after the call.",
+                    "docs": ["docs/architecture/knowledge-graph-and-rabbit-hole.md", "docs/models/similar-players.md", "docs/product/phase7-fan-audit.md"]},
             "experimental": [{"name": "Situation Difficulty — Experimental (SDX v0.1)", "status": "on" if experimental else "off",
                               "doc": "docs/models/situation-difficulty.md"},
                              {"name": "Performance in difficult chases", "status": "on" if experimental else "off",
@@ -88,6 +100,11 @@ def methodology(db: DB, experimental: bool) -> dict:
                             "Franchise renames are grouped for rivalries and team filters (e.g. Kings XI Punjab → Punjab Kings); original names stay on every match.",
                             "T20I completeness cannot be established from Cricsheet's pages; competition pages say when completeness is unknown.",
                             "Cricsheet withholds matches involving Afghanistan men.", "Batting hand is unknown for almost all players."]}
+
+
+def _fan_versions() -> dict:
+    from ..fan import kg, rabbit, records2, similar
+    return {"fan_graph": kg.VERSION, "rabbit_hole": rabbit.VERSION, "similar_players": similar.VERSION, "records_v2": records2.VERSION}
 
 
 def _live_versions() -> tuple[str, str]:

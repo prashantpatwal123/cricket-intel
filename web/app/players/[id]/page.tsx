@@ -18,6 +18,8 @@ import InningsList from "@/components/InningsList";
 import SpellsList from "@/components/SpellsList";
 import CareerExplorer from "@/components/CareerExplorer";
 import ExploreNext from "@/components/ExploreNext";
+import PlayerHome from "@/components/fan/PlayerHome";
+import { useRemember } from "@/lib/memory";
 
 const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "format", label: "Format", opts: [["", "All"], ["T20", "T20"], ["ODI", "ODI"]] },
@@ -40,7 +42,7 @@ function PlayerPage() {
   const sp = useSearchParams();
   const router = useRouter();
   const tab = sp.get("tab") || "overview";
-  const shown = FILTERS.filter((f) => BALL_LEVEL_TABS.has(tab) || f.key === "format" || f.key === "team_type");
+  const shown = tab === "overview" ? [] : FILTERS.filter((f) => BALL_LEVEL_TABS.has(tab) || f.key === "format" || f.key === "team_type");
   const filters: Params = useMemo(() => Object.fromEntries(shown.map((f) => [f.key, sp.get(f.key) || ""]).filter(([, v]) => v)), [sp, tab]);
   const route = sp.get("route");
   const [prof, setProf] = useState<any | null>(null);
@@ -48,6 +50,9 @@ function PlayerPage() {
   const [ins, setIns] = useState<any | null>(null);
   const [drill, setDrill] = useState<{ title: string; q: Params } | null>(null);
   const [covOpen, setCovOpen] = useState(false);
+  const [fan, setFan] = useState<any | null>(null);
+  useEffect(() => { setFan(null); api(`/fan/player/${id}`).then((r) => setFan(r.data)).catch(() => setFan({ error: true })); }, [id]);
+  useRemember("player", id, fan?.hero?.name, `/players/${id}`);
 
   const setParams = useCallback((kv: Record<string, string | null>) => {
     const n = new URLSearchParams(sp.toString());
@@ -59,8 +64,10 @@ function PlayerPage() {
   const base = { format: filters.format, team_type: filters.team_type };
   useEffect(() => { api(`/players/${id}/profile`, filters).then((r) => setProf(r.data)).catch(() => setProf({ error: true })); }, [id, JSON.stringify(filters)]);
   useEffect(() => { api(`/players/${id}/dismissals`, filters).then((r) => setDis(r.data)); }, [id, JSON.stringify(filters)]);
-  useEffect(() => { setIns(null); api(`/players/${id}/insights`, base).then((r) => setIns(r.data)).catch(() => setIns({ cards: [], reason: "unavailable" })); },
-    [id, base.format, base.team_type]);
+  useEffect(() => {
+    if (tab !== "strengths") return;   // the fan home gets its findings from /fan/player; the full engine output loads on its tab
+    setIns(null); api(`/players/${id}/insights`, base).then((r) => setIns(r.data)).catch(() => setIns({ cards: [], reason: "unavailable" }));
+  }, [id, base.format, base.team_type, tab]);
   useEffect(() => { setDrill(null); }, [tab]);
 
   const onDrill = (title: string, q: Params) => {
@@ -75,34 +82,46 @@ function PlayerPage() {
   const m = prof.metadata, bat = prof.batting, bowl = prof.bowling;
   const isBowler = bowl && (!bat?.balls || bowl.balls > bat.balls * 1.3);
   const total = dis?.total ?? 0;
-  const topRoute = dis?.routes?.slice().sort((a: any, b: any) => b.n - a.n)[0];
   const cards = (ins?.cards || []) as any[];
   const partial = (prof.coverage.breakdown || []).filter((c: any) => c.status !== "COMPLETE" && c.status !== "COMPLETE_FOR_TEAM").length;
 
   return (
     <div className="fade-in">
-      {/* ---------------- HERO */}
-      <section className="hero">
+      {/* ---------------- HERO: who is this, in one screen */}
+      <section className="hero fan-hero">
         <div className="kicker">{(prof.genders || []).map((g: string) => (g === "female" ? "Women's cricket" : "Men's cricket")).join(" · ")} · {prof.teams.slice(0, 3).join(" · ")}{prof.teams.length > 3 ? ` +${prof.teams.length - 3}` : ""}</div>
         <h1 className="hero-name">{prof.name}</h1>
+        {fan?.hero && <div className="hero-line">
+          <span className="kind">{fan.hero.kind}</span>
+          {fan.hero.formats.map((f: any) => <span key={f.format} className="fmtpill">{f.format} · {f.matches}</span>)}
+          {fan.hero.span.from && <span className="mini">{fan.hero.span.from.slice(0, 4)}–{fan.hero.span.to.slice(0, 4)} in covered data</span>}
+        </div>}
+        {/* known metadata only; unknown fields are explained behind WHY, not shown as hero chips */}
         <div className="chips">
-          <MetaChip label="Role" f={m.role} />
-          <MetaChip label="Bats" f={m.batting_hand} fmtv={(v) => `${v}-handed`} />
-          <MetaChip label="Bowls" f={m.bowling_style} />
-          {m.wicketkeeper.value && <MetaChip label="Keeper" f={m.wicketkeeper} />}
+          {[["Role", m.role], ["Bats", m.batting_hand], ["Bowls", m.bowling_style], ["Keeper", m.wicketkeeper]].filter(([, f]: any) => f?.value).map(([l, f]: any) =>
+            <MetaChip key={l} label={l} f={f} fmtv={l === "Bats" ? (v) => `${v}-handed` : undefined} />)}
         </div>
         <div className="hero-stats">
-          {isBowler ? (<>
+          {fan?.hero?.numbers?.length ? fan.hero.numbers.slice(0, 3).map((n: any) => <HStat key={n.l} v={n.v} l={n.l} />) : isBowler ? (<>
             <HStat v={fmt(bowl.wickets)} l="Wickets" /><HStat v={fmt(bowl.economy, 2)} l="Economy" /><HStat v={fmt(bowl.strike_rate, 1)} l="Balls / wkt" />
           </>) : (<>
             <HStat v={fmt(bat?.runs)} l="Runs" /><HStat v={fmt(bat?.average, 1)} l="Average" /><HStat v={fmt(bat?.strike_rate, 1)} l="Strike rate" />
           </>)}
         </div>
-        <div className="coverage"><span className="ico">i</span><span><b>DATASET COVERAGE:</b> {prof.coverage.statement}{" "}
-          <button className="btn" style={{ padding: "2px 10px", fontSize: 12 }} onClick={() => setCovOpen(!covOpen)} aria-expanded={covOpen}>
-            {covOpen ? "Hide" : `Details${partial ? ` · ${partial} with gaps or unknown completeness` : ""}`}</button></span></div>
-        {covOpen && <>
-          <div className="covgrid fade-in">
+        <div className="hero-foot">
+          <span className="mini">Covered matches only, not official totals.</span>
+          <button className="why-btn" onClick={() => setCovOpen(!covOpen)} aria-expanded={covOpen}>{covOpen ? "Hide" : "WHY? Coverage & metadata"}</button>
+          <Link className="btn sm" href={`/compare?ids=${id}`}>Compare</Link>
+        </div>
+        {covOpen && <div className="fade-in" style={{ marginTop: 10 }}>
+          <div className="mini" style={{ marginBottom: 6 }}>{prof.coverage.statement}</div>
+          <div className="chips">
+            <MetaChip label="Role" f={m.role} />
+            <MetaChip label="Bats" f={m.batting_hand} fmtv={(v) => `${v}-handed`} />
+            <MetaChip label="Bowls" f={m.bowling_style} />
+            {m.wicketkeeper.value && <MetaChip label="Keeper" f={m.wicketkeeper} />}
+          </div>
+          <div className="covgrid">
             {(prof.coverage.breakdown || []).map((c: any) => (
               <div key={c.label} className="covrow">
                 <div><b>{c.label}</b> <span className="mini">{c.matches} matches · {String(c.first_date).slice(0, 4)}–{String(c.last_date).slice(0, 4)}</span></div>
@@ -112,40 +131,25 @@ function PlayerPage() {
             ))}
           </div>
           {prof.coverage.notes.filter((n: any) => n.kind !== "source_exclusion").map((n: any, i: number) => <div key={i} className="note">{n.text}</div>)}
-        </>}
+          {partial > 0 && <div className="mini">{partial} competition{partial > 1 ? "s" : ""} with gaps or unknown completeness.</div>}
+        </div>}
       </section>
 
       {/* ---------------- TABS + FILTERS */}
       <nav className="tabs" aria-label="Player sections">
         {TABS.filter(([k]) => k !== "bowling" || bowl?.balls).map(([k, l]) => <button key={k} className={tab === k ? "on" : ""} onClick={() => goTab(k)} aria-current={tab === k}>{l}</button>)}
       </nav>
-      <div className="filters" style={{ position: "static" }}>
+      {shown.length > 0 && <div className="filters" style={{ position: "static" }}>
         {shown.map((f) => (
           <div className="seg" key={f.key}>
             <span className="lab">{f.label}</span>
             {f.opts.map(([v, l]) => <button key={v} className={(filters[f.key] || "") === v ? "on" : ""} onClick={() => setParam(f.key, v || null)}>{l}</button>)}
           </div>
         ))}
-      </div>
+      </div>}
 
-      {tab === "overview" && (<>
-        <section className="section" style={{ marginTop: 12 }}>
-          <div className="section-head"><div><div className="kicker">Cricket fingerprint</div><div className="h2">How {prof.name} plays, against peers</div>
-            <div className="sub">Each petal is a percentile against players of the same gender, format and level. Tap one for the number and its deliveries.</div></div></div>
-          <div className="card"><Fingerprint pid={id} format={filters.format as string} teamType={filters.team_type as string} onDrill={onDrill} /></div>
-        </section>
-        <section className="section">
-          <div className="section-head"><div><div className="kicker">Strengths & weaknesses</div><div className="h2">What stands out</div>
-            <div className="sub">{ins ? (ins.baseline ? `Compared with ${ins.baseline}.` : "") : "Testing splits…"}</div></div>
-            {cards.length > 2 && <button className="btn" onClick={() => goTab("strengths")}>All {cards.length} →</button>}</div>
-          <InsightList ins={ins} cards={cards.slice(0, 2)} onDrill={onDrill} />
-        </section>
-        <section className="section">
-          <div className="section-head"><div><div className="kicker">Dismissal DNA</div><div className="h2">How {prof.name} gets out</div>
-            <div className="sub">{total ? <>{total} dismissals · one every {fmt(dis.balls_per_dismissal, 1)} balls faced.{topRoute?.n ? <> Most common: <b>{topRoute.label.toLowerCase()}</b> ({topRoute.pct}%).</> : null} Tap a route for its story.</> : "No dismissals in this selection."}</div></div></div>
-          <div className="card" style={{ maxWidth: 520 }}>{dis && <HowOut routes={dis.routes} hand={m.batting_hand.value} selected={null} onSelect={pickRoute} name={prof.name} />}</div>
-        </section>
-      </>)}
+      {tab === "overview" && (fan?.hero ? <PlayerHome pid={id} fan={fan} dis={dis} hand={m.batting_hand.value} onDrill={onDrill} />
+        : fan?.error ? <div className="empty">Could not load this player's home.</div> : <div className="loading">Reading {prof.name}&apos;s cricket…</div>)}
 
       {tab === "strengths" && (
         <section className="section" style={{ marginTop: 12 }}>

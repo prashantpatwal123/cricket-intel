@@ -60,7 +60,7 @@ def parse(db: DB, question: str) -> Intent:
     it = Intent()
     res = _resolver(db)
     players = []
-    for a, b, ps in res.find(q):
+    for a, b, ps in res.find(re.sub(r"(?<=[a-z])-(?=[a-z])", " ", q)):   # "Kohli-Zampa" names two players
         best, others = Resolver.pick(ps)
         if best is None:
             it.notes.append({"ambiguous": question[max(0, a - 1):b], "candidates": [{"person_id": o["person_id"], "name": o["name"],
@@ -99,8 +99,8 @@ def parse(db: DB, question: str) -> Intent:
         f["year_from"] = f["year_to"] = int(m.group(1))
     elif (m := re.search(r"before (\d{4})", q)):
         f["year_to"] = int(m.group(1)) - 1
-    if (m := re.search(r"after (?:facing )?(\d+) balls", q)):
-        f["faced_from"] = int(m.group(1))
+    if (m := re.search(r"after (?:facing )?(\d+) balls|(?:after|once) .{0,30}?(?:faces?|facing|faced|has faced) (\d+) balls", q)):
+        f["faced_from"] = int(next(x for x in m.groups() if x))
     if (m := re.search(r"(first|opening) (\d+) balls", q)):
         f["faced_to"] = int(m.group(2)) - 1
     if (m := re.search(r"between balls (\d+) and (\d+)|\bballs (\d+) ?(?:-|–|to) ?(\d+)", q)):
@@ -154,7 +154,29 @@ def parse(db: DB, question: str) -> Intent:
             break
     ranking = (re.search(r"^\s*(who|which)\b", q) and re.search(r"\b(most|highest|lowest|best|fewest|least|top)\b", q)) or \
         re.search(r"^\s*(most|highest|lowest|best|fewest|top|leaders?)\b", q)
-    if players and re.search(r"how (does|do|did|has) .+ (get|got|been|gets) (out|dismissed)|how (is|was) .+ dismissed|how .+ gets? out", q):
+    if players and re.search(r"\bsimilar\b|plays? like|most like", q):
+        it.kind, it.subject = "similar", players[0]
+    elif players and re.search(r"fastest against|scored (the )?fastest|quickest against|highest strike rate against", q):
+        it.kind, it.subject = "scored_fastest_against", players[0]
+    elif len(players) == 1 and "faced_from" in f and re.search(r"\bchange|\bdiffer|what happens|how does .+ (score|bat)", q):
+        it.kind, it.subject = "player_faced_change", players[0]
+        it.notes.append({"after_balls": f.pop("faced_from")})
+    elif len(players) >= 2 and re.search(r"\bcompare\b|\bcomparison\b", q):
+        it.kind, it.subject, it.opponent = "compare_players", players[0], players[1]
+    elif len(players) >= 2 and re.search(r"\bdismissals?\b", q) and not re.search(r"how many", q):
+        a, b = players[0], players[1]
+        n_ab = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [a["person_id"], b["person_id"]])["n"]
+        n_ba = db.q1("SELECT count(*) AS n FROM balls WHERE batter_id = ? AND bowler_id = ?", [b["person_id"], a["person_id"]])["n"]
+        if n_ba > n_ab:
+            a, b = b, a
+        it.kind, it.subject, it.opponent = "battle_dismissals", a, b
+    elif not players and len(mentioned) >= 1 and re.search(r"\bchas(e|es)\b", q) and re.search(r"biggest|highest|largest|successful|best", q):
+        it.kind = "team_chases"
+        it.notes.append({"team": mentioned[0]})
+        f.pop("chasing", None); f.pop("opposition", None)
+        if len(mentioned) >= 2:
+            f["opposition"] = mentioned[1]
+    elif players and re.search(r"how (does|do|did|has) .+ (get|got|been|gets) (out|dismissed)|how (is|was) .+ dismissed|how .+ gets? out", q):
         it.kind, it.subject = "how_out", players[0]
     elif players and re.search(r"\b(innings|knocks?|scores)\b", q) and re.search(r"\b(best|top|highest|biggest)\b", q):
         it.kind, it.subject = "innings_list", players[0]
@@ -212,6 +234,9 @@ def parse(db: DB, question: str) -> Intent:
         it.kind, it.subject = "dismissed_by", players[0]
     elif ranking:
         it.kind = "leaderboard"
+        if not it.metric and re.search(r"\bbest\b", q) and re.search(r"\bbowl(ers?|ing)\b", q):
+            it.metric = "economy"
+            it.notes.append({"assumed": "'best' bowlers read as lowest economy; name a statistic (wickets, dot balls) to change it"})
         if not it.metric and re.search(r"\bbest\b", q):
             it.metric = "strike_rate"
             it.notes.append({"assumed": "'best' read as highest strike rate; name a statistic to change it"})
@@ -219,6 +244,10 @@ def parse(db: DB, question: str) -> Intent:
             it.metric = {"RUN_OUT": "times_run_out", "BOWLED": "times_bowled", "CAUGHT_KEEPER": "keeper_catches",
                          "STUMPED": "stumpings"}.get(it.dismissal)
         rate = it.metric in METRICS and METRICS[it.metric][5] > 0
+        if rate and f.get("phase") and not it.min_sample:
+            # one phase is a small slice of a career: "best in the death" needs a bigger sample than the all-balls default
+            it.min_sample = 300
+            it.notes.append({"assumed": "minimum 300 balls in that phase; add 'min N balls' to change it"})
         if rate and not ({"team_type", "competition", "opposition", "full_members"} & set(f)):
             # Rate leaderboards over all teams are dominated by small associate samples; default to the main game, visibly.
             f["full_members"] = True
@@ -283,7 +312,9 @@ def interpretation(it: Intent) -> list[dict]:
              "phase_change": "Middle → death change", "dismissal_list": "List of dismissals", "bowler_summary": "Bowling summary",
              "innings_list": "Best innings", "spells_list": "Best spells", "match_lookup": "Find a match", "partners": "Best partners",
              "troubled_by": "Bowlers who troubled", "period_compare": "Before / after", "faced_change": "Change after N balls",
-             "rivalry_battles": "Unusual battles in a rivalry", "how_out": "How they get out"}
+             "rivalry_battles": "Unusual battles in a rivalry", "how_out": "How they get out",
+             "scored_fastest_against": "Scored fastest against", "player_faced_change": "Before / after N balls", "similar": "Similar players",
+             "compare_players": "Compare two players", "team_chases": "Biggest successful chases", "battle_dismissals": "Dismissals in a battle"}
     chips.append({"key": "kind", "label": names.get(it.kind, it.kind), "removable": False})
     if it.subject:
         chips.append({"key": "subject", "label": it.subject["name"], "removable": False})
@@ -312,6 +343,8 @@ def interpretation(it: Intent) -> list[dict]:
             chips.append({"key": "place", "label": f"in {n['place'].title()}", "removable": False})
         if "split_year" in n:
             chips.append({"key": "split", "label": f"before / from {n['split_year']}", "removable": False})
+        if "team" in n:
+            chips.append({"key": "team", "label": n["team"], "removable": False})
         if "after_balls" in n:
             chips.append({"key": "after", "label": f"before v after ball {n['after_balls']}", "removable": False})
     return chips
@@ -365,6 +398,10 @@ def execute(db: DB, it: Intent) -> dict:
                 "ambiguous": [n for n in it.notes if "ambiguous" in n]}
     f = Filters.parse(it.filters)
     scope = _scope(it.filters, it.gender)
+    from . import fan as FAN
+    v4 = FAN.execute(db, it, f, scope, base)
+    if v4 is not None:
+        return v4
     v3 = _execute_v3(db, it, f, scope, base)
     if v3 is not None:
         return v3

@@ -6,6 +6,7 @@ import { Suspense, useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import PlayerPicker from "@/components/PlayerPicker";
 import ProvBadge from "@/components/Prov";
+import CompareV2, { CompareWithSimilar, SuggestedPairs } from "@/components/fan/CompareV2";
 
 const COLS = ["#35e0c2", "#ffb547", "#7cc4ff", "#c49bff"];
 const SEGS = [{ key: "format", label: "Format", opts: [["", "All"], ["T20", "T20"], ["ODI", "ODI"]] },
@@ -63,7 +64,10 @@ function Compare() {
         </div>
       </section>
 
-      {!ids.length && <div className="empty">Pick two to four players. Batting numbers are compared; use the format and level filters to compare like with like.</div>}
+      {!ids.length && <SuggestedPairs />}
+      {ids.length === 1 && <CompareWithSimilar pid={ids[0]} />}
+      {ids.length === 2 && <CompareV2 a={ids[0]} b={ids[1]} format={f.format || undefined} />}
+      {ids.length === 2 && <div className="eyebrow" style={{ marginTop: 24 }}>Raw numbers (formats as filtered above) and coverage</div>}
       {ids.length > 0 && !d && <div className="loading">Comparing…</div>}
       {d?.warnings?.length > 0 && (
         <div className="cmp-warn">

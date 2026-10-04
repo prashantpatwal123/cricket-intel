@@ -1,6 +1,7 @@
 "use client";
 // Rivalry (team v team) and team overview. Gender, format and competition filters are explicit.
 import Link from "next/link";
+import { useRemember } from "@/lib/memory";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
@@ -15,6 +16,7 @@ function Rivalry() {
   const router = useRouter();
   const a = sp.get("a") || "", b = sp.get("b") || "", gender = sp.get("gender") || "male", format = sp.get("format") || "", competition = sp.get("competition") || "";
   const [d, setD] = useState<any | null>(null);
+  useRemember("rivalry", `${a}|${b}|${gender}`, d ? `${a} v ${b}` : null);
   const [err, setErr] = useState(false);
   useEffect(() => { setD(null); setErr(false); api("/rivalry", { a, b, gender, format, competition }).then((r) => setD(r.data)).catch(() => setErr(true)); }, [sp.toString()]);
   const set = (kv: Record<string, string>) => { const n = new URLSearchParams(sp.toString()); for (const [k, v] of Object.entries(kv)) v ? n.set(k, v) : n.delete(k); router.replace(`/rivalry?${n}`, { scroll: false }); };

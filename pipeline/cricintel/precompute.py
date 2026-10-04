@@ -3,7 +3,8 @@
     python -m cricintel.precompute --dataset cricsheet [--full]
 
 Steps (each timed and reported): Context Engine parquet → Situation Difficulty (experimental) → persisted working DuckDB
-with knowledge-graph tables → search index → discovery (both modes) → Explore feed → daily-feed pools.
+with knowledge-graph tables → search index → discovery (both modes) → Explore feed → daily-feed pools → fan similarity
+index (validated) → Records V2.
 Incremental: a step is skipped when its output already matches the current dataset build, unless --full.
 """
 from __future__ import annotations
@@ -54,13 +55,18 @@ def run(dataset: str, full: bool = False) -> dict:
     db = DB(dataset)
     from .analytics import discovery as D, explore as EX, feed as F, search as SR
     if full:
-        for f in ("search_index.json", "discovery_cache.json", "discovery_cache_exp.json", "explore_cache.json", "feed_pools.json"):
+        for f in ("search_index.json", "discovery_cache.json", "discovery_cache_exp.json", "explore_cache.json", "feed_pools.json",
+                  "fan_similar.json", "fan_records.json"):
             (d / f).unlink(missing_ok=True)
     step("search_index", lambda: {"entities": len(SR.load(db).E)})
     step("discovery", lambda: {"items": len(D.discover(db, False)["items"])})
     step("discovery_experimental", lambda: {"items": len(D.discover(db, db.has_situation)["items"])})
     step("explore", lambda: EX.feed(db) and None)
     step("feed_pools", lambda: {k: len(v) for k, v in F._pools(db, False).items()})
+    # Phase 7 fan layer: validated similarity index (with holdout report) and the Records V2 book
+    from .fan import records2 as R2, similar as SM
+    step("fan_similar", lambda: {"pools": SM.build(db)}, skip=not full and SM.load(db) is not None)
+    step("fan_records", lambda: R2.build(db), skip=not full and bool(R2.load(db)["records"]))
     rep["total_seconds"] = round(time.time() - t_all, 1)
     return rep
 

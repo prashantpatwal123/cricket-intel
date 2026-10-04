@@ -29,21 +29,23 @@ export default function InningsJourney({ story, sel, onSel }: { story: any; sel:
         <svg width={Wd} height={H} role="img" aria-label="Innings journey">
           {phaseRuns.map((p) => <g key={p.a}>
             <rect x={14 + p.a * STEP} y={TOP - 14} width={(p.b - p.a + 1) * STEP} height={BASE - TOP + 40} fill={{ powerplay: "#7cc4ff", middle: "#ffffff", death: "#ffb547" }[p.phase] || "#fff"} opacity={0.04} />
-            <text x={16 + p.a * STEP} y={TOP - 4} fontSize={9} fill="#5d6a88">{p.phase}</text></g>)}
+            <text x={16 + p.a * STEP} y={TOP - 4} fontSize={11} fill="#5d6a88">{p.phase}</text></g>)}
           <line x1={14} x2={Wd - 10} y1={BASE} y2={BASE} stroke="#ffffff22" />
-          {story.events.filter((e: any) => e.kind === "partner").map((e: any) => { const i = ix(e.seq); return <g key={"p" + e.seq}>
+          {story.events.filter((e: any) => e.kind === "partner").map((e: any, k: number, arr: any[]) => { const i = ix(e.seq);
+            // labels of partners who arrive close together are staggered so they never overlap
+            const lift = k > 0 && (i - ix(arr[k - 1].seq)) * STEP < 96 && k % 2 === 1 ? 13 : 0; return <g key={"p" + e.seq}>
             <line x1={14 + i * STEP} x2={14 + i * STEP} y1={TOP} y2={H - 14} stroke="#7cc4ff" strokeDasharray="2 3" opacity={0.6} />
-            <text x={16 + i * STEP} y={H - 4} fontSize={9} fill="#7cc4ff">{e.label.replace("new partner: ", "+ ")}</text></g>; })}
+            <text x={16 + i * STEP} y={H - 4 - lift} fontSize={11} fill="#7cc4ff">{e.label.replace("new partner: ", "+ ")}</text></g>; })}
           {story.events.filter((e: any) => e.kind === "milestone").map((e: any) => { const i = ix(e.seq); return <g key={"m" + e.seq}>
             <line x1={20 + i * STEP} x2={20 + i * STEP} y1={yCum(balls[i].cum_runs)} y2={TOP - 2} stroke="#9df26b" />
-            <text x={23 + i * STEP} y={TOP + 6} fontSize={10} fill="#9df26b" fontWeight={800}>{e.label.split(" ")[0]}</text></g>; })}
+            <text x={23 + i * STEP} y={TOP + 6} fontSize={11} fill="#9df26b" fontWeight={800}>{e.label.split(" ")[0]}</text></g>; })}
           <polyline points={cum} fill="none" stroke="#edf2fc" strokeWidth={1.6} opacity={0.75} />
           {balls.map((b, i) => {
             const x = 20 + i * STEP, on = i === sel;
             if (!b.on_strike) return <g key={b.seq} onClick={() => onSel(i)} style={{ cursor: "pointer" }}>
               <rect x={x - STEP / 2} y={BASE + 2} width={STEP} height={30} fill="transparent" />
               <circle cx={x} cy={BASE + 14} r={on ? 3 : 1.6} fill={b.partner_out ? "#ff5c74" : "#5d6a88"} />
-              {b.partner_out && <text x={x} y={BASE + 30} fontSize={9} textAnchor="middle" fill="#ff5c74">✕</text>}</g>;
+              {b.partner_out && <text x={x} y={BASE + 30} fontSize={11} textAnchor="middle" fill="#ff5c74">✕</text>}</g>;
             const col = b.out ? OUTCOME_COLOR.WICKET : b.six ? OUTCOME_COLOR["6"] : b.four ? OUTCOME_COLOR["4"] : b.dot ? OUTCOME_COLOR.DOT : b.runs ? OUTCOME_COLOR["1"] : "#3a4566";
             const h = b.out ? 34 : b.runs ? 6 + 8 * Math.min(6, b.runs) : 3;
             return <g key={b.seq} onClick={() => onSel(i)} style={{ cursor: "pointer" }}>
@@ -53,7 +55,7 @@ export default function InningsJourney({ story, sel, onSel }: { story: any; sel:
             </g>;
           })}
           <line x1={20 + sel * STEP} x2={20 + sel * STEP} y1={TOP - 6} y2={BASE + 20} stroke="#edf2fc" strokeWidth={1.5} className="fade-svg" />
-          <text x={8} y={BASE + 46} fontSize={9} fill="#5d6a88">at the other end</text>
+          <text x={8} y={BASE + 46} fontSize={11} fill="#5d6a88">at the other end</text>
         </svg>
       </div>
       <input type="range" className="scrub" min={0} max={n - 1} value={sel} onChange={(e) => onSel(Number(e.target.value))} aria-label="Scrub through the innings" />

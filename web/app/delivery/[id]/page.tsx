@@ -1,6 +1,7 @@
 "use client";
 // Delivery Replay v1: one real delivery, using only what the data records. ← / → walk through the innings.
 import Link from "next/link";
+import { useRemember } from "@/lib/memory";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
@@ -16,6 +17,7 @@ export default function Replay() {
   const did = decodeURIComponent(id);
   const router = useRouter();
   const [r, setR] = useState<any | null>(null);
+  useRemember("delivery", decodeURIComponent(id), r?.batter ? `${r.batter.name} v ${r.bowler.name} · ball ${r.over_ball}` : null, `/delivery/${id}`);
   const [err, setErr] = useState(false);
   useEffect(() => { setErr(false); api(`/deliveries/${encodeURIComponent(did)}/replay`).then((x) => setR(x.data)).catch(() => setErr(true)); }, [did]);
   const model = useMemo(() => (r ? deliveryModel(r) : null), [r]);

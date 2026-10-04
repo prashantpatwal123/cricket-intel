@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 import ExploreNext from "@/components/ExploreNext";
+import MomentCard from "@/components/fan/MomentCard";
+import { useRemember } from "@/lib/memory";
 import Worm from "@/components/viz/Worm";
 
 export default function MatchPage() {
@@ -13,6 +15,7 @@ export default function MatchPage() {
   const [d, setD] = useState<any | null>(null);
   const [err, setErr] = useState(false);
   const [inn, setInn] = useState(0);
+  useRemember("match", id, d?.match ? `${d.match.team1} v ${d.match.team2}` : null, `/match/${id}`);
   useEffect(() => { setD(null); api(`/match/${id}`).then((r) => setD(r.data)).catch(() => setErr(true)); }, [id]);
   if (err) return <div className="empty" style={{ marginTop: 30 }}>Match not found.</div>;
   if (!d) return <div className="loading">Loading the match…</div>;
@@ -21,7 +24,7 @@ export default function MatchPage() {
   return (
     <div className="fade-in">
       <section className="match-head">
-        <div className="eyebrow">{m.competition || "Match"}{m.event_stage ? ` · ${m.event_stage}` : ""} · {m.season} · {m.gender === "female" ? "Women" : "Men"} · {m.format_group}</div>
+        <div className="eyebrow">{m.competition ? <Link href={`/competition?name=${encodeURIComponent(m.competition)}&gender=${m.gender}${m.season ? `&season=${encodeURIComponent(m.season)}` : ""}`} className="ul">{m.competition}</Link> : "Match"}{m.event_stage ? ` · ${m.event_stage}` : ""} · {m.season} · {m.gender === "female" ? "Women" : "Men"} · {m.format_group}</div>
         <div className="scoreboard">
           {I.map((i: any) => (
             <div key={i.innings_no} className={`sb-row ${m.winner === i.batting_team ? "won" : ""}`}>
@@ -42,6 +45,7 @@ export default function MatchPage() {
         </div>
       </section>
 
+      <MomentCard type="match" k={id} context="A real pre-ball moment from this match. Replay opens at that ball; nothing after it is shown until you pick." />
       <section className="rule-section">
         <div className="eyebrow">Worm & Manhattan <ProvBadge prov="DERIVED" /></div>
         <Worm innings={I.map((i: any) => ({ team: i.batting_team, overs: i.overs_list }))} maxOvers={maxOv} />

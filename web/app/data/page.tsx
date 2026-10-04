@@ -82,7 +82,7 @@ export default function DataPage() {
         <div>
           <div className="eyebrow">Experimental (behind a flag)</div>
           <div className="tablist">{d.experimental.map((x: any) => <div key={x.name} className="trow"><span className="n">⚗</span><span className="t"><b>{x.name}</b><span className="mini">{x.doc}</span></span><span className="mini">{x.status}</span></div>)}</div>
-          <div className="eyebrow" style={{ marginTop: 14 }}>Rejected because the data can&apos;t support them</div>
+          <div className="eyebrow" style={{ marginTop: 14 }}>Rejected: the data can&apos;t support them</div>
           <div className="tablist">{d.rejected.map((x: any) => <div key={x.name} className="trow"><span className="n">✕</span><span className="t"><b>{x.name}</b><span className="mini">{x.why}</span></span><span /></div>)}</div>
         </div>
       </section>

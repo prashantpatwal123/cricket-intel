@@ -163,12 +163,20 @@ await session(Mo, async (p, settle) => {
   // 14. Rabbit hole: Kohli → Kohli–Zampa → a dismissal → (spell) → that match → tournament → record → another player
   const hops = [];
   await p.goto(`${BASE}/players/${KOHLI}`); await settle(1500); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "Adam Zampa" }).first().click(); await settle(1300); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "Latest dismissal" }).click(); await settle(1000); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "spell" }).first().click(); await settle(1000); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "The match" }).first().click(); await settle(1000); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "This edition" }).click(); await settle(1200); hops.push(p.url());
-  await p.locator(".xnext-row", { hasText: "Records in this competition" }).click(); await settle(1200); hops.push(p.url());
+  // Phase 7: Explore-next is ranked per session (Rabbit-Hole engine), so hops are chosen by destination type, not fixed labels;
+  // the asserted chain of page types below is unchanged.
+  const X = (sel) => p.locator(`[data-testid=explore-next] ${sel}`).first();
+  await p.waitForSelector("[data-testid=explore-next] .xnext-row");
+  await X(".xnext-row[data-type=battle]").click(); await settle(1300); hops.push(p.url());
+  await p.waitForSelector("[data-testid=explore-next] .xnext-row");
+  await X(".xnext-row[data-type=delivery]").click(); await settle(1000); hops.push(p.url());
+  await p.waitForSelector("[data-testid=explore-next] .xnext-row");
+  await X(".xnext-row[data-type=spell]").click(); await settle(1000); hops.push(p.url());
+  await p.waitForSelector("[data-testid=explore-next] .xnext-row");
+  await X(".xnext-row[data-type=match]").click(); await settle(1000); hops.push(p.url());
+  await p.locator("main a[href^='/competition?']").first().click(); await settle(1200); hops.push(p.url());
+  await p.waitForSelector("[data-testid=explore-next] .xnext-row");
+  await X(".xnext-row[href^='/records?']").click(); await settle(1200); hops.push(p.url());
   await p.locator(".rec-row").nth(1).click(); await settle(1000); hops.push(p.url());
   await note("rabbit-hole", { hops });
   const want = [/\/players\//, /\/battle\?/, /\/delivery\//, /\/spell\//, /\/match\//, /\/competition\?/, /\/records\?/, /\/players\//];

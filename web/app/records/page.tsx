@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
+import RecordBook from "@/components/fan/RecordBook";
 
 const SEGS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "gender", label: "", opts: [["male", "Men"], ["female", "Women"]] },
@@ -17,7 +18,13 @@ const SEGS: { key: string; label: string; opts: [string, string][] }[] = [
 ];
 const FKEYS = ["format", "team_type", "competition", "phase", "chasing", "full_members", "year_from", "year_to", "team", "opposition", "batter_stage", "wk_from", "wk_to"];
 
-export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><Records /></Suspense>; }
+export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><RecordsRoute /></Suspense>; }
+
+// No query: the Record Book (exploration product). With a metric or preset: the leaderboard builder.
+function RecordsRoute() {
+  const sp = useSearchParams();
+  return sp.toString() ? <><Link href="/records" className="mini" style={{ display: "inline-block", marginTop: 14 }}>← Record book</Link><Records /></> : <RecordBook />;
+}
 
 function Records() {
   const sp = useSearchParams();

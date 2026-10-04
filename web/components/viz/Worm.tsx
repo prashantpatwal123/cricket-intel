@@ -14,7 +14,7 @@ export default function Worm({ innings, maxOvers }: { innings: { team: string; o
   return (
     <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%" }} role="img" aria-label="Worm and Manhattan chart">
       {[0.25, 0.5, 0.75, 1].map((f) => <g key={f}><line x1={L} x2={W - 10} y1={y(f * top)} y2={y(f * top)} stroke="#ffffff0d" />
-        <text x={L - 4} y={y(f * top) + 4} fontSize={10} textAnchor="end" fill="#5d6a88">{Math.round(f * top)}</text></g>)}
+        <text x={L - 4} y={y(f * top) + 4} fontSize={11} textAnchor="end" fill="#5d6a88">{Math.round(f * top)}</text></g>)}
       {innings.map((inn, k) => (
         <g key={k}>
           {inn.overs.map((o) => <rect key={o.over} x={x(o.over) - (k + 1) * bw} y={H - B - (o.runs / maxOver) * MH} width={bw - 1} height={(o.runs / maxOver) * MH}
@@ -24,7 +24,7 @@ export default function Worm({ innings, maxOvers }: { innings: { team: string; o
             <title>{`${o.wkts} wicket${o.wkts > 1 ? "s" : ""} in over ${o.over + 1}`}</title></circle> : null)}
         </g>
       ))}
-      {Array.from({ length: maxOvers / (maxOvers > 20 ? 10 : 5) + 1 }).map((_, i) => { const ov = i * (maxOvers > 20 ? 10 : 5); return <text key={ov} x={L + (ov / maxOvers) * (W - L - 10)} y={H - 8} fontSize={10} textAnchor="middle" fill="#5d6a88">{ov}</text>; })}
+      {Array.from({ length: maxOvers / (maxOvers > 20 ? 10 : 5) + 1 }).map((_, i) => { const ov = i * (maxOvers > 20 ? 10 : 5); return <text key={ov} x={L + (ov / maxOvers) * (W - L - 10)} y={H - 8} fontSize={11} textAnchor="middle" fill="#5d6a88">{ov}</text>; })}
       <line x1={L} x2={W - 10} y1={H - B} y2={H - B} stroke="#ffffff22" />
     </svg>
   );

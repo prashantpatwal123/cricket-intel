@@ -81,6 +81,36 @@ async function build(sp: URLSearchParams): Promise<{ spec: CardSpec; back: strin
       visual: { kind: "worm", series: d.innings.map((i: any) => i.overs_list.map((o: any) => o.runs)) },
       lines: [`${m.venue || ""}`], prov: "OBSERVED", coverage: d.coverage.text.slice(0, 86) } };
   }
+  if (t === "finding") {
+    const c = (await api("/fan/finding", { id: sp.get("id") })).data;
+    return { back: c.href, spec: { eyebrow: `You probably didn't know · ${c.gender === "female" ? "Women" : "Men"} · ${c.format}`, title: c.headline,
+      big: String(c.numbers?.[0]?.value ?? ""), bigLabel: c.numbers?.[0]?.label ?? "", stats: (c.numbers || []).slice(1, 4).map((n: any) => ({ label: n.label, value: String(n.value) })),
+      lines: [c.statement], prov: "DERIVED · passed a false-discovery check", coverage: COV } };
+  }
+  if (t === "story") {
+    const d = (await api(`/fan/player/${sp.get("pid")}`)).data;
+    // the big number skips digits attached to letters (the "20" in "T20")
+    const c = [...(d.stories?.cards || []), ...(d.different?.items || [])].find((x: any) => x.id === sp.get("id"));
+    if (!c) return null;
+    return { back: `/players/${sp.get("pid")}`, spec: { eyebrow: `Player story · ${d.hero.name}`, title: c.title || c.headline,
+      big: (c.headline.match(/(?<![A-Za-z\d])\d[\d,.]*\d|(?<![A-Za-z\d])\d/) || [""])[0], bigLabel: c.title ? c.headline : "",
+      stats: c.sample ? [{ label: "sample", value: String(c.sample).slice(0, 28) }] : [], lines: wrapText(c.comparison || c.body || "", 60).slice(0, 3),
+      prov: c.prov || "OBSERVED", coverage: COV } };
+  }
+  if (t === "rec2") {
+    const r = (await api(`/fan/records/${sp.get("id")}`)).data;
+    return { back: `/records/${r.id}`, spec: { eyebrow: `Record book · ${r.category} · ${r.scope}`, title: r.title, big: r.rows[0]?.value_fmt?.split(" (")[0] ?? "–",
+      bigLabel: r.rows[0]?.label ?? "", stats: r.min_sample ? [{ label: "minimum", value: String(r.min_sample) }] : [],
+      visual: { kind: "rank", rows: r.rows.slice(0, 5).map((x: any) => ({ name: x.label, value: x.value_fmt.split(" (")[0] })) },
+      lines: wrapText(r.definition, 60).slice(0, 2), prov: r.prov, coverage: COV } };
+  }
+  if (t === "prediction") {
+    const ok = sp.get("ok") === "1";
+    return { back: sp.get("back") || "/play", spec: { eyebrow: `What happened next? · ${sp.get("line") || "historical moment"}`.slice(0, 70),
+      title: ok ? "Called it." : "Not this time.", big: sp.get("actual") || "–", bigLabel: `what happened · I picked ${sp.get("pick") || "–"}`,
+      stats: [{ label: "my points", value: sp.get("pts") || "0" }, { label: "model picked", value: sp.get("mpick") || "–" }, { label: "model points", value: sp.get("mpts") || "0" }],
+      lines: ["A real ball from a covered match, shown only after the call."], prov: "OBSERVED outcome, MODELLED probabilities", coverage: COV } };
+  }
   if (t === "whn") {
     return { back: "/play", spec: { eyebrow: "What happens next? · historical moments", title: "My session", big: `${sp.get("pts") || 0}`, bigLabel: "points",
       stats: [{ label: "predictions", value: sp.get("n") || "0" }, { label: "accuracy", value: `${sp.get("acc") || 0}%` }, { label: "model points", value: sp.get("mpts") || "0" },

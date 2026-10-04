@@ -1,6 +1,8 @@
 "use client";
 // Partnership Intelligence: best pairs (sample-controlled), biggest single stands, and a pair's full history.
 import Link from "next/link";
+import { useRemember } from "@/lib/memory";
+import ExploreNext from "@/components/ExploreNext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
@@ -18,6 +20,7 @@ function Partnerships() {
   const [d, setD] = useState<any | null>(null);
   const [st, setSt] = useState<any | null>(null);
   const [pair, setPair] = useState<any | null>(null);
+  useRemember("partnership", p1 && p2 ? [p1, p2].sort().join("|") : null, pair?.p1 ? `${pair.p1.name} & ${pair.p2.name}` : null);
   const [drill, setDrill] = useState<any | null>(null);
   const set = (kv: Record<string, string>) => { const n = new URLSearchParams(sp.toString()); for (const [k, v] of Object.entries(kv)) v ? n.set(k, v) : n.delete(k); router.replace(`/partnerships?${n}`, { scroll: false }); };
   useEffect(() => { if (p1 && p2) { setPair(null); api("/partnerships/pair", { p1, p2, format: f.format }).then((r) => setPair(r.data)); } else setPair(null); }, [p1, p2, f.format]);
@@ -92,6 +95,7 @@ function Partnerships() {
           ))}
         </div>
       </section>}
+      {p1 && p2 && <ExploreNext type="partnership" id={[p1, p2].sort().join("|")} />}
     </div>
   );
 }

@@ -268,6 +268,13 @@ def insights(db: DB, pid: str, fmt: str, team_type: str | None = None, name: str
             },
             "evidence_query": {"batter_id": pid, "format": fmt, **({"team_type": team_type} if team_type else {}), **t["evidence"]},
             "stable": stability.startswith("same"), "p": t["p"], "prov": "MODELLED (statistical comparison of OBSERVED events)",
+            # raw numbers for plain-language rendering (Phase 7 fan copy); the test and thresholds above are unchanged
+            "plain": {"phrase": t["phrase"], "metric": t["metric"], "metric_label": t["metric_label"], "kind": t["kind"], "direction": t["direction"],
+                      "good": good, "band": band_short,
+                      "player_in": round(100 * a[t["field"]] / a["n"], 1) if t["kind"] == "rate" else round(100 * a["runs"] / a["n"], 1),
+                      "player_out": round(100 * b[t["field"]] / b["n"], 1) if t["kind"] == "rate" else round(100 * b["runs"] / b["n"], 1),
+                      "typical_in": round(100 * t["league_in"], 1) if t["kind"] == "rate" else round(t["league_in"], 1),
+                      "typical_out": round(100 * t["league_out"], 1) if t["kind"] == "rate" else round(t["league_out"], 1)},
         })
     cards.sort(key=lambda c: (not c["stable"], c["p"]))
     for i, c in enumerate(cards):

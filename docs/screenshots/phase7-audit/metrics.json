@@ -1,0 +1,568 @@
+{
+ "res": [
+  {
+   "page": "explore",
+   "path": "/",
+   "height": 8929,
+   "screens": 10.6,
+   "overflow": 0,
+   "links": 45,
+   "uniqueLinks": 44,
+   "kinds": {
+    "players": 14,
+    "innings": 5,
+    "battle": 3,
+    "spell": 2,
+    "delivery": 1,
+    "partnerships": 4,
+    "records": 1,
+    "play": 2,
+    "share": 8,
+    "live-lab": 1,
+    "competitions": 1,
+    "compare": 1,
+    "context": 1,
+    "lab": 1
+   },
+   "explore_next": false,
+   "method_terms": 2,
+   "tiny_text": 41,
+   "table_rows": 0,
+   "words": 1527,
+   "heads": [
+    "H1:WHAT THE BALL-BY-BALL\nRECORD ACTUALLY SHOWS"
+   ],
+   "fold": [
+    "WHAT THE BALL-BY-BALL\nRECORD ACTUALLY SHOWS",
+    "Patterns, battles and records found in our covered",
+    "Ask",
+    "Who has dismissed Virat Kohli most?",
+    "Most sixes in death overs",
+    "Mandhana strike rate in WPL",
+    "Bumrah v Warner",
+    "CAREER TREND\nS MANDHANA'S ODI STRIKE RATE IS UP: 1"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "kohli",
+   "path": "/players/ba607b88",
+   "height": 3922,
+   "screens": 4.6,
+   "overflow": 0,
+   "links": 8,
+   "uniqueLinks": 8,
+   "kinds": {
+    "share": 1,
+    "innings": 2,
+    "battle": 1,
+    "partnerships": 1,
+    "competition": 1,
+    "match": 1,
+    "players": 1
+   },
+   "explore_next": true,
+   "method_terms": 7,
+   "tiny_text": 8,
+   "table_rows": 0,
+   "words": 586,
+   "heads": [
+    "H1:VIRAT KOHLI"
+   ],
+   "fold": [
+    "VIRAT KOHLI",
+    "Details · 1 with gaps or unknown completeness",
+    "Overview",
+    "Strengths & weaknesses",
+    "When they change",
+    "Dismissals",
+    "Matchups",
+    "Partners",
+    "Innings",
+    "Bowling",
+    "Career",
+    "Numbers",
+    "All",
+    "T20"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "bumrah",
+   "path": "/players/462411b3",
+   "height": 3454,
+   "screens": 4.1,
+   "overflow": 0,
+   "links": 9,
+   "uniqueLinks": 9,
+   "kinds": {
+    "share": 1,
+    "innings": 2,
+    "battle": 2,
+    "partnerships": 1,
+    "spell": 1,
+    "competition": 1,
+    "match": 1
+   },
+   "explore_next": true,
+   "method_terms": 7,
+   "tiny_text": 4,
+   "table_rows": 0,
+   "words": 469,
+   "heads": [
+    "H1:JASPRIT BUMRAH"
+   ],
+   "fold": [
+    "JASPRIT BUMRAH",
+    "Details · 1 with gaps or unknown completeness",
+    "Overview",
+    "Strengths & weaknesses",
+    "When they change",
+    "Dismissals",
+    "Matchups",
+    "Partners",
+    "Innings",
+    "Bowling",
+    "Career",
+    "Numbers",
+    "All",
+    "T20"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "mandhana",
+   "path": "/players/5d2eda89",
+   "height": 3961,
+   "screens": 4.7,
+   "overflow": 0,
+   "links": 8,
+   "uniqueLinks": 8,
+   "kinds": {
+    "share": 1,
+    "innings": 2,
+    "battle": 1,
+    "partnerships": 1,
+    "competition": 1,
+    "match": 1,
+    "players": 1
+   },
+   "explore_next": true,
+   "method_terms": 7,
+   "tiny_text": 8,
+   "table_rows": 0,
+   "words": 580,
+   "heads": [
+    "H1:S MANDHANA"
+   ],
+   "fold": [
+    "S MANDHANA",
+    "Details · 2 with gaps or unknown completeness",
+    "Overview",
+    "Strengths & weaknesses",
+    "When they change",
+    "Dismissals",
+    "Matchups",
+    "Partners",
+    "Innings",
+    "Bowling",
+    "Career",
+    "Numbers",
+    "All",
+    "T20"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "lesser",
+   "path": "/players/7b679de5",
+   "height": 3452,
+   "screens": 4.1,
+   "overflow": 0,
+   "links": 8,
+   "uniqueLinks": 8,
+   "kinds": {
+    "share": 1,
+    "innings": 2,
+    "battle": 1,
+    "partnerships": 1,
+    "competition": 1,
+    "match": 1,
+    "players": 1
+   },
+   "explore_next": true,
+   "method_terms": 9,
+   "tiny_text": 5,
+   "table_rows": 0,
+   "words": 474,
+   "heads": [
+    "H1:KARTIK SHARMA"
+   ],
+   "fold": [
+    "KARTIK SHARMA",
+    "Details",
+    "Overview",
+    "Strengths & weaknesses",
+    "When they change",
+    "Dismissals",
+    "Matchups",
+    "Partners",
+    "Innings",
+    "Career",
+    "Numbers",
+    "All",
+    "T20",
+    "ODI"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "kohli-zampa",
+   "path": "/battle?bat=ba607b88&bowl=14f96089",
+   "height": 4725,
+   "screens": 5.6,
+   "overflow": 0,
+   "links": 20,
+   "uniqueLinks": 16,
+   "kinds": {
+    "compare": 1,
+    "partnerships": 1,
+    "players": 4,
+    "story": 2,
+    "share": 1,
+    "battle": 8,
+    "delivery": 1,
+    "match": 1,
+    "spell": 1
+   },
+   "explore_next": true,
+   "method_terms": 8,
+   "tiny_text": 14,
+   "table_rows": 6,
+   "words": 858,
+   "heads": [
+    "H1:BATTER V BOWLER"
+   ],
+   "fold": [
+    "BATTER V BOWLER",
+    "Virat Kohli\nchange",
+    "Adam Zampa\nchange",
+    "Compare 2–4 players side by side →",
+    "Best partnerships →",
+    "Virat Kohli",
+    "Adam Zampa",
+    "3\nCaught by a fielder",
+    "2\nBowled",
+    "2\nCaught (keeper status unknown)"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "mcg-2022",
+   "path": "/match/1298150",
+   "height": 4338,
+   "screens": 5.1,
+   "overflow": 0,
+   "links": 57,
+   "uniqueLinks": 49,
+   "kinds": {
+    "story": 2,
+    "share": 1,
+    "delivery": 17,
+    "innings": 17,
+    "spell": 7,
+    "battle": 10,
+    "competition": 1,
+    "rivalry": 1,
+    "match": 1
+   },
+   "explore_next": true,
+   "method_terms": 5,
+   "tiny_text": 12,
+   "table_rows": 15,
+   "words": 770,
+   "heads": [],
+   "fold": [
+    "How the match unfolded →",
+    "Share card"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "kohli-82",
+   "path": "/innings/1298150/2/ba607b88",
+   "height": 3048,
+   "screens": 3.6,
+   "overflow": 0,
+   "links": 8,
+   "uniqueLinks": 6,
+   "kinds": {
+    "story": 2,
+    "match": 2,
+    "share": 1,
+    "delivery": 1,
+    "partnerships": 1,
+    "players": 1
+   },
+   "explore_next": true,
+   "method_terms": 3,
+   "tiny_text": 21,
+   "table_rows": 0,
+   "words": 425,
+   "heads": [
+    "H1:VIRAT KOHLI"
+   ],
+   "fold": [
+    "VIRAT KOHLI",
+    "How it unfolded (story) →",
+    "The match →",
+    "Share card"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "ask",
+   "path": "/ask",
+   "height": 1333,
+   "screens": 1.6,
+   "overflow": 0,
+   "links": 1,
+   "uniqueLinks": 1,
+   "kinds": {
+    "search": 1
+   },
+   "explore_next": false,
+   "method_terms": 0,
+   "tiny_text": 0,
+   "table_rows": 0,
+   "words": 180,
+   "heads": [
+    "H1:ASK. EVERY NUMBER IS A QUERY."
+   ],
+   "fold": [
+    "ASK. EVERY NUMBER IS A QUERY.",
+    "Ask answers statistical questions; to find a playe",
+    "Search",
+    "Ask",
+    "Show Kohli's best covered innings while chasing",
+    "What happened in India v Pakistan in Melbourne in ",
+    "Who partners Mandhana best?",
+    "Show Bumrah's best death-over spells",
+    "Which bowlers have troubled Kohli most?",
+    "Compare Kohli before and after 2020",
+    "Who improved their strike rate most after 30 balls",
+    "Show me unusual India-Australia battles",
+    "How does Kohli score after facing 30 balls?",
+    "Who is best while chasing 10+ an over?"
+   ],
+   "links_after_last": 1.3
+  },
+  {
+   "page": "ask-kohli-out",
+   "path": "/ask?q=Who%20dismisses%20Kohli%20most%3F",
+   "height": 1576,
+   "screens": 1.9,
+   "overflow": 0,
+   "links": 6,
+   "uniqueLinks": 6,
+   "kinds": {
+    "search": 1,
+    "battle": 5
+   },
+   "explore_next": false,
+   "method_terms": 1,
+   "tiny_text": 1,
+   "table_rows": 0,
+   "words": 179,
+   "heads": [
+    "H1:ASK. EVERY NUMBER IS A QUERY."
+   ],
+   "fold": [
+    "ASK. EVERY NUMBER IS A QUERY.",
+    "Ask answers statistical questions; to find a playe",
+    "Search",
+    "Ask",
+    "Show the pipeline",
+    "9\nAdam Zampa · 385 balls",
+    "9\nTim Southee · 286 balls",
+    "8\nJason Holder · 316 balls",
+    "7\nKagiso Rabada · 288 balls"
+   ],
+   "links_after_last": 0.8
+  },
+  {
+   "page": "play",
+   "path": "/play",
+   "height": 1288,
+   "screens": 1.5,
+   "overflow": 0,
+   "links": 1,
+   "uniqueLinks": 1,
+   "kinds": {
+    "live-lab": 1
+   },
+   "explore_next": false,
+   "method_terms": 1,
+   "tiny_text": 7,
+   "table_rows": 0,
+   "words": 163,
+   "heads": [],
+   "fold": [
+    "Session stats",
+    "Play a whole match: predict every ball of a histor",
+    "DOT\n10 pts · 0",
+    "1\n10 pts · 1",
+    "2\n23 pts · 2",
+    "3\n40 pts · 3",
+    "4\n21 pts · 4",
+    "6\n40 pts · 6",
+    "WICKET\n25 pts · W"
+   ],
+   "links_after_last": 1.3
+  },
+  {
+   "page": "records",
+   "path": "/records",
+   "height": 4003,
+   "screens": 4.7,
+   "overflow": 0,
+   "links": 26,
+   "uniqueLinks": 26,
+   "kinds": {
+    "players": 25,
+    "share": 1
+   },
+   "explore_next": false,
+   "method_terms": 1,
+   "tiny_text": 13,
+   "table_rows": 0,
+   "words": 543,
+   "heads": [
+    "H1:LEADERBOARDS"
+   ],
+   "fold": [
+    "LEADERBOARDS",
+    "Covered data only, so these are not official recor",
+    "Most sixes in death overs",
+    "Lowest dot-ball % after 30 balls faced",
+    "Most dismissals of one batter by one bowler",
+    "Highest strike rate while chasing (T20, full membe",
+    "Most times run out",
+    "Most catches as wicketkeeper",
+    "Best batter v bowler strike rate (min 60 balls)",
+    "Best death-overs economy (T20, full members & leag",
+    "Men",
+    "Women",
+    "All",
+    "T20"
+   ],
+   "links_after_last": 0.4
+  },
+  {
+   "page": "compare",
+   "path": "/compare",
+   "height": 844,
+   "screens": 1,
+   "overflow": 0,
+   "links": 0,
+   "uniqueLinks": 0,
+   "kinds": {},
+   "explore_next": false,
+   "method_terms": 0,
+   "tiny_text": 2,
+   "table_rows": 0,
+   "words": 34,
+   "heads": [
+    "H1:SIDE BY SIDE"
+   ],
+   "fold": [
+    "SIDE BY SIDE",
+    "All",
+    "T20",
+    "ODI",
+    "All",
+    "Intl",
+    "League"
+   ],
+   "links_after_last": 1
+  },
+  {
+   "page": "search",
+   "path": "/search",
+   "height": 1474,
+   "screens": 1.7,
+   "overflow": 0,
+   "links": 12,
+   "uniqueLinks": 12,
+   "kinds": {
+    "ask": 1,
+    "players": 1,
+    "competitions": 1,
+    "rivalries": 1,
+    "innings": 1,
+    "spells": 1,
+    "battle": 1,
+    "records": 1,
+    "partnerships": 1,
+    "live-lab": 1,
+    "visual-lab": 1,
+    "data": 1
+   },
+   "explore_next": false,
+   "method_terms": 1,
+   "tiny_text": 0,
+   "table_rows": 0,
+   "words": 126,
+   "heads": [],
+   "fold": [
+    "Ask",
+    "Virat Kohli",
+    "Kohli vs Zampa",
+    "India Pakistan 2022",
+    "Bumrah 6/19",
+    "Mandhana partnerships",
+    "2023 World Cup",
+    "death overs economy",
+    "RCB v CSK",
+    "Players\nSearch or browse every player\n→",
+    "Competitions\nIPL, WPL, World Cups and series\n→",
+    "Rivalries\nTeam v team head-to-heads\n→",
+    "Innings library\nHighest, fastest, hardest chases\n→",
+    "Spell library\nBest figures, death overs, bursts\n→"
+   ],
+   "links_after_last": 0.5
+  },
+  {
+   "page": "live-lab",
+   "path": "/live-lab",
+   "height": 1735,
+   "screens": 2.1,
+   "overflow": 0,
+   "links": 8,
+   "uniqueLinks": 8,
+   "kinds": {
+    "live-lab": 7,
+    "data": 1
+   },
+   "explore_next": false,
+   "method_terms": 1,
+   "tiny_text": 1,
+   "table_rows": 0,
+   "words": 295,
+   "heads": [
+    "H1:WATCH A FINISHED MATCH ARRIVE BALL BY BALL"
+   ],
+   "fold": [
+    "WATCH A FINISHED MATCH ARRIVE BALL BY BALL",
+    "Each replay feeds a completed Cricsheet match thro",
+    "Pakistan v India\nICC Men's T20 World Cup · 2022-10",
+    "Gujarat Titans v Chennai Super Kings\nIndian Premie",
+    "Delhi Capitals v Royal Challengers Bengaluru\nWomen",
+    "India v South Africa\nICC Women's World Cup · Final",
+    "India v Australia\nICC Cricket World Cup · Final · "
+   ],
+   "links_after_last": 0.4
+  }
+ ],
+ "errors": []
+}

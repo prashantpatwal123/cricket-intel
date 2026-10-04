@@ -15,7 +15,7 @@ from ..db import DB
 from .filters import FULL_MEMBERS
 from .player import ROUTE_META
 
-VERSION = "discovery-1.2"
+VERSION = "discovery-1.3"
 FM = ",".join("'" + t + "'" for t in FULL_MEMBERS)
 SCOPE = f"(team_type = 'club' OR (batting_team IN ({FM}) AND bowling_team IN ({FM})))"
 GL = {"male": "men's", "female": "women's"}
@@ -352,7 +352,10 @@ def discover(db: DB, sdx_available: bool = False) -> dict:
         counts[name] = len(c)
         cands += c
     items = rank(cands, _matches(db))
-    out = {"version": VERSION, "built_at": db.manifest["built_at"], "items": items, "candidates": counts, "seconds": round(time.time() - t0, 1),
+    # every ranked candidate is kept (Phase 7: per-player findings and "You probably didn't know" draw from the full set,
+    # with Benjamini-Hochberg applied there across all of them)
+    allc = sorted(cands, key=lambda c: -c.get("score", 0))
+    out = {"version": VERSION, "built_at": db.manifest["built_at"], "items": items, "all": allc, "candidates": counts, "seconds": round(time.time() - t0, 1),
            "method": "Deterministic generators run named tests over covered data; each candidate is ranked by unusualness (−log10 p, capped), "
                      "sample strength, recency and how recognisable the players are, then diversified (one per player, rotating types and "
                      "genders). Text is templated from the computed numbers; no language model is involved."}

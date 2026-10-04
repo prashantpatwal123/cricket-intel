@@ -5,6 +5,8 @@
 // something changed), 3) current battle, 4) prediction. Evidence links leave the replay and say so.
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { recordPlay, useRemember } from "@/lib/memory";
+import ExploreNext from "@/components/ExploreNext";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
@@ -34,11 +36,21 @@ function MatchCentre() {
   const [tab, setTab] = useState(sp.get("tab") || "now");
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState(3000);
-  const [game, setGame] = useState(false);
+  const [game, setGame] = useState(sp.get("game") === "1");   // deep link from a story: "what happened next?"
   const [pick, setPick] = useState<string | null>(null);
   const [reveal, setReveal] = useState<any | null>(null);
   const [score, setScore] = useState({ pts: 0, n: 0, right: 0, mpts: 0, beat: 0 });
   const busy = useRef(false);
+  const jumped = useRef(false);
+  useEffect(() => {   // arriving from a story's "what happened next?": bring the picks into view under the sticky score strip
+    if (jumped.current || !d || sp.get("game") !== "1") return;
+    jumped.current = true;
+    setTimeout(() => {
+      const el = document.querySelector("[data-testid=whn]"), head = document.querySelector(".mc-sticky");
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (head?.getBoundingClientRect().height ?? 0) - 70 });
+    }, 120);
+  }, [d, sp]);
+  useRemember("replay", id, d?.meta ? `${d.meta.teams?.[0]} v ${d.meta.teams?.[1]} · replay` : null, `/live-lab/${id}`);
 
   const load = useCallback(async (c: number) => {
     busy.current = true;
@@ -70,6 +82,7 @@ function MatchCentre() {
     const x = r.data;
     setD(x.state); setN(x.cursor); setReveal(x);
     router.replace(`/live-lab/${id}?n=${x.cursor}&tab=now`, { scroll: false });
+    if (x.scored) recordPlay(x.points, x.correct, x.model.points);
     if (x.scored) setScore((s) => ({ pts: s.pts + x.points, n: s.n + 1, right: s.right + (x.correct ? 1 : 0), mpts: s.mpts + x.model.points, beat: s.beat + (x.points > x.model.points ? 1 : 0) }));
     setPick(null);
   };
@@ -121,6 +134,8 @@ function MatchCentre() {
       {tab === "card" && <Card d={d} />}
       {tab === "timeline" && <TimelineTab d={d} />}
       {tab === "ask" && <AskTab id={id} n={n} d={d} />}
+      {/* onward links name results, so they appear only once the replay has reached the end (spoiler safety) */}
+      {d.replay.ended && <ExploreNext type="match" id={id} title="After the match" />}
     </div>
   );
 }

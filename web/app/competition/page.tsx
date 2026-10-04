@@ -1,6 +1,7 @@
 "use client";
 // Competition / series intelligence. Respects coverage: says exactly how complete the covered data is.
 import Link from "next/link";
+import { useRemember } from "@/lib/memory";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { api, fmt } from "@/lib/api";
@@ -16,6 +17,7 @@ function Comp() {
   const router = useRouter();
   const name = sp.get("name") || "", gender = sp.get("gender") || "male", season = sp.get("season") || "";
   const [d, setD] = useState<any | null>(null);
+  useRemember("competition", `${name}|${gender}`, d ? `${name}${season ? " " + season : ""}` : null, `/competition?name=${encodeURIComponent(name)}&gender=${gender}${season ? `&season=${season}` : ""}`);
   const [err, setErr] = useState(false);
   useEffect(() => { setD(null); setErr(false); api("/competition", { name, gender, season }).then((r) => setD(r.data)).catch(() => setErr(true)); }, [name, gender, season]);
   const setSeason = (s: string) => router.replace(`/competition?name=${encodeURIComponent(name)}&gender=${gender}${s ? `&season=${encodeURIComponent(s)}` : ""}`, { scroll: false });

@@ -6,6 +6,8 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 import ExploreNext from "@/components/ExploreNext";
+import MomentCard from "@/components/fan/MomentCard";
+import { useRemember } from "@/lib/memory";
 import InningsJourney from "@/components/viz/InningsJourney";
 import MatchSituation from "@/components/viz/MatchSituation";
 import OutcomeMap from "@/components/viz/OutcomeMap";
@@ -19,6 +21,7 @@ function Story() {
   const [s, setS] = useState<any | null>(null);
   const [err, setErr] = useState(false);
   const [sel, setSel] = useState(0);
+  useRemember("innings", `${match}|${inn}|${pid}`, s?.batter ? `${s.batter.name} ${s.summary?.runs ?? ""}${s.summary?.not_out ? "*" : ""} v ${s.teams?.bowling_team ?? ""}` : null, `/innings/${match}/${inn}/${pid}`);
   useEffect(() => {
     api(`/innings/${match}/${inn}/${pid}`).then((r) => {
       setS(r.data);
@@ -57,6 +60,7 @@ function Story() {
         </div>
       </section>
 
+      <MomentCard type="innings" k={`${match}|${inn}|${pid}`} context="Play it before you scroll: the ball-by-ball below shows what happened." />
       <section className="section" style={{ marginTop: 14 }}>
         <div className="section-head"><div><div className="kicker">The journey</div><div className="h2">Ball by ball</div>
           <div className="sub">Scrub, use ← →, or tap a ball. Balls at the other end appear as small marks below the line.</div></div></div>

@@ -199,7 +199,7 @@ from .ask import v1 as ASK1  # noqa: E402
 
 
 @app.get("/api/players/{pid}/fingerprint")
-def fingerprint_ep(pid: str, role: str = "auto", format: str | None = None, team_type: str | None = None):
+def fingerprint_ep(pid: str, role: str = "auto", format: str | None = None, team_type: str | None = None, scope: str = "all"):
     t0 = time.perf_counter()
     d = db()
     if role == "auto":
@@ -207,7 +207,7 @@ def fingerprint_ep(pid: str, role: str = "auto", format: str | None = None, team
         bowl = d.q1("SELECT count(*) FILTER (WHERE legal) AS n FROM balls WHERE bowler_id = ?", [pid])["n"]
         role = "bowling" if bowl > 2 * bat else "batting"
     fn = FP.bowling_fingerprint if role == "bowling" else FP.fingerprint
-    return envelope(fn(d, pid, format, team_type), t0)
+    return envelope(fn(d, pid, format, team_type, scope == "major"), t0)
 
 
 @app.get("/api/players/{pid}/insights")
@@ -502,6 +502,25 @@ def _warm():
             for mid in LS.FEATURED:
                 try:
                     _replay(mid)
+                except Exception:  # noqa: BLE001
+                    pass
+            # Phase 7 fan layer: build-time artifacts, then the most-visited players' graph neighbourhoods and homes
+            from .fan import didnt_know as DK, index as FIX, records2 as R2, similar as SM, rabbit as RB
+            R2.load(d); SM.load(d); DK.pool(d); FIX.get(d)
+            # fingerprint peer pools (both scopes) back the player home, Compare V2 and stories: build them once up front
+            for fmt in ("T20", "ODI"):
+                for g in ("male", "female"):
+                    for major in (True, False):
+                        FP._peers(d, fmt, g, None, major); FP._bowl_peers(d, fmt, g, None, major)
+                    for band in ("top", "middle", "lower"):
+                        INS._league(d, fmt, g, None, [], band)   # strengths-engine baselines used by "what makes them different"
+            from datetime import date as _date
+            from .fan import daily as DY
+            DY._day(d, _date.today().isoformat())
+            for pid in [r["person_id"] for r in d.q("SELECT person_id FROM player_profile ORDER BY matches DESC LIMIT 40")]:
+                try:
+                    RB.cached_neighbours(d, "player", pid)
+                    _fan_player(pid)
                 except Exception:  # noqa: BLE001
                     pass
             # Pre-render the most visited competition and rivalry pages
@@ -851,3 +870,163 @@ def teams_ep(gender: str = "male"):
     rows = db().q("""SELECT t, count(*) AS n FROM (SELECT ta AS t FROM team_results WHERE gender = ? UNION ALL SELECT tb FROM team_results WHERE gender = ?)
                      GROUP BY 1 ORDER BY n DESC""", [gender, gender])
     return _env([r["t"] for r in rows], t0)
+
+
+# ------------------------------------------------------------------ Phase 7: fan experience
+def _csv(v: str | None, cap: int = 60) -> list[str]:
+    return [x for x in (v or "").split(",") if x][:cap]
+
+
+@app.get("/api/fan/next")
+def fan_next_ep(type: str, key: str, seen: str = "", shown: str = "", k: int = 6):
+    """Rabbit-Hole engine. `seen` / `shown` are the page's local session memory (sent per request, stored nowhere)."""
+    from .fan import kg, rabbit as RB
+    t0 = time.perf_counter()
+    if type not in kg.NODE_TYPES:
+        raise HTTPException(400, f"unknown node type {type}")
+    return _env(RB.explore_next(db(), type, key, _csv(seen), _csv(shown, 200), max(1, min(k, 12))), t0)
+
+
+@app.get("/api/fan/graph")
+def fan_graph_ep():
+    from .fan import kg, rabbit as RB
+    t0 = time.perf_counter()
+    return _env({"version": kg.VERSION, "node_types": kg.NODE_TYPES, "relations": kg.RELATION_PRIOR, "ranker": RB.VERSION,
+                 "weights": RB.W, "doc": kg.__doc__, "ranking": RB.__doc__}, t0)
+
+
+@cached
+def _fan_player(pid):
+    from .fan import player as FPL
+    h = FPL.hero(db(), pid)
+    if not h:
+        return None
+    from .fan import moments as MO, records2 as R2
+    out = {"hero": h, "different": FPL.different(db(), pid), "stories": FPL.stories(db(), pid), "career": FPL.career(db(), pid),
+           "partners": FPL.partners(db(), pid), "records": R2.held_by(db(), pid)[:6], "moment": MO.for_player(db(), pid)}
+    if h["role"]["primary"] == "bowler" or h["role"]["allrounder"]:
+        out["wickets"] = FPL.wickets(db(), pid)
+    return out
+
+
+@app.get("/api/fan/player/{pid}")
+def fan_player_ep(pid: str):
+    t0 = time.perf_counter()
+    r = _fan_player(pid)
+    if not r:
+        raise HTTPException(404, "unknown player")
+    return _env(r, t0)
+
+
+@cached
+def _fan_matchups(pid):
+    from .fan import player as FPL
+    return FPL.matchups(db(), pid)
+
+
+@app.get("/api/fan/player/{pid}/matchups")
+def fan_matchups_ep(pid: str):
+    t0 = time.perf_counter()
+    return _env(_fan_matchups(pid), t0)
+
+
+@cached
+def _fan_similar(pid, role, fmt):
+    from .fan import similar as SM
+    return SM.similar(db(), pid, role, fmt, k=6)
+
+
+@app.get("/api/fan/player/{pid}/similar")
+def fan_similar_ep(pid: str, role: str | None = None, format: str | None = None):
+    t0 = time.perf_counter()
+    return _env(_fan_similar(pid, role, format), t0)
+
+
+@cached
+def _fan_compare(a, b, fmt, role):
+    from .fan import compare as CMP
+    return CMP.compare(db(), a, b, fmt, role)
+
+
+@app.get("/api/fan/compare")
+def fan_compare_ep(ids: str, format: str | None = None, role: str | None = None):
+    t0 = time.perf_counter()
+    p = _csv(ids, 2)
+    if len(p) != 2:
+        raise HTTPException(400, "pass two player ids")
+    return _env(_fan_compare(p[0], p[1], format, role), t0)
+
+
+@app.get("/api/fan/records")
+def fan_records_ep():
+    from .fan import records2 as R2
+    t0 = time.perf_counter()
+    return _env(R2.catalog(db()), t0)
+
+
+@app.get("/api/fan/records/{rid}")
+def fan_record_ep(rid: str):
+    from .fan import records2 as R2
+    t0 = time.perf_counter()
+    r = R2.get(db(), rid)
+    if not r:
+        raise HTTPException(404, "unknown record")
+    scopes = [{"id": x["id"], "scope": x["scope"]} for x in R2.load(db())["records"] if x["def_id"] == r["def_id"]]
+    return _env({**r, "scopes": scopes, "related": [{"id": x["id"], "title": x["title"]} for x in R2.siblings(db(), rid)[:4]]}, t0)
+
+
+@cached
+def _fan_otd(day):
+    from .fan import onthisday as OTD
+    return OTD.on_this_day(db(), day, k=24)
+
+
+@app.get("/api/fan/onthisday")
+def fan_otd_ep(day: str | None = None):
+    from datetime import date as _d
+    t0 = time.perf_counter()
+    try:
+        day = _d.fromisoformat(day).isoformat() if day else _d.today().isoformat()
+    except ValueError:
+        raise HTTPException(400, "day must be YYYY-MM-DD")
+    return _env(_fan_otd(day), t0)
+
+
+@app.get("/api/fan/explore")
+def fan_explore_ep(day: str | None = None, seen: str = ""):
+    from .fan import daily as DY
+    t0 = time.perf_counter()
+    return _env(DY.explore(db(), day, set(_csv(seen, 200))), t0)
+
+
+@app.get("/api/fan/didnt-know")
+def fan_didnt_know_ep(pid: str | None = None, day: str | None = None, seen: str = ""):
+    from .fan import didnt_know as DK
+    t0 = time.perf_counter()
+    items = DK.for_player(db(), pid, 5) if pid else DK.daily(db(), day, set(_csv(seen, 200)), 6)
+    return _env({"items": items, "method": DK.method(db())}, t0)
+
+
+@app.get("/api/fan/moment")
+def fan_moment_ep(type: str, key: str):
+    """A spoiler-safe Play moment for an innings, match, battle or player: pre-ball state + replay link only."""
+    from .fan import moments as MO
+    t0 = time.perf_counter()
+    k = key.split("|")
+    try:
+        m = {"innings": lambda: MO.for_innings(db(), k[0], int(k[1]), k[2]), "match": lambda: MO.for_match(db(), k[0]),
+             "battle": lambda: MO.for_battle(db(), k[0], k[1]), "player": lambda: MO.for_player(db(), k[0])}[type]()
+    except (KeyError, IndexError, ValueError):
+        raise HTTPException(400, "bad moment request")
+    return _env(m, t0)
+
+
+@app.get("/api/fan/finding")
+def fan_finding_ep(id: str):
+    """One "you probably didn't know" finding by id (for its share card)."""
+    from .fan import didnt_know as DK
+    t0 = time.perf_counter()
+    f = next((x for x in DK.pool(db()) if x["id"] == id), None)
+    if not f:
+        raise HTTPException(404, "unknown finding")
+    return _env(f, t0)

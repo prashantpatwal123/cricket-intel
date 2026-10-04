@@ -1,0 +1,329 @@
+{
+  "errors": [],
+  "aborted_by_navigation": 358,
+  "assertions": [],
+  "log": [
+    {
+      "step": "explore",
+      "otd": 1,
+      "worth": 4,
+      "overflow_px": 0
+    },
+    {
+      "step": "journey-1",
+      "hops": [
+        {
+          "via": "start",
+          "to": "/players/ba607b88"
+        },
+        {
+          "via": "dismissal DNA",
+          "to": "/how-out/ba607b88"
+        },
+        {
+          "via": "bowler",
+          "to": "/how-out/ba607b88?route=CAUGHT_KEEPER&bowler=d68e7f48"
+        },
+        {
+          "via": "battle",
+          "to": "/battle?bat=ba607b88&bowl=d68e7f48"
+        },
+        {
+          "via": "battle→match",
+          "to": "/match/676529",
+          "row": "▣ · BIG MEETING"
+        },
+        {
+          "via": "match→innings",
+          "to": "/innings/676529/2/ba607b88",
+          "row": "▮ · TOP INNINGS"
+        },
+        {
+          "via": "innings→another player",
+          "to": "/battle?bat=ba607b88&bowl=0f721006",
+          "row": "⚔ · NEMESIS"
+        },
+        {
+          "via": "battle header → the other player",
+          "to": "/players/0f721006"
+        }
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "journey-2",
+      "hops": [
+        {
+          "via": "start",
+          "to": "/players/5d2eda89"
+        },
+        {
+          "via": "tried partner (no record from that match)",
+          "to": "/partnerships?p1=5d2eda89&p2=d8f59089"
+        },
+        {
+          "via": "tried partner (no record from that match)",
+          "to": "/partnerships?p1=53cd8da6&p2=5d2eda89"
+        },
+        {
+          "via": "tried partner (no record from that match)",
+          "to": "/partnerships?p1=5d2eda89&p2=cb08b611"
+        },
+        {
+          "via": "partner",
+          "to": "/partnerships?p1=45a13dcf&p2=5d2eda89"
+        },
+        {
+          "via": "partnership→match",
+          "to": "/match/1459899",
+          "row": "▣ · BIG STAND"
+        },
+        {
+          "via": "match→record",
+          "to": "/records/highest-totals.female.ODI.major",
+          "row": "≡ · RECORD"
+        },
+        {
+          "via": "record row",
+          "to": "/match/1459899"
+        },
+        {
+          "via": "→another player",
+          "to": "/innings/1459899/1/45a13dcf",
+          "row": "▮ · TOP INNINGS"
+        }
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "journey-3",
+      "hops": [
+        {
+          "via": "start",
+          "to": "/players/462411b3"
+        },
+        {
+          "via": "player→spell",
+          "to": "/spell/1304102/1/462411b3",
+          "row": "◎ · BEST SPELL"
+        },
+        {
+          "via": "spell→match",
+          "to": "/match/1304102",
+          "row": "▣ · MATCH"
+        },
+        {
+          "via": "match→opposing batter's innings",
+          "to": "/innings/1304102/2/752f7486",
+          "row": "▮ · TOP INNINGS"
+        },
+        {
+          "via": "innings→battle",
+          "to": "/battle?bat=752f7486&bowl=ded9240e",
+          "row": "⚔ · NEMESIS"
+        }
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "crawl",
+      "pages": 70,
+      "page_types": {
+        "players": {
+          "pages": 8,
+          "min_next": 6,
+          "dead": 0
+        },
+        "partnerships": {
+          "pages": 8,
+          "min_next": 3,
+          "dead": 0
+        },
+        "match": {
+          "pages": 7,
+          "min_next": 6,
+          "dead": 0
+        },
+        "innings": {
+          "pages": 11,
+          "min_next": 6,
+          "dead": 0
+        },
+        "battle": {
+          "pages": 28,
+          "min_next": 6,
+          "dead": 0
+        },
+        "spell": {
+          "pages": 2,
+          "min_next": 6,
+          "dead": 0
+        },
+        "competition": {
+          "pages": 1,
+          "min_next": 6,
+          "dead": 0
+        },
+        "rivalry": {
+          "pages": 1,
+          "min_next": 4,
+          "dead": 0
+        },
+        "records": {
+          "pages": 2,
+          "min_next": 6,
+          "dead": 0
+        },
+        "delivery": {
+          "pages": 1,
+          "min_next": 4,
+          "dead": 0
+        },
+        "how-out": {
+          "pages": 1,
+          "min_next": 6,
+          "dead": 0
+        }
+      },
+      "dead_ends": [],
+      "broken": [],
+      "recommendations": 392,
+      "distinct": 304,
+      "destinations_recommended_more_than_once": 65,
+      "max_repeat": 8,
+      "most_repeated": [
+        [
+          "/players/ba607b88",
+          8
+        ],
+        [
+          "/players/740742ef",
+          5
+        ],
+        [
+          "/battle?bat=ba607b88&bowl=0f721006",
+          4
+        ],
+        [
+          "/players/db584dad",
+          4
+        ],
+        [
+          "/battle?bat=ba607b88&bowl=cc1e8c68",
+          3
+        ],
+        [
+          "/records/most-runs.male.ODI",
+          3
+        ]
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "memory-aware",
+      "before": [
+        "/partnerships?p1=740742ef&p2=ba607b88&format=ODI",
+        "/battle?bat=ba607b88&bowl=cc1e8c68",
+        "/records/most-runs.male.ODI"
+      ],
+      "after": [
+        "/partnerships?p1=2c25d4f5&p2=ba607b88&format=T20",
+        "/battle?bat=ba607b88&bowl=cc1e8c68",
+        "/records/most-runs.male.ODI"
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "play-moment",
+      "href": "/live-lab/1298150?n=225&game=1",
+      "n": 225,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-cards",
+      "overflow_px": 0
+    },
+    {
+      "step": "compare",
+      "overflow_px": 0
+    },
+    {
+      "step": "records-otd",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask",
+      "answers": [
+        {
+          "q": "Who dismisses Kohli most?",
+          "a": "Adam Zampa and Tim Southee have dismissed Virat Kohli most often in our covered data: 9 times."
+        },
+        {
+          "q": "Who has Kohli scored fastest against?",
+          "a": "Virat Kohli has scored fastest against Umesh Yadav in our covered data: 168 off 96 balls (strike rate 175, against a usual 110)."
+        },
+        {
+          "q": "What changes after Kohli faces 30 balls?",
+          "a": "Virat Kohli in our covered data: strike rate 104 in the first 30 balls of an innings and 118 after them; boundaries 12.2% → 12.6% of balls, "
+        },
+        {
+          "q": "Who are the best death-over bowlers since 2020?",
+          "a": "Men: Sunil Narine ranks first for economy in death overs since 2020 in our covered data: 6.56 (min 300 legal balls). Women: K Ramharack rank"
+        },
+        {
+          "q": "Which players are most similar to Rohit?",
+          "a": "Most similar to Rohit Sharma (ODI batting, style not quality): Fakhar Zaman, then Dawid Malan, E Lewis, David Warner."
+        },
+        {
+          "q": "What is Bumrah's best spell?",
+          "a": "Jasprit Bumrah's best covered figures in our covered data: 6/19 v England (2022-07-12)."
+        },
+        {
+          "q": "Who partners Mandhana best?",
+          "a": "Most runs together (ODI): Pratika Rawal, 1885 in 26 stands. S Mandhana scores fastest, relative to expectation, with H Deol (109.3 v 96.8 ex"
+        },
+        {
+          "q": "Compare Kohli and Rohit in chases",
+          "a": "Virat Kohli v Rohit Sharma while chasing in our covered data: strike rate 108.6 v 105.2; dismissals per 100 balls 1.9 v 2.7; boundary % 12.6"
+        },
+        {
+          "q": "Show India's biggest successful T20 chases",
+          "a": "India's biggest successful chase in T20s (T20Is, IPL, WPL) in our covered data: 211/4 against Sri Lanka (2009-12-12), chasing 207."
+        },
+        {
+          "q": "Which Kohli-Zampa dismissals happened in death overs?",
+          "a": "2 of Adam Zampa's 9 dismissals of Virat Kohli came in death overs in our covered data."
+        }
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-explore",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-kohli",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-bumrah",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-compare",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-records",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-battle",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-lesser",
+      "overflow_px": 0
+    }
+  ]
+}

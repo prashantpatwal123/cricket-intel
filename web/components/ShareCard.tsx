@@ -71,11 +71,14 @@ function Visual({ v, y, h }: { v: CardSpec["visual"]; y: number; h: number }) {
 
 export const ShareCard = React.forwardRef<SVGSVGElement, { spec: CardSpec; story?: boolean }>(function ShareCard({ spec, story }, ref) {
   const H = story ? 1920 : 1350;
-  const titleLines = wrap(spec.title, 26).slice(0, 3);
-  const lines = (spec.lines || []).slice(0, story ? 4 : 2);
+  // long headlines (findings, stories) get a smaller size and shorter lines so they never run off the card
+  const longTitle = spec.title.length > 40;
+  const tfs = longTitle ? 54 : 66, tlh = Math.round(tfs * 1.1);
+  const titleLines = wrap(spec.title, longTitle ? 30 : 22).slice(0, 4);
+  const lines = (spec.lines || []).flatMap((l) => wrap(l, 54)).slice(0, story ? 6 : 4);
   // Stack every block from the one above so nothing overlaps, whatever the title length.
   const bigSize = story ? 230 : 170;
-  const titleEnd = 290 + (titleLines.length - 1) * 76;
+  const titleEnd = 290 + (titleLines.length - 1) * tlh;
   const bigY = titleEnd + 40 + Math.round(bigSize * 0.8);
   const labelY = bigY + 56;
   const statsY = labelY + (story ? 110 : 84);
@@ -93,7 +96,7 @@ export const ShareCard = React.forwardRef<SVGSVGElement, { spec: CardSpec; story
       <text x={120} y={108} fontSize={36} fontWeight={900} letterSpacing={6} fill={C.text} fontFamily={FONT}>CRICINTEL</text>
       <text x={1000} y={106} fontSize={22} fontWeight={800} letterSpacing={3} fill={C.amber} textAnchor="end" fontFamily={FONT}>INTERNAL PREVIEW · NOT FOR PUBLICATION</text>
       <text x={80} y={210} fontSize={30} fontWeight={800} letterSpacing={4} fill={C.accent} fontFamily={FONT}>{spec.eyebrow.toUpperCase().slice(0, 52)}</text>
-      {titleLines.map((l, i) => <text key={i} x={80} y={290 + i * 76} fontSize={70} fontWeight={900} fill={C.text} fontFamily={FONT}>{l.toUpperCase()}</text>)}
+      {titleLines.map((l, i) => <text key={i} x={80} y={290 + i * tlh} fontSize={tfs} fontWeight={900} fill={C.text} fontFamily={FONT}>{l.toUpperCase()}</text>)}
       <text x={80} y={bigY} fontSize={bigSize} fontWeight={900} fill={C.accent} fontFamily={FONT}>{spec.big}</text>
       <text x={84} y={labelY} fontSize={32} fontWeight={700} fill={C.muted} fontFamily={FONT}>{spec.bigLabel}</text>
       <g transform={`translate(80, ${statsY})`}>
@@ -102,7 +105,7 @@ export const ShareCard = React.forwardRef<SVGSVGElement, { spec: CardSpec; story
           <text x={0} y={34} fontSize={22} fontWeight={700} letterSpacing={2} fill={C.muted} fontFamily={FONT}>{s.label.toUpperCase()}</text></g>)}
       </g>
       <Visual v={spec.visual} y={vy} h={vh} />
-      {lines.map((l, i) => <text key={i} x={80} y={linesTop + 28 + i * 40} fontSize={28} fill="#c4cee6" fontFamily={FONT}>{l.slice(0, 64)}</text>)}
+      {lines.map((l, i) => <text key={i} x={80} y={linesTop + 28 + i * 40} fontSize={28} fill="#c4cee6" fontFamily={FONT}>{l}</text>)}
       <line x1={80} x2={1000} y1={H - 150} y2={H - 150} stroke={C.line} strokeWidth={2} />
       <text x={80} y={H - 112} fontSize={20} fill={C.muted} fontFamily={FONT}>{spec.coverage.slice(0, 90)}</text>
       <text x={80} y={H - 82} fontSize={20} fill={C.muted} fontFamily={FONT}>Provenance: {spec.prov.slice(0, 74)}</text>

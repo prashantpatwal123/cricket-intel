@@ -9,6 +9,8 @@ import { DeliveryModal } from "@/components/Deliveries";
 import MatchSituation from "@/components/viz/MatchSituation";
 import { Stumps } from "@/components/cricket/primitives";
 import { OUTCOME_COLOR } from "@/lib/viz/model";
+import ExploreNext from "@/components/ExploreNext";
+import { recordPlay } from "@/lib/memory";
 
 const KEYS: Record<string, string> = { "0": "DOT", ".": "DOT", d: "DOT", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", w: "WICKET" };
 const KEY_HINT: Record<string, string> = { DOT: "0", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", WICKET: "W" };
@@ -52,6 +54,7 @@ export default function Play() {
       streak: ok ? st.streak + 1 : 0, best: Math.max(st.best, ok ? st.streak + 1 : 0), modelPoints: st.modelPoints + (r.model.points || 0),
       modelCorrect: st.modelCorrect + (mok ? 1 : 0), beat: st.beat + (ok && !mok ? 1 : 0), hist: [...(st.hist || []), h].slice(-500) };
     setSt(s); save(s);
+    recordPlay(r.points, ok, r.model.points || 0);
     nextRef.current = fetchMoment(s.played); // prefetch so NEXT BALL is instant
   }, [cur, rev, st, fetchMoment]);
 
@@ -159,8 +162,11 @@ export default function Play() {
             <button className="btn primary big" onClick={() => advance(st)} autoFocus>NEXT BALL →</button>
             <button className="btn" onClick={() => setOpen(rev.delivery.delivery_id)}>Inspect the delivery</button>
             <Link className="btn" href={`/delivery/${encodeURIComponent(rev.delivery.delivery_id)}`}>Full replay</Link>
+            <Link className="btn" href={`/share?${new URLSearchParams({ type: "prediction", ok: rev.correct ? "1" : "0", pick: rev.pick ?? "", actual: rev.actual, pts: String(rev.points ?? 0),
+              mpick: rev.model.pick, mpts: String(rev.model.points ?? 0), line: rev.match_line, back: "/play" })}`}>Share this call</Link>
           </div>
           <div className="kbd" style={{ marginTop: 8 }}>Keys: 0 1 2 3 4 6 W to pick · Enter for the next ball</div>
+          <ExploreNext type="delivery" id={rev.delivery.delivery_id} title="Where this moment leads" />
         </div>
       )}
       <div style={{ marginTop: 18, textAlign: "center" }}><button className="btn" style={{ fontSize: 12 }} onClick={reset}>Reset my score</button>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { load, reset } from "@/lib/memory";
 import { api } from "@/lib/api";
 
 const EXAMPLES = ["Virat Kohli", "Kohli vs Zampa", "India Pakistan 2022", "Bumrah 6/19", "Mandhana partnerships", "2023 World Cup", "death overs economy", "RCB v CSK"];
@@ -10,7 +11,8 @@ const BROWSE: [string, string, string][] = [
   ["/players", "Players", "Search or browse every player"], ["/competitions", "Competitions", "IPL, WPL, World Cups and series"],
   ["/rivalries", "Rivalries", "Team v team head-to-heads"], ["/innings", "Innings library", "Highest, fastest, hardest chases"],
   ["/spells", "Spell library", "Best figures, death overs, bursts"], ["/battle", "Battle universe", "Batter v bowler, every angle"],
-  ["/records", "Records", "Build any leaderboard"], ["/partnerships", "Partnerships", "Best pairs and biggest stands"],
+  ["/records", "Record book", "Records by category, each with its evidence"], ["/on-this-day", "On this day", "Matches, innings and spells on today's date"],
+  ["/compare", "Compare", "Two players: where each leads, and where it's a tie"], ["/partnerships", "Partnerships", "Best pairs and biggest stands"],
   ["/live-lab", "Historical Live Lab", "Replay a finished match ball by ball"],
   ["/visual-lab", "Visual Lab", "What our graphics can and cannot show, and why"],
   ["/data", "Data & methodology", "Coverage, definitions, licence status"],
@@ -24,6 +26,8 @@ function Search() {
   const router = useRouter();
   const [q, setQ] = useState(sp.get("q") || "");
   const [res, setRes] = useState<any | null>(null);
+  const [recent, setRecent] = useState<any[]>([]);
+  useEffect(() => { setRecent(load().visited.slice(0, 10)); }, []);
   useEffect(() => { const x = sp.get("q"); if (x) setQ(x); }, [sp]);
   useEffect(() => {
     const t = setTimeout(() => {
@@ -56,6 +60,14 @@ function Search() {
               ))}
             </div>
           ))}
+        </section>
+      )}
+      {recent.length > 0 && !q && (
+        <section className="section" data-testid="recent">
+          <div className="xnext-head"><span className="kicker">Recently viewed</span>
+            <button className="why-btn" onClick={() => { reset(); setRecent([]); }}>Clear</button></div>
+          <div className="recent-row">{recent.map((v) => <Link key={v.id} href={v.href}>{v.label}</Link>)}</div>
+          <div className="mini" style={{ marginTop: 4 }}>Only in this browser.</div>
         </section>
       )}
       <section className="section">

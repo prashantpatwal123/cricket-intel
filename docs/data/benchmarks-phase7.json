@@ -1,0 +1,190 @@
+{
+ "base": "http://localhost:8000",
+ "measured_at": "2026-10-04 10:30:12",
+ "results": [
+  {
+   "endpoint": "Rabbit-Hole: player (not pre-warmed)",
+   "path": "/api/fan/next?type=player&key=2c25d4f5",
+   "status": 200,
+   "cold_ms": 51.9,
+   "warm_median_ms": 2.9,
+   "warm_max_ms": 3.6
+  },
+  {
+   "endpoint": "Rabbit-Hole: player, with session memory",
+   "path": "/api/fan/next?type=player&key=2c25d4f5&seen=player:ba607b88&shown=battle:ba607b88|14f96089",
+   "status": 200,
+   "cold_ms": 2.5,
+   "warm_median_ms": 2.2,
+   "warm_max_ms": 2.5
+  },
+  {
+   "endpoint": "Rabbit-Hole: battle",
+   "path": "/api/fan/next?type=battle&key=ba607b88|14f96089",
+   "status": 200,
+   "cold_ms": 85.9,
+   "warm_median_ms": 2.9,
+   "warm_max_ms": 3.4
+  },
+  {
+   "endpoint": "Rabbit-Hole: match",
+   "path": "/api/fan/next?type=match&key=1370353",
+   "status": 200,
+   "cold_ms": 117.9,
+   "warm_median_ms": 2.7,
+   "warm_max_ms": 3.3
+  },
+  {
+   "endpoint": "Rabbit-Hole: innings",
+   "path": "/api/fan/next?type=innings&key=1298150|2|ba607b88",
+   "status": 200,
+   "cold_ms": 49.4,
+   "warm_median_ms": 2.6,
+   "warm_max_ms": 3.2
+  },
+  {
+   "endpoint": "Rabbit-Hole: record",
+   "path": "/api/fan/next?type=record&key=highest-score.male.T20.major",
+   "status": 200,
+   "cold_ms": 2.7,
+   "warm_median_ms": 2.3,
+   "warm_max_ms": 3.1
+  },
+  {
+   "endpoint": "Player home (not pre-warmed)",
+   "path": "/api/fan/player/b17e2f24",
+   "status": 200,
+   "cold_ms": 322.6,
+   "warm_median_ms": 3.1,
+   "warm_max_ms": 4.6
+  },
+  {
+   "endpoint": "Player home (Kohli)",
+   "path": "/api/fan/player/ba607b88",
+   "status": 200,
+   "cold_ms": 3.2,
+   "warm_median_ms": 3.0,
+   "warm_max_ms": 4.1
+  },
+  {
+   "endpoint": "Matchup discovery",
+   "path": "/api/fan/player/dbe50b21/matchups",
+   "status": 200,
+   "cold_ms": 113.5,
+   "warm_median_ms": 3.5,
+   "warm_max_ms": 4.5
+  },
+  {
+   "endpoint": "Similar players",
+   "path": "/api/fan/player/740742ef/similar",
+   "status": 200,
+   "cold_ms": 6.1,
+   "warm_median_ms": 2.0,
+   "warm_max_ms": 2.4
+  },
+  {
+   "endpoint": "Compare V2 (Kohli v Rohit)",
+   "path": "/api/fan/compare?ids=ba607b88,740742ef",
+   "status": 200,
+   "cold_ms": 188.2,
+   "warm_median_ms": 3.4,
+   "warm_max_ms": 3.9
+  },
+  {
+   "endpoint": "Compare V2 (Bumrah v Starc)",
+   "path": "/api/fan/compare?ids=462411b3,3fb19989",
+   "status": 200,
+   "cold_ms": 332.9,
+   "warm_median_ms": 5.3,
+   "warm_max_ms": 6.1
+  },
+  {
+   "endpoint": "Record book catalogue",
+   "path": "/api/fan/records",
+   "status": 200,
+   "cold_ms": 9.8,
+   "warm_median_ms": 6.0,
+   "warm_max_ms": 7.0
+  },
+  {
+   "endpoint": "One record",
+   "path": "/api/fan/records/highest-score.male.T20.major",
+   "status": 200,
+   "cold_ms": 3.3,
+   "warm_median_ms": 2.4,
+   "warm_max_ms": 3.0
+  },
+  {
+   "endpoint": "Daily discovery (Explore)",
+   "path": "/api/fan/explore",
+   "status": 200,
+   "cold_ms": 3.5,
+   "warm_median_ms": 2.9,
+   "warm_max_ms": 3.1
+  },
+  {
+   "endpoint": "On This Day",
+   "path": "/api/fan/onthisday",
+   "status": 200,
+   "cold_ms": 281.9,
+   "warm_median_ms": 2.7,
+   "warm_max_ms": 3.1
+  },
+  {
+   "endpoint": "Play moment (innings)",
+   "path": "/api/fan/moment?type=innings&key=1513703|2|45a13dcf",
+   "status": 200,
+   "cold_ms": 19.0,
+   "warm_median_ms": 1.9,
+   "warm_max_ms": 2.8
+  },
+  {
+   "endpoint": "Ask: scored fastest against",
+   "path": "/api/ask/v1?q=Who%20has%20Kohli%20scored%20fastest%20against%3F",
+   "status": 200,
+   "cold_ms": 138.2,
+   "warm_median_ms": 21.1,
+   "warm_max_ms": 24.1
+  },
+  {
+   "endpoint": "Ask: compare in chases",
+   "path": "/api/ask/v1?q=Compare%20Kohli%20and%20Rohit%20in%20chases",
+   "status": 200,
+   "cold_ms": 31.3,
+   "warm_median_ms": 34.4,
+   "warm_max_ms": 35.1
+  },
+  {
+   "endpoint": "Reference: match page",
+   "path": "/api/match/1513703",
+   "status": 200,
+   "cold_ms": 297.6,
+   "warm_median_ms": 4.6,
+   "warm_max_ms": 5.0
+  },
+  {
+   "endpoint": "Reference: player profile",
+   "path": "/api/players/ba607b88/profile",
+   "status": 200,
+   "cold_ms": 206.0,
+   "warm_median_ms": 202.5,
+   "warm_max_ms": 230.2
+  },
+  {
+   "endpoint": "Reference: battle",
+   "path": "/api/battle?bat=ba607b88&bowl=14f96089",
+   "status": 200,
+   "cold_ms": 147.9,
+   "warm_median_ms": 124.3,
+   "warm_max_ms": 128.0
+  },
+  {
+   "endpoint": "Reference: live replay step",
+   "path": "/api/live/1298150?cursor=120",
+   "status": 200,
+   "cold_ms": 244.4,
+   "warm_median_ms": 6.5,
+   "warm_max_ms": 6.9
+  }
+ ]
+}

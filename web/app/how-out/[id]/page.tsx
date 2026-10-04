@@ -3,6 +3,7 @@
 // Filters exist only for recorded or derived facts. Line/length, shot and edge filters are listed as unavailable, with why.
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import ExploreNext from "@/components/ExploreNext";
 import { Suspense, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
@@ -73,6 +74,8 @@ function HowOut() {
               <div className="mini">{x.competition} · {x.start_date} · {x.format_group} · {x.phase} · on {x.batter_runs_before} ({x.batter_balls_before})</div></span>
             <span className="v">→</span></Link>))}</div>
       </section>
+      {f.bowler && <Link className="btn primary" href={`/battle?bat=${id}&bowl=${f.bowler}`} data-testid="open-battle" style={{ display: "inline-block", marginTop: 14 }}>Every ball of this battle →</Link>}
+      <ExploreNext type={f.bowler ? "battle" : "player"} id={f.bowler ? `${id}|${f.bowler}` : id} />
     </div>
   );
 }
