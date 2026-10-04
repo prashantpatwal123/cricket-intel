@@ -11,6 +11,7 @@ import { Stumps } from "@/components/cricket/primitives";
 import { OUTCOME_COLOR } from "@/lib/viz/model";
 import ExploreNext from "@/components/ExploreNext";
 import { recordPlay } from "@/lib/memory";
+import { track } from "@/lib/analytics";
 
 const KEYS: Record<string, string> = { "0": "DOT", ".": "DOT", d: "DOT", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", w: "WICKET" };
 const KEY_HINT: Record<string, string> = { DOT: "0", "1": "1", "2": "2", "3": "3", "4": "4", "6": "6", WICKET: "W" };
@@ -40,7 +41,7 @@ export default function Play() {
     setCur(null);
     setCur(await (pending ?? fetchMoment(s.played)));
   }, [fetchMoment]);
-  useEffect(() => { const s = load(); setSt(s); advance(s); }, [advance]);
+  useEffect(() => { const s = load(); setSt(s); track("play_start", { returning: s.n > 0 }); advance(s); }, [advance]);
 
   const pick = useCallback(async (o: string) => {
     if (!cur || rev) return;
@@ -55,6 +56,7 @@ export default function Play() {
       modelCorrect: st.modelCorrect + (mok ? 1 : 0), beat: st.beat + (ok && !mok ? 1 : 0), hist: [...(st.hist || []), h].slice(-500) };
     setSt(s); save(s);
     recordPlay(r.points, ok, r.model.points || 0);
+    track("prediction", { n: s.n, correct: ok, model_correct: mok, ms_since_open: Math.round(performance.now()) });
     nextRef.current = fetchMoment(s.played); // prefetch so NEXT BALL is instant
   }, [cur, rev, st, fetchMoment]);
 
@@ -78,53 +80,43 @@ export default function Play() {
 
   return (
     <div className="fade-in" style={{ maxWidth: 720, margin: "0 auto" }}>
-      <div className="section-head" style={{ marginTop: 20, marginBottom: 8 }}>
-        <div><div className="kicker">Play · historical moments</div><div className="h2">What happens next?</div></div>
-        <button className="btn" onClick={() => setShowStats(!showStats)} aria-expanded={showStats}>{showStats ? "Hide" : "Session"} stats</button>
+      {/* Phase 8: situation → question → choices, nothing in front of them. Scoring is explained after the first call. */}
+      <div className="play-top">
+        <h1 className="play-q">What happens next?</h1>
+        {st.n > 0 && <span className="play-score num" aria-label={`You ${st.points} points, model ${st.modelPoints}`}>You <b>{st.points}</b> · Model <b>{st.modelPoints}</b></span>}
       </div>
-      <Link href="/live-lab" className="from-live" style={{ background: "var(--surface)", color: "var(--text)" }} data-testid="play-whole-match">
-        <span><b>Play a whole match:</b> predict every ball of a historical replay in the Live Lab →</span></Link>
-      <div className="mvy" aria-label="Model versus you">
-        <div className="mvy-side you"><div className="l">You</div><div className="v num">{st.points}</div><div className="mini">{st.correct}/{st.n} right{acc != null ? ` · ${acc}%` : ""}</div></div>
-        <div className="mvy-mid"><div className="mini">streak</div><b className="num">{st.streak}</b><div className="mini">best {st.best}</div>
-          <div className="mini" style={{ marginTop: 4 }}>beat the model <b className="num" style={{ color: "var(--accent-2)" }}>{st.beat}</b>×</div></div>
-        <div className="mvy-side model"><div className="l">Model · modelled</div><div className="v num">{st.modelPoints}</div><div className="mini">{st.modelCorrect}/{st.n} right{macc != null ? ` · ${macc}%` : ""}</div></div>
-      </div>
-      {showStats && <SessionStats s={sess} st={st} />}
-      {showStats && st.n > 0 && <Link className="btn" style={{ display: "inline-block", marginTop: 8 }}
-        href={`/share?type=whn&pts=${st.points}&n=${st.n}&acc=${acc ?? 0}&mpts=${st.modelPoints}&beat=${st.beat}`}>Share my session</Link>}
-
-      {!m ? <div className="loading">Loading a moment…</div> : (
-        <div className="hero fade-in" key={m.moment_id} style={{ marginTop: 12 }}>
-          <div className="kicker">{m.competition} · {m.date} · {m.gender === "female" ? "Women" : "Men"} · {m.format}</div>
-          <div className="mini" style={{ marginTop: 4 }}>{m.batting_team} v {m.bowling_team} · innings {m.innings_no}</div>
-          <div style={{ marginTop: 10 }}>
-            <MatchSituation s={{ ...m.situation, recent: m.recent, next_ball: m.next_ball,
-              score: rev && after ? after.score : m.situation.score, wickets: rev && after ? after.wickets : m.situation.wickets }} />
+      {!m ? <div className="play-skel" aria-busy="true"><div className="loading">Finding a real moment…</div></div> : (
+        <section className="play-sit fade-in" key={m.moment_id} aria-label="The situation" data-testid="play-situation">
+          <div className="mini">{m.competition} · {m.date} · {m.batting_team} v {m.bowling_team}</div>
+          <div className="strip play-strip">
+            <div><b>{rev && after ? `${after.score}/${after.wickets}` : `${m.situation.score}/${m.situation.wickets}`}</b><span>{m.overs_completed} overs</span></div>
+            {m.chase ? <div><b>{m.chase.runs_required}</b><span>needed off {m.chase.balls_remaining}</span></div> : <div><b className="ph">{m.phase}</b><span>phase</span></div>}
+            <div><b>{m.batter.runs}<span className="mini">({m.batter.balls})</span></b><span>{m.batter.name}</span></div>
           </div>
-          <div className="grid2" style={{ marginTop: 12, gridTemplateColumns: "1fr 1fr" }}>
-            <div className="hstat"><div className="l">On strike</div><div style={{ fontWeight: 800, fontSize: 17 }}>{m.batter.name}</div><div className="mini">{m.batter.runs} ({m.batter.balls}){m.batter.hand ? ` · ${m.batter.hand}-handed` : ""}</div></div>
-            <div className="hstat"><div className="l">Bowling</div><div style={{ fontWeight: 800, fontSize: 17 }}>{m.bowler.name}</div><div className="mini">{m.bowler.figures}{m.bowler.style ? ` · ${m.bowler.style}` : ""}</div></div>
-          </div>
-        </div>
+          <div className="mini" style={{ marginTop: 6 }}>{m.bowler.name} to bowl ({m.bowler.figures}). Last balls: {m.recent.join(" ")}</div>
+        </section>
       )}
-
       {m && (
-        <div className="card" style={{ marginTop: 12 }}>
-          <div className="mini">{m.outcome_definition} Rarer calls score more (capped at 40).</div>
+        <div className="play-picks" role="group" aria-label="Your call for the next ball">
           <div className="picks">
             {m.options.map((o: string) => {
               const chosen = rev?.pick === o, actual = rev?.actual === o, modelPick = rev?.model.pick === o;
               return (
-                <button key={o} onClick={() => pick(o)} disabled={!!rev} className={`pick ${o === "WICKET" ? "wkt" : ""} ${actual ? "actual" : ""} ${chosen && !actual ? "wrong" : ""}`}>
-                  {o}
-                  <span className="pp">{pts ? `${pts[o]} pts` : ""}{!rev && <span className="kbd"> · {KEY_HINT[o]}</span>}</span>
+                <button key={o} onClick={() => pick(o)} disabled={!!rev} aria-label={o === "DOT" ? "Dot ball" : o === "WICKET" ? "Wicket" : `${o} runs`}
+                  className={`pick ${o === "WICKET" ? "wkt" : ""} ${actual ? "actual" : ""} ${chosen && !actual ? "wrong" : ""}`}>
+                  {o === "DOT" ? "•" : o === "WICKET" ? "W" : o}
+                  {st.n > 0 && <span className="pp">{pts ? `${pts[o]} pts` : ""}</span>}
                   {modelPick && <span className="mtag">model</span>}
                 </button>
               );
             })}
           </div>
+          {st.n > 0 && <div className="mini" style={{ marginTop: 6 }}>{m.outcome_definition} Rarer calls score more (capped at 40). Keys: 0 1 2 3 4 6 W.</div>}
         </div>
+      )}
+      {m && !rev && (
+        <details className="why" style={{ marginTop: 10 }}><summary>The situation in detail</summary>
+          <MatchSituation s={{ ...m.situation, recent: m.recent, next_ball: m.next_ball, score: m.situation.score, wickets: m.situation.wickets }} /></details>
       )}
 
       {rev && (
@@ -139,6 +131,7 @@ export default function Play() {
                 {after && <> Score <span className="score-flip num" key={after.text}><b>{after.text}</b></span>.</>} <ProvBadge prov="OBSERVED" /></div>
             </div>
           </div>
+          {st.n === 1 && <div className="play-explain" data-testid="play-scoring-explainer"><b>How scoring works:</b> a right call scores more the less likely the model thought it was (capped at 40 points). The model plays every ball too, so you can see whether you read the game better than it did.</div>}
           <div className="mini" style={{ marginTop: 6 }}>{rev.match_line} · {rev.delivery.venue} · only the recorded outcome is shown; how the ball was played is not in the data.</div>
           <div className="vs-line">
             <span>You: <b>{rev.pick}</b> {rev.correct ? `✓ +${rev.points}` : "✗"}</span>
@@ -169,6 +162,20 @@ export default function Play() {
           <ExploreNext type="delivery" id={rev.delivery.delivery_id} title="Where this moment leads" />
         </div>
       )}
+      {st.n > 0 && (
+        <div className="mvy" aria-label="Model versus you" style={{ marginTop: 14 }}>
+          <div className="mvy-side you"><div className="l">You</div><div className="v num">{st.points}</div><div className="mini">{st.correct}/{st.n} right{acc != null ? ` · ${acc}%` : ""}</div></div>
+          <div className="mvy-mid"><div className="mini">streak</div><b className="num">{st.streak}</b><div className="mini">best {st.best}</div>
+            <div className="mini" style={{ marginTop: 4 }}>beat the model <b className="num" style={{ color: "var(--accent-2)" }}>{st.beat}</b>×</div></div>
+          <div className="mvy-side model"><div className="l">Model · modelled</div><div className="v num">{st.modelPoints}</div><div className="mini">{st.modelCorrect}/{st.n} right{macc != null ? ` · ${macc}%` : ""}</div></div>
+        </div>
+      )}
+      {st.n > 0 && <button className="btn sm" style={{ marginTop: 8 }} onClick={() => setShowStats(!showStats)} aria-expanded={showStats}>{showStats ? "Hide" : "Session"} stats</button>}
+      {showStats && <SessionStats s={sess} st={st} />}
+      {showStats && st.n > 0 && <Link className="btn" style={{ display: "inline-block", marginTop: 8 }}
+        href={`/share?type=whn&pts=${st.points}&n=${st.n}&acc=${acc ?? 0}&mpts=${st.modelPoints}&beat=${st.beat}`}>Share my session</Link>}
+      <Link href="/live-lab" className="from-live" style={{ background: "var(--surface)", color: "var(--text)", marginTop: 14 }} data-testid="play-whole-match">
+        <span><b>Play a whole match:</b> predict every ball of a historical replay →</span></Link>
       <div style={{ marginTop: 18, textAlign: "center" }}><button className="btn" style={{ fontSize: 12 }} onClick={reset}>Reset my score</button>
         <div className="mini" style={{ marginTop: 6 }}>No account: your score is kept in this browser only.</div></div>
       {open && <DeliveryModal id={open} onClose={() => setOpen(null)} />}

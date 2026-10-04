@@ -1,0 +1,26 @@
+// Plain-language glossary (Phase 8 terminology pass). Default copy uses the plain phrase; the technical term and its
+// exact meaning sit behind WHY boxes and on /glossary. No page shows these words by default without a plain gloss.
+export const GLOSSARY: { term: string; plain: string; detail: string }[] = [
+  { term: "Covered matches", plain: "The matches CRICINTEL holds ball by ball.",
+    detail: "Cricsheet ball-by-ball files for IPL, WPL, men's and women's T20Is and ODIs. Not every match ever played: totals are not official career figures." },
+  { term: "Percentile", plain: "Where a player sits among similar players.",
+    detail: "The share of peers with a lower value. 90th percentile = higher than 90% of peers. It describes style, not quality: for some measures lower is better." },
+  { term: "Peers", plain: "Players compared like for like.",
+    detail: "Players in the same format and level with enough balls in covered matches to measure the same thing (the minimum is shown in each WHY box)." },
+  { term: "Baseline / the usual rate", plain: "What normally happens.",
+    detail: "The rate a player or a bowler usually achieves across all their covered balls, used to judge whether one battle is unusual." },
+  { term: "Observed v expected", plain: "What happened v what you'd normally see.",
+    detail: "Observed counts the real events. Expected applies the usual rates of both players to the same number of balls." },
+  { term: "Interval (90%)", plain: "The range the true figure probably sits in.",
+    detail: "A 90% Wilson interval: with small samples the range is wide, which is why we say a difference may be noise." },
+  { term: "Shrinkage", plain: "Pulling small samples toward normal.",
+    detail: "A player with 20 balls against a bowler gets their numbers blended with the usual rate, so a short hot streak can't top a list. The weight is stated in each WHY box (e.g. 60 pseudo-balls)." },
+  { term: "False-discovery control", plain: "Fewer flukes in 'unusual' lists.",
+    detail: "When thousands of battles are tested, some look unusual by chance. Benjamini–Hochberg control keeps the expected share of flukes in a list at or below the stated rate." },
+  { term: "Calibration", plain: "Whether the model's percentages come true.",
+    detail: "Of all the balls the model gave a 20% chance of a boundary, about 20% should have been boundaries. Checked on matches the model never saw." },
+  { term: "Cohort", plain: "The group being compared.",
+    detail: "A fixed set of players or matches defined up front (e.g. men's T20 openers since 2020) so comparisons stay like for like." },
+  { term: "Provenance tags", plain: "How each number was made.",
+    detail: "OBSERVED: recorded in the data. DERIVED: computed from recorded data. RECONSTRUCTED: rebuilt from the sequence of balls. MODELLED: a statistical estimate. ILLUSTRATIVE: a drawing, not data." },
+];

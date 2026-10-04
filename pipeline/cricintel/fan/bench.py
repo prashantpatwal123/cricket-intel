@@ -1,4 +1,4 @@
-"""Phase 7 performance benchmark: server-side latency of the fan endpoints, cold (first request after an API restart, on
+"""Phase 7/8 performance benchmark: server-side latency of the fan endpoints, cold (first request after an API restart, on
 entities the warm-up does not pre-load where possible) and warm (repeat), plus the Phase 4/5 reference endpoints.
 
     python -m cricintel.fan.bench --base http://localhost:8000 [--out docs/data/benchmarks-phase7.json]
@@ -17,6 +17,12 @@ KOHLI, ZAMPA, BUMRAH, MANDHANA, ROHIT, LESSER = "ba607b88", "14f96089", "462411b
 COLD_PLAYERS = ["2c25d4f5", "b17e2f24", "dbe50b21", "45a13dcf"]
 
 CASES = [
+    # Phase 8 additions
+    ("Home (first 60 seconds)", "/api/fan/home?day=2026-10-04"),
+    ("Battle: every meeting + halves (not pre-warmed)", "/api/fan/battle/meetings?bat={cold1}&bowl=" + BUMRAH),
+    ("Battle: every meeting (Kohli v Zampa)", "/api/fan/battle/meetings?bat=" + KOHLI + "&bowl=" + ZAMPA),
+    ("Ask with follow-ups: dismissed by", "/api/ask/v1?q=" + urllib.parse.quote("Who dismisses Mandhana most?")),
+    ("Play: next moment", "/api/whn/next"),
     ("Rabbit-Hole: player (not pre-warmed)", "/api/fan/next?type=player&key={cold0}"),
     ("Rabbit-Hole: player, with session memory", "/api/fan/next?type=player&key={cold0}&seen=player:" + KOHLI + "&shown=battle:" + KOHLI + "|" + ZAMPA),
     ("Rabbit-Hole: battle", "/api/fan/next?type=battle&key=" + KOHLI + "|" + ZAMPA),

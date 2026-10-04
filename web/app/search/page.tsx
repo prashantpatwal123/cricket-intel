@@ -40,7 +40,7 @@ function Search() {
   return (
     <div className="fade-in">
       <section className="search-top">
-        <div className="kicker">Search</div>
+        <h1 className="kicker">Search</h1>
         <input className="search-big" value={q} onChange={(e) => setQ(e.target.value)} autoFocus placeholder="Players, matches, battles, records…" aria-label="Search everything" />
         <div className="mini" style={{ marginTop: 8 }}>Search finds things. To ask a statistical question (&ldquo;who has the best death-overs economy?&rdquo;), use <Link href={`/ask${q ? `?q=${encodeURIComponent(q)}` : ""}`} className="ul">Ask</Link>.</div>
         {!res && <div className="chips" style={{ marginTop: 12 }}>{EXAMPLES.map((e) => <button key={e} className="chip" onClick={() => setQ(e)}>{e}</button>)}</div>}

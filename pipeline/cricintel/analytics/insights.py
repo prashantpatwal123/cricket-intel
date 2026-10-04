@@ -221,7 +221,7 @@ def insights(db: DB, pid: str, fmt: str, team_type: str | None = None, name: str
         a, b = t["inside"], t["outside"]
         fmt_label = {"T20": "T20", "ODI": "ODI"}[fmt]
         peer_label = (f"a typical {'women' if gender == 'female' else 'men'}'s {fmt_label} {POS_BANDS[band][2]} batter "
-                      f"in our covered data")
+                      f"in covered matches")
         if t["kind"] == "rate":
             pv_in, pv_out = a[t["field"]] / a["n"], b[t["field"]] / b["n"]
             stmt = (f"In our covered {fmt_label} data, {name}'s {t['metric_label']} {t['phrase']} is "
@@ -280,4 +280,4 @@ def insights(db: DB, pid: str, fmt: str, team_type: str | None = None, name: str
     for i, c in enumerate(cards):
         c["rank"] = i + 1
     return {"player": name, "format": fmt, "tested": len(tests), "cards": cards, "position_band": POS_BANDS[band][2],
-            "baseline": f"pooled {('women' if gender == 'female' else 'men')}'s {fmt} {POS_BANDS[band][2]} batters in our covered data", "method": __doc__.strip().split("\n\n")[1]}
+            "baseline": f"pooled {('women' if gender == 'female' else 'men')}'s {fmt} {POS_BANDS[band][2]} batters in covered matches", "method": __doc__.strip().split("\n\n")[1]}

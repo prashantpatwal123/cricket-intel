@@ -53,7 +53,7 @@ export default function DismissalStory({ pid, route, filters, onDrill }: { pid: 
               return <g key={o.k} onClick={() => onDrill(`${s.label} in over ${o.k}`, { ...s.evidence_query, over_from: o.k, over_to: o.k })} style={{ cursor: "pointer" }}>
                 <title>{`over ${o.k}: ${o.n}`}</title>
                 <rect x={x + 1} y={88 - h} width={Math.max(2, bw - 2)} height={h} rx={2} fill="#ff5c74" />
-                {(o.k % 5 === 0 || o.k === 1) && <text x={x + bw / 2} y={104} textAnchor="middle" fontSize={9} fill="#8d9ab8">{o.k}</text>}
+                {(o.k % 5 === 0 || o.k === 1) && <text x={x + bw / 2} y={104} textAnchor="middle" fontSize={11} fill="#8d9ab8">{o.k}</text>}
               </g>;
             })}
           </svg>

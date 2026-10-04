@@ -42,10 +42,10 @@ export default function DeliveryScene({ model, compact = false }: { model: Deliv
               : <Figure x={CX} y={Y.keeper} role="keeper" />}
           </g>
           <text x={CX + 40} y={Y.bowler + 4} fontSize={11} fill={C.text}>{short(el("bowler").label)}</text>
-          <text x={CX - 44} y={Y.nonStriker + 14} fontSize={10} fill={C.muted} textAnchor="end">{short(el("non_striker").label)}</text>
+          <text x={CX - 44} y={Y.nonStriker + 14} fontSize={11} fill={C.muted} textAnchor="end">{short(el("non_striker").label)}</text>
           <text x={CX + 36} y={Y.striker - 4} fontSize={11} fill={C.text}>{short(el("striker").label)}</text>
-          {z?.id === "fielder_zone" && <text x={CX} y={26} textAnchor="middle" fontSize={10} fill="#ffd0d8">{z.label}</text>}
-          <text x={8} y={H - 8} fontSize={9} fill={C.muted}>Schematic · no ball path recorded</text>
+          {z?.id === "fielder_zone" && <text x={CX} y={26} textAnchor="middle" fontSize={11} fill="#ffd0d8">{z.label}</text>}
+          <text x={8} y={H - 8} fontSize={11} fill={C.muted}>Schematic · no ball path recorded</text>
         </svg>
         <div>
           <div className="chain" aria-label="What happened, in order">

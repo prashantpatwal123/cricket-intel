@@ -5,16 +5,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { load, reset, seenIds } from "@/lib/memory";
+import { seenIds } from "@/lib/memory";
+import Continue from "./Continue";
 import { PlayCard, WhyBox } from "./bits";
 
 export default function DailyDiscovery({ onItems }: { onItems?: (hrefs: string[]) => void }) {
   const [d, setD] = useState<any | null>(null);
-  const [recent, setRecent] = useState<any[]>([]);
-  const [play, setPlay] = useState<any>(null);
   useEffect(() => {
-    const m = load();
-    setRecent(m.visited.slice(0, 8)); setPlay(m.play);
     api("/fan/explore", { seen: seenIds(60).join(",") }).then((r) => {
       setD(r.data);
       onItems?.([...r.data.worth_knowing.map((x: any) => x.href), ...r.data.battles.map((x: any) => x.href)]);
@@ -24,14 +21,7 @@ export default function DailyDiscovery({ onItems }: { onItems?: (hrefs: string[]
   if (d.error) return null;
   return (
     <>
-      {recent.length > 0 && (
-        <section className="section" data-testid="continue">
-          <div className="xnext-head"><span className="eyebrow">Continue where you left off</span>
-            <button className="why-btn" onClick={() => { reset(); setRecent([]); setPlay(null); }}>Clear my history</button></div>
-          <div className="recent-row">{recent.map((v) => <Link key={v.id} href={v.href}>{v.label}</Link>)}</div>
-          <div className="mini" style={{ marginTop: 4 }}>Kept only in this browser, used to avoid showing you the same things. {play?.n ? `Play: ${play.pts} pts from ${play.n} calls.` : ""}</div>
-        </section>
-      )}
+      <Continue />
 
       <section className="section" data-testid="didnt-know">
         <div className="kicker">You probably didn&apos;t know</div>

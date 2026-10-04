@@ -1,5 +1,6 @@
 "use client";
 // Share card generator. Builds a card from the same APIs the product uses; export only (no posting integrations).
+import { track } from "@/lib/analytics";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
@@ -129,7 +130,7 @@ function Share() {
   const [story, setStory] = useState(false);
   const [saved, setSaved] = useState<number | null>(null);
   const ref = useRef<SVGSVGElement>(null);
-  useEffect(() => { build(new URLSearchParams(sp.toString())).then((r) => (r ? setRes(r) : setErr(true))).catch(() => setErr(true)); }, [sp.toString()]);
+  useEffect(() => { build(new URLSearchParams(sp.toString())).then((r) => { if (r) { setRes(r); track("share_card_generate", { type: sp.get("type") }); } else setErr(true); }).catch(() => setErr(true)); }, [sp.toString()]);
   if (err) return <div className="empty" style={{ marginTop: 30 }}>Nothing to share for that link.</div>;
   if (!res) return <div className="loading">Building the card…</div>;
   return (

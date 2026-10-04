@@ -67,7 +67,7 @@ export default function Fingerprint({ pid, format, teamType, onDrill, initialRol
             const tx = cx + rr * Math.cos(a), ty = cy + rr * Math.sin(a);
             const lines = wrap(x.label);
             const on = sel === x.key;
-            return <text key={x.key + "t"} x={tx} y={ty - (lines.length - 1) * 5} fontSize={9.5} fill={on ? "#edf2fc" : "#8d9ab8"} fontWeight={on ? 800 : 500}
+            return <text key={x.key + "t"} x={tx} y={ty - (lines.length - 1) * 5} fontSize={12} fill={on ? "#edf2fc" : "#8d9ab8"} fontWeight={on ? 800 : 500}
                          textAnchor={Math.cos(a) > 0.2 ? "start" : Math.cos(a) < -0.2 ? "end" : "middle"} dominantBaseline="middle"
                          onClick={() => setSel(x.key)} style={{ cursor: "pointer" }}>
               {lines.map((l, j) => <tspan key={j} x={tx} dy={j ? 10.5 : 0}>{l}</tspan>)}</text>;
@@ -75,7 +75,7 @@ export default function Fingerprint({ pid, format, teamType, onDrill, initialRol
           <circle cx={cx} cy={cy} r={r0 - 4} fill="#0b1324" stroke="#233154" />
           <text x={cx} y={cy - 4} textAnchor="middle" fontSize={20} fontWeight={900} fill="#edf2fc" style={{ fontFamily: "var(--display)" }}>
             {d?.percentile != null ? ordinal(d.percentile) : "–"}</text>
-          <text x={cx} y={cy + 12} textAnchor="middle" fontSize={8} fill="#8d9ab8">percentile</text>
+          <text x={cx} y={cy + 12} textAnchor="middle" fontSize={14} fill="#8d9ab8">percentile</text>
         </svg>
         {d && (
           <div className="fp-detail fade-in" key={d.key}>

@@ -101,11 +101,11 @@ await session(Mo, async (p, settle) => {
   await p.screenshot({ path: `${out}/m11-battle-universe.png`, fullPage: true });
   await note("universe", { first: await p.locator(".trow").first().innerText() });
   await p.goto(`${BASE}/battle?bat=${KOHLI}&bowl=${ZAMPA}`); await settle(1300);
-  await p.locator(".rule-section", { hasText: "Similar battles" }).screenshot({ path: `${out}/m12-similar-battles.png` });
-  await note("similar", { rows: await p.locator(".trow", { hasText: "d " }).count() });
+  await p.locator("[data-testid=battle-similar]").screenshot({ path: `${out}/m12-similar-battles.png` });
+  await note("similar", { rows: await p.locator("[data-testid=battle-similar] .mrow").count() });
   await p.goto(`${BASE}/battle?bat=${LOWS}&bowl=f9e6e7ef`); await settle(1300);
   await p.screenshot({ path: `${out}/m13-battle-low-sample.png`, fullPage: true });
-  await note("battle-low-sample", { sample: await p.locator(".note").first().innerText().catch(() => ""), sim: await p.locator(".rule-section", { hasText: "Similar battles" }).innerText() });
+  await note("battle-low-sample", { sample: await p.locator(".note").first().innerText().catch(() => ""), sim: await p.locator("[data-testid=battle-similar]").innerText() });
 
   // 8. Records v2
   await p.goto(`${BASE}/records?metric=bowling_average&gender=male&format=ODI&full_members=true&min_matches=20`); await settle(1200);
@@ -149,7 +149,7 @@ await session(Mo, async (p, settle) => {
   await p.locator(".share-frame").screenshot({ path: `${out}/m18-share-story-format.png` });
 
   // 12. Explore feed
-  await p.goto(`${BASE}/`); await settle(1200);
+  await p.goto(`${BASE}/discover`); await settle(1200); // Phase 8: Today's mix feed moved to /discover
   await p.screenshot({ path: `${out}/m19-explore-feed.png`, fullPage: true });
   const feed = await p.locator("[data-testid=feed-card] .ft").allInnerTexts();
   await note("explore-feed", { cards: feed.length + 1, types: [...new Set(feed)], lead: await p.locator(".feed-lead .t").innerText() });

@@ -96,7 +96,8 @@ class Game:
 
     def state(self, mid: str) -> dict:
         m = self.by_id[mid]
-        b = self.db.q1("SELECT * FROM balls WHERE delivery_id = ?", [m["delivery_id"]])
+        # match_id (the delivery id's prefix) lets DuckDB prune row groups instead of scanning every ball (Phase 8 perf)
+        b = self.db.q1("SELECT * FROM balls WHERE match_id = ? AND delivery_id = ?", [m["delivery_id"].split(":")[0], m["delivery_id"]])
         prev = self.db.q("""SELECT ball_label, runs_total, n_wickets, wides, noballs, is_four, is_six FROM balls
                             WHERE match_id = ? AND innings_no = ? AND seq < ? ORDER BY seq DESC LIMIT 6""",
                          [b["match_id"], b["innings_no"], b["seq"]])
@@ -109,15 +110,17 @@ class Game:
         ns = self.db.q1("""SELECT sum(runs_batter) r, count(*) FILTER (WHERE faced) bf FROM balls
                            WHERE match_id = ? AND innings_no = ? AND batter_id = ? AND seq < ?""",
                         [b["match_id"], b["innings_no"], b["non_striker_id"], b["seq"]])
+        from ..analytics.entities import names
+        nm = names(self.db)   # register display names, as on every other page
         return {
             "moment_id": mid, "competition": b["competition"], "format": b["format_group"], "gender": b["gender"],
             "date": b["start_date"], "season": b["season"], "batting_team": b["batting_team"], "bowling_team": b["bowling_team"],
             "innings_no": b["innings_no"], "score": f"{b['score_before']}/{b['wickets_before']}",
             "next_ball": b["ball_label"], "overs_completed": f"{b['legal_balls_before'] // 6}.{b['legal_balls_before'] % 6}",
             "phase": b["phase"],
-            "batter": {"name": b["batter"], "runs": b["batter_runs_before"], "balls": b["batter_balls_before"], "hand": b["batter_hand"]},
-            "non_striker": {"name": b["non_striker"], "runs": ns["r"] or 0, "balls": ns["bf"] or 0},
-            "bowler": {"name": b["bowler"], "style": b["bowler_style"], "figures": f"{(bowl['balls'] or 0) // 6}.{(bowl['balls'] or 0) % 6}-{bowl['runs'] or 0}-{bowl['wkts'] or 0}"},
+            "batter": {"name": nm.get(b["batter_id"], b["batter"]), "runs": b["batter_runs_before"], "balls": b["batter_balls_before"], "hand": b["batter_hand"]},
+            "non_striker": {"name": nm.get(b["non_striker_id"], b["non_striker"]), "runs": ns["r"] or 0, "balls": ns["bf"] or 0},
+            "bowler": {"name": nm.get(b["bowler_id"], b["bowler"]), "style": b["bowler_style"], "figures": f"{(bowl['balls'] or 0) // 6}.{(bowl['balls'] or 0) % 6}-{bowl['runs'] or 0}-{bowl['wkts'] or 0}"},
             "chase": {"target": b["target_runs"], "runs_required": b["runs_required"], "balls_remaining": b["balls_remaining"],
                       "required_rate": round(b["required_rate"], 2) if b["required_rate"] else None} if b["chasing"] else None,
             "recent": [_ball_glyph(x) for x in reversed(prev)],
@@ -131,7 +134,7 @@ class Game:
     def reveal(self, mid: str, pick: str | None) -> dict:
         m = self.by_id[mid]
         card = self._card(m["delivery_id"])
-        b = self.db.q1("SELECT match_id, innings_no, seq FROM balls WHERE delivery_id = ?", [m["delivery_id"]])
+        b = self.db.q1("SELECT match_id, innings_no, seq FROM balls WHERE match_id = ? AND delivery_id = ?", [m["delivery_id"].split(":")[0], m["delivery_id"]])
         nxt = self.db.q("""SELECT ball_label, runs_total, n_wickets, wides, noballs, is_four, is_six FROM balls
                            WHERE match_id = ? AND innings_no = ? AND seq > ? ORDER BY seq LIMIT 6""", [b["match_id"], b["innings_no"], b["seq"]])
         ai = CLASSES.index(m["actual"])

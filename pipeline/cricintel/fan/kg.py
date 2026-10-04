@@ -303,8 +303,6 @@ def _match(db: DB, mid: str) -> list[dict]:
                 seen_rec.add(rec_["id"])
                 out.append(edge("record", rec_["id"], rec_["title"], "record", f"Something from this match is #{rec_['rank']} on this list", n=1, full=1,
                                 strength=1 - (rec_["rank"] - 1) / 10, unusual=0.7, when=m["start_date"], rec=cr))
-    out.append(edge("match", mid, "How the match unfolded", "story", "A deterministic story built from the deliveries", n=1, full=1,
-                    strength=0.5, unusual=0.2, rec=cr, href_=f"/story/match/{mid}", view="story"))
     out.append(edge("match", mid, "Replay it ball by ball", "replay", "Historical replay: not live, nothing revealed ahead of the cursor",
                     n=1, full=1, strength=0.5, unusual=0.3, rec=cr, href_=f"/live-lab/{mid}", view="replay"))
     mo = moments.for_match(db, mid)
@@ -361,8 +359,6 @@ def _innings(db: DB, key: str) -> list[dict]:
     for rec_ in records2.containing(db, "innings", key)[:2]:
         out.append(edge("record", rec_["id"], rec_["title"], "record", f"This innings is #{rec_['rank']} on this list", n=1, full=1,
                         strength=1 - (rec_["rank"] - 1) / 10, unusual=0.7, when=b["start_date"], rec=cr))
-    out.append(edge("innings", key, "How this innings unfolded", "story", "A deterministic story built from the deliveries", n=1, full=1,
-                    strength=0.5, unusual=0.2, rec=cr, href_=f"/story/innings/{mid}/{inn}/{pid}", view="story"))
     out.append(edge("player", pid, nm(db, pid), "player", "The batter", n=1, full=1, strength=0.5, unusual=0.1, rec=recog(db, pid)))
     return out
 

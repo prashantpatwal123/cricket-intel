@@ -2,6 +2,7 @@
 // Local-only session memory. Lives in this browser's localStorage and nowhere else: no account, no server copy, no tracking.
 // Used to (1) avoid recommending what you've already opened, (2) show "continue where you left off", (3) keep a Play score.
 // Every read/write is guarded: private windows or blocked storage simply mean an empty memory.
+import { track } from "./analytics";
 import { useEffect } from "react";
 
 const KEY = "ci-memory-v1";
@@ -65,5 +66,6 @@ export function useRemember(type: string, key: string | null | undefined, label:
   useEffect(() => {
     if (!key || !label) return;
     remember({ id: `${type}:${key}`, type, label, href: href || (typeof window !== "undefined" ? window.location.pathname + window.location.search : "") });
+    track("entity_open", { type, id: key, depth: seenIds().length });
   }, [type, key, label, href]);
 }

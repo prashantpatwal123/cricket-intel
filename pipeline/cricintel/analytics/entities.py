@@ -49,7 +49,11 @@ def match_page(db: DB, match_id: str, sdx=None) -> dict | None:
     meta = db.q1("SELECT * FROM matches WHERE match_id = ?", [match_id])
     m["result_line"] = _result_line(meta)
     m["start_date"] = str(m["start_date"])
-    m["player_of_match_names"] = [_nm(db, p) for p in (meta.get("player_of_match") or [])] if isinstance(meta.get("player_of_match"), list) else []
+    # player of the match is recorded as a scorecard name ("V Kohli"); map it through the match's own player list to the
+    # register id, then to the display name used everywhere else, so the page never switches aliases
+    pom = meta.get("player_of_match") if isinstance(meta.get("player_of_match"), list) else []
+    pim = {r["name"]: r["person_id"] for r in db.q("SELECT name, person_id FROM players_in_match WHERE match_id = ?", [match_id])}
+    m["player_of_match_names"] = [_nm(db, pim.get(p, p), p) for p in pom]
     inns = db.q("""SELECT innings_no, batting_team, bowling_team, total_runs, total_wickets, legal_balls, target_runs FROM innings
                    WHERE match_id = ? AND NOT super_over ORDER BY innings_no""", [match_id])
     out_inns = []
@@ -94,11 +98,11 @@ def match_page(db: DB, match_id: str, sdx=None) -> dict | None:
     records = match_records(db, m, out_inns)
     exp = None
     if sdx and len(out_inns) > 1:
-        rows = db.q("""SELECT b.delivery_id, b.ball_label, b.batter, b.bowler, b.runs_total, b.n_wickets, s.sdx FROM balls b JOIN situation s USING (delivery_id)
+        rows = db.q("""SELECT b.delivery_id, b.ball_label, b.batter_id, b.bowler_id, b.runs_total, b.n_wickets, s.sdx FROM balls b JOIN situation s USING (delivery_id)
                        WHERE b.match_id = ? AND b.innings_no = 2 ORDER BY b.seq""", [match_id])
         swings = []
-        for a, b in zip(rows, rows[1:]):
-            swings.append({"delivery_id": a["delivery_id"], "ball_label": a["ball_label"], "batter": a["batter"], "bowler": a["bowler"],
+        for a, b in zip(rows, rows[1:]):   # register display names, as everywhere else on the page (not raw scorecard strings)
+            swings.append({"delivery_id": a["delivery_id"], "ball_label": a["ball_label"], "batter": _nm(db, a["batter_id"]), "bowler": _nm(db, a["bowler_id"]),
                            "event": "W" if a["n_wickets"] else str(a["runs_total"]), "from": a["sdx"], "to": b["sdx"], "change": round(b["sdx"] - a["sdx"], 1)})
         swings.sort(key=lambda x: -abs(x["change"]))
         exp = {"label": "Largest changes in Situation Difficulty — Experimental", "rows": swings[:5], "series": [r["sdx"] for r in rows],

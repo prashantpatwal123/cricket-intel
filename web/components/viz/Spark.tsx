@@ -12,7 +12,7 @@ export default function Spark({ values, labels, color = "#35e0c2", height = 60, 
     <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 420 }} role="img" aria-label="Trend">
       {segs.filter((s) => s.length > 1).map((s, i) => <polyline key={i} fill="none" stroke={color} strokeWidth={2} points={s.join(" ")} />)}
       {values.map((v, i) => v == null ? null : <circle key={i} cx={X(i)} cy={Y(v)} r={2.6} fill={color}><title>{`${labels?.[i] ?? i}: ${fmt(v)}`}</title></circle>)}
-      {labels && <><text x={P} y={H - 1} fontSize={9.5} fill="#5d6a88">{labels[0]}</text><text x={W - P} y={H - 1} fontSize={9.5} fill="#5d6a88" textAnchor="end">{labels[labels.length - 1]}</text></>}
+      {labels && <><text x={P} y={H - 1} fontSize={11} fill="#5d6a88">{labels[0]}</text><text x={W - P} y={H - 1} fontSize={11} fill="#5d6a88" textAnchor="end">{labels[labels.length - 1]}</text></>}
     </svg>
   );
 }

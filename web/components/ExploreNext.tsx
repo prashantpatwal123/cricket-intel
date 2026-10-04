@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { markShown, remember, seenIds, shownIds } from "@/lib/memory";
+import { track } from "@/lib/analytics";
 
 const KIND_ICON: Record<string, string> = { innings: "▮", spell: "◎", battle: "⚔", partnership: "∞", competition: "🏆", match: "▣", story: "¶",
   delivery: "•", player: "●", rivalry: "⇄", record: "≡", finding: "✦", moment: "▶", team: "⚑" };
@@ -15,7 +16,7 @@ const REL_LABEL: Record<string, string> = { dismissed_by: "Nemesis", victim: "Vi
   other_rival: "Another battle", rivalry: "Rivalry", competition: "Competition", next_match: "Next match", latest_match: "Latest match",
   replay: "Replay", edition: "Edition", faced_most: "Battle", teammate: "Team-mate", related_record: "Record", records: "Records" };
 
-export default function ExploreNext({ type, id, title = "Explore next" }: { type: string; id: string; title?: string }) {
+export default function ExploreNext({ type, id, title = "Explore next", max = 6 }: { type: string; id: string; title?: string; max?: number }) {
   const [d, setD] = useState<any | null>(null);
   const [why, setWhy] = useState(false);
   useEffect(() => {
@@ -23,12 +24,12 @@ export default function ExploreNext({ type, id, title = "Explore next" }: { type
     api("/fan/next", { type, key: id, seen: seenIds().join(","), shown: shownIds().join(","), k: 7 })
       .then((r) => {
         const here = window.location.pathname + window.location.search;
-        const items = r.data.items.filter((x: any) => x.href !== here).slice(0, 6);
+        const items = r.data.items.filter((x: any) => x.href !== here).slice(0, max);
         setD({ ...r.data, items });
         markShown(items.map((x: any) => x.id));
       })
       .catch(() => setD({ items: [] }));
-  }, [type, id]);
+  }, [type, id, max]);
   if (d && !d.items.length) return null;
   return (
     <section className="xnext" aria-label={title} data-testid="explore-next">
@@ -41,7 +42,7 @@ export default function ExploreNext({ type, id, title = "Explore next" }: { type
         <div className="xnext-list">
           {d.items.map((r: any) => (
             <Link key={r.id} href={r.href} className="xnext-row" data-rel={r.relation} data-type={r.type}
-              onClick={() => remember({ id: r.id, type: r.type, label: r.label, href: r.href })}>
+              onClick={() => { remember({ id: r.id, type: r.type, label: r.label, href: r.href }); track("explore_next_click", { from_type: type, to_type: r.type, relation: r.relation, rank: d.items.indexOf(r) }); }}>
               <span className={`sicon ${r.type}`}>{KIND_ICON[r.type] ?? "→"}</span>
               <span className="sl"><span className="rel">{REL_LABEL[r.relation] ?? r.relation}</span><b>{r.label}</b><span className="mini">{r.reason}</span></span>
               <span className="sgo">→</span>

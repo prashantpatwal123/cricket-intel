@@ -1,158 +1,166 @@
 "use client";
-// Fan player home (Phase 7): what kind of cricketer is this, what makes them unusual, where to go next.
-// Order: fingerprint → what makes them different → how they get out / take wickets → biggest battles → best stories →
-// partnerships → records → career journey → similar players. Methodology lives behind WHY.
+// Player home (Phase 8, compressed + role-adaptive). Target: 3–5 phone screens before deeper exploration.
+//   above the fold: defining insight + obvious next actions (the hero card sits above this component)
+//   then: what makes them different (top 3) · how they get out / take wickets · biggest battles · best performances · explore more
+// Layout adapts to the defensible role: batter, bowler, all-rounder, wicketkeeper-batter, or neutral when the covered
+// sample is too small to say. The fingerprint, similar players, full lists and methodology live in purposeful tabs.
 import Link from "next/link";
-import { Params, fmt } from "@/lib/api";
-import Fingerprint from "@/components/Fingerprint";
-import HowOut from "@/components/HowOut";
-import MatchupDiscovery from "./MatchupDiscovery";
-import SimilarPlayers from "./SimilarPlayers";
+import { useEffect, useState } from "react";
+import { api, fmt, Params } from "@/lib/api";
 import { PlayCard, SectionHead, WhyBox } from "./bits";
+import Feedback from "@/components/Feedback";
+import { track } from "@/lib/analytics";
 
-export default function PlayerHome({ pid, fan, dis, hand, onDrill }: { pid: string; fan: any; dis: any; hand?: string | null; onDrill: (t: string, q: Params) => void }) {
-  const h = fan.hero, name = h.name;
-  const bowler = h.role.primary === "bowler";
-  const diff = fan.different?.items || [];
-  const stories = fan.stories?.cards || [];
+const ROUTE_ORDER = (routes: any[]) => routes.filter((r: any) => r.n).sort((a: any, b: any) => b.n - a.n);
+
+export default function PlayerHome({ pid, fan, dis, onDrill, goTab }: { pid: string; fan: any; dis: any; onDrill: (t: string, q: Params) => void; goTab: (t: string) => void }) {
+  const h = fan.hero, name = h.name, L = h.layout as "batter" | "bowler" | "allrounder" | "keeper" | "neutral";
+  const bowlerFirst = L === "bowler";
+  const diff = (fan.different?.items || []) as any[];
+  const stories = (fan.stories?.cards || []) as any[];
+  const [mu, setMu] = useState<any | null>(null);
+  useEffect(() => { api(`/fan/player/${pid}/matchups`).then((r) => setMu(r.data)).catch(() => setMu({ views: {} })); }, [pid]);
+  const defining = diff[0];
+  const routes = dis?.routes ? ROUTE_ORDER(dis.routes) : [];
   const total = dis?.total ?? 0;
-  const topRoute = dis?.routes?.slice().sort((a: any, b: any) => b.n - a.n)[0];
+  const view = mu?.views?.[bowlerFirst ? "as_bowler" : "as_batter"] || mu?.views?.as_batter || mu?.views?.as_bowler;
+  const nemesis = view?.dismissed_most?.[0] || view?.dismissed_most_often?.[0];
+  const biggest = (view?.biggest || []).slice(0, 3);
+  const best = stories.filter((c) => c.id === "best_innings" || c.id === "best_spell");
+  const others = stories.filter((c) => c.id !== "best_innings" && c.id !== "best_spell");
+  const [allStories, setAllStories] = useState(false);
+  const rest = allStories ? others : others.slice(0, 2);
+
   return (
     <>
-      <section className="section" style={{ marginTop: 12 }}>
-        <SectionHead kicker="Fingerprint" title={`What kind of ${h.kind} is ${name}?`}
-          sub="Each petal compares one habit with peers in the same format. Tap a trait below; WHY shows the definition and peer pool." />
-        <div className="card"><Fingerprint pid={pid} onDrill={onDrill} compact scope="major" initialRole={bowler ? "bowling" : "auto"} /></div>
-      </section>
+      {/* -------- above the fold: one defining insight + the obvious next actions */}
+      {defining ? (
+        <section className="defining" data-testid="defining-insight" aria-label="Defining insight">
+          <div className="tk">What stands out</div>
+          <p className="dh">{defining.headline}</p>
+          <div className="dm"><span className="mini">{defining.sample}</span><WhyBox why={defining.why} />
+            {defining.evidence?.query ? <button className="btn sm" onClick={() => onDrill(defining.evidence.label, defining.evidence.query)}>Deliveries →</button>
+              : defining.evidence?.href ? <Link className="btn sm" href={defining.evidence.href}>Evidence →</Link> : null}</div>
+        </section>
+      ) : (
+        <section className="defining neutral" data-testid="defining-insight">
+          <div className="tk">In covered matches</div>
+          <p className="dh">{L === "neutral" ? `Not enough covered balls yet to say what kind of player ${name} is (${fmt(h.role.balls_faced)} faced, ${fmt(h.role.balls_bowled)} bowled).`
+            : `Nothing in ${name}'s numbers clears our bar for "unusual" yet. That is a result, not a gap.`}</p>
+        </section>
+      )}
+      <nav className="actions" aria-label={`Explore ${name}`} data-testid="player-actions">
+        {(L !== "bowler" && total > 0) && <Link href={`/how-out/${pid}`} data-testid="explore-how-out-home"><b>How {name.split(" ").slice(-1)[0]} gets out</b><span>{total} dismissals</span></Link>}
+        {(L === "bowler" || L === "allrounder") && fan.wickets?.total > 0 && <a href="#wickets"><b>How the wickets come</b><span>{fan.wickets.total} wickets</span></a>}
+        {biggest[0] && <Link href={biggest[0].href} onClick={() => track("battle_open", { from: "player_action" })}><b>Biggest battle</b><span>v {biggest[0].name}</span></Link>}
+        {fan.moment && <Link href={fan.moment.href}><b>Play a moment</b><span>Call the next ball</span></Link>}
+        <Link href={`/compare?ids=${pid}`}><b>Compare</b><span>with anyone</span></Link>
+      </nav>
 
-      <section className="section" data-testid="what-different">
-        <SectionHead kicker="What makes them different" title="Unusual, and backed by evidence"
-          sub={diff.length ? fan.different.note : undefined} />
-        {diff.length ? (
-          <div className="diffs">
-            {diff.map((it: any) => (
-              <div key={it.id} className={`diff ${it.kind}`}>
-                <div className="dh">{it.headline}</div>
-                <div className="db">{it.body}</div>
-                <div className="dm">
-                  <span className="mini">{it.sample}{it.stable ? " · holds in both halves of the covered period" : ""}</span>
-                  <WhyBox why={it.why} />
-                  {it.evidence?.query ? <button className="btn sm" onClick={() => onDrill(it.evidence.label, it.evidence.query)}>Deliveries →</button>
-                    : it.evidence?.href ? <Link className="btn sm" href={it.evidence.href}>{it.evidence.label} →</Link> : null}
-                  <Link className="why-btn" href={`/share?type=story&pid=${pid}&id=${encodeURIComponent(it.id)}`}>Share</Link>
-                </div>
-              </div>
+      {/* -------- what makes them different (top 3 after the defining one) */}
+      {diff.length > 1 && (
+        <section className="section" data-testid="what-different">
+          <SectionHead kicker="What makes them different" title="Also unusual" right={<button className="btn sm" onClick={() => goTab("style")}>All findings →</button>} />
+          <ul className="plainlist">
+            {diff.slice(1, 4).map((it: any) => (
+              <li key={it.id}><span className="pl-h">{it.headline}</span>
+                <span className="dm"><WhyBox why={{ detail: it.body, sample: it.sample, ...(typeof it.why === "object" ? it.why : { method: it.why }) }} />
+                  {it.evidence?.query ? <button className="why-btn" onClick={() => onDrill(it.evidence.label, it.evidence.query)}>Deliveries</button>
+                    : it.evidence?.href ? <Link className="why-btn" href={it.evidence.href}>Evidence</Link> : null}</span></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* -------- how they get out / take wickets (role-adaptive) */}
+      <div className={L === "allrounder" ? "grid2" : ""}>
+        {L !== "bowler" && total > 0 && (
+          <section className="section" data-testid="how-out-summary">
+            <SectionHead kicker="Dismissals" title={`How ${name} gets out`} right={<Link className="btn sm" href={`/how-out/${pid}`}>Step by step →</Link>} />
+            <RouteBars rows={routes.slice(0, 4).map((r: any) => ({ k: r.route, label: r.label, n: r.n, pct: r.pct }))} total={total} unit="dismissals" />
+            <div className="mini">One dismissal every {fmt(dis.balls_per_dismissal, 1)} balls faced. Where the ball pitched and the shot played are not recorded.</div>
+          </section>
+        )}
+        {(L === "bowler" || L === "allrounder") && fan.wickets?.total > 0 && (
+          <section className="section" id="wickets" data-testid="how-wickets">
+            <SectionHead kicker="Wickets" title={`How ${name} takes wickets`} />
+            <RouteBars rows={fan.wickets.routes.slice(0, 4).map((r: any) => ({ k: r.route, label: r.label, n: r.n, pct: r.pct }))} total={fan.wickets.total} unit="wickets" />
+            <div className="mini">To new batters (0–9 balls): {fan.wickets.stage.new} · to set batters (30+): {fan.wickets.stage.set}. <WhyBox why={fan.wickets.note} /></div>
+          </section>
+        )}
+      </div>
+      {L === "keeper" && h.keeping && (
+        <section className="section">
+          <div className="strip" aria-label="Keeping in covered matches">
+            <div><b>{fmt(h.keeping.ct)}</b><span>catches as keeper</span></div><div><b>{fmt(h.keeping.st)}</b><span>stumpings</span></div>
+          </div>
+          <div className="mini">Keeper identity is derived per match from the scorecards. <WhyBox why="A catch counts as a keeper catch when the fielder is the side's identified wicketkeeper for that match (DERIVED from Cricsheet scorecards; unresolved matches are excluded)." /></div>
+        </section>
+      )}
+
+      {/* -------- biggest battles (top 3 + nemesis) */}
+      {biggest.length > 0 && (
+        <section className="section" data-testid="biggest-battles">
+          <SectionHead kicker="Battles" title={`${name}'s biggest battles`} right={<button className="btn sm" onClick={() => goTab("matchups")}>All battles →</button>} />
+          <div className="mrows">
+            {biggest.map((r: any) => (
+              <Link key={r.pid} href={r.href} className="mrow" onClick={() => track("battle_open", { from: "player_biggest" })}>
+                <span className="mn"><b>{bowlerFirst ? `bowling to ${r.name}` : `v ${r.name}`}</b><span className="mini">{r.balls} balls · {r.matches} matches{r.label === "small sample" ? " · small sample" : ""}</span></span>
+                <span className="mv num"><b>{r.runs}</b><span className="mini">{r.outs} out</span></span>
+              </Link>
             ))}
           </div>
-        ) : <div className="empty">Not enough covered balls yet to say what is unusual about {name} ({fmt(h.role.balls_faced)} faced, {fmt(h.role.balls_bowled)} bowled; findings need at least 300 and must pass the tests). That is a result, not a gap.</div>}
-      </section>
-
-      {!bowler && total > 0 && (
-        <section className="section">
-          <SectionHead kicker="Dismissal DNA" title={`How ${name} gets out`}
-            sub={<>{total} dismissals · one every {fmt(dis.balls_per_dismissal, 1)} balls.{topRoute?.n ? <> Most often <b>{topRoute.label.toLowerCase()}</b> ({topRoute.pct}%).</> : null}</>}
-            right={<Link className="btn" href={`/how-out/${pid}`} data-testid="explore-how-out-home">Step by step →</Link>} />
-          <div className="card" style={{ maxWidth: 520 }}><HowOut routes={dis.routes} hand={hand} selected={null} onSelect={(r) => r && (window.location.href = `/how-out/${pid}?route=${r}`)} name={name} /></div>
-        </section>
-      )}
-      {fan.wickets && fan.wickets.total > 0 && (
-        <section className="section" data-testid="how-wickets">
-          <SectionHead kicker="Wicket DNA" title={`How ${name} takes wickets`} sub={<>{fan.wickets.total} bowler-credited wickets in covered matches. <WhyBox why={fan.wickets.note} /></>} />
-          <div className="routes">
-            {fan.wickets.routes.map((r: any) => (
-              <div key={r.route} className="route static"><span className="name">{r.label}</span><span className="cnt num">{r.n}<span className="mini"> {r.pct}%</span></span>
-                <span className="bar"><span style={{ width: `${r.pct}%` }} /></span></div>))}
-          </div>
-          <div className="mini" style={{ marginTop: 8 }}>
-            By phase: {fan.wickets.phases.map((p: any) => `${p.phase} ${p.n}`).join(" · ")} · to new batters (0–9 balls) {fan.wickets.stage.new} · to set batters (30+) {fan.wickets.stage.set}
-          </div>
+          {nemesis && <p className="mini" style={{ marginTop: 8 }}>{bowlerFirst ? "Dismissed most often" : "Dismissed most by"}: <Link className="ul" href={nemesis.href}>{nemesis.name}</Link>, {nemesis.outs} times in {nemesis.balls} balls (about {nemesis.expected_outs} at the usual rate).</p>}
         </section>
       )}
 
-      <section className="section">
-        <SectionHead kicker="Matchups" title={bowler ? `${name}'s biggest battles` : `${name}'s biggest battles`} />
-        <MatchupDiscovery pid={pid} name={name} />
-      </section>
-
-      {(stories.length > 0 || fan.moment) && (
+      {/* -------- best performances */}
+      {(best.length > 0 || fan.moment || rest.length > 0) && (
         <section className="section" data-testid="player-stories">
-          <SectionHead kicker="Player stories" title="Best stories" sub={fan.stories?.note} />
-          {fan.moment && <PlayCard m={fan.moment} />}
-          <div className="stories">
-            {stories.map((c: any) => (
-              <div key={c.id} className="storycard">
-                <div className="st">{c.title}</div>
-                <div className="sh">{c.headline}</div>
-                <div className="sc">{c.comparison}</div>
-                <div className="dm"><span className="mini">{c.sample}</span><WhyBox why={c.why} />
-                  {c.link?.query ? <button className="btn sm" onClick={() => onDrill(c.link.label, c.link.query)}>Deliveries →</button>
-                    : c.link?.href ? <Link className="btn sm" href={c.link.href}>{c.link.label} →</Link> : null}
-                  <Link className="why-btn" href={`/share?type=story&pid=${pid}&id=${encodeURIComponent(c.id)}`}>Share</Link></div>
-              </div>
+          <SectionHead kicker="Best performances" title="The days that stand out" />
+          <div className="perfs">
+            {best.map((c: any) => (
+              <Link key={c.id} href={c.link.href} className="perf"><span className="tk">{c.id === "best_spell" ? "Best spell" : "Best innings"}</span><b>{c.headline}</b><span className="mini">{c.evidence}</span></Link>
+            ))}
+            {rest.map((c: any) => (
+              <div key={c.id} className="perf storycard"><span className="tk">{c.title}</span><b>{c.headline}</b><span className="mini">{c.comparison}</span>
+                <span className="dm"><WhyBox why={c.why} />{c.link?.query && <button className="why-btn" onClick={() => onDrill(c.link.label, c.link.query)}>Deliveries</button>}
+                  <Link className="why-btn" href={`/share?type=story&pid=${pid}&id=${encodeURIComponent(c.id)}`}>Share</Link></span></div>
             ))}
           </div>
+          {others.length > 2 && <button className="btn sm" style={{ marginTop: 8 }} aria-expanded={allStories} onClick={() => setAllStories(!allStories)} data-testid="more-stories">
+            {allStories ? "Fewer stories" : `${others.length - 2} more stories`}</button>}
+          {fan.moment && <PlayCard m={fan.moment} />}
         </section>
       )}
 
-      {fan.partners?.length > 0 && (
-        <section className="section">
-          <SectionHead kicker="Partnerships" title={`Who ${name} bats with`} right={<Link className="btn" href={`/players/${pid}?tab=partners`}>All partners →</Link>} />
-          <div className="mrows">
-            {fan.partners.map((p: any) => (
-              <Link key={p.pid} href={p.href} className="mrow"><span className="mn"><b>{p.name}</b><span className="mini">{p.stands} stands · best {p.best} · average {p.avg}</span></span>
-                <span className="mv num"><b>{fmt(p.runs)}</b><span className="mini">runs together</span></span></Link>))}
-          </div>
-        </section>
-      )}
-
-      {fan.records?.length > 0 && (
-        <section className="section" data-testid="player-records">
-          <SectionHead kicker="Record book" title="Where they appear in the records" sub="Covered matches only; these are not official records." />
-          <div className="mrows">
-            {fan.records.map((r: any) => (
-              <Link key={r.id} href={`/records/${r.id}`} className="mrow"><span className="mn"><b>{r.title}</b><span className="mini">{r.category}</span></span>
-                <span className="mv num"><b>#{r.rank}</b><span className="mini">{r.value_fmt}</span></span></Link>))}
-          </div>
-        </section>
-      )}
-
-      {fan.career?.points?.length > 0 && (
-        <section className="section">
-          <SectionHead kicker="Career journey" title={`${name}, year by year`} sub={`${fan.career.metric} per covered year; gaps are years without covered matches.`}
-            right={<Link className="btn" href={`/players/${pid}?tab=career`}>Career explorer →</Link>} />
-          <CareerBars c={fan.career} />
-        </section>
-      )}
-
-      <section className="section">
-        <SectionHead kicker="Similar players" title={`Players who play like ${name}`} />
-        <SimilarPlayers pid={pid} name={name} />
+      {/* -------- explore more: everything else, one tap away */}
+      <section className="section" data-testid="explore-more">
+        <div className="kicker">Explore more</div>
+        <div className="more-links">
+          <button onClick={() => goTab("style")}><b>Style & similar players</b><span>Fingerprint against peers</span></button>
+          {fan.partners?.length > 0 && <button onClick={() => goTab("partners")}><b>Partnerships</b><span>{fan.partners[0].name} and others</span></button>}
+          {fan.records?.length > 0 && <Link href={`/records/${fan.records[0].id}`}><b>Record book</b><span>#{fan.records[0].rank} · {fan.records[0].title}</span></Link>}
+          <button onClick={() => goTab("career")}><b>Career</b><span>Year by year</span></button>
+          {L !== "bowler" && <button onClick={() => goTab("innings")}><b>Every innings</b><span>Replay any of them</span></button>}
+          {(L === "bowler" || L === "allrounder") && <button onClick={() => goTab("bowling")}><b>Every spell</b><span>Bowling in detail</span></button>}
+        </div>
       </section>
+      <Feedback entity={{ type: "player", id: pid }} item="player_home" />
     </>
   );
 }
 
-function CareerBars({ c }: { c: any }) {
-  const fmts = Array.from(new Set(c.points.map((p: any) => p.format))) as string[];
-  const years = Array.from(new Set(c.points.map((p: any) => p.year))).sort() as number[];
-  const max = Math.max(...c.points.map((p: any) => p.value || 0), 1);
-  const y0 = years[0], y1 = years[years.length - 1];
-  const all = Array.from({ length: y1 - y0 + 1 }, (_, i) => y0 + i);
+function RouteBars({ rows, total, unit }: { rows: { k: string; label: string; n: number; pct: number }[]; total: number; unit: string }) {
   return (
-    <div className="cbars" role="img" aria-label={`${c.metric} by year`}>
-      {fmts.map((f) => (
-        <div key={f} className="cbrow">
-          <div className="mini" style={{ width: 34 }}>{f}</div>
-          <div className="cbtrack">
-            {all.map((y) => {
-              const p = c.points.find((x: any) => x.year === y && x.format === f);
-              return <div key={y} className="cb" title={p ? `${y}: ${p.value} ${c.metric}, ${c.rate} ${p.rate}` : `${y}: no covered matches`}>
-                <span style={{ height: p ? `${Math.max(4, (100 * p.value) / max)}%` : 0 }} className={p ? "" : "gap"} /></div>;
-            })}
-          </div>
+    <div className="rbars" role="list" aria-label={`Top ${rows.length} of ${total} ${unit}`}>
+      {rows.map((r) => (
+        <div key={r.k} className="rbar" role="listitem">
+          <span className="rl">{r.label}</span>
+          <span className="rt" aria-hidden><span style={{ width: `${Math.max(2, r.pct)}%` }} /></span>
+          <span className="rn num">{r.n} <span className="mini">{r.pct}%</span></span>
         </div>
       ))}
-      <div className="cbyears mini"><span>{y0}</span><span>{y1}</span></div>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 "use client";
+import MatchupDiscovery from "@/components/fan/MatchupDiscovery";
+import { COVERAGE } from "@/lib/coverage";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { api, fmt, Params } from "@/lib/api";
@@ -19,6 +21,8 @@ import SpellsList from "@/components/SpellsList";
 import CareerExplorer from "@/components/CareerExplorer";
 import ExploreNext from "@/components/ExploreNext";
 import PlayerHome from "@/components/fan/PlayerHome";
+import SimilarPlayers from "@/components/fan/SimilarPlayers";
+import { WhyBox } from "@/components/fan/bits";
 import { useRemember } from "@/lib/memory";
 
 const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
@@ -28,8 +32,9 @@ const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "bowler_family", label: "Bowler", opts: [["", "All"], ["pace", "Pace"], ["spin", "Spin"]] },
 ];
 
-const TABS = [["overview", "Overview"], ["strengths", "Strengths & weaknesses"], ["states", "When they change"], ["dismissals", "Dismissals"],
-  ["matchups", "Matchups"], ["partners", "Partners"], ["innings", "Innings"], ["bowling", "Bowling"], ["career", "Career"], ["numbers", "Numbers"]] as const;
+// Phase 8 order: the compressed home first, then purposeful deeper views; analyst views last.
+const TABS = [["overview", "Overview"], ["style", "Style"], ["matchups", "Matchups"], ["innings", "Innings"], ["bowling", "Bowling"], ["partners", "Partners"],
+  ["career", "Career"], ["strengths", "Strengths & weaknesses"], ["dismissals", "Dismissals"], ["states", "When they change"], ["numbers", "Numbers"]] as const;
 // Phase and bowler-type filters only make sense where every number is ball-level.
 const BALL_LEVEL_TABS = new Set(["dismissals", "matchups"]);
 
@@ -94,22 +99,22 @@ function PlayerPage() {
         {fan?.hero && <div className="hero-line">
           <span className="kind">{fan.hero.kind}</span>
           {fan.hero.formats.map((f: any) => <span key={f.format} className="fmtpill">{f.format} · {f.matches}</span>)}
-          {fan.hero.span.from && <span className="mini">{fan.hero.span.from.slice(0, 4)}–{fan.hero.span.to.slice(0, 4)} in covered data</span>}
+          {fan.hero.span.from && <span className="mini">{COVERAGE.span(fan.hero.span.from.slice(0, 4), fan.hero.span.to.slice(0, 4))}</span>}
         </div>}
         {/* known metadata only; unknown fields are explained behind WHY, not shown as hero chips */}
         <div className="chips">
           {[["Role", m.role], ["Bats", m.batting_hand], ["Bowls", m.bowling_style], ["Keeper", m.wicketkeeper]].filter(([, f]: any) => f?.value).map(([l, f]: any) =>
             <MetaChip key={l} label={l} f={f} fmtv={l === "Bats" ? (v) => `${v}-handed` : undefined} />)}
         </div>
-        <div className="hero-stats">
-          {fan?.hero?.numbers?.length ? fan.hero.numbers.slice(0, 3).map((n: any) => <HStat key={n.l} v={n.v} l={n.l} />) : isBowler ? (<>
-            <HStat v={fmt(bowl.wickets)} l="Wickets" /><HStat v={fmt(bowl.economy, 2)} l="Economy" /><HStat v={fmt(bowl.strike_rate, 1)} l="Balls / wkt" />
+        <div className="strip" style={{ marginTop: 12 }} aria-label="Key numbers in covered matches">
+          {fan?.hero?.numbers?.length ? fan.hero.numbers.slice(0, 3).map((n: any) => <div key={n.l}><b>{n.v}</b><span>{n.l}</span></div>) : isBowler ? (<>
+            <div><b>{fmt(bowl.wickets)}</b><span>wickets</span></div><div><b>{fmt(bowl.economy, 2)}</b><span>economy</span></div><div><b>{fmt(bowl.strike_rate, 1)}</b><span>balls / wkt</span></div>
           </>) : (<>
-            <HStat v={fmt(bat?.runs)} l="Runs" /><HStat v={fmt(bat?.average, 1)} l="Average" /><HStat v={fmt(bat?.strike_rate, 1)} l="Strike rate" />
+            <div><b>{fmt(bat?.runs)}</b><span>runs</span></div><div><b>{fmt(bat?.average, 1)}</b><span>average</span></div><div><b>{fmt(bat?.strike_rate, 1)}</b><span>strike rate</span></div>
           </>)}
         </div>
         <div className="hero-foot">
-          <span className="mini">Covered matches only, not official totals.</span>
+          <span className="mini">{COVERAGE.notOfficial}</span>
           <button className="why-btn" onClick={() => setCovOpen(!covOpen)} aria-expanded={covOpen}>{covOpen ? "Hide" : "WHY? Coverage & metadata"}</button>
           <Link className="btn sm" href={`/compare?ids=${id}`}>Compare</Link>
         </div>
@@ -148,8 +153,27 @@ function PlayerPage() {
         ))}
       </div>}
 
-      {tab === "overview" && (fan?.hero ? <PlayerHome pid={id} fan={fan} dis={dis} hand={m.batting_hand.value} onDrill={onDrill} />
+      {tab === "overview" && (fan?.hero ? <PlayerHome pid={id} fan={fan} dis={dis} onDrill={onDrill} goTab={goTab} />
         : fan?.error ? <div className="empty">Could not load this player's home.</div> : <div className="loading">Reading {prof.name}&apos;s cricket…</div>)}
+
+      {tab === "style" && (<>
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Style</div><h2 className="h2">How {prof.name} plays, against peers</h2>
+            <div className="sub">Each petal compares one habit with peers in the same format. Tap a trait; WHY shows the definition and peer group.</div></div></div>
+          <div className="card"><Fingerprint pid={id} onDrill={onDrill} compact scope="major" initialRole={fan?.hero?.layout === "bowler" ? "bowling" : "auto"} /></div>
+        </section>
+        {fan?.different?.items?.length > 0 && (
+          <section className="section">
+            <div className="section-head"><div><div className="kicker">What makes them different</div><h2 className="h2">Every finding</h2></div></div>
+            <ul className="plainlist">{fan.different.items.map((it: any) => <li key={it.id}><span className="pl-h">{it.headline}</span><span className="mini">{it.body}</span>
+              <span className="dm"><WhyBox why={it.why} />{it.evidence?.query && <button className="why-btn" onClick={() => onDrill(it.evidence.label, it.evidence.query)}>Deliveries</button>}</span></li>)}</ul>
+          </section>
+        )}
+        <section className="section">
+          <div className="section-head"><div><div className="kicker">Similar players</div><h2 className="h2">Players who play like {prof.name}</h2></div></div>
+          <SimilarPlayers pid={id} name={prof.name} />
+        </section>
+      </>)}
 
       {tab === "strengths" && (
         <section className="section" style={{ marginTop: 12 }}>
@@ -188,7 +212,8 @@ function PlayerPage() {
       )}
 
       {tab === "matchups" && (<>
-        <section className="section" style={{ marginTop: 12 }}>
+        <section className="section" style={{ marginTop: 12 }}><MatchupDiscovery pid={id} name={prof.name} /></section>
+        <section className="section">
           <div className="section-head"><div><div className="kicker">Matchup lab</div><div className="h2">Against whom?</div>
             <div className="sub">{prof.name} batting against individual bowlers. Open any bowler as a full battle from the Battles tab.</div></div></div>
           <Matchups pid={id} filters={filters} onDrill={onDrill} />
@@ -304,9 +329,6 @@ function InsightList({ ins, cards, onDrill }: { ins: any; cards: any[]; onDrill:
 function MetaChip({ label, f, fmtv }: { label: string; f: any; fmtv?: (v: string) => string }) {
   if (!f?.value) return <span className="chip unknown" title="Not available in our metadata sources. Not guessed.">{label}: unknown</span>;
   return <span className="chip" title={`${f.source} · confidence ${f.confidence ?? "–"}`}>{label}: <b>{fmtv ? fmtv(f.value) : f.value}</b> <ProvBadge prov={f.prov} /></span>;
-}
-function HStat({ v, l }: { v: string; l: string }) {
-  return <div className="hstat"><div className="v num">{v}</div><div className="l">{l}</div></div>;
 }
 function StatGrid({ items }: { items: [string, any][] }) {
   return (

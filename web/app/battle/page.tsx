@@ -8,9 +8,10 @@ import PlayerPicker from "@/components/PlayerPicker";
 import Deliveries from "@/components/Deliveries";
 import ProvBadge from "@/components/Prov";
 import { C, Crease, Defs, Figure, Pitch, Stumps } from "@/components/cricket/primitives";
-import OutcomeMap from "@/components/viz/OutcomeMap";
 import ExploreNext from "@/components/ExploreNext";
 import MomentCard from "@/components/fan/MomentCard";
+import { SectionHead, WhyBox } from "@/components/fan/bits";
+import Feedback from "@/components/Feedback";
 import { useRemember } from "@/lib/memory";
 
 type P = { person_id: string; name: string } | null;
@@ -33,6 +34,10 @@ function Battle() {
   const [ug, setUg] = useState("male");
   const [sim, setSim] = useState<any | null>(null);
   const [by, setBy] = useState<string>("phase");
+  const [mt, setMt] = useState<any | null>(null);
+  const [mtAll, setMtAll] = useState(false);
+  const [pick, setPick] = useState(false);
+  useEffect(() => { setMt(null); if (batId && bowlId) api("/fan/battle/meetings", { bat: batId, bowl: bowlId }).then((r) => setMt(r.data)).catch(() => setMt({ rows: [], count: 0 })); }, [batId, bowlId]);
   const [drill, setDrill] = useState<{ title: string; q: any } | null>(null);
 
   const push = (b: P, w: P) => {
@@ -59,7 +64,7 @@ function Battle() {
           <Link href={`/live-lab/${fromLive.mid}?n=${fromLive.n}`}>← Back to the replay at the same ball</Link>
           <span>This page shows every covered meeting, including any after that match.</span>
         </div>)}
-      <section className="section" style={{ marginTop: 22 }}>
+      {!d?.met && <section className="section" style={{ marginTop: 22 }}>
         <div className="kicker">Battles</div>
         <h1 className="big-title" style={{ fontSize: "clamp(34px, 8vw, 58px)", margin: "6px 0 14px" }}>Batter v bowler</h1>
         <div className="battle-hero">
@@ -71,47 +76,50 @@ function Battle() {
           <Link href="/compare" style={{ textDecoration: "underline" }}>Compare 2–4 players side by side →</Link>{" · "}
           <Link href="/partnerships" style={{ textDecoration: "underline" }}>Best partnerships →</Link>
         </div>
-      </section>
+      </section>}
 
       {batId && bowlId && !d && <div className="loading">Loading the battle…</div>}
       {d?.error && <div className="empty">Couldn&apos;t load this battle.</div>}
-      {d && !d.error && !d.met && <div className="empty" style={{ marginTop: 16 }}>{d.batter.name} hasn&apos;t faced {d.bowler.name} in our covered data.</div>}
+      {d && !d.error && !d.met && <div className="empty" style={{ marginTop: 16 }}>{d.batter.name} hasn&apos;t faced {d.bowler.name} in covered matches.</div>}
 
       {d?.met && (<>
-        <section className="hero">
-          <div className="kicker">{t.matches} matches · {t.first_date} → {t.last_date} <ProvBadge prov="OBSERVED" /></div>
-          <div className="h2" style={{ fontSize: "clamp(26px, 7vw, 40px)", marginTop: 6 }}>
-            <Link href={`/players/${d.batter.person_id}`}>{d.batter.name}</Link> <span style={{ color: "var(--muted)" }}>v</span> <Link href={`/players/${d.bowler.person_id}`}>{d.bowler.name}</Link></div>
-          <div className="statstrip">
-            {[["Balls", t.balls], ["Runs", t.runs], ["Dots", t.dots], ["Singles", t.singles], ["4s", t.fours], ["6s", t.sixes], ["Outs", t.dismissals], ["SR", fmt(t.strike_rate, 1)]].map(([l, v]) => (
-              <div key={l as string}><b className={`num ${l === "Outs" ? "wk" : ""}`}>{v as any}</b><span className="mini">{l}</span></div>
-            ))}
+        {/* ---- the question: what actually happens when these two meet? */}
+        <section className="vs-hero" data-testid="battle-hero" aria-label={`${d.batter.name} v ${d.bowler.name}`}>
+          <h1 className="sr-only">{d.batter.name} v {d.bowler.name}</h1>
+          <div className="vs-names">
+            <Link href={`/players/${d.batter.person_id}`} className="vs-side bat"><span className="vs-role">Batter</span><span className="vs-name">{d.batter.name}</span></Link>
+            <div className="vs-pitch" aria-hidden><span className="crease" /><span className="v">v</span><span className="crease" /></div>
+            <Link href={`/players/${d.bowler.person_id}`} className="vs-side bowl"><span className="vs-role">Bowler</span><span className="vs-name">{d.bowler.name}</span></Link>
           </div>
-          <div className="mini" style={{ marginTop: 8 }}>Runs per dismissal: <b>{t.runs_per_dismissal != null ? fmt(t.runs_per_dismissal, 1) : "no dismissals"}</b> · dot balls {fmt(t.dot_pct, 1)}% · boundaries {fmt(t.boundary_pct, 1)}% of balls faced. 2s and 3s: {t.twos_threes}.</div>
+          <div className="strip vs-strip">
+            <div><b>{t.balls}</b><span>balls</span></div><div><b>{t.runs}</b><span>runs</span></div>
+            <div><b>{fmt(t.strike_rate, 1)}</b><span>strike rate</span></div><div className="wk"><b>{t.dismissals}</b><span>dismissals</span></div>
+          </div>
+          <div className="mini vs-meta">{t.matches} matches · {t.first_date.slice(0, 4)}–{t.last_date.slice(0, 4)} · {t.fours} fours, {t.sixes} sixes, {t.dots} dots <ProvBadge prov="OBSERVED" />
+            {" "}<button className="why-btn" onClick={() => setPick(!pick)} aria-expanded={pick}>Change players</button></div>
+          {pick && <div className="battle-hero">
+            <PlayerPicker label="Batter" value={bat} onPick={(p) => { setBat(p); push(p, bowl); }} placeholder="Search a batter…" />
+            <div className="vs">v</div>
+            <PlayerPicker label="Bowler" value={bowl} onPick={(p) => { setBowl(p); push(bat, p); }} placeholder="Search a bowler…" />
+          </div>}
         </section>
 
-        <MomentCard type="battle" k={`${batId}|${bowlId}`} context="A real ball from their most recent meetings. Make your call before the replay reveals it." />
-        <section className="section">
-          <div className="grid2">
-            <div className="card">
-              <div className="sit-title">How the {t.dismissals} dismissal{t.dismissals === 1 ? "" : "s"} happened</div>
-              <BattleScene d={d} onPick={(r: any) => onDrill(`${d.batter.name} ${r.label.toLowerCase()} by ${d.bowler.name}`, { ...d.evidence_query, out_id: d.batter.person_id, route: r.route })} />
+        <section className="section" data-testid="battle-compared">
+          <SectionHead kicker="Compared with their normal numbers" title="Is this battle unusual?" />
+          <Edge d={d} />
+        </section>
+
+        <section className="section" data-testid="battle-changes">
+          <SectionHead kicker="How the battle changes" title="Earlier meetings, later meetings" />
+          {mt?.change ? (<>
+            <div className="halves">
+              {(["earlier", "later"] as const).map((k) => { const x = mt.change[k]; return (
+                <div key={k} className="half"><span className="tk">{k === "earlier" ? "Earlier" : "Later"} · {x.from}–{x.to}</span>
+                  <div className="strip"><div><b>{fmt(x.sr, 0)}</b><span>strike rate</span></div><div className="wk"><b>{x.outs}</b><span>out</span></div><div><b>{x.balls}</b><span>balls</span></div></div></div>); })}
             </div>
-            <Edge d={d} />
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="card">
-            <OutcomeMap title="Every ball faced in this battle" counts={{ DOT: Math.max(0, t.dots - t.dismissals), "1": t.singles, "2": t.twos, "3": t.threes,
-              "4": t.fours, "6": t.sixes, WICKET: t.dismissals }} />
-            <div className="mini" style={{ marginTop: 4 }}>DOT excludes balls on which the batter was dismissed (shown as WICKET).{t.fives ? ` ${t.fives} ball(s) with 5 runs are not shown.` : ""}</div>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="section-head"><div><div className="kicker">Breakdown</div><div className="h2">Where the battle was fought</div></div></div>
-          <div className="seg" style={{ flexWrap: "wrap", marginBottom: 10 }}>
+            <div className="mini">{mt.change.note} <WhyBox why={{ earlier_out_rate_90: `${mt.change.earlier.out_rate_interval_90?.join("–")} per 100 balls`, later_out_rate_90: `${mt.change.later.out_rate_interval_90?.join("–")} per 100 balls`, split: "meetings in date order, split where half the balls had been faced" }} /></div>
+          </>) : <div className="mini">Too few meetings to split.</div>}
+          <div className="seg" style={{ flexWrap: "wrap", margin: "14px 0 10px" }}>
             {BREAKS.map(([k, l]) => <button key={k} className={by === k ? "on" : ""} onClick={() => setBy(k)}>{l}</button>)}
           </div>
           <div className="card">
@@ -128,29 +136,57 @@ function Battle() {
             })}
             <div className="mini" style={{ marginTop: 8 }}>Bar = strike rate (0–250). * = under 30 balls, a small sample. Tap a row for its deliveries.</div>
           </div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 12 }}>
-            <button className="btn primary" onClick={() => onDrill(`Every ball: ${d.batter.name} v ${d.bowler.name}`, d.evidence_query)}>Every ball they&apos;ve faced →</button>
-          </div>
-          <div className="mini" style={{ marginTop: 10 }}>Not shown (the data doesn&apos;t record it): {d.not_available.join(" · ")}.</div>
         </section>
-        {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
-        <Knowledge bat={batId!} bowl={bowlId!} />
-        <section className="rule-section">
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            <Link className="btn primary" href={`/story/battle?bat=${batId}&bowl=${bowlId}`}>What this battle shows (story) →</Link>
-            <Link className="btn" href={`/share?type=battle&bat=${batId}&bowl=${bowlId}`}>Share card</Link>
+
+        <section className="section">
+          <div className="card">
+            <div className="sit-title">How the {t.dismissals} dismissal{t.dismissals === 1 ? "" : "s"} happened</div>
+            <BattleScene d={d} onPick={(r: any) => onDrill(`${d.batter.name} ${r.label.toLowerCase()} by ${d.bowler.name}`, { ...d.evidence_query, out_id: d.batter.person_id, route: r.route })} />
           </div>
-          <div className="eyebrow" style={{ marginTop: 18 }}>Similar battles <ProvBadge prov="DERIVED" /></div>
+        </section>
+
+        <section className="section" data-testid="battle-meetings">
+          <SectionHead kicker="Every meeting" title={`${mt?.count ?? t.matches} matches`}
+            right={<button className="btn sm" onClick={() => onDrill(`Every ball: ${d.batter.name} v ${d.bowler.name}`, d.evidence_query)}>Every ball →</button>} />
+          {!mt ? <div className="loading">…</div> : (
+            <ol className="meetings">
+              {(mtAll ? mt.rows : mt.rows.slice(-8)).map((r: any) => (
+                <li key={r.match_id}>
+                  <Link href={r.href} className="mt-row">
+                    <span className="mt-d">{r.date}<span className="mini">{r.competition}</span></span>
+                    <span className="mt-s num">{r.runs}<span className="mini"> ({r.balls})</span></span>
+                    <span className={`mt-o ${r.out ? "wk" : ""}`}>{r.out ? r.how : "not out"}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          )}
+          {mt && mt.rows.length > 8 && <button className="btn sm" style={{ margin: "8px 0" }} aria-expanded={mtAll} onClick={() => setMtAll(!mtAll)} data-testid="meetings-all">
+            {mtAll ? "Show the latest 8" : `Show all ${mt.rows.length} meetings (oldest first)`}</button>}
+          <div className="mini">{mtAll ? "Oldest first." : `The latest ${Math.min(8, mt?.rows.length ?? 0)}, oldest first.`} Runs (balls) the batter scored off this bowler in each match; "not out" means the bowler did not dismiss them that day.</div>
+        </section>
+
+        <MomentCard type="battle" k={`${batId}|${bowlId}`} context="A real ball from their meetings. Make your call before the replay reveals it." />
+        {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
+
+        <section className="section" data-testid="battle-similar">
+          <SectionHead kicker="Similar battles" title="Battles with the same shape" />
           {!sim ? <div className="loading">Finding similar battles…</div> : !sim.available ? <div className="mini">{sim.reason}</div> : (
-            <>
-              <div className="tablist">{sim.rows.map((r: any) => (
-                <Link key={r.batter_id + r.bowler_id} className="trow" href={`/battle?bat=${r.batter_id}&bowl=${r.bowler_id}`}><span className="n">≈</span>
-                  <span className="t"><b>{r.batter} v {r.bowler}</b><span className="mini">{r.balls} balls · SR {r.sr} · {r.outs} out{r.shared.length ? ` · ${r.shared.join(", ")}` : ""}</span></span>
-                  <span className="v num" style={{ fontSize: 14 }}>d {r.distance}</span></Link>))}</div>
-              <details className="mini" style={{ marginTop: 6 }}><summary style={{ cursor: "pointer" }}>How similarity is defined</summary><p>{sim.method}</p></details>
-            </>
+            <div className="mrows">{sim.rows.slice(0, 5).map((r: any) => (
+              <Link key={r.batter_id + r.bowler_id} className="mrow" href={`/battle?bat=${r.batter_id}&bowl=${r.bowler_id}`}>
+                <span className="mn"><b>{r.batter} v {r.bowler}</b><span className="mini">{r.balls} balls · strike rate {r.sr} · {r.outs} out</span></span>
+                <span className="mv" aria-hidden>→</span></Link>))}
+              <div className="mini" style={{ marginTop: 6 }}>Similar in balls, scoring and dismissals relative to each player&apos;s usual numbers. <WhyBox why={sim.method} /></div>
+            </div>
           )}
         </section>
+
+        <Knowledge bat={batId!} bowl={bowlId!} />
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 14 }}>
+          <Link className="btn" href={`/share?type=battle&bat=${batId}&bowl=${bowlId}`}>Share card</Link>
+          <Link className="btn" href={`/compare?ids=${batId},${bowlId}`}>Compare the two players</Link>
+        </div>
+        <Feedback entity={{ type: "battle", id: `${batId}|${bowlId}` }} item="battle" />
         <ExploreNext type="battle" id={`${batId}|${bowlId}`} />
       </>)}
 
@@ -221,7 +257,7 @@ function Edge({ d }: { d: any }) {
   return (
     <div className="card">
       <div className="kicker">Who has the edge?</div>
-      <div className="sub" style={{ marginTop: 4 }}>The evidence, with its uncertainty. We don&apos;t declare a winner. <ProvBadge prov="MODELLED" title="Intervals and expectations are statistical estimates from observed balls" /></div>
+      <div className="sub" style={{ marginTop: 4 }}>The evidence, with its uncertainty. We don&apos;t declare a winner when the evidence is inconclusive. <ProvBadge prov="MODELLED" title="Intervals and expectations are statistical estimates from observed balls" /></div>
       <div className="sit-title" style={{ marginTop: 12 }}>Strike rate in this battle</div>
       <div className="numline" aria-label="Strike rate comparison">
         <div className="axis" />

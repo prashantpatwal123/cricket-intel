@@ -77,10 +77,23 @@ def featured():
     return envelope(P.featured(db()), t0)
 
 
+# Phase 8 performance budget: historical data never changes between builds, so hero-page responses are memoised by
+# their full query (bounded; cleared on restart, i.e. on every data rebuild).
+_RESP: dict = {}
+
+
+def _memo(key: tuple, fn):
+    if key not in _RESP:
+        if len(_RESP) > 2048:
+            _RESP.clear()
+        _RESP[key] = fn()
+    return _RESP[key]
+
+
 @app.get("/api/players/{pid}/profile")
 def profile(pid: str, request: Request):
     t0 = time.perf_counter()
-    r = P.profile(db(), pid, filters(request))
+    r = _memo(("profile", pid, str(request.query_params)), lambda: P.profile(db(), pid, filters(request)))
     if not r:
         raise HTTPException(404, "player not found")
     return envelope(r, t0)
@@ -235,7 +248,7 @@ def timeline_ep(pid: str, request: Request, by: str = "year"):
 @app.get("/api/battle")
 def battle_ep(request: Request, bat: str, bowl: str):
     t0 = time.perf_counter()
-    return envelope(BT.battle(db(), bat, bowl, filters(request)), t0)
+    return envelope(_memo(("battle", str(request.query_params)), lambda: BT.battle(db(), bat, bowl, filters(request))), t0)
 
 
 @app.get("/api/battles/notable")
@@ -485,10 +498,21 @@ def _env(data, t0):
     return envelope(data, t0)
 
 
+_WARM = {"done": False, "seconds": None}
+
+
+@app.get("/api/health")
+def health():
+    """Process health + whether the background warm-up has finished (benchmarks wait for it so cold numbers aren't
+    measured under warm-up contention)."""
+    return {"ok": True, "warmed": _WARM["done"], "warm_seconds": _WARM["seconds"]}
+
+
 @app.on_event("startup")
 def _warm():
     """Warm per-process caches in the background so the first visitor doesn't pay for them."""
     def go():
+        t_start = time.perf_counter()
         try:
             from .analytics import discovery as D, entities as EN, libraries as L, search as SR
             d = db()
@@ -517,6 +541,8 @@ def _warm():
             from datetime import date as _date
             from .fan import daily as DY
             DY._day(d, _date.today().isoformat())
+            from .fan import home as FH
+            FH.home(d, _date.today().isoformat())   # Phase 8 Home: the first screen a new fan sees
             for pid in [r["person_id"] for r in d.q("SELECT person_id FROM player_profile ORDER BY matches DESC LIMIT 40")]:
                 try:
                     RB.cached_neighbours(d, "player", pid)
@@ -531,6 +557,7 @@ def _warm():
                     _rivalry(r["ta"], r["tb"], g, None, None)
         except Exception:  # noqa: BLE001 - warm-up must never take the server down
             pass
+        _WARM.update(done=True, seconds=round(time.perf_counter() - t_start, 1))
     _th.Thread(target=go, daemon=True).start()
 
 
@@ -1030,3 +1057,22 @@ def fan_finding_ep(id: str):
     if not f:
         raise HTTPException(404, "unknown finding")
     return _env(f, t0)
+
+
+@app.get("/api/fan/home")
+def fan_home_ep(day: str | None = None, seen: str = ""):
+    from .fan import home as HM
+    t0 = time.perf_counter()
+    return _env(HM.home(db(), day, set(_csv(seen, 200))), t0)
+
+
+@cached
+def _fan_meetings(bat, bowl):
+    from .fan import battle as FB
+    return FB.meetings(db(), bat, bowl)
+
+
+@app.get("/api/fan/battle/meetings")
+def fan_meetings_ep(bat: str, bowl: str):
+    t0 = time.perf_counter()
+    return _env(_fan_meetings(bat, bowl), t0)

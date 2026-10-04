@@ -47,7 +47,7 @@ export default function MatchSituation({ s, compact = false }: { s: Situation; c
       )}
       {s.recent && s.recent.length > 0 && (
         <div className="recent" aria-label="Previous deliveries">
-          {s.recent.map((x, i) => { const o = symbolToOutcome(x); return <span key={i} className="rb" style={{ background: o ? OUTCOME_COLOR[o] + "33" : "#ffffff10", color: o === "WICKET" ? "var(--wicket)" : undefined }}>{x}</span>; })}
+          {s.recent.map((x, i) => { const o = symbolToOutcome(x); return <span key={i} className={o === "WICKET" ? "rb w" : "rb"} style={o === "WICKET" ? undefined : { background: o ? OUTCOME_COLOR[o] + "33" : "#ffffff10" }}>{x}</span>; })}
           {s.next_ball && <span className="rb next">{s.next_ball}?</span>}
         </div>
       )}

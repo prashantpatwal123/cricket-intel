@@ -226,7 +226,7 @@ def for_player(db: DB, pid: str, k: int = 2) -> list[dict]:
     out = []
     for r in s["rows"]:
         a = r["alike"][0] if r["alike"] else None
-        why = f"{a['label'].lower()} ({ordinal(a['a_pct'])} v {ordinal(a['b_pct'])} percentile)" if a else "close on most dimensions"
+        why = f"{a['label'].lower()} ({round(a['a_pct'])} and {round(a['b_pct'])} on a 0–100 scale against peers)" if a else "close on most dimensions"
         out.append({"pid": r["pid"], "name": r["name"], "role": s["role"], "format": s["format"], "why_short": why, "closeness": r["closeness"],
                     "sample": r["balls"]})
     return out

@@ -38,7 +38,7 @@ await session(Mo, async (p, settle) => {
 }, true);
 
 await session(Mo, async (p, settle) => {
-  await p.goto(BASE + "/"); await settle(900);
+  await p.goto(BASE + "/discover"); await settle(900); // Phase 8: the discovery grid moved to /discover
   await p.screenshot({ path: `${out}/m03-explore-discovery.png`, fullPage: true });
   await p.locator(".disc button", { hasText: "WHY?" }).first().click(); await p.waitForTimeout(250);
   await p.locator(".disc").first().screenshot({ path: `${out}/m04-discovery-why.png` });

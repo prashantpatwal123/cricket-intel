@@ -95,6 +95,7 @@ function MatchCentre() {
   return (
     <div className="fade-in" style={{ marginTop: 10 }}>
       <div className="mc-sticky">
+        <h1 className="sr-only">Historical replay: {m.teams?.join(" v ")}, {m.date}</h1>
         <div className="replay-flag" role="note" data-testid="replay-flag">Historical replay — not live <small>· {m.date}</small></div>
         <div className="score-strip" data-testid="score-strip">
           <div className="sline">
@@ -176,7 +177,7 @@ function Now({ d, n, game, setGame, pick, guess, reveal, score, id }: any) {
               <details><summary>Why this is shown (score {c.score})</summary>
                 {Object.entries(c.dims).map(([k, v]: any) => <span key={k} style={{ marginRight: 10 }}>{k} {v}</span>)}
                 <div>{d.right_now.method}</div>
-                {c.href && <Link href={c.href}>Evidence (leaves the replay) →</Link>}</details>
+                {c.href && <Link href={c.href} style={{ display: "inline-block", padding: "6px 0" }}>Evidence (leaves the replay) →</Link>}</details>
             </div>))}
         </section>
         {now.chase && <section className="mc-sec" aria-label="Chase"><Chase c={now.chase} sdx={d.sdx} /></section>}

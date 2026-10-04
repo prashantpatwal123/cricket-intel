@@ -50,9 +50,11 @@ const Mo = { width: 390, height: 844 }, De = { width: 1280, height: 900 };
 
 // ------------------------------------------------------------------ 1. Explore + the three journeys
 await session(Mo, async (p, settle) => {
+  // Phase 8: the daily discovery sections moved from "/" to /discover; the Home keeps the Live Lab gateway.
   await p.goto(BASE + "/"); await settle(1500);
-  for (const t of ["didnt-know", "great-battles", "record-of-day", "rabbit-hole", "beat-the-model"]) check(await p.locator(`[data-testid=${t}]`).count() === 1, `Explore lacks ${t}`);
-  check(await p.locator("[data-testid=gw-live-lab]").count() === 1, "Explore lost the Live Lab gateway");
+  check(await p.locator("[data-testid=gw-live-lab]").count() === 1, "Home lost the Live Lab gateway");
+  await p.goto(BASE + "/discover"); await settle(1500);
+  for (const t of ["didnt-know", "great-battles", "record-of-day", "rabbit-hole", "beat-the-model"]) check(await p.locator(`[data-testid=${t}]`).count() === 1, `Discover lacks ${t}`);
   await guard(p, "explore");
   await p.screenshot({ path: `${out}/m01-explore.png`, fullPage: true });
   await note("explore", { otd: await p.locator("[data-testid=on-this-day]").count(), worth: await p.locator("[data-testid=didnt-know] .dk-card").count() });
@@ -60,13 +62,19 @@ await session(Mo, async (p, settle) => {
   // J1: Explore → Kohli → dismissal → bowler → battle → match → innings → another player
   const j1 = [];
   await p.goto(`${BASE}/players/${KOHLI}`); await settle(1500); j1.push({ via: "start", to: p.url().replace(BASE, "") });
-  check(await p.locator("[data-testid=what-different] .diff").count() >= 3, "Kohli: fewer than 3 'what makes them different' findings");
-  check(await p.locator("[data-testid=player-stories] .storycard").count() >= 3, "Kohli: fewer than 3 player stories");
-  check(await p.locator("[data-testid=matchup-discovery]").count() === 1, "Kohli: no matchup discovery");
-  check(await p.locator("[data-testid=similar-players] .simrow").count() >= 3, "Kohli: fewer than 3 similar players");
-  check(await p.locator(".petal").count() > 5, "Kohli: fingerprint petals missing");
+  // Phase 8: compressed overview = defining insight + 3 more findings; fingerprint + similar players on Style, matchup discovery on Battles.
+  check(await p.locator("[data-testid=defining-insight]").count() === 1, "Kohli: no defining insight");
+  check(1 + await p.locator("[data-testid=what-different] li").count() >= 3, "Kohli: fewer than 3 'what makes them different' findings");
+  await p.locator("[data-testid=more-stories]").click().catch(() => {});
+  check(await p.locator("[data-testid=player-stories] .perf").count() >= 3, "Kohli: fewer than 3 player stories");
   await guard(p, "kohli");
   await p.screenshot({ path: `${out}/m02-kohli-home.png`, fullPage: true });
+  await p.goto(`${BASE}/players/${KOHLI}?tab=style`); await settle(1500);
+  check(await p.locator("[data-testid=similar-players] .simrow").count() >= 3, "Kohli: fewer than 3 similar players");
+  check(await p.locator(".petal").count() > 5, "Kohli: fingerprint petals missing");
+  await p.goto(`${BASE}/players/${KOHLI}?tab=matchups`); await settle(1500);
+  check(await p.locator("[data-testid=matchup-discovery]").count() === 1, "Kohli: no matchup discovery");
+  await p.goto(`${BASE}/players/${KOHLI}`); await settle(1500);
   await p.click("[data-testid=explore-how-out-home]"); await settle(900); j1.push({ via: "dismissal DNA", to: p.url().replace(BASE, "") });
   await p.locator("[data-testid=dim-route] button", { hasText: "Caught by wicketkeeper" }).first().click(); await settle(700);
   await p.locator("[data-testid=dim-bowler] button").first().click(); await settle(900); j1.push({ via: "bowler", to: p.url().replace(BASE, "") });
@@ -77,7 +85,7 @@ await session(Mo, async (p, settle) => {
   await hop(p, settle, (r) => (r.type === "player" && !r.href.includes(KOHLI)) || r.type === "battle", "innings→another player", j1);
   if (!/\/players\//.test(j1[j1.length - 1]?.to || "")) {
     // a battle page names both players in its header; the fan taps the one who isn't Kohli
-    const other = await p.locator("main .hero a[href^='/players/']").evaluateAll((as, k) => as.map((a) => a.getAttribute("href")).find((h) => !h.includes(k)), KOHLI);
+    const other = await p.locator("main .hero a[href^='/players/'], main .vs-hero a[href^='/players/']").evaluateAll((as, k) => as.map((a) => a.getAttribute("href")).find((h) => !h.includes(k)), KOHLI);
     check(!!other, "battle page has no link to the other player");
     if (other) { await p.goto(BASE + other); await settle(900); j1.push({ via: "battle header → the other player", to: p.url().replace(BASE, "") }); }
   }
@@ -91,7 +99,9 @@ await session(Mo, async (p, settle) => {
   await p.goto(`${BASE}/players/${MANDHANA}`); await settle(1500); j2.push({ via: "start", to: p.url().replace(BASE, "") });
   await p.screenshot({ path: `${out}/m04-mandhana-home.png`, fullPage: true });
   // a fan tries partners in turn until a stand's match leads into the record book
-  const parts = await p.locator("a.mrow[href^='/partnerships?']").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+  // Phase 8: the partner list moved from the overview to the Partnerships tab ("Explore more → Partnerships")
+  await p.locator("[data-testid=explore-more] button", { hasText: "Partnerships" }).click(); await settle(1500);
+  const parts = await p.locator("a[href^='/partnerships?p1=']").evaluateAll((as) => [...new Set(as.map((a) => a.getAttribute("href")))]);
   let reached = false;
   for (const part of parts) {
     const trial = [];

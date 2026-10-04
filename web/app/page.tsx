@@ -1,129 +1,95 @@
 "use client";
-// Explore: the discovery homepage. Everything here is computed from the covered data, with a link to its evidence.
+// Home (Phase 8): the first 60 seconds. One promise, one search box, five real things to do (one per hero experience),
+// then today's single finding, battle and Play challenge. Everything else is one tap away, never on top of this.
+import Continue from "@/components/fan/Continue";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { api, fmt } from "@/lib/api";
-import InsightCard from "@/components/InsightCard";
-import DiscoveryCard from "@/components/DiscoveryCard";
-import DailyDiscovery from "@/components/fan/DailyDiscovery";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { api } from "@/lib/api";
+import { seenIds } from "@/lib/memory";
+import { tourState, TOUR_START } from "@/lib/tour";
+import { track } from "@/lib/analytics";
+import { PlayCard, WhyBox } from "@/components/fan/bits";
 
-const TYPES = [["all", "All"], ["matchup", "Matchups"], ["dismissal", "Dismissals"], ["partnership", "Partnerships"], ["state", "When they change"],
-  ["trend", "Trends"], ["record", "Records"], ["comeback", "Comebacks"]] as const;
+const HERO_LABEL: Record<string, string> = { player: "Player", battle: "Battle", match: "Match", play: "Play", ask: "Ask" };
 
-const G = (g: string) => (g === "female" ? "Women" : "Men");
-const ASK_EXAMPLES = ["Who has dismissed Virat Kohli most?", "Most sixes in death overs", "Mandhana strike rate in WPL", "Bumrah v Warner"];
+export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><Home /></Suspense>; }
 
-export default function Explore() {
+function Home() {
   const router = useRouter();
-  const [feed, setFeed] = useState<any | null>(null);
+  const sp = useSearchParams();
+  const [d, setD] = useState<any | null>(null);
   const [q, setQ] = useState("");
-  const [disc, setDisc] = useState<any | null>(null);
-  const [type, setType] = useState("all");
-  const [more, setMore] = useState(false);
-  const [above, setAbove] = useState<Set<string>>(new Set());
-  useEffect(() => { api("/explore").then((r) => setFeed(r.data)).catch(() => setFeed({ error: true })); }, []);
-  useEffect(() => { api("/discover").then((r) => setDisc(r.data)).catch(() => setDisc({ items: [] })); }, []);
-  const [exp, setExp] = useState(false);
-  const [feed2, setFeed2] = useState<any | null>(null);
-  useEffect(() => { api("/feed").then((r) => setFeed2(r.data)).catch(() => setFeed2({ cards: [] })); }, []);
-  useEffect(() => { api("/meta").then((r) => setExp(!!r.data.experimental)).catch(() => {}); }, []);
-  // Findings already in today's feed are not repeated in the discovery grid below it.
-  const inFeed = new Set([...(feed2?.cards || []).map((c: any) => c.href), ...Array.from(above)]);
-  const why = (r: string) => String(r || "").replace(/\s*\(score [\d.]+\)/g, "");
-  const items = (disc?.items || []).filter((c: any) => (type === "all" || c.type === type) && !inFeed.has(c.href));
-  const types = TYPES.filter(([k]) => k === "all" || (disc?.items || []).some((c: any) => c.type === k));
-  const ask = (text: string) => text.trim() && router.push(`/ask?q=${encodeURIComponent(text.trim())}`);
-  const evidenceHref = (c: any) => {
-    const p = new URLSearchParams({ tab: "strengths", format: c.format });
-    return `/players/${c.person_id}?${p}`;
-  };
+  const [tour, setTour] = useState<string>("new");
+  useEffect(() => {
+    setTour(tourState());
+    // ?day= pins the daily selection (visual-regression and golden-journey tests use a fixed date)
+    api("/fan/home", { day: sp.get("day") || undefined, seen: sp.get("day") ? "" : seenIds(60).join(",") }).then((r) => setD(r.data)).catch(() => setD({ error: true }));
+  }, [sp]);
+  const search = (t: string) => { if (t.trim()) { track("search", { q_len: t.trim().length, from: "home" }); router.push(`/search?q=${encodeURIComponent(t.trim())}`); } };
   return (
-    <div className="fade-in">
-      <section className="ex-hero">
-        <div className="kicker">Explore · from {feed?.built_at ? "the covered Cricsheet data" : "the data"}</div>
-        <h1 className="big-title">What the ball-by-ball<br />record actually shows</h1>
-        <p className="sub" style={{ maxWidth: 620 }}>Patterns, battles and records found in our covered T20 and ODI data. Each one opens to its calculation and the deliveries behind it.</p>
-        <form className="ex-ask" onSubmit={(e) => { e.preventDefault(); ask(q); }}>
-          <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ask cricket a question…" aria-label="Ask a question" />
-          <button className="btn primary" type="submit">Ask</button>
+    <div className="fade-in home">
+      <section className="home-hero" aria-labelledby="home-title">
+        <div className="kicker">Cricket intelligence · ball by ball</div>
+        <h1 id="home-title" className="home-title">See cricket<br />differently.</h1>
+        <p className="home-sub">Who really gets whom out, what changes after 30 balls, which battles are lopsided. Every number opens to the deliveries behind it.</p>
+        <form className="home-search" role="search" onSubmit={(e) => { e.preventDefault(); search(q); }}>
+          <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search a player, match or battle" aria-label="Search a player, match or battle" />
+          <button className="btn primary" type="submit">Search</button>
         </form>
-        <div className="chips" style={{ marginTop: 10 }}>
-          {ASK_EXAMPLES.map((e) => <button key={e} className="chip" onClick={() => ask(e)}>{e}</button>)}
-        </div>
-      </section>
-
-      <DailyDiscovery onItems={(h) => setAbove(new Set(h))} />
-
-      <section className="section" aria-label="Today's mix">
-        <div className="eyebrow">Today&apos;s mix · {feed2?.day ?? ""}</div>
-        <div className="h2" style={{ marginTop: 4 }}>Innings, spells and moments</div>
-        {!feed2 ? <div className="loading">Building today&apos;s feed…</div> : feed2.cards.length > 0 && (<>
-          <Link href={feed2.cards[0].href} className="feed-lead">
-            <span className={`ft ${feed2.cards[0].type}`} style={{ fontSize: 11, fontWeight: 900, letterSpacing: ".12em", textTransform: "uppercase" }}>{feed2.cards[0].label}</span>
-            <div className="t">{feed2.cards[0].title}</div>
-            <div className="lead" style={{ marginTop: 8 }}>{feed2.cards[0].text}</div>
-            <div className="why mini" style={{ marginTop: 6 }}>Why this: {why(feed2.cards[0].reason)}</div>
+        <ol className="launch" data-testid="home-examples" aria-label="Start here">
+          {(d?.examples || []).map((x: any) => (
+            <li key={x.href}><Link href={x.href} className={`launch-row h-${x.hero}`} onClick={() => track("entity_open", { from: "home_example", hero: x.hero })}>
+              <span className="hk">{HERO_LABEL[x.hero]}</span>
+              <span className="lt"><b>{x.title}</b><span>{x.fact}</span></span>
+              <span className="go" aria-hidden>→</span>
+            </Link></li>
+          ))}
+          {!d && [0, 1, 2, 3, 4].map((i) => <li key={i} className="launch-skel" aria-hidden />)}
+        </ol>
+        {tour === "new" && (
+          <Link className="tour-cta" href={TOUR_START} data-testid="tour-start" onClick={() => track("tour", { action: "start" })}>
+            <span>New here? <b>Take the 60-second tour</b></span><span className="mini">Kohli → how Kohli gets out → Kohli v Zampa → the MCG 82* → call a ball</span>
           </Link>
-          <div>{feed2.cards.slice(1).filter((c: any) => !above.has(c.href)).map((c: any, i: number) => (
-            <Link key={i} href={c.href} className="feed-row" data-testid="feed-card">
-              <span className={`ft ${c.type}`}>{c.label}</span>
-              <span className="fb"><b>{c.title}</b><span className="mini">{c.text}</span><div className="why">Why this: {why(c.reason)}</div></span>
-              <span className="fn num">{c.numbers?.[0]?.value ?? "→"}</span>
-            </Link>))}</div>
-        </>)}
-      </section>
-
-      <section className="section">
-        <div className="section-head"><div><div className="kicker">Discoveries</div><div className="h2">Found in the data</div>
-          <div className="sub">Generated by fixed statistical tests and ranked by how unusual, well-sampled, recent and recognisable they are. Every card shows its working.</div></div></div>
-        <div className="chips" style={{ marginBottom: 10 }}>
-          {types.map(([k, l]) => <button key={k} className="chip" style={type === k ? { borderColor: "var(--accent)", color: "var(--accent)" } : undefined} onClick={() => { setType(k); setMore(false); }}>{l}</button>)}
-        </div>
-        {!disc ? <div className="loading">Running the discovery engine…</div> : (
-          <>
-            <div className="ex-cards">{items.slice(0, more ? 40 : 8).map((c: any) => <DiscoveryCard key={c.id} c={c} />)}</div>
-            {items.length > 8 && <button className="btn" style={{ marginTop: 10 }} onClick={() => setMore(!more)}>{more ? "Show fewer" : `Show all ${items.length}`}</button>}
-          </>
         )}
       </section>
 
-      {!feed && <div className="loading">Finding patterns in the data…</div>}
-      {feed?.error && <div className="empty" style={{ marginTop: 20 }}>The data service is not reachable.</div>}
-
-      {feed?.insights?.length > 0 && (
-        <section className="section">
-          <div className="section-head"><div><div className="kicker">Patterns</div><div className="h2">Strengths and weaknesses that stand out</div>
-            <div className="sub">Each finding compares a batter with similar batters, passes a false-discovery check and shows its working.</div></div></div>
-          <div className="icards">
-            {feed.insights.slice(0, 6).map((c: any) => (
-              <InsightCard key={c.person_id + c.id} c={c} compact
-                playerLink={<Link href={evidenceHref(c)} className="mini" style={{ display: "block", marginTop: 6 }}>
-                  <b style={{ color: "var(--text)", fontSize: 14 }}>{c.player}</b> · {G(c.gender)}&apos;s {c.format} →</Link>} />
-            ))}
-          </div>
+      {d && !d.error && (
+        <section className="section today" aria-label="Today">
+          <div className="crease-head"><span className="kicker">Today in the data</span><span className="mini">{d.date}</span></div>
+          {d.finding && (
+            <article className="today-finding" data-testid="home-finding">
+              <div className="tk">You probably didn&apos;t know</div>
+              <h2 className="tf">{d.finding.headline}</h2>
+              <p className="mini">{d.finding.statement}</p>
+              <div className="dm"><Link className="btn sm" href={d.finding.href}>See the evidence →</Link><WhyBox why={d.finding.why} /></div>
+            </article>
+          )}
+          {d.battle && (
+            <Link className="today-battle" href={d.battle.href} data-testid="home-battle">
+              <span className="tk">Great battle</span>
+              <span className="vsline">{d.battle.title.split(" v ")[0]} <i>v</i> {d.battle.title.split(" v ")[1]}</span>
+              <span className="mini">{d.battle.detail}</span>
+            </Link>
+          )}
+          {d.play && <div data-testid="home-play"><PlayCard m={d.play} /></div>}
         </section>
       )}
 
-      <section className="section">
-        <div className="play-cta">
-          <div><div className="kicker" style={{ color: "var(--accent-2)" }}>Play</div><div className="h2">What happens next?</div>
-            <div className="sub">Real moments from past matches. Call the next ball and see if you can beat the model.</div></div>
-          <Link href="/play" className="btn primary">Play →</Link>
-        </div>
-      </section>
-      <section className="section">
-        <div className="ex-cards">
-          <Link href="/live-lab" className="rcard" data-testid="gw-live-lab"><div className="kicker">Historical Live Lab</div><div style={{ fontWeight: 800, marginTop: 4 }}>Replay a finished match ball by ball, with the Match Centre a second screen would show. Not live.</div></Link>
-          <Link href="/competitions" className="rcard"><div className="kicker">Competitions</div><div style={{ fontWeight: 800, marginTop: 4 }}>IPL, WPL, World Cups: editions, leaders, trends and coverage</div></Link>
-          <Link href="/innings" className="rcard"><div className="kicker">Innings & spells</div><div style={{ fontWeight: 800, marginTop: 4 }}>Libraries of the highest, fastest and hardest innings, and the best spells</div></Link>
-          <Link href="/players" className="rcard"><div className="kicker">Players</div><div style={{ fontWeight: 800, marginTop: 4 }}>Search any player: fingerprint, strengths, dismissals, timeline</div></Link>
-          <Link href="/compare" className="rcard"><div className="kicker">Compare</div><div style={{ fontWeight: 800, marginTop: 4 }}>Put 2 to 4 players side by side, with their coverage differences shown</div></Link>
-          <Link href="/partnerships" className="rcard"><div className="kicker">Partnerships</div><div style={{ fontWeight: 800, marginTop: 4 }}>The best batting pairs, the biggest stands and who brings out the best in whom</div></Link>
-          <Link href="/context" className="rcard"><div className="kicker">Context Engine</div><div style={{ fontWeight: 800, marginTop: 4 }}>The 27 situation features we calculate for every ball, and how</div></Link>
-          {exp && <Link href="/lab" className="rcard" style={{ borderColor: "#c49bff66" }}><div className="kicker" style={{ color: "var(--mod)" }}>Experimental lab</div><div style={{ fontWeight: 800, marginTop: 4 }}>Situation Difficulty (v0.1) and its validation. Internal only</div></Link>}
-        </div>
-      </section>
+      <Continue />
+      {d && !d.error && (
+        <section className="section keep" aria-label="Keep exploring">
+          <div className="kicker">Keep exploring</div>
+          <div className="keep-links">
+            {d.on_this_day && <Link href="/on-this-day"><b>On this day · {d.on_this_day_label}</b><span>{d.on_this_day.title}</span></Link>}
+            {d.record && <Link href={d.record.href}><b>Record book</b><span>{d.record.title} · {d.record.scope}</span></Link>}
+            <Link href={d.rabbit_start.href}><b>Rabbit hole</b><span>Start at {d.rabbit_start.title} and follow the links</span></Link>
+            <Link href="/discover"><b>Everything we found</b><span>Every finding, today&apos;s mix, strengths and weaknesses</span></Link>
+            <Link href="/live-lab" data-testid="gw-live-lab"><b>Replay a match</b><span>Historical replays, ball by ball. Not live</span></Link>
+          </div>
+        </section>
+      )}
+      {d?.error && <div className="empty">The data service is not reachable.</div>}
     </div>
   );
 }

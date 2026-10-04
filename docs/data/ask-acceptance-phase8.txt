@@ -1,0 +1,37 @@
+OK  Who dismisses Kohli most? | dismissed_by | Adam Zampa and Tim Southee have dismissed Virat Kohli most often in covered matches: 9 times.
+   -> OK  How has Virat Kohli scored against Adam Zampa? :: Virat Kohli v Adam Zampa in covered matches: 425 runs off 385 balls (SR 110.4), 9 dismissals.
+   -> OK  Show every dismissal of Virat Kohli /how-out/ba607b88 200
+OK  What is Bumrah's best spell? | spells_list | Jasprit Bumrah's best covered figures in covered matches: 6/19 v England (2022-07-12).
+   -> OK  Who dismisses Jasprit Bumrah most? :: Adam Zampa has dismissed Jasprit Bumrah most often in covered matches: 2 times.
+   -> OK  Open Jasprit Bumrah's page /players/462411b3 200
+OK  What changes after Kohli faces 30 balls? | player_faced_change | Virat Kohli in covered matches: strike rate 104 in the first 30 balls of an innings and 118 after them; bounda
+   -> OK  Who dismisses Virat Kohli most? :: Adam Zampa and Tim Southee have dismissed Virat Kohli most often in covered matches: 9 times.
+   -> OK  Show Virat Kohli's best covered innings :: Virat Kohli's best covered innings in covered matches: 183 off 148 v Pakistan (2012-03-18), a win.
+OK  Bumrah v Warner | matchup | David Warner v Jasprit Bumrah in covered matches: 180 runs off 182 balls (SR 98.9), 2 dismissals.
+   -> OK  Compare this battle with similar battles /battle?bat=dcce6f09&bowl=462411b3#battle-similar 200
+   -> OK  Who dismisses David Warner most? :: Dale Steyn, Chris Woakes, Umesh Yadav and Morne Morkel have dismissed David Warner most often in cov
+OK  Which Kohli-Zampa dismissals happened in death overs? | battle_dismissals | 2 of Adam Zampa's 9 dismissals of Virat Kohli came in death overs in covered matches.
+   -> OK  Compare this battle with similar battles /battle?bat=ba607b88&bowl=14f96089#battle-similar 200
+   -> OK  Who dismisses Virat Kohli most? :: Adam Zampa and Tim Southee have dismissed Virat Kohli most often in covered matches: 9 times.
+OK  Most sixes in death overs | leaderboard | Men: MS Dhoni ranks first for sixes in death overs in covered matches: 372. Women: Chloe Tryon ranks first for
+   -> OK  Who dismisses MS Dhoni most? :: Thisara Perera has dismissed MS Dhoni most often in covered matches: 8 times.
+   -> OK  Open MS Dhoni's page /players/4a8a2e3b 200
+OK  Who are the best death-over bowlers since 2020? | leaderboard | Men: Sunil Narine ranks first for economy in death overs since 2020 in covered matches: 6.56 (min 300 legal ba
+   -> OK  What is Sunil Narine's best spell? :: Sunil Narine's best covered figures in covered matches: 6/27 v South Africa (2016-06-03).
+   -> OK  Open Sunil Narine's page /players/9d430b40 200
+OK  What happened in India v Pakistan in Melbourne in 2022? | match_lookup | Pakistan v India, ICC Men's T20 World Cup, Melbourne, 2022-10-23: Pakistan 159/8, India 160/6. India won by 4 
+   -> OK  Replay this match ball by ball /live-lab/1298150 200
+   -> OK  Read the match story /match/1298150 200
+OK  Show India's biggest successful T20 chases | team_chases | India's biggest successful chase in T20s (T20Is, IPL, WPL) in covered matches: 211/4 against Sri Lanka (2009-1
+   -> OK  Open 211/4 v Sri Lanka /match/430885 200
+OK  Who partners Mandhana best? | partners | Most runs together (ODI): Pratika Rawal, 1885 in 26 stands. S Mandhana scores fastest, relative to expectation
+   -> OK  Who dismisses S Mandhana most? :: Ashleigh Gardner has dismissed S Mandhana most often in covered matches: 13 times.
+   -> OK  Show S Mandhana's best covered innings :: S Mandhana's best covered innings in covered matches: 136 off 120 v South Africa (2024-06-19), a win
+OK  Which partnerships score fastest in the death overs? | partnership_leaderboard | Men: Virat Kohli & AB de Villiers lead for run rate in death overs in covered matches (13.37). Women: H Kaur &
+   -> OK  Who partners Virat Kohli best? :: Most runs together (ODI): Rohit Sharma, 5743 in 103 stands. Virat Kohli scores fastest, relative to 
+OK  Compare Kohli and Rohit in chases | compare_players | Virat Kohli v Rohit Sharma while chasing in covered matches: strike rate 108.6 v 105.2; dismissals per 100 bal
+   -> OK  Open the full comparison /compare?ids=ba607b88,740742ef 200
+OK  Compare Kohli before and after 2020 | period_compare | Virat Kohli before 2020 v from 2020, covered data: ODI: SR 93.2 → 96.3, average 59.8 → 53.7 (12382 v 3402 ball
+   -> OK  Who dismisses Virat Kohli most? :: Adam Zampa and Tim Southee have dismissed Virat Kohli most often in covered matches: 9 times.
+   -> OK  Show Virat Kohli's best covered innings :: Virat Kohli's best covered innings in covered matches: 183 off 148 v Pakistan (2012-03-18), a win.
+starting 13 · with interpretation 13 · follow-ups 23 · failures 0

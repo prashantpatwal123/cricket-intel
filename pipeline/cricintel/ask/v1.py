@@ -15,7 +15,7 @@ from ..analytics.filters import Filters
 from ..analytics.player import ROUTE_META
 from ..analytics.records import METRICS, leaderboard
 from ..db import DB
-from .intents import Resolver
+from .intents import Resolver, and_list
 
 METRIC_WORDS = [  # (regex, metric key, perspective)
     (r"\bsix(es)?\b|\b6s\b", "sixes", "batter"), (r"\bfours?\b|\b4s\b", "fours", "batter"),
@@ -385,7 +385,7 @@ def _scope(f: dict, gender=None) -> str:
         bits.append({"new": "against new batters (0–9 balls faced)", "set": "against set batters (30+ balls)", "settling": "against batters on 10–29 balls"}[f["batter_stage"]])
     if f.get("before_date"):
         bits.append(f"before {f['before_date']}")
-    return (" ".join(bits) + " " if bits else "") + "in our covered data"
+    return (" ".join(bits) + " " if bits else "") + "in covered matches"
 
 
 def execute(db: DB, it: Intent) -> dict:
@@ -505,7 +505,7 @@ def execute(db: DB, it: Intent) -> dict:
             return {**base, "status": "ok", "answer": f"No bowler-credited dismissals of {it.subject['name']} {scope}.", "numbers": []}
         top = [r for r in rows if r["value"] == rows[0]["value"]]
         return {**base, "status": "ok",
-                "answer": f"{' and '.join(r['names'][1] for r in top)} {'have' if len(top) > 1 else 'has'} dismissed {it.subject['name']} most often "
+                "answer": f"{and_list([r['names'][1] for r in top])} {'have' if len(top) > 1 else 'has'} dismissed {it.subject['name']} most often "
                           f"{scope}: {int(rows[0]['value'])} times.",
                 "numbers": [{"label": r["names"][1], "value": int(r["value"]), "n": r["sample"], "link": {"kind": "battle", "bat": r["ids"][0], "bowl": r["ids"][1]}}
                             for r in rows],
@@ -583,7 +583,61 @@ def ask(db: DB, question: str) -> dict:
     it = parse(db, question)
     out = execute(db, it)
     out["question"] = question
+    out["followups"] = followups(out)
     return out
+
+
+def followups(res: dict) -> list[dict]:
+    """One or two deterministic next questions/destinations for an answered question (Phase 8). Built from the
+    intent kind and the answer's own linked entities; no language model. Each is {label, q} (re-asked) or {label, href}."""
+    if res.get("status") != "ok":
+        return []
+    it = res.get("intent") or {}
+    k, sub, opp = it.get("kind"), it.get("subject") or {}, it.get("opponent") or {}
+    S = sub.get("name")
+    out: list[dict] = []
+    top_battle = next((n["link"] for n in res.get("numbers") or [] if (n.get("link") or {}).get("kind") == "battle"), None)
+    link = res.get("link") or {}
+    if k in ("dismissed_by", "troubled_by") and top_battle:
+        bowler = next(n["label"] for n in res["numbers"] if n.get("link") == top_battle)
+        out = [{"label": f"How has {S} scored against {bowler}?", "q": f"{S} v {bowler}"},
+               {"label": f"Show every dismissal of {S}", "href": f"/how-out/{sub['person_id']}"}]
+    elif k in ("matchup", "battle_dismissals") and sub and opp:
+        out = [{"label": "Compare this battle with similar battles", "href": f"/battle?bat={sub['person_id']}&bowl={opp['person_id']}#battle-similar"},
+               {"label": f"Who dismisses {S} most?", "q": f"Who dismisses {S} most?"}]
+    elif k == "compare_players" and link.get("kind") == "compare":
+        out = [{"label": "Open the full comparison", "href": f"/compare?ids={','.join(link['ids'])}"}]
+    elif k == "match_lookup" and link.get("kind") == "match":
+        out = [{"label": "Replay this match ball by ball", "href": f"/live-lab/{link['id']}"},
+               {"label": "Read the match story", "href": f"/match/{link['id']}"}]
+    elif sub and S:
+        if k not in ("how_out", "dismissal_list", "dismissal_count"):
+            out.append({"label": f"Who dismisses {S} most?", "q": f"Who dismisses {S} most?"})
+        else:
+            out.append({"label": f"Who has {S} scored fastest against?", "q": f"Who has {S} scored fastest against?"})
+        if k in ("bowler_summary", "spells_list"):
+            out.append({"label": f"Open {S}'s page", "href": f"/players/{sub['person_id']}"})
+        elif k != "innings_list":
+            out.append({"label": f"Show {S}'s best covered innings", "q": f"Show {S}'s best covered innings"})
+        else:
+            out.append({"label": f"Who partners {S} best?", "q": f"Who partners {S} best?"})
+    elif k == "leaderboard" and (res.get("leaderboard") or (res.get("leaderboards") or [None])[0] or {}).get("rows"):
+        lb = res.get("leaderboard") or res["leaderboards"][0]
+        r0 = lb["rows"][0]
+        if lb.get("entity") == "pair":
+            out = [{"label": f"Open {' v '.join(r0['names'])}", "href": f"/battle?bat={r0['ids'][0]}&bowl={r0['ids'][1]}"}]
+        else:
+            q1 = f"What is {r0['names'][0]}'s best spell?" if lb.get("entity") == "bowler" else f"Who dismisses {r0['names'][0]} most?"
+            out = [{"label": q1, "q": q1},
+                   {"label": f"Open {r0['names'][0]}'s page", "href": f"/players/{r0['ids'][0]}"}]
+    elif k == "partnership_leaderboard" and res.get("pairs"):
+        g = res["pairs"][0]["rows"]
+        if g:
+            out = [{"label": f"Who partners {g[0]['p1_name']} best?", "q": f"Who partners {g[0]['p1_name']} best?"}]
+    elif res.get("items"):
+        out = [{"label": f"Open {res['items'][0]['label']}", "href": res["items"][0]["href"]}]
+    q = (res.get("question") or "").strip().lower()
+    return [f for f in out if f.get("q", "").lower() != q][:2]
 
 
 def run_intent(db: DB, intent: dict) -> dict:

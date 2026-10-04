@@ -70,7 +70,7 @@ function Bars({ rows, metric, onPick }: { rows: any[]; metric: string; onPick?: 
                   fill={metric === "dismissal_rate" ? "#ff5c74" : "#35e0c2"} />
             {rows.length <= 12 && v != null && <text x={x + bw / 2} y={H - PADB - h - 4} textAnchor="middle" fontSize={11} fill="#edf2fc" fontWeight={700}>{fmt(v, metric === "dismissal_rate" ? 1 : 0)}</text>}
             {r.dismissals > 0 && <circle cx={x + bw / 2} cy={H - PADB + 7} r={Math.min(3 + r.dismissals * 0.6, 7)} fill="#ff5c74" />}
-            {(rows.length <= 25 || Number(r.bucket) % 5 === 0 || i === 0) && <text x={x + bw / 2} y={H - 8} textAnchor="middle" fontSize={10.5} fill="#8d9ab8">{String(r.bucket)}</text>}
+            {(rows.length <= 25 || Number(r.bucket) % 5 === 0 || i === 0) && <text x={x + bw / 2} y={H - 8} textAnchor="middle" fontSize={11} fill="#8d9ab8">{String(r.bucket)}</text>}
           </g>
         );
       })}

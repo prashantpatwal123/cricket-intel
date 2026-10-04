@@ -110,6 +110,11 @@ class Resolver:
         return None, ps
 
 
+
+def and_list(xs: list[str]) -> str:
+    """"A", "A and B", "A, B and C" (never "A and B and C")."""
+    return xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " and " + xs[-1]
+
 def _filters(q: str) -> Filters:
     f = {}
     for pat, v in FORMAT_WORDS.items():
@@ -191,7 +196,7 @@ def _answer(db: DB, question: str) -> dict:
         if not tb:
             return _ok(question, "top_dismisser", [p1], f, f"No bowler has dismissed {p1.name}{scope} in our data.", [], method="", viz=None)
         lead = [b for b in tb if b["n"] == tb[0]["n"]]
-        names = " and ".join(b["bowler"] for b in lead)
+        names = and_list([b["bowler"] for b in lead])
         return _ok(question, "top_dismisser", [p1], f,
                    f"{names} {'have' if len(lead) > 1 else 'has'} dismissed {p1.name} most often{scope}: {tb[0]['n']} time{'s' if tb[0]['n'] != 1 else ''}.",
                    [{"label": b["bowler"], "value": b["n"], "prov": "OBSERVED", "drill": {"player": p1.person_id, "bowler_id": b["bowler_id"]}} for b in tb],
@@ -297,7 +302,7 @@ def _scope_text(f: Filters) -> str:
         parts.append("in internationals")
     if "year_from" in a:
         parts.append(f"since {a['year_from']}")
-    return (" " + " ".join(parts) + " (in our covered data)") if parts else " in our covered data"
+    return (" " + " ".join(parts) + " (in covered matches)") if parts else " in covered matches"
 
 
 def _ok(question, intent, ents, f, text, numbers, method, drill=None, caveat=None, viz=None):

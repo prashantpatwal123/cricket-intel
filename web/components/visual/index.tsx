@@ -63,9 +63,9 @@ export function PitchMap({ balls, hand, illustrative, title = "Pitch map" }: { b
       <rect x={sx(-PW / 2)} y={sy(PL)} width={sx(PW / 2) - sx(-PW / 2)} height={sy(0) - sy(PL)} fill="#3b3323" stroke="#6b5a3a" />
       <line x1={sx(-1.32)} x2={sx(1.32)} y1={sy(1.22)} y2={sy(1.22)} stroke="#e8dcc0" strokeWidth={1.5} />
       <line x1={sx(-1.32)} x2={sx(1.32)} y1={sy(PL - 1.22)} y2={sy(PL - 1.22)} stroke="#e8dcc0" strokeWidth={1.5} />
-      <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={10} fill="#8d9ab8">batter&apos;s end</text>
-      <text x={W / 2} y={14} textAnchor="middle" fontSize={10} fill="#8d9ab8">bowler&apos;s end</text>
-      {hand && <><text x={6} y={H - 36} fontSize={9} fill="#8d9ab8">{hand === "right" ? "leg" : "off"}</text><text x={W - 6} y={H - 36} fontSize={9} fill="#8d9ab8" textAnchor="end">{hand === "right" ? "off" : "leg"}</text></>}
+      <text x={W / 2} y={H - 8} textAnchor="middle" fontSize={11} fill="#8d9ab8">batter&apos;s end</text>
+      <text x={W / 2} y={14} textAnchor="middle" fontSize={11} fill="#8d9ab8">bowler&apos;s end</text>
+      {hand && <><text x={6} y={H - 36} fontSize={11} fill="#8d9ab8">{hand === "right" ? "leg" : "off"}</text><text x={W - 6} y={H - 36} fontSize={11} fill="#8d9ab8" textAnchor="end">{hand === "right" ? "off" : "leg"}</text></>}
       {pts.map((b, i) => <circle key={i} cx={sx(b.pitch_x!)} cy={sy(b.pitch_y!)} r={b.wicket ? 6 : 4} fill={b.wicket ? "#ff5c74" : b.boundary ? "#35e0c2" : "#7cc4ff"}
         fillOpacity={illustrative ? 0.35 : 0.9} stroke={illustrative ? "#cfd6e6" : "none"} strokeDasharray={illustrative ? "2 2" : undefined}>
         <title>{`${b.length ?? ""} ${b.line ?? ""}`}</title></circle>)}
@@ -129,7 +129,7 @@ export function EdgeMap({ illustrative }: { illustrative?: boolean }) {
   return <Illus label="Bat contact zones"><svg viewBox="0 0 120 220" className="vsvg" role="img" aria-label="Generic bat face divided into toe, middle, splice and edges">
     <rect x={35} y={20} width={50} height={170} rx={12} fill="none" stroke="#cfd6e6" strokeDasharray="4 3" />
     {[["toe", 160], ["middle", 110], ["splice", 50]].map(([l, y]) => <text key={l as string} x={60} y={y as number} textAnchor="middle" fontSize={11} fill="#cfd6e6">{l}</text>)}
-    <text x={28} y={110} fontSize={10} fill="#cfd6e6" textAnchor="end">edge</text><text x={92} y={110} fontSize={10} fill="#cfd6e6">edge</text></svg></Illus>;
+    <text x={28} y={110} fontSize={11} fill="#cfd6e6" textAnchor="end">edge</text><text x={92} y={110} fontSize={11} fill="#cfd6e6">edge</text></svg></Illus>;
 }
 
 // ---------------------------------------------------------------- Dismissal theatre V2 (Layer 0 relationship; spatial only if recorded)

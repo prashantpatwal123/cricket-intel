@@ -79,7 +79,7 @@ export function Figure({ x, y, role, unknownHand = false, label }: { x: number; 
     <g>
       {role === "batter" ? (<><circle cx={x} cy={y - 10} r={6} fill={fill} /><rect x={x - 5} y={y - 4} width={10} height={14} rx={4} fill={fill} /></>)
         : <circle cx={x} cy={y} r={role === "fielder" ? 4 : 5} fill={fill} />}
-      {label && <text x={x} y={y + (role === "batter" ? 24 : 16)} textAnchor="middle" fontSize={10} fill={C.text}>{label}</text>}
+      {label && <text x={x} y={y + (role === "batter" ? 24 : 16)} textAnchor="middle" fontSize={12.5} fill={C.text}>{label}</text>}
     </g>
   );
 }
@@ -106,7 +106,7 @@ export function UnknownZone({ cx, cy, rx, ry, width, id = "ci", label, color = "
   return (
     <g>
       <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke={`url(#${id}-${color === "wicket" ? "hatch" : "hatch-muted"})`} strokeWidth={width} />
-      {label && <text x={cx} y={cy - ry - width / 2 - 6} textAnchor="middle" fontSize={10} fill={C.muted}>{label}</text>}
+      {label && <text x={cx} y={cy - ry - width / 2 - 6} textAnchor="middle" fontSize={11} fill={C.muted}>{label}</text>}
     </g>
   );
 }

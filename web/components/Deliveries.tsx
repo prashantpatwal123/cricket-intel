@@ -1,5 +1,6 @@
 "use client";
 // Aggregate -> evidence. Lists the deliveries behind a number; tapping one opens the delivery card + scene.
+import { track } from "@/lib/analytics";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { api, Params } from "@/lib/api";
@@ -22,7 +23,7 @@ export default function Deliveries({ title, query, onClose }: { title: string; q
   const [data, setData] = useState<any | null>(null);
   const [offset, setOffset] = useState(0);
   const [open, setOpen] = useState<string | null>(null);
-  useEffect(() => { setOffset(0); }, [JSON.stringify(query)]);
+  useEffect(() => { setOffset(0); track("evidence_open", { kind: "deliveries" }); }, [JSON.stringify(query)]);
   useEffect(() => {
     api("/deliveries", { ...query, offset, limit: 20 }).then((r) => setData((prev: any) =>
       offset === 0 || !prev ? r.data : { ...r.data, deliveries: [...prev.deliveries, ...r.data.deliveries] }));

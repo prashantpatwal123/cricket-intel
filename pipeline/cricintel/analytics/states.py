@@ -205,7 +205,7 @@ def states(db: DB, pid: str, role: str = "batting", fmt: str | None = None, team
             "peer_definition": (f"{'women' if gender == 'female' else 'men'}'s {fmt} batters batting {band}-order "
                                 f"({BANDS[band][0]}–{BANDS[band][1]})" if role == "batting" else
                                 f"all {'women' if gender == 'female' else 'men'}'s {fmt} bowlers") + (f", {team_type} only" if team_type else "") +
-                               " in our covered data",
+                               " in covered matches",
             "method": "Relative change = (player in state − player overall) − (peers in state − peers overall). Positive strike-rate change "
                       "means the player gains more than typical in that state. 'Clear' = the player's 99% interval in that state (stricter because ~20 states are tested) excludes "
                       "the value expected if they changed exactly as peers do. Buckets under the minimum sample are flagged; only clear changes "

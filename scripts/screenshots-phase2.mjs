@@ -26,13 +26,13 @@ const overflow = (p) => p.evaluate(() => document.documentElement.scrollWidth - 
 const M = { width: 390, height: 844 }, D = { width: 1280, height: 900 };
 
 await session(M, async (p, settle) => {
-  await p.goto(BASE + "/"); await settle(800);
+  await p.goto(BASE + "/discover"); await settle(800); // Phase 8: insight/battle/record cards moved from "/" to /discover
   await p.screenshot({ path: `${out}/m01-explore.png`, fullPage: true });
   await note("explore", { insights: await p.locator(".icard").count(), battles: await p.locator(".bcard").count(), records: await p.locator(".rcard").count(), overflow: await overflow(p) });
   await p.locator(".icard button", { hasText: "WHY?" }).first().click(); await p.waitForTimeout(300);
   await p.locator(".icard").first().screenshot({ path: `${out}/m02-explore-insight-why.png` });
 
-  await p.goto(`${BASE}/players/${KOHLI}`); await settle(1200);
+  await p.goto(`${BASE}/players/${KOHLI}?tab=style`); await settle(1200); // Phase 8: the fingerprint moved to the Style tab
   await p.screenshot({ path: `${out}/m03-player-overview.png`, fullPage: true });
   await note("player-overview", { petals: await p.locator(".petal").count(), overflow: await overflow(p) });
   await p.locator(".fp-svg text", { hasText: "Death SR" }).first().click().catch(() => {});
@@ -119,7 +119,7 @@ await session(D, async (p, settle) => {
   await p.screenshot({ path: `${out}/d01-explore.png`, fullPage: true });
   await p.goto(`${BASE}/players/${KOHLI}`); await settle(1200);
   await p.screenshot({ path: `${out}/d02-player-overview.png`, fullPage: true });
-  await p.goto(`${BASE}/players/${BUMRAH}`); await settle(1200);
+  await p.goto(`${BASE}/players/${BUMRAH}?tab=style`); await settle(1200); // Phase 8: fingerprint on the Style tab
   await p.locator(".fp").screenshot({ path: `${out}/d03-fingerprint-bowler.png` });
   await p.goto(`${BASE}/players/${DHONI}?tab=dismissals&route=STUMPED`); await settle(1200);
   await p.screenshot({ path: `${out}/d04-dismissals-dhoni.png`, fullPage: true });

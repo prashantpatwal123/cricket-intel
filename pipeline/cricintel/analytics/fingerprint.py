@@ -158,7 +158,7 @@ def fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str | None 
     lo, hi = wilson(me["outs"], me["balls"])
     return {"available": True, "role": "batting", "format": fmt, "team_type": team_type, "gender": gender, "scope": "major" if major else "all", "formats": avail,
             "balls": me["balls"], "runs": me["runs"], "outs": me["outs"], "below_peer_threshold": me["balls"] < PEER_MIN[fmt],
-            "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} batters in our covered data "
+            "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} batters in covered matches "
                           f"with >= {PEER_MIN[fmt]} balls faced" + (f" ({team_type})" if team_type else "")
                           + (" in leagues and full-member internationals (the player's own numbers use the same matches)" if major else ""),
                           "pressure_rrr": PRESSURE_RRR[fmt]},
@@ -263,7 +263,7 @@ def bowling_fingerprint(db: DB, pid: str, fmt: str | None = None, team_type: str
                      "evidence": {"format": fmt, **({"team_type": team_type} if team_type else {}), **ev}, "prov": "OBSERVED aggregate"})
     return {"available": True, "role": "bowling", "format": fmt, "gender": gender, "scope": "major" if major else "all", "formats": avail, "balls": me["balls"],
             "wickets": me["wkts"], "runs": me["runs"], "below_peer_threshold": me["balls"] < BOWL_PEER_MIN[fmt],
-            "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} bowlers in our covered data "
+            "peer_pool": {"size": len(pool), "definition": f"{'women' if gender == 'female' else 'men'}'s {fmt} bowlers in covered matches "
                           f"with >= {BOWL_PEER_MIN[fmt]} legal balls"
                           + (" in leagues and full-member internationals (the player's own numbers use the same matches)" if major else "")},
             "dimensions": dims, "not_available": ["line & length", "pace/speed", "bowling type (metadata coverage too low)", "field settings"]}

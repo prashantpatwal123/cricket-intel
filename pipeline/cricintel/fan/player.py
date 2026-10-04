@@ -49,8 +49,12 @@ def hero(db: DB, pid: str) -> dict | None:
                    FROM bat_innings WHERE batter_id = ?""", [pid])
     bowl = db.q1("""SELECT sum(wickets) AS w, sum(balls) AS balls, sum(runs) AS runs, count(*) AS inns, max(wickets) AS best FROM bowl_innings
                     WHERE bowler_id = ?""", [pid])
-    kind = ("all-rounder" if r["allrounder"] else "bowler" if r["primary"] == "bowler" else
+    # role only where the covered balls make it defensible; otherwise a neutral presentation (no role-specific claims)
+    neutral = (r["balls_faced"] + r["balls_bowled"]) < 300
+    kind = ("player" if neutral else "all-rounder" if r["allrounder"] else "bowler" if r["primary"] == "bowler" else
             "wicketkeeper-batter" if p["wicketkeeper"] else "batter")
+    layout = "neutral" if neutral else "allrounder" if r["allrounder"] else ("bowler" if r["primary"] == "bowler" else
+             "keeper" if p["wicketkeeper"] else "batter")
     nums = []
     if r["primary"] == "batter" or r["allrounder"]:
         if bat and bat["balls"]:
@@ -62,7 +66,11 @@ def hero(db: DB, pid: str) -> dict | None:
             if not r["allrounder"]:
                 nums.append({"v": f"{bowl['balls'] / bowl['w']:.1f}" if bowl["w"] else "–", "l": "balls per wicket"})
     span = (min(x["a"] for x in fm), max(x["b"] for x in fm)) if fm else (None, None)
-    return {"pid": pid, "name": p["name"], "kind": kind, "role": r, "gender": p["genders"][0], "teams": p["teams"][:4], "more_teams": max(0, len(p["teams"]) - 4),
+    keeping = None
+    if layout == "keeper":
+        keeping = db.q1("""SELECT count(*) FILTER (WHERE route = 'CAUGHT_KEEPER' AND fielder_id = ?) AS ct, count(*) FILTER (WHERE kind = 'stumped' AND fielder_id = ?) AS st
+                           FROM dis WHERE fielder_id = ?""", [pid, pid, pid])
+    return {"pid": pid, "name": p["name"], "kind": kind, "layout": layout, "keeping": keeping, "role": r, "gender": p["genders"][0], "teams": p["teams"][:4], "more_teams": max(0, len(p["teams"]) - 4),
             "formats": [{"format": x["f"], "matches": x["m"]} for x in fm], "matches": p["matches"],
             "span": {"from": str(span[0]) if span[0] else None, "to": str(span[1]) if span[1] else None}, "numbers": nums[:4],
             "coverage_note": "Covered Cricsheet matches only: these are not official career totals.",
@@ -110,6 +118,9 @@ PLAIN = {"econ": ("most economical", "most expensive"), "pp_econ": ("most econom
 def _extreme_dims(fp: dict, name: str, role: str, lo_cut: float = 12, hi_cut: float = 88) -> list[dict]:
     if not fp.get("available"):
         return []
+    def _share(p: int, word: str) -> str:  # plain-language percentile (Phase 8 terminology pass)
+        return f"none of them has a {word} figure" if p <= 0 else f"only {p}% of them have a {word} figure"
+
     lower_better = {"dot_pct", "out_rate", "after30_out", "early_out", "econ", "bnd_pct", "extras_pct", "pp_econ", "mid_econ", "death_econ",
                     "def_econ", "set_econ"}
     out = []
@@ -125,7 +136,7 @@ def _extreme_dims(fp: dict, name: str, role: str, lo_cut: float = 12, hi_cut: fl
         lo_w, hi_w = PLAIN.get(d["key"], ("lowest", "highest"))
         word = (f"among the {hi_w}" if strong else f"{hi_w.replace('most ', 'more ').replace('highest', 'higher')} than most") if hi else \
                (f"among the {lo_w}" if strong else f"{lo_w.replace('most ', 'more ').replace('lowest', 'lower').replace('fewest', 'fewer')} than most")
-        head = f"{d['label']}: {name} is {word} of {fp['peer_pool']['size']} peers ({ordinal(pc)} percentile)"
+        head = f"{d['label']}: {name} is {word} of {fp['peer_pool']['size']} peers ({_share(100 - pc, 'higher') if hi else _share(pc, 'lower')})"
         unit = d["unit"]
         body = (f"{d['description']}: {d['value']:.4g} {unit} against a peer median of {d['peer_median']:.4g}. "
                 f"Peers: {fp['peer_pool']['definition']}. A percentile describes style, not quality"

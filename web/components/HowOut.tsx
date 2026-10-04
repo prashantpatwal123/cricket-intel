@@ -52,7 +52,7 @@ export default function HowOut({ routes, hand, selected, onSelect, name }: {
              aria-label={`${fielder.label}: ${fielder.n}. Fielding position not recorded`}>
             <ellipse cx={CX} cy={CY} rx={170} ry={204} fill="none" stroke={selected === "CAUGHT_FIELDER" ? C.wicket : "url(#ci-hatch)"}
                      strokeWidth={ringW} opacity={selected === "CAUGHT_FIELDER" ? 0.55 : 1} />
-            <text fontSize={10.5} fontWeight={800} fill="#ffd0d8" letterSpacing="1.2" dy={4}>
+            <text fontSize={11} fontWeight={800} fill="#ffd0d8" letterSpacing="1.2" dy={4}>
               <textPath href="#ringpath" startOffset="6%">{`CAUGHT IN THE FIELD · ${fielder.n} (${fielder.pct ?? 0}%) · POSITION NOT RECORDED`}</textPath>
             </text>
           </g>
