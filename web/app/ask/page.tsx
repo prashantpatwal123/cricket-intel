@@ -8,7 +8,9 @@ import { api, apiPost, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
 import Deliveries from "@/components/Deliveries";
 
-const EXAMPLES = ["How does Kohli score after facing 30 balls?", "Who is best while chasing 10+ an over?", "Which bowler has dismissed Rohit most?",
+const EXAMPLES = ["Show Kohli's best covered innings while chasing", "What happened in India v Pakistan in Melbourne in 2022?", "Who partners Mandhana best?",
+  "Show Bumrah's best death-over spells", "Which bowlers have troubled Kohli most?", "Compare Kohli before and after 2020", "Who improved their strike rate most after 30 balls?",
+  "Show me unusual India-Australia battles", "How does Kohli score after facing 30 balls?", "Who is best while chasing 10+ an over?", "Which bowler has dismissed Rohit most?",
   "How does Bumrah perform in overs 17-20?", "Who has the highest boundary rate after 30 balls?", "Which partnerships score fastest in the death overs?",
   "Show Kohli's dismissals between balls 20 and 30", "Who improves most from middle overs to death overs?", "Most sixes in death overs", "Bumrah v Warner"];
 
@@ -36,6 +38,7 @@ function Ask() {
   const pickCandidate = (amb: string, name: string) => go((res.question as string).replace(amb.trim(), name));
   const lbs = res ? (res.leaderboards || (res.leaderboard ? [res.leaderboard] : [])) : [];
   const linkHref = (l: any) => !l ? null : l.kind === "battle" ? `/battle?bat=${l.bat}&bowl=${l.bowl}` : l.kind === "player" ? `/players/${l.id}${l.route ? `?tab=dismissals&route=${l.route}` : l.tab ? `?tab=${l.tab}` : ""}`
+    : l.kind === "match" ? `/match/${l.id}` : l.kind === "rivalry" ? `/rivalry?a=${encodeURIComponent(l.a)}&b=${encodeURIComponent(l.b)}&gender=${l.gender}`
     : l.kind === "partnerships" ? `/partnerships?sort=${l.sort}${l.phase ? `&phase=${l.phase}` : ""}${l.format ? `&format=${l.format}` : ""}`
     : l.kind === "records" ? `/records?${new URLSearchParams({ metric: l.metric, ...Object.fromEntries(Object.entries(l.filters || {}).map(([k, v]) => [k, String(v)])) })}` : null;
   const ambiguous = (res?.notes || []).filter((n: any) => n.ambiguous);
@@ -43,9 +46,9 @@ function Ask() {
 
   return (
     <div className="search-hero fade-in" style={{ maxWidth: 780, marginTop: 26 }}>
-      <div className="kicker">Ask Cricket · v1</div>
+      <div className="kicker">Ask Cricket · v3</div>
       <h1 className="big-title" style={{ fontSize: "clamp(34px, 8vw, 58px)" }}>Ask. Every number is a query.</h1>
-      <p className="sub">Your question is turned into a structured query you can see and edit. The numbers come from the same engines as the rest of the app. No language model writes them.</p>
+      <p className="sub">Ask answers statistical questions; to find a player, match or record by name, use <Link href="/search" className="ul">Search</Link>. Your question is turned into a structured query you can see and edit. The numbers come from the same engines as the rest of the app. No language model writes them.</p>
       <form onSubmit={(e) => { e.preventDefault(); if (q.trim()) go(q.trim()); }} style={{ display: "flex", gap: 8, marginTop: 16 }}>
         <input className="input" value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. Who has dismissed Kohli most?" aria-label="Ask a question" />
         <button className="btn primary" type="submit" disabled={busy}>{busy ? "…" : "Ask"}</button>
@@ -138,20 +141,27 @@ function Ask() {
                     {g.rows.slice(0, 5).map((r: any) => (
                       <Link key={r.person_id} className="rec-row" href={`/players/${r.person_id}?tab=states`}>
                         <span className="rec-rank">{r.rank}</span>
-                        <span style={{ minWidth: 0 }}><b style={{ display: "block" }}>{r.name}</b><span className="mini">middle {r.middle_sr} ({r.middle_balls} balls) → death {r.death_sr} ({r.death_balls})</span></span>
+                        <span style={{ minWidth: 0 }}><b style={{ display: "block" }}>{r.name}</b><span className="mini">{res.change_labels?.[0] ?? "middle"} {r.middle_sr} ({r.middle_balls} balls) → {res.change_labels?.[1] ?? "death"} {r.death_sr} ({r.death_balls})</span></span>
                         <span className="rec-val num">+{r.change}</span>
                       </Link>
                     ))}
                   </div>
                 </div>
               ))}
+              {res.items?.length > 0 && (
+                <div className="tablist" style={{ marginTop: 12 }}>{res.items.map((it: any, i: number) => (
+                  <Link key={i} className="trow" href={it.href}><span className="n">{i + 1}</span>
+                    <span className="t"><b>{it.label}</b>{it.sub && <span className="mini">{it.sub}</span>}</span><span className="v num" style={{ fontSize: 15 }}>{it.value}</span></Link>))}</div>
+              )}
+              {res.story && <Link className="btn" style={{ display: "inline-block", marginTop: 10 }} href={res.story}>How the match unfolded (story) →</Link>}
               {res.deliveries_query && <Deliveries title="The dismissals" query={res.deliveries_query} onClose={() => {}} />}
               <dl className="kv" style={{ marginTop: 14, fontSize: 12.5 }}>
                 {res.definition && <><dt>Definition</dt><dd>{res.definition}</dd></>}
                 {res.caveat && <><dt>Caveat</dt><dd style={{ fontWeight: 500 }}>{res.caveat}</dd></>}
               </dl>
               {linkHref(res.link) && <Link className="btn primary" style={{ display: "inline-block", marginTop: 12 }} href={linkHref(res.link)!}>
-                {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →" : "Open the evidence →"}</Link>}
+                {res.link.kind === "records" ? "Open in Records explorer →" : res.link.kind === "battle" ? "Open the battle →" : res.link.kind === "partnerships" ? "Open Partnerships →"
+                  : res.link.kind === "match" ? "Open the match →" : res.link.kind === "rivalry" ? "Open the rivalry →" : "Open the evidence →"}</Link>}
             </div>
           )}
           <div className="chips" style={{ marginTop: 16 }}>{EXAMPLES.filter((e) => e !== res.question).slice(0, 4).map((e) => <button key={e} className="chip wrap" onClick={() => go(e)}>{e}</button>)}</div>

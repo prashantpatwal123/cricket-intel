@@ -1,6 +1,7 @@
 """Player intelligence queries. Every block returns sample sizes and provenance."""
 from __future__ import annotations
 
+from .graph import TEAM_CANON
 from ..db import DB
 from .filters import Filters
 
@@ -192,7 +193,7 @@ def profile(db: DB, pid: str, f: Filters) -> dict | None:
         "person_id": pid, "name": p["name"], "register_name": p.get("register_name"), "aliases": p.get("aliases"),
         "identity": {"canonical_player_id": pid, "cricsheet_register_id": pid if not pid.startswith("unres:") else None,
                      "external_ids": (db.q1("SELECT external_ids FROM persons WHERE person_id = ?", [pid]) or {}).get("external_ids")},
-        "genders": p["genders"], "teams": p["teams"],
+        "genders": p["genders"], "teams": list(dict.fromkeys(TEAM_CANON.get(t, t) for t in (p["teams"] or []))),  # renamed franchises once
         "metadata": {k: _meta_field(p, k) for k in ("role", "batting_hand", "bowling_style", "bowling_arm", "bowling_family", "wicketkeeper")},
         "coverage": {**(cov or {}), "competitions": comps, "breakdown": coverage_breakdown(db, pid, f), "notes": notes,
                      "statement": f"Analysed from {cov['matches'] if cov else 0} matches in our dataset"

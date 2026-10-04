@@ -16,6 +16,7 @@ export default function DiscoveryCard({ c }: { c: any }) {
       <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
         <button className="btn" onClick={() => setOpen(!open)} aria-expanded={open}>{open ? "Hide" : "WHY?"}</button>
         <Link className="btn primary" href={c.href}>Show me →</Link>
+        <Link className="btn" href={`/share?type=discovery&id=${encodeURIComponent(c.id)}`}>Share</Link>
       </div>
       {open && (
         <dl className="kv why fade-in">

@@ -9,6 +9,7 @@ import Deliveries from "@/components/Deliveries";
 import ProvBadge from "@/components/Prov";
 import { C, Crease, Defs, Figure, Pitch, Stumps } from "@/components/cricket/primitives";
 import OutcomeMap from "@/components/viz/OutcomeMap";
+import ExploreNext from "@/components/ExploreNext";
 
 type P = { person_id: string; name: string } | null;
 const BREAKS = [["phase", "Phase"], ["innings", "Setting / chasing"], ["year", "Year"], ["format", "Format"]] as const;
@@ -23,7 +24,10 @@ function Battle() {
   const batId = sp.get("bat"), bowlId = sp.get("bowl");
   const [bat, setBat] = useState<P>(null), [bowl, setBowl] = useState<P>(null);
   const [d, setD] = useState<any | null>(null);
-  const [notable, setNotable] = useState<any[] | null>(null);
+  const [uni, setUni] = useState<any | null>(null);
+  const [cat, setCat] = useState("most_balls");
+  const [ug, setUg] = useState("male");
+  const [sim, setSim] = useState<any | null>(null);
   const [by, setBy] = useState<string>("phase");
   const [drill, setDrill] = useState<{ title: string; q: any } | null>(null);
 
@@ -37,7 +41,8 @@ function Battle() {
     if (batId && bowlId) { setD(null); api("/battle", { bat: batId, bowl: bowlId }).then((r) => { setD(r.data); setBat(r.data.batter); setBowl(r.data.bowler); }).catch(() => setD({ error: true })); }
     else setD(null);
   }, [batId, bowlId]);
-  useEffect(() => { api<any[]>("/battles/notable", { limit: 16 }).then((r) => setNotable(r.data)); }, []);
+  useEffect(() => { setUni(null); api("/battles/universe", { cat, gender: ug }).then((r) => setUni(r.data)); }, [cat, ug]);
+  useEffect(() => { setSim(null); if (batId && bowlId) api("/battles/similar", { bat: batId, bowl: bowlId }).then((r) => setSim(r.data)); }, [batId, bowlId]);
   const onDrill = (title: string, q: any) => { setDrill({ title, q }); setTimeout(() => document.getElementById("evidence")?.scrollIntoView({ behavior: "smooth" }), 60); };
   const t = d?.total;
 
@@ -117,21 +122,39 @@ function Battle() {
           <div className="mini" style={{ marginTop: 10 }}>Not shown, because the data doesn&apos;t record it: {d.not_available.join(" · ")}.</div>
         </section>
         {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
+        <section className="rule-section">
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <Link className="btn primary" href={`/story/battle?bat=${batId}&bowl=${bowlId}`}>What this battle shows (story) →</Link>
+            <Link className="btn" href={`/share?type=battle&bat=${batId}&bowl=${bowlId}`}>Share card</Link>
+          </div>
+          <div className="eyebrow" style={{ marginTop: 18 }}>Similar battles <ProvBadge prov="DERIVED" /></div>
+          {!sim ? <div className="loading">Finding similar battles…</div> : !sim.available ? <div className="mini">{sim.reason}</div> : (
+            <>
+              <div className="tablist">{sim.rows.map((r: any) => (
+                <Link key={r.batter_id + r.bowler_id} className="trow" href={`/battle?bat=${r.batter_id}&bowl=${r.bowler_id}`}><span className="n">≈</span>
+                  <span className="t"><b>{r.batter} v {r.bowler}</b><span className="mini">{r.balls} balls · SR {r.sr} · {r.outs} out{r.shared.length ? ` · ${r.shared.join(", ")}` : ""}</span></span>
+                  <span className="v num" style={{ fontSize: 14 }}>d {r.distance}</span></Link>))}</div>
+              <details className="mini" style={{ marginTop: 6 }}><summary style={{ cursor: "pointer" }}>How similarity is defined</summary><p>{sim.method}</p></details>
+            </>
+          )}
+        </section>
+        <ExploreNext type="battle" id={`${batId}|${bowlId}`} />
       </>)}
 
       {(!batId || !bowlId) && (
-        <section className="section">
-          <div className="section-head"><div><div className="kicker">Most-played battles</div><div className="h2">Pick one, or choose your own</div></div></div>
-          {!notable ? <div className="loading">Loading…</div> : (
-            <div className="ex-cards three">
-              {notable.map((b) => (
-                <Link key={b.batter_id + b.bowler_id} href={`/battle?bat=${b.batter_id}&bowl=${b.bowler_id}`} className="bcard">
-                  <div className="gender-tag">{b.gender === "female" ? "Women" : "Men"}</div>
-                  <div className="who">{b.batter}<span>v</span>{b.bowler}</div>
-                  <div className="mini" style={{ marginTop: 6 }}>{b.balls} balls · {b.runs} runs · SR {fmt((100 * b.runs) / b.balls, 0)} · <span className="wk">{b.dismissals} out</span></div>
-                </Link>
-              ))}
-            </div>
+        <section className="rule-section">
+          <div className="eyebrow">Battle universe</div>
+          <div className="h2" style={{ marginTop: 4 }}>Explore every batter v bowler contest</div>
+          <div className="cat-strip">{uni && Object.entries(uni.categories).map(([k, l]) => <button key={k} className={cat === k ? "on" : ""} onClick={() => setCat(k)}>{l as string}</button>)}</div>
+          <div className="seg" style={{ marginTop: 10 }}>{[["male", "Men"], ["female", "Women"]].map(([v, l]) => <button key={v} className={ug === v ? "on" : ""} onClick={() => setUg(v)}>{l}</button>)}</div>
+          {!uni ? <div className="loading">Loading…</div> : (
+            <>
+              <div className="def-line"><b>{uni.label}.</b> {uni.definition} <span className="mini">{uni.note}</span></div>
+              <div className="tablist">{uni.rows.map((b: any, i: number) => (
+                <Link key={b.batter_id + b.bowler_id} href={`/battle?bat=${b.batter_id}&bowl=${b.bowler_id}`} className="trow"><span className="n">{i + 1}</span>
+                  <span className="t"><b>{b.batter} v {b.bowler}</b><span className="mini">{b.balls} balls · SR {b.sr} · {b.outs} out (expected {b.expected_outs}) · {b.first_date.slice(0, 4)}–{b.last_date.slice(0, 4)}</span></span>
+                  <span className="v num">{cat === "most_dismissals" || cat === "one_sided" ? `${b.outs} out` : cat === "most_runs" ? b.runs : cat.includes("sr") ? b.sr : b.balls}</span></Link>))}</div>
+            </>
           )}
         </section>
       )}

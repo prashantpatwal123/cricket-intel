@@ -15,7 +15,7 @@ from ..db import DB
 from .filters import FULL_MEMBERS
 from .player import ROUTE_META
 
-VERSION = "discovery-1.1"
+VERSION = "discovery-1.2"
 FM = ",".join("'" + t + "'" for t in FULL_MEMBERS)
 SCOPE = f"(team_type = 'club' OR (batting_team IN ({FM}) AND bowling_team IN ({FM})))"
 GL = {"male": "men's", "female": "women's"}
@@ -281,10 +281,17 @@ def gen_comebacks(db: DB, sdx_available: bool) -> list[dict]:
                     WHERE b.winner = b.batting_team AND b.innings_no = 2 AND b.method IS NULL AND {SCOPE.replace('team_type', 'b.team_type').replace('batting_team', 'b.batting_team').replace('bowling_team', 'b.bowling_team')}
                     GROUP BY b.match_id HAVING max(s.sdx) >= 92""")
     out = []
+    tops = {}
+    if rows:  # top scorer of every comeback chase in one query (was one query per match: ~3 s)
+        ids = [r["match_id"] for r in rows]
+        for t in db.q(f"""SELECT match_id, batter_id, nm, runs FROM (
+                            SELECT b.match_id, b.batter_id, coalesce(any_value(pp.name), any_value(b.batter)) AS nm, sum(b.runs_batter) AS runs,
+                                   row_number() OVER (PARTITION BY b.match_id ORDER BY sum(b.runs_batter) DESC) AS k
+                            FROM balls b LEFT JOIN player_profile pp ON pp.person_id = b.batter_id
+                            WHERE b.innings_no = 2 AND b.match_id IN ({','.join('?' * len(ids))}) GROUP BY b.match_id, b.batter_id) WHERE k = 1""", ids):
+            tops[t["match_id"]] = t
     for r in rows:
-        top = db.q1("""SELECT b.batter_id, coalesce(any_value(pp.name), any_value(b.batter)) AS nm, sum(b.runs_batter) AS runs
-                       FROM balls b LEFT JOIN player_profile pp ON pp.person_id = b.batter_id WHERE b.match_id = ? AND b.innings_no = 2
-                       GROUP BY 1 ORDER BY runs DESC LIMIT 1""", [r["match_id"]])
+        top = tops[r["match_id"]]
         out.append({"type": "comeback", "gender": r["g"], "format": r["fmt"], "p": max(1e-6, (100 - r["peak"]) / 100), "n": 1, "last_date": str(r["d"]),
                     "entities": [top["batter_id"]], "people": [r["team"]], "experimental": True,
                     "headline": f"{r['team']} won from {r['peak_score']}, needing {r['rr']} off {r['bl']}",

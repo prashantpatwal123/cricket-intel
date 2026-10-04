@@ -98,6 +98,7 @@ export default function Fingerprint({ pid, format, teamType, onDrill, initialRol
         )}
       </div>
       <div className="mini" style={{ marginTop: 6 }}>Solid ring = peer median (50th percentile); outer ring = 100th. Dashed outline = not enough sample, no percentile shown.</div>
+      <a className="btn" style={{ display: "inline-block", marginTop: 10 }} href={`/share?type=fingerprint&pid=${pid}&role=${role}`}>Share fingerprint card</a>
       <div className="mini" style={{ marginTop: 8 }}>Not in this fingerprint because the data doesn&apos;t support it: {fp.not_available.join(" · ")}.</div>
     </div>
   );

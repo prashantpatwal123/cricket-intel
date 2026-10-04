@@ -16,6 +16,8 @@ import StateAnalysis from "@/components/StateAnalysis";
 import Partners from "@/components/Partners";
 import InningsList from "@/components/InningsList";
 import SpellsList from "@/components/SpellsList";
+import CareerExplorer from "@/components/CareerExplorer";
+import ExploreNext from "@/components/ExploreNext";
 
 const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "format", label: "Format", opts: [["", "All"], ["T20", "T20"], ["ODI", "ODI"]] },
@@ -25,7 +27,7 @@ const FILTERS: { key: string; label: string; opts: [string, string][] }[] = [
 ];
 
 const TABS = [["overview", "Overview"], ["strengths", "Strengths & weaknesses"], ["states", "When they change"], ["dismissals", "Dismissals"],
-  ["matchups", "Matchups"], ["partners", "Partners"], ["innings", "Innings"], ["bowling", "Bowling"], ["timeline", "Timeline"], ["numbers", "Numbers"]] as const;
+  ["matchups", "Matchups"], ["partners", "Partners"], ["innings", "Innings"], ["bowling", "Bowling"], ["career", "Career"], ["numbers", "Numbers"]] as const;
 // Phase and bowler-type filters only make sense where every number is ball-level.
 const BALL_LEVEL_TABS = new Set(["dismissals", "matchups"]);
 
@@ -233,6 +235,14 @@ function PlayerPage() {
         </section>
       </>)}
 
+      {tab === "career" && (
+        <section className="section" style={{ marginTop: 12 }}>
+          <div className="section-head"><div><div className="kicker">Career explorer</div><div className="h2">{prof.name} through covered data</div>
+            <div className="sub">Tap a year to turn the page into that season. Gaps are years with no covered matches.</div></div></div>
+          <CareerExplorer pid={id} year={sp.get("year") ? Number(sp.get("year")) : null} setYear={(y) => setParams({ year: y ? String(y) : null })} filters={filters} onDrill={onDrill} />
+        </section>
+      )}
+
       {tab === "timeline" && (
         <section className="section" style={{ marginTop: 12 }}>
           <div className="section-head"><div><div className="kicker">Career timeline</div><div className="h2">Year by year, in covered data</div>
@@ -275,6 +285,7 @@ function PlayerPage() {
       )}
 
       {drill && <Deliveries title={drill.title} query={drill.q} onClose={() => setDrill(null)} />}
+      <ExploreNext type="player" id={id} />
     </div>
   );
 }

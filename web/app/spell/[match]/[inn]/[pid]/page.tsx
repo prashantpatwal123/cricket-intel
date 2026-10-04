@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
+import ExploreNext from "@/components/ExploreNext";
 import SpellJourney from "@/components/viz/SpellJourney";
 import OutcomeMap from "@/components/viz/OutcomeMap";
 import { symbolToOutcome } from "@/lib/viz/model";
@@ -40,6 +41,10 @@ function Spell() {
         <h1 className="hero-name" style={{ fontSize: "clamp(36px, 10vw, 64px)" }}>{s.bowler.name}</h1>
         <div className="h2" style={{ fontSize: 26 }}>{t.wickets}/{t.runs} <span className="mini" style={{ fontSize: 16 }}>from {Math.floor(t.balls / 6)}.{t.balls % 6} overs · economy {t.economy} · {t.dots} dots · longest dot run {t.longest_dot_sequence}</span></div>
         <div className="mini" style={{ marginTop: 6 }}>Innings {s.innings_no} · {m.result_line} · {s.spells.length} spell{s.spells.length > 1 ? "s" : ""} <ProvBadge prov="DERIVED" /></div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
+          <Link className="btn" href={`/match/${match}`}>The match →</Link>
+          <Link className="btn" href={`/share?type=spell&m=${match}&i=${inn}&pid=${pid}`}>Share card</Link>
+        </div>
       </section>
       <section className="section" style={{ marginTop: 14 }}>
         <div className="section-head"><div><div className="kicker">Over by over</div><div className="h2">The spell</div>
@@ -65,6 +70,7 @@ function Spell() {
           <div className="card"><OutcomeMap counts={counts} title="Every ball of the spell" unit="deliveries (wides and no-balls not shown)" /></div>
         </div>
       </section>
+      <ExploreNext type="spell" id={`${match}|${inn}|${pid}`} />
     </div>
   );
 }

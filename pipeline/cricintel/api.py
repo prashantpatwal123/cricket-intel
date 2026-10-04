@@ -23,7 +23,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "P
 FILTER_KEYS = ["format", "team_type", "competition", "year_from", "year_to", "opposition", "phase", "gender",
                "bowler_family", "bowler_arm", "bowler_style", "chasing", "over_from", "over_to",
                "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "full_members",
-               "chase_state", "batter_stage", "non_striker_id"]
+               "chase_state", "batter_stage", "non_striker_id", "team"]
 
 
 _DB: dict = {}
@@ -251,10 +251,11 @@ def compare_ep(request: Request, ids: str):
 
 
 @app.get("/api/records")
-def records_ep(request: Request, metric: str, min_sample: int | None = None, gender: str | None = None, limit: int = 25):
+def records_ep(request: Request, metric: str, min_sample: int | None = None, gender: str | None = None, limit: int = 25,
+               min_matches: int | None = None):
     t0 = time.perf_counter()
     try:
-        return envelope(REC.leaderboard(db(), metric, filters(request), min_sample, limit, gender), t0)
+        return envelope(REC.leaderboard(db(), metric, filters(request), min_sample, limit, gender, min_matches), t0)
     except ValueError as e:
         raise HTTPException(400, str(e))
 
@@ -455,3 +456,268 @@ def exp_difficulty_ep(format: str = "T20", gender: str = "male", role: str = "ba
     from .analytics import difficulty as DF
     t0 = time.perf_counter()
     return envelope({"leaderboard": DF.leaderboard(db(), format, gender, role, metric), "trait_test": DF.clutch_evidence(db(), format, gender, role)}, t0)
+
+
+# ------------------------------------------------------------------ Phase 4: knowledge graph, search, stories, discovery
+import functools  # noqa: E402
+import threading as _th  # noqa: E402
+
+_CACHE: dict = {}
+_CACHE_MAX = 1024
+
+
+def cached(fn):
+    """Memoise deterministic GET handlers per dataset build (results only change when the data is rebuilt)."""
+    @functools.wraps(fn)
+    def wrap(*a, **k):
+        key = (fn.__name__, _DB.get("stamp"), experimental(), a, tuple(sorted(k.items())))
+        if key in _CACHE:
+            return _CACHE[key]
+        v = fn(*a, **k)
+        if len(_CACHE) >= _CACHE_MAX:
+            _CACHE.pop(next(iter(_CACHE)))
+        _CACHE[key] = v
+        return v
+    return wrap
+
+
+def _env(data, t0):
+    return envelope(data, t0)
+
+
+@app.on_event("startup")
+def _warm():
+    """Warm per-process caches in the background so the first visitor doesn't pay for them."""
+    def go():
+        try:
+            from .analytics import discovery as D, entities as EN, libraries as L, search as SR
+            d = db()
+            EN.names(d)
+            SR_INDEX()
+            D.discover(d, experimental() and d.has_situation)
+            for g in ("male", "female"):
+                L._sim_space(d, g)
+            # Pre-render the most visited competition and rivalry pages
+            for c in _comp_index()[:10]:
+                _competition(c["competition"], c["gender"], None)
+            for g in ("male", "female"):
+                for r in d.q("SELECT ta, tb FROM team_results WHERE gender = ? GROUP BY 1, 2 ORDER BY count(*) DESC LIMIT 8", [g]):
+                    _rivalry(r["ta"], r["tb"], g, None, None)
+        except Exception:  # noqa: BLE001 - warm-up must never take the server down
+            pass
+    _th.Thread(target=go, daemon=True).start()
+
+
+def SR_INDEX():
+    from .analytics import search as SR
+    key = ("search", _DB.get("stamp"))
+    if _DB.get("search_key") != key:
+        _DB["search"], _DB["search_key"] = SR.load(db()), key
+    return _DB["search"]
+
+
+@app.get("/api/search")
+def search_ep(q: str = Query(min_length=1, max_length=120)):
+    t0 = time.perf_counter()
+    return _env(SR_INDEX().search(q), t0)
+
+
+@cached
+def _match(mid):
+    from .analytics import entities as EN
+    return EN.match_page(db(), mid, sdx_model())
+
+
+@app.get("/api/match/{mid}")
+def match_ep(mid: str):
+    t0 = time.perf_counter()
+    r = _match(mid)
+    if not r:
+        raise HTTPException(404, "match not found")
+    return _env(r, t0)
+
+
+@app.get("/api/competitions")
+def competitions_ep():
+    from .analytics import entities as EN
+    t0 = time.perf_counter()
+    return _env(_comp_index(), t0)
+
+
+@cached
+def _comp_index():
+    from .analytics import entities as EN
+    return EN.competitions_index(db())
+
+
+@cached
+def _competition(name, gender, season):
+    from .analytics import entities as EN
+    return EN.competition_page(db(), name, gender, season)
+
+
+@app.get("/api/competition")
+def competition_ep(name: str, gender: str = "male", season: str | None = None):
+    t0 = time.perf_counter()
+    r = _competition(name, gender, season)
+    if not r:
+        raise HTTPException(404, "competition not found")
+    return _env(r, t0)
+
+
+@cached
+def _rivalry(a, b, gender, fmt, competition):
+    from .analytics import entities as EN
+    return EN.rivalry_page(db(), a, b, gender, fmt, competition)
+
+
+@app.get("/api/rivalry")
+def rivalry_ep(a: str, b: str | None = None, gender: str = "male", format: str | None = None, competition: str | None = None):
+    t0 = time.perf_counter()
+    r = _rivalry(a, b, gender, format, competition)
+    if not r:
+        raise HTTPException(404, "no covered matches")
+    return _env(r, t0)
+
+
+@app.get("/api/rivalries")
+def rivalries_ep(gender: str = "male", limit: int = Query(24, le=60)):
+    t0 = time.perf_counter()
+    rows = db().q("""SELECT ta, tb, count(*) AS n, count(*) FILTER (WHERE winner_c = ta) AS a_won, count(*) FILTER (WHERE winner_c = tb) AS b_won,
+                            max(start_date) AS last FROM team_results WHERE gender = ? GROUP BY 1, 2 ORDER BY n DESC LIMIT ?""", [gender, limit])
+    for r in rows:
+        r["last"] = str(r["last"])
+    return _env(rows, t0)
+
+
+@cached
+def _career(pid, year):
+    from .analytics import entities as EN
+    return EN.career(db(), pid, year)
+
+
+@app.get("/api/players/{pid}/career")
+def career_ep(pid: str, year: int | None = None):
+    t0 = time.perf_counter()
+    r = _career(pid, year)
+    if not r:
+        raise HTTPException(404, "player not found")
+    return _env(r, t0)
+
+
+@cached
+def _lib(kind, cat, gender, fmt, competition, year_from, year_to, full_members):
+    from .analytics import libraries as L
+    fn = L.innings_library if kind == "innings" else L.spell_library
+    return fn(db(), cat, gender, fmt, competition, None, year_from, year_to, 25, full_members)
+
+
+@app.get("/api/library/{kind}")
+def library_ep(kind: str, cat: str, gender: str = "male", format: str | None = None, competition: str | None = None,
+               year_from: int | None = None, year_to: int | None = None, full_members: bool = True):
+    from .analytics import libraries as L
+    t0 = time.perf_counter()
+    cats = L.INNINGS_CATS if kind == "innings" else L.SPELL_CATS if kind == "spells" else None
+    if cats is None or cat not in cats:
+        raise HTTPException(400, "unknown library or category")
+    return _env(_lib(kind, cat, gender, format, competition, year_from, year_to, full_members), t0)
+
+
+@cached
+def _universe(cat, gender, fmt):
+    from .analytics import libraries as L
+    return L.battle_universe(db(), cat, gender, fmt)
+
+
+@app.get("/api/battles/universe")
+def universe_ep(cat: str = "most_balls", gender: str = "male", format: str | None = None):
+    from .analytics import libraries as L
+    t0 = time.perf_counter()
+    if cat not in L.BATTLE_CATS:
+        raise HTTPException(400, "unknown category")
+    return _env(_universe(cat, gender, format), t0)
+
+
+@app.get("/api/battles/similar")
+def similar_ep(bat: str, bowl: str):
+    from .analytics import libraries as L
+    t0 = time.perf_counter()
+    return _env(L.similar_battles(db(), bat, bowl), t0)
+
+
+@cached
+def _related(typ, key):
+    from .analytics import related as RL
+    return RL.related(db(), typ, key)
+
+
+@app.get("/api/related")
+def related_ep(type: str, key: str):
+    t0 = time.perf_counter()
+    return _env(_related(type, key), t0)
+
+
+@cached
+def _story(kind, a, b, c):
+    from .analytics import stories as ST
+    if kind == "innings":
+        return ST.innings_story(db(), a, int(b), c)
+    if kind == "battle":
+        return ST.battle_story(db(), a, b)
+    if kind == "match":
+        return ST.match_story(db(), a)
+    return None
+
+
+@app.get("/api/story/innings/{mid}/{inn}/{pid}")
+def story_innings_ep(mid: str, inn: int, pid: str):
+    t0 = time.perf_counter()
+    r = _story("innings", mid, inn, pid)
+    if not r:
+        raise HTTPException(404, "innings not found")
+    return _env(r, t0)
+
+
+@app.get("/api/story/battle")
+def story_battle_ep(bat: str, bowl: str):
+    t0 = time.perf_counter()
+    r = _story("battle", bat, bowl, None)
+    if not r:
+        raise HTTPException(404, "these players haven't met")
+    return _env(r, t0)
+
+
+@app.get("/api/story/match/{mid}")
+def story_match_ep(mid: str):
+    t0 = time.perf_counter()
+    r = _story("match", mid, None, None)
+    if not r:
+        raise HTTPException(404, "match not found")
+    return _env(r, t0)
+
+
+@app.get("/api/feed")
+def feed_ep(day: str | None = None):
+    from .analytics import feed as F
+    t0 = time.perf_counter()
+    return _env(F.daily(db(), day, False), t0)
+
+
+@cached
+def _method():
+    from .analytics import methodology as M
+    return M.methodology(db(), experimental())
+
+
+@app.get("/api/methodology")
+def methodology_ep():
+    t0 = time.perf_counter()
+    return _env(_method(), t0)
+
+
+@app.get("/api/teams")
+def teams_ep(gender: str = "male"):
+    t0 = time.perf_counter()
+    rows = db().q("""SELECT t, count(*) AS n FROM (SELECT ta AS t FROM team_results WHERE gender = ? UNION ALL SELECT tb FROM team_results WHERE gender = ?)
+                     GROUP BY 1 ORDER BY n DESC""", [gender, gender])
+    return _env([r["t"] for r in rows], t0)

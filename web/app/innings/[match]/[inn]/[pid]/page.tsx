@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { api, fmt } from "@/lib/api";
 import ProvBadge from "@/components/Prov";
+import ExploreNext from "@/components/ExploreNext";
 import InningsJourney from "@/components/viz/InningsJourney";
 import MatchSituation from "@/components/viz/MatchSituation";
 import OutcomeMap from "@/components/viz/OutcomeMap";
@@ -49,6 +50,11 @@ function Story() {
         <div className="h2" style={{ fontSize: 26 }}>{sm.runs}{sm.not_out ? "*" : ""} <span className="mini" style={{ fontSize: 16 }}>off {sm.balls} balls · SR {sm.strike_rate} · {sm.fours}×4 · {sm.sixes}×6 · {sm.dots} dots</span></div>
         <div className="mini" style={{ marginTop: 6 }}>{s.teams.batting_team} v {s.teams.bowling_team} · innings {s.innings_no} · in at {sm.arrived} ({sm.arrived_over}) ·
           {sm.not_out ? " not out" : ` out: ${sm.how_out.kind}`} · {m.result_line} <ProvBadge prov="OBSERVED" /></div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 10 }}>
+          <Link className="btn primary" href={`/story/innings/${match}/${inn}/${pid}`}>How it unfolded (story) →</Link>
+          <Link className="btn" href={`/match/${match}`}>The match →</Link>
+          <Link className="btn" href={`/share?type=innings&m=${match}&i=${inn}&pid=${pid}`}>Share card</Link>
+        </div>
       </section>
 
       <section className="section" style={{ marginTop: 14 }}>
@@ -99,6 +105,7 @@ function Story() {
           <div className="mini" style={{ marginTop: 8 }}>Strike changed {sm.strike_changes} times. {fmt(sm.team_deliveries_at_crease)} deliveries were bowled while {s.batter.name} was in.</div>
         </div>
       </section>
+      <ExploreNext type="innings" id={`${match}|${inn}|${pid}`} />
     </div>
   );
 }

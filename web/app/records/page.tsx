@@ -13,8 +13,9 @@ const SEGS: { key: string; label: string; opts: [string, string][] }[] = [
   { key: "phase", label: "Phase", opts: [["", "All"], ["powerplay", "Powerplay"], ["middle", "Middle"], ["death", "Death"]] },
   { key: "chasing", label: "Innings", opts: [["", "Both"], ["false", "Setting"], ["true", "Chasing"]] },
   { key: "full_members", label: "Teams", opts: [["", "All"], ["true", "Full members & leagues"]] },
+  { key: "batter_stage", label: "Batter", opts: [["", "Any"], ["new", "New (0–9 balls)"], ["settling", "10–29"], ["set", "Set (30+)"]] },
 ];
-const FKEYS = ["format", "team_type", "competition", "phase", "chasing", "full_members", "year_from", "year_to"];
+const FKEYS = ["format", "team_type", "competition", "phase", "chasing", "full_members", "year_from", "year_to", "team", "opposition", "batter_stage", "wk_from", "wk_to"];
 
 export default function Page() { return <Suspense fallback={<div className="loading">Loading…</div>}><Records /></Suspense>; }
 
@@ -24,6 +25,7 @@ function Records() {
   const [cat, setCat] = useState<any | null>(null);
   const [lb, setLb] = useState<any | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [teams, setTeams] = useState<string[]>([]);
   useEffect(() => { api("/records/catalog").then((r) => setCat(r.data)); }, []);
 
   // A preset in the URL expands into metric + filters once the catalog is known.
@@ -40,6 +42,8 @@ function Records() {
 
   const metric = sp.get("metric") || "runs";
   const gender = sp.get("gender") || "male";
+  const minMatches = sp.get("min_matches");
+  useEffect(() => { api<string[]>("/teams", { gender }).then((r) => setTeams(r.data)); }, [gender]);
   const min = sp.get("min");
   const filt = useMemo(() => Object.fromEntries(FKEYS.map((k) => [k, sp.get(k) || ""]).filter(([, v]) => v)), [sp]);
   const set = (kv: Record<string, string | null>, dropMin = false) => {
@@ -52,7 +56,7 @@ function Records() {
   useEffect(() => {
     if (sp.get("preset")) return;
     setLb(null); setErr(null);
-    api("/records", { metric, gender, min_sample: min, limit: 25, ...filt }).then((r) => setLb(r.data)).catch((e) => setErr(String(e.message)));
+    api("/records", { metric, gender, min_sample: min, min_matches: minMatches, limit: 25, ...filt }).then((r) => setLb(r.data)).catch((e) => setErr(String(e.message)));
   }, [sp.toString()]);
   const m = cat?.metrics.find((x: any) => x.key === metric);
   const href = (r: any) => lb.entity === "pair" ? `/battle?bat=${r.ids[0]}&bowl=${r.ids[1]}` : `/players/${r.ids[0]}`;
@@ -98,6 +102,17 @@ function Records() {
             <input className="yr" inputMode="numeric" placeholder="from" defaultValue={filt.year_from || ""} key={"f" + filt.year_from} onBlur={(e) => set({ year_from: e.target.value || null })} aria-label="From year" />
             <input className="yr" inputMode="numeric" placeholder="to" defaultValue={filt.year_to || ""} key={"t" + filt.year_to} onBlur={(e) => set({ year_to: e.target.value || null })} aria-label="To year" />
           </div>
+          <div className="seg"><span className="lab">Wickets down</span>
+            {[["", "", "Any"], ["", "2", "0–2"], ["3", "5", "3–5"], ["6", "", "6+"]].map(([a, b, l]) =>
+              <button key={l} className={(filt.wk_from || "") === a && (filt.wk_to || "") === b ? "on" : ""} onClick={() => set({ wk_from: a || null, wk_to: b || null })}>{l}</button>)}
+          </div>
+          <div className="seg"><span className="lab">For</span>
+            <input className="yr" style={{ width: 150 }} list="teams-list" placeholder="team" defaultValue={filt.team || ""} key={"tm" + filt.team} onBlur={(e) => set({ team: e.target.value || null })} aria-label="Playing for team" /></div>
+          <div className="seg"><span className="lab">Against</span>
+            <input className="yr" style={{ width: 150 }} list="teams-list" placeholder="team" defaultValue={filt.opposition || ""} key={"op" + filt.opposition} onBlur={(e) => set({ opposition: e.target.value || null })} aria-label="Opposition team" /></div>
+          <datalist id="teams-list">{teams.map((t) => <option key={t} value={t} />)}</datalist>
+          <div className="seg"><span className="lab">Min matches</span>
+            <input className="yr" inputMode="numeric" defaultValue={minMatches || ""} key={"mm" + minMatches} onBlur={(e) => set({ min_matches: e.target.value || null })} aria-label="Minimum matches" /></div>
           <div className="seg"><span className="lab">Min sample</span>
             <input className="yr" inputMode="numeric" defaultValue={min ?? (m?.min || "")} key={"m" + min + metric} onBlur={(e) => set({ min: e.target.value || null })} aria-label="Minimum sample" />
           </div>
@@ -114,8 +129,9 @@ function Records() {
             <dl className="kv" style={{ marginTop: 8 }}>
               <dt>Definition</dt><dd>{lb.definition} <ProvBadge prov={metric === "keeper_catches" ? "DERIVED" : "OBSERVED"} /></dd>
               <dt>Filters</dt><dd>{Object.entries(lb.filters).filter(([k]) => k !== "gender").map(([k, v]) => `${k.replace(/_/g, " ")}: ${v}`).join(" · ") || "none"}</dd>
-              <dt>Threshold</dt><dd>{lb.min_sample ? `at least ${fmt(lb.min_sample)} ${lb.sample_unit}` : "none (counting statistic)"}</dd>
+              <dt>Threshold</dt><dd>{lb.min_sample ? `at least ${fmt(lb.min_sample)} ${lb.sample_unit}` : "none (counting statistic)"}{lb.min_matches ? ` and ${lb.min_matches} matches` : ""}</dd>
               <dt>Coverage</dt><dd style={{ fontWeight: 500 }}>{lb.coverage}</dd>
+              <dt>Exact query</dt><dd style={{ fontWeight: 500 }}><code className="sqldef">{lb.sql_definition}</code></dd>
             </dl>
           </div>
           {lb.rows.length === 0 ? <div className="empty" style={{ marginTop: 10 }}>Nobody meets this threshold with these filters.</div> : (
@@ -133,6 +149,7 @@ function Records() {
             </div>
           )}
           <div className="mini" style={{ marginTop: 8 }}>Tap a row to open the {lb.entity === "pair" ? "battle" : "player"}.</div>
+          <Link className="btn" style={{ display: "inline-block", marginTop: 10 }} href={`/share?type=record&${sp.toString()}`}>Share this leaderboard</Link>
         </section>
       )}
     </div>

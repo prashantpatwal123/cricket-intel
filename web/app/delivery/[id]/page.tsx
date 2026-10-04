@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 import { deliveryModel } from "@/lib/viz/model";
 import ProvBadge from "@/components/Prov";
+import ExploreNext from "@/components/ExploreNext";
 import DeliveryScene from "@/components/viz/DeliveryScene";
 import MatchSituation from "@/components/viz/MatchSituation";
 
@@ -108,6 +109,7 @@ export default function Replay() {
         </div>
       </section>
       <div className="mini" style={{ marginTop: 12 }}>Match: {m.innings.map((i: any) => `${i.batting_team} ${i.total_runs}/${i.total_wickets} (${i.overs} ov)`).join(" · ")}</div>
+      <ExploreNext type="delivery" id={did} />
     </div>
   );
 }

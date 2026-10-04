@@ -24,7 +24,7 @@ SOURCES = {
     "cricsheet": {
         "name": "Cricsheet",
         "url": "https://cricsheet.org",
-        "licence": "Register: ODC-By 1.0 (primary-verified on cricsheet.org/register). Match data: no licence statement found on cricsheet.org (site footer: 'All rights reserved'); confirmation requested before publication.",
+        "licence": "Register: ODC-By 1.0 (primary-verified on cricsheet.org/register). Match data: no licence statement found on cricsheet.org (site footer: 'All rights reserved'). A question to Cricsheet is drafted but NOT sent (awaiting owner approval); nothing is published until resolved.",
         "attribution": "Ball-by-ball data and player register from Cricsheet (cricsheet.org). Register under the Open Data Commons Attribution License.",
         "synthetic": False,
     },

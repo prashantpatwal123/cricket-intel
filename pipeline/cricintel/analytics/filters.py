@@ -7,11 +7,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass, fields
 
-MATCH_LEVEL = {"format", "team_type", "competition", "year_from", "year_to", "opposition", "gender", "full_members"}
+MATCH_LEVEL = {"format", "team_type", "competition", "year_from", "year_to", "opposition", "gender", "full_members", "team"}
 FULL_MEMBERS = ("India", "Australia", "England", "South Africa", "New Zealand", "Pakistan", "Sri Lanka", "West Indies",
                 "Bangladesh", "Zimbabwe", "Ireland", "Afghanistan")
 BALL_LEVEL = {"phase", "bowler_family", "bowler_arm", "bowler_style", "chasing", "bowler_id", "batter_id", "over_from", "over_to",
               "wk_from", "wk_to", "faced_from", "faced_to", "rrr_from", "innings_no", "chase_state", "batter_stage", "non_striker_id"}
+
+
+def team_names(team: str) -> list[str]:
+    from .graph import TEAM_CANON
+    canon = TEAM_CANON.get(team, team)
+    return sorted({canon, team, *[k for k, v in TEAM_CANON.items() if v == canon]})
 
 
 @dataclass
@@ -22,6 +28,7 @@ class Filters:
     year_from: int | None = None
     year_to: int | None = None
     opposition: str | None = None      # team the player was playing against
+    team: str | None = None            # team the player was playing for
     gender: str | None = None
     full_members: bool | None = None   # internationals between ICC full members, plus all league matches
     phase: str | None = None           # powerplay | middle | death
@@ -87,9 +94,11 @@ class Filters:
         if self.full_members:
             fm = ",".join("'" + t + "'" for t in FULL_MEMBERS)
             c.append(f"({a}team_type = 'club' OR ({a}batting_team IN ({fm}) AND {a}bowling_team IN ({fm})))")
-        if self.opposition:
-            col = "bowling_team" if perspective == "batter" else "batting_team"
-            c.append(f"{a}{col} = ?"); p.append(self.opposition)
+        for val, col in ((self.opposition, "bowling_team" if perspective == "batter" else "batting_team"),
+                         (self.team, "batting_team" if perspective == "batter" else "bowling_team")):
+            if val:  # renamed franchises (Kings XI Punjab → Punjab Kings) match under either name
+                names = team_names(val)
+                c.append(f"{a}{col} IN ({','.join('?' * len(names))})"); p.extend(names)
         if ball_level:
             for k, col in (("phase", "phase"), ("bowler_family", "bowler_family"), ("bowler_arm", "bowler_arm"),
                            ("bowler_style", "bowler_style"), ("bowler_id", "bowler_id"), ("batter_id", "batter_id"),

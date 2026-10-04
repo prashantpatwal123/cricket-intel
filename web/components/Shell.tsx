@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { api, Dataset } from "@/lib/api";
 
@@ -15,8 +15,15 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     try { setSeen(localStorage.getItem("ci-preview-notice") === "1"); } catch { setSeen(false); }
   }, []);
   const ack = () => { try { localStorage.setItem("ci-preview-notice", "1"); } catch { /* storage blocked: show full notice again next time */ } setSeen(true); setOpen(false); };
-  const nav = [["/", "Explore"], ["/players", "Players"], ["/battle", "Battles"], ["/ask", "Ask"], ["/play", "Play"]];
-  const isOn = (h: string) => h === "/" ? path === "/" || path.startsWith("/records") : h === "/battle" ? path.startsWith("/battle") || path.startsWith("/compare") : path === h || path.startsWith(h + "/");
+  // IA: five destinations. Search is the gateway to every entity (players, matches, competitions, rivalries, libraries,
+  // records, methodology); Explore is the gateway to discovery and stories. See docs/architecture/information-architecture.md.
+  const nav = [["/", "Explore"], ["/search", "Search"], ["/battle", "Battles"], ["/ask", "Ask"], ["/play", "Play"]];
+  const SEARCH_AREA = ["/search", "/players", "/match", "/competition", "/rivalr", "/innings", "/spells", "/spell/", "/records", "/partnerships", "/data", "/context"];
+  const isOn = (h: string) => h === "/" ? path === "/" || path.startsWith("/story") || path.startsWith("/share") || path.startsWith("/lab")
+    : h === "/search" ? SEARCH_AREA.some((p) => path.startsWith(p))
+    : h === "/battle" ? path.startsWith("/battle") || path.startsWith("/compare") : path === h || path.startsWith(h + "/");
+  const router = useRouter();
+  const [q, setQ] = useState("");
   return (
     <>
       {ds?.synthetic && (
@@ -37,6 +44,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       ))}
       <header className="topbar">
         <Link href="/" className="brand"><span className="brand-dot" />cricintel</Link>
+        <form className="top-search only-desktop" onSubmit={(e) => { e.preventDefault(); if (q.trim()) router.push(`/search?q=${encodeURIComponent(q.trim())}`); }}>
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search players, matches, battles…" aria-label="Search" />
+        </form>
         <nav className="nav">
           {nav.map(([h, l]) => (
             <Link key={h} href={h} className={isOn(h) ? "active" : ""}>{l}</Link>

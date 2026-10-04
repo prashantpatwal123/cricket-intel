@@ -86,6 +86,8 @@ export default function Play() {
         <div className="mvy-side model"><div className="l">Model · modelled</div><div className="v num">{st.modelPoints}</div><div className="mini">{st.modelCorrect}/{st.n} right{macc != null ? ` · ${macc}%` : ""}</div></div>
       </div>
       {showStats && <SessionStats s={sess} st={st} />}
+      {showStats && st.n > 0 && <Link className="btn" style={{ display: "inline-block", marginTop: 8 }}
+        href={`/share?type=whn&pts=${st.points}&n=${st.n}&acc=${acc ?? 0}&mpts=${st.modelPoints}&beat=${st.beat}`}>Share my session</Link>}
 
       {!m ? <div className="loading">Loading a moment…</div> : (
         <div className="hero fade-in" key={m.moment_id} style={{ marginTop: 12 }}>

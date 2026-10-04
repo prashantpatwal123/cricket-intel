@@ -16,6 +16,7 @@ python3 -m venv .venv && .venv/bin/pip install -e pipeline[dev]
 git worktree add /tmp/csraw origin/data/cricsheet-raw
 .venv/bin/python -m cricintel.sources.cricsheet import --src /tmp/csraw   # re-hashes, aborts on mismatch
 .venv/bin/python -m cricintel.build --source cricsheet && .venv/bin/python -m cricintel.qa --dataset cricsheet
+(cd pipeline && ../.venv/bin/python -m cricintel.precompute --dataset cricsheet)   # working DB, search index, discovery, feed pools (incremental; --full to rebuild)
 scripts/dev-up.sh cricsheet     # API + web in REAL_DATA mode
 # Or the SYNTHETIC fixture (fictional players, for pipeline/UI testing only):
 .venv/bin/python -m cricintel.sources.synthetic && .venv/bin/python -m cricintel.build --source synthetic

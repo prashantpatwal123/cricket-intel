@@ -34,12 +34,20 @@ METRICS = {
                      "count(*) FILTER (WHERE faced)", "balls", 100, "DESC", "{:.1f}", "Share of balls faced hit for 4 or 6."),
     "balls_faced": ("Balls faced", "batter", "count(*) FILTER (WHERE faced)", "count(*) FILTER (WHERE faced)", "balls", 0, "DESC", "{:.0f}",
                     "Legal balls faced plus no-balls (wides excluded)."),
+    "average": ("Batting average", "batter", "sum(runs_batter) * 1.0 / nullif(count(*) FILTER (WHERE outflag), 0)", "count(*) FILTER (WHERE faced)", "balls", 300,
+                "DESC", "{:.1f}", "Runs off the bat per dismissal (dismissals of the striker on balls faced, incl. run-outs of the striker)."),
+    "balls_per_dismissal": ("Balls per dismissal", "batter", "count(*) FILTER (WHERE faced) * 1.0 / nullif(count(*) FILTER (WHERE outflag), 0)",
+                            "count(*) FILTER (WHERE faced)", "balls", 300, "DESC", "{:.1f}", "Balls faced per dismissal (higher = survives longer)."),
     "wickets": ("Wickets", "bowler", "sum(wk)", "count(*) FILTER (WHERE legal)", "legal balls", 0, "DESC", "{:.0f}",
                 "Bowler-credited wickets (run-outs etc. excluded)."),
     "economy": ("Economy", "bowler", "6.0 * sum(runs_batter + wides + noballs) / nullif(count(*) FILTER (WHERE legal), 0)",
                 "count(*) FILTER (WHERE legal)", "legal balls", 120, "ASC", "{:.2f}", "Runs conceded per 6 legal balls (byes/leg-byes excluded)."),
     "bowl_dot_pct": ("Dot-ball % (bowling)", "bowler", "100.0 * count(*) FILTER (WHERE legal AND runs_total = 0) / nullif(count(*) FILTER (WHERE legal), 0)",
                      "count(*) FILTER (WHERE legal)", "legal balls", 120, "DESC", "{:.1f}", "Legal balls with no runs of any kind."),
+    "bowling_average": ("Bowling average", "bowler", "sum(runs_batter + wides + noballs) * 1.0 / nullif(sum(wk), 0)", "count(*) FILTER (WHERE legal)",
+                        "legal balls", 300, "ASC", "{:.1f}", "Runs conceded per bowler-credited wicket (lowest first)."),
+    "bowling_strike_rate": ("Bowling strike rate", "bowler", "count(*) FILTER (WHERE legal) * 1.0 / nullif(sum(wk), 0)", "count(*) FILTER (WHERE legal)",
+                            "legal balls", 300, "ASC", "{:.1f}", "Legal balls per bowler-credited wicket (lowest first)."),
     "sixes_conceded": ("Sixes conceded", "bowler", "count(*) FILTER (WHERE is_six)", "count(*) FILTER (WHERE legal)", "legal balls", 0, "DESC",
                        "{:.0f}", "Sixes hit off the bowler."),
     "keeper_catches": ("Catches as wicketkeeper", "fielder", "count(*) FILTER (WHERE route = 'CAUGHT_KEEPER' AND fielder_id = keeper_id)",
@@ -78,7 +86,8 @@ PRESETS = [
 ]
 
 
-def leaderboard(db: DB, metric: str, f: Filters, min_sample: int | None = None, limit: int = 25, gender: str | None = None) -> dict:
+def leaderboard(db: DB, metric: str, f: Filters, min_sample: int | None = None, limit: int = 25, gender: str | None = None,
+                min_matches: int | None = None) -> dict:
     if metric not in METRICS:
         raise ValueError(f"unknown metric {metric}")
     label, entity, val, samp, unit, default_min, order, fmt, definition = METRICS[metric]
@@ -88,6 +97,9 @@ def leaderboard(db: DB, metric: str, f: Filters, min_sample: int | None = None, 
         w, p = w + " AND gender = ?", [*p, gender]
     m = default_min if min_sample is None else min_sample
     src = E["table"]
+    if entity == "batter" and "outflag" in val + samp:
+        src = """(SELECT b.*, (x.delivery_id IS NOT NULL) AS outflag FROM balls b LEFT JOIN
+                   (SELECT delivery_id, player_out_id FROM dis WHERE counts_as_dismissal) x ON x.delivery_id = b.delivery_id AND x.player_out_id = b.batter_id)"""
     if entity == "pair":
         src = """(SELECT b.*, EXISTS (SELECT 1 FROM dis x WHERE x.delivery_id = b.delivery_id AND x.player_out_id = b.batter_id
                    AND x.bowler_credited) AS outflag FROM balls b)"""
@@ -98,8 +110,8 @@ def leaderboard(db: DB, metric: str, f: Filters, min_sample: int | None = None, 
         w += " AND fielder_id IS NOT NULL"
     rows = db.q(f"""SELECT {E['id']} AS k, {val} AS value, {samp} AS sample, count(DISTINCT match_id) AS matches,
                     min(start_date) AS first_date, max(start_date) AS last_date, any_value(gender) AS gender
-                    FROM {src} WHERE {w} GROUP BY 1 HAVING {samp} >= ? AND {val} IS NOT NULL AND {val} > 0
-                    ORDER BY value {order}, sample DESC LIMIT ?""", [*p, m, limit])
+                    FROM {src} WHERE {w} GROUP BY 1 HAVING {samp} >= ? AND count(DISTINCT match_id) >= ? AND {val} IS NOT NULL AND {val} > 0
+                    ORDER BY value {order}, sample DESC LIMIT ?""", [*p, m, min_matches or 0, limit])
     ids = set()
     for r in rows:
         ids.update(str(r["k"]).split("|"))
@@ -113,6 +125,8 @@ def leaderboard(db: DB, metric: str, f: Filters, min_sample: int | None = None, 
                     "first_date": r["first_date"], "last_date": r["last_date"], "gender": r["gender"]})
     return {"metric": metric, "label": label, "entity": entity, "entity_label": E["label"], "definition": definition,
             "order": "highest first" if order == "DESC" else "lowest first", "filters": f.active(), "gender": gender,
-            "min_sample": m, "sample_unit": unit, "rows": out,
+            "min_sample": m, "sample_unit": unit, "min_matches": min_matches or 0, "rows": out,
+            "sql_definition": f"{label} = {val} over {E['table']} rows matching the filters; sample = {samp} ≥ {m}"
+                              + (f"; matches ≥ {min_matches}" if min_matches else ""),
             "coverage": "Covered data only: IPL, WPL, men's and women's T20Is and ODIs from Cricsheet. Matches involving Afghanistan "
                         "men are withheld by Cricsheet, and T20I completeness is unknown. These are not official records."}

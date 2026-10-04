@@ -1,0 +1,382 @@
+{
+  "errors": [],
+  "aborted_by_navigation": 257,
+  "assertions": [],
+  "log": [
+    {
+      "step": "search",
+      "results": {
+        "Virat Kohli": [
+          "Players: Virat Kohli",
+          "Partnerships: Rohit Sharma & Virat Kohli"
+        ],
+        "Kohli vs Zampa": [
+          "Battles: Virat Kohli v Adam Zampa"
+        ],
+        "India Pakistan 2022": [
+          "Matches: Pakistan v India",
+          "Editions: Indian Premier League 2022"
+        ],
+        "Bumrah 6/19": [
+          "Spells: Jasprit Bumrah 6/19 v England"
+        ],
+        "Mandhana partnerships": [
+          "Partnerships: S Mandhana & Shafali Verma"
+        ],
+        "2023 World Cup": [
+          "Editions: ICC Cricket World Cup 2023/24",
+          "Matches: Australia v South Africa"
+        ],
+        "death overs economy": [
+          "Records: Economy in death overs"
+        ],
+        "RCB v CSK": [
+          "Rivalries: Chennai Super Kings v Royal Challengers Bengaluru",
+          "Matches: Chennai Super Kings v Royal Challengers Bangalore"
+        ]
+      },
+      "overflow_px": 0
+    },
+    {
+      "step": "search-open",
+      "url": "http://localhost:3000/spell/1276907/1/462411b3",
+      "overflow_px": 0
+    },
+    {
+      "step": "match",
+      "head": "ICC MEN'S T20 WORLD CUP · 2022/23 · MEN · T20 | PAKISTAN | 159/8 | 20.0 ov · RR 7.95 | INDIA | 160/6",
+      "events": 6,
+      "xnext": 7,
+      "overflow_px": 0
+    },
+    {
+      "step": "match-to-innings",
+      "url": "http://localhost:3000/innings/1298150/2/ba607b88",
+      "overflow_px": 0
+    },
+    {
+      "step": "match-wpl",
+      "head": "WOMEN'S PREMIER LEAGUE · FINAL · 2025/26 · WOMEN · T20 | DELHI CAPITALS | 203/4 | 20.0 ov · RR 10.15 | ROYAL CHALLENGERS BENGALURU",
+      "overflow_px": 0
+    },
+    {
+      "step": "competition-ipl",
+      "coverage": "COMPLETE\nCricsheet holds 1243 of the 1243 Indian Premier League matches it knows of (100.0%). CRICINTEL covers 1243 of them.",
+      "editions": 20,
+      "overflow_px": 0
+    },
+    {
+      "step": "competition-t20wc",
+      "coverage": "COMPLETENESS UNKNOWN\nCRICINTEL covers 173 ICC Men's T20 World Cup matches. Cricsheet does not publish a completeness figure for this competition, so totals here are covered-data totals, not official tournament history.",
+      "editions": 6,
+      "overflow_px": 0
+    },
+    {
+      "step": "competition-wpl",
+      "coverage": "COMPLETE\nCricsheet holds 88 of the 88 Women's Premier League matches it knows of (100.0%). CRICINTEL covers 88 of them.",
+      "editions": 5,
+      "overflow_px": 0
+    },
+    {
+      "step": "competition-edition-click",
+      "url": "http://localhost:3000/competition?name=Women%27s%20Premier%20League&gender=female&season=2022%2F23",
+      "overflow_px": 0
+    },
+    {
+      "step": "rivalry-ind-aus",
+      "head": "RIVALRY · MEN · ODI + T20 · AUSTRALIA IN INDIA ODI SERIES, AUSTRALIA TOUR OF INDIA, BILATERAL… | AUSTRALIA V INDIA | 57 | Australia | 56 | India",
+      "overflow_px": 0
+    },
+    {
+      "step": "rivalry-rcb-csk",
+      "head": "RIVALRY · MEN · T20 · INDIAN PREMIER LEAGUE | CHENNAI SUPER KINGS V ROYAL CHALLENGERS BENGALURU | 21 | Chennai Super Kings | 14 | Royal Challengers Bengaluru",
+      "overflow_px": 0
+    },
+    {
+      "step": "rivalry-india-women",
+      "head": "TEAM · WOMEN | INDIA | 307 | COVERED MATCHES | 172 | WON",
+      "overflow_px": 0
+    },
+    {
+      "step": "career-year",
+      "url": "http://localhost:3000/players/ba607b88?tab=career&year=2016",
+      "year": "2016",
+      "innings": 28,
+      "overflow_px": 0
+    },
+    {
+      "step": "career-low",
+      "strip": 2,
+      "chips": "Role: wicketkeeper-batter OBSERVED Bats: unknown Bowls: unknown Keeper: yes OBSERVED",
+      "overflow_px": 0
+    },
+    {
+      "step": "innings-library",
+      "def": "Difficult successful chases. In a chase the team won, arriving when the required rate was at least 9.0 an over, then scoring 30+. Full members & leagues · Covered data only; not official records. Minimums depend on format; T20 is used when no format is chosen. DERIVED",
+      "rows": 25,
+      "overflow_px": 0
+    },
+    {
+      "step": "innings-library-wpl",
+      "first": "1\nGeorgia Wareham\nSR 310.0 · v Mumbai Indians · Women's Premier League · 2025-03-11\n31* (10)",
+      "overflow_px": 0
+    },
+    {
+      "step": "spell-library-open",
+      "url": "http://localhost:3000/spell/980979/1/14f96089",
+      "overflow_px": 0
+    },
+    {
+      "step": "universe",
+      "first": "1\nShane Watson v Axar Patel\n64 balls · SR 98.4 · 7 out (expected 1.9) · 2014–2020\n7 out",
+      "overflow_px": 0
+    },
+    {
+      "step": "similar",
+      "rows": 6,
+      "overflow_px": 0
+    },
+    {
+      "step": "battle-low-sample",
+      "sample": "Small sample: fewer than 60 balls. Treat everything here as anecdotal.",
+      "sim": "What this battle shows (story) →\nShare card\nSIMILAR BATTLES DERIVED\nSimilar battles need at least 60 balls in this battle.",
+      "overflow_px": 0
+    },
+    {
+      "step": "records-v2",
+      "sql": "Bowling average = sum(runs_batter + wides + noballs) * 1.0 / nullif(sum(wk), 0) over balls rows matching the filters; sample = count(*) FILTER (WHERE legal) ≥ 300; matches ≥ 20",
+      "first": "1\nRyan Harris\n1,031 legal balls · 20 matches · 2009–2012\n18.9",
+      "overflow_px": 0
+    },
+    {
+      "step": "records-team-stage",
+      "first": "1\nAB de Villiers\n370 balls · 38 matches · 2011–2021\n215.7",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-1",
+      "q": "Show Kohli's best covered innings while chasing",
+      "ans": "Virat Kohli's best covered innings while chasing in our covered data: 183 off 148 v Pakistan (2012-03-18), a win.",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-2",
+      "q": "What happened in India v Pakistan in Melbourne in 2022?",
+      "ans": "Pakistan v India, ICC Men's T20 World Cup, Melbourne, 2022-10-23: Pakistan 159/8, India 160/6. India won by 4 wickets. Top score Virat Kohli 82* (53); best bowl",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-3",
+      "q": "Who partners Mandhana best?",
+      "ans": "Most runs together (ODI): Pratika Rawal, 1885 in 26 stands. S Mandhana scores fastest, relative to expectation, with H Deol (109.3 v 96.8 expected).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-4",
+      "q": "Show Bumrah's best death-over spells",
+      "ans": "Jasprit Bumrah's best death-overs spell: 4/13 off 12 death balls v Royal Challengers Bengaluru (2024-04-11).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-5",
+      "q": "Which bowlers have troubled Kohli most?",
+      "ans": "Ashish Nehra stands out: Virat Kohli scores at 111.1 against them (usual 110) and has been dismissed 6 times where 1.1 would be expected.",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-6",
+      "q": "Compare Kohli before and after 2020",
+      "ans": "Virat Kohli before 2020 v from 2020, covered data: ODI: SR 93.2 → 96.3, average 59.8 → 53.7 (12382 v 3402 balls); T20: SR 133.7 → 137.4, average 41.6 → 43.8 (59",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-7",
+      "q": "Who improved their strike rate most after 30 balls?",
+      "ans": "Men: RD Gaikwad gains most, 121.3 → 168.5 (typical change +4.7). Women: Ashleigh Gardner gains most, 115.8 → 152.0 (typical change +6.9).",
+      "overflow_px": 0
+    },
+    {
+      "step": "ask-8",
+      "q": "Show me unusual India-Australia battles",
+      "ans": "Most unusual: Suresh Raina v Mitchell Johnson: 52 off 51 (SR 102.0, usual 113.6), 5 out where 1.6 would be expected.",
+      "overflow_px": 0
+    },
+    {
+      "step": "story-innings",
+      "title": "HOW VIRAT KOHLI'S 82* UNFOLDED",
+      "cards": 7,
+      "causal": false,
+      "overflow_px": 0
+    },
+    {
+      "step": "story-battle",
+      "title": "WHAT THE VIRAT KOHLI–ADAM ZAMPA BATTLE SHOWS",
+      "cards": 7,
+      "causal": false,
+      "overflow_px": 0
+    },
+    {
+      "step": "story-match",
+      "title": "HOW PAKISTAN V INDIA UNFOLDED",
+      "cards": 6,
+      "causal": false,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-innings",
+      "file": "cricintel-innings-portrait.png",
+      "bytes": 1357202,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-battle",
+      "file": "cricintel-battle-portrait.png",
+      "bytes": 1340447,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-record",
+      "file": "cricintel-record-portrait.png",
+      "bytes": 1360328,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-fingerprint",
+      "file": "cricintel-fingerprint-portrait.png",
+      "bytes": 1394041,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-spell",
+      "file": "cricintel-spell-portrait.png",
+      "bytes": 1307147,
+      "overflow_px": 0
+    },
+    {
+      "step": "share-whn",
+      "file": "cricintel-whn-portrait.png",
+      "bytes": 1356380,
+      "overflow_px": 0
+    },
+    {
+      "step": "explore-feed",
+      "cards": 14,
+      "types": [
+        "FASTEST SUBSTANTIAL INNINGS",
+        "BOWLER ON TOP",
+        "BEST FIGURES",
+        "HISTORICAL MOMENT",
+        "EXCEPTIONAL PARTNERSHIP",
+        "BIG PARTNERSHIP",
+        "RECORD",
+        "DIFFICULT SUCCESSFUL CHASES",
+        "PLAY",
+        "CAREER TREND",
+        "RECENT BATTLES"
+      ],
+      "lead": "S MANDHANA'S ODI STRIKE RATE IS UP: 110 IN 2025 V 86 THE THREE YEARS BEFORE",
+      "overflow_px": 0
+    },
+    {
+      "step": "data",
+      "licence": "Licence status: INTERNAL PREVIEW. Register: ODC-By 1.0 (primary-verified on cricsheet.org/register). Match data: no licence statement found on cricsheet.org (site footer: 'All rights reserved'). A question to Cricsheet is drafted but NOT sent (awaiting owner approval); nothing is published until resolved. Attribution: Ball-by-ball data and player register from Cricsheet (cricsheet.org). Register under the Open Data Commons Attribution License.",
+      "overflow_px": 0
+    },
+    {
+      "step": "rabbit-hole",
+      "hops": [
+        "http://localhost:3000/players/ba607b88",
+        "http://localhost:3000/battle?bat=ba607b88&bowl=14f96089",
+        "http://localhost:3000/delivery/1466426:2:258",
+        "http://localhost:3000/spell/1466426/2/14f96089",
+        "http://localhost:3000/match/1466426",
+        "http://localhost:3000/competition?name=ICC%20Champions%20Trophy&gender=male&season=2024/25",
+        "http://localhost:3000/records?metric=runs&competition=ICC%20Champions%20Trophy&gender=male",
+        "http://localhost:3000/players/db584dad"
+      ],
+      "overflow_px": 0
+    },
+    {
+      "step": "rabbit-hole-instrumentation",
+      "counts": {
+        "player": {
+          "explore_next": 7,
+          "internal_links": 8
+        },
+        "battle": {
+          "explore_next": 8,
+          "internal_links": 16
+        },
+        "match": {
+          "explore_next": 7,
+          "internal_links": 49
+        },
+        "innings": {
+          "explore_next": 4,
+          "internal_links": 6
+        },
+        "spell": {
+          "explore_next": 4,
+          "internal_links": 13
+        },
+        "delivery": {
+          "explore_next": 4,
+          "internal_links": 26
+        },
+        "competition": {
+          "explore_next": 5,
+          "internal_links": 108
+        },
+        "rivalry": {
+          "explore_next": 3,
+          "internal_links": 64
+        },
+        "story": {
+          "explore_next": 4,
+          "internal_links": 15
+        }
+      },
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-explore",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-search",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-match",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-competition",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-rivalry",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-career",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-story",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-share",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-data",
+      "overflow_px": 0
+    },
+    {
+      "step": "desktop-battle-universe",
+      "overflow_px": 0
+    }
+  ]
+}

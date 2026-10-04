@@ -41,6 +41,7 @@ function Partnerships() {
                 [`${pair.p1.name.split(" ").slice(-1)[0]} runs`, fmt(pair.totals.p1_runs)], [`${pair.p2.name.split(" ").slice(-1)[0]} runs`, fmt(pair.totals.p2_runs)], ["Boundaries", pair.totals.boundaries]].map(([l, v]) =>
                 <div key={l as string}><b className="num">{v as any}</b><span className="mini">{l}</span></div>)}
             </div>
+            <Link className="btn" style={{ marginTop: 10, marginRight: 8, display: "inline-block" }} href={`/share?type=partnership&p1=${pair.p1.id}&p2=${pair.p2.id}${f.format ? `&format=${f.format}` : ""}`}>Share card</Link>
             <button className="btn" style={{ marginTop: 10 }} onClick={() => setDrill({ title: `Every ball ${pair.p1.name} faced with ${pair.p2.name} at the other end`, q: { batter_id: pair.p1.id, non_striker_id: pair.p2.id, format: f.format } })}>Deliveries →</button>
           </div>
           <div className="dcard-list" style={{ marginTop: 10 }}>
